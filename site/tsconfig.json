@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "tsx": "react-tsx",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@@/*": [".dumi/tmp/*"]
+    },
+    "types": ["node", "react", "react-dom"]
+  },
+  "include": [".dumirc.ts"],
+  "exclude": ["node_modules"]
+}

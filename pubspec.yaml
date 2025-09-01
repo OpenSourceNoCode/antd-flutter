@@ -1,0 +1,78 @@
+name: antd_flutter
+description: "Antd for Flutter."
+version: 5.0.0-alpha
+homepage: https://github.com/OpenSourceNoCode/antd-flutter
+repository: https://github.com/OpenSourceNoCode/antd-flutter
+topics:
+  - ui
+  - style
+  - ui-kit
+  - design-system
+  - ui-components
+  - form
+  - input
+  - slider
+  - swiper
+  - step
+  - skeleton
+  - sheet
+  - popup
+  - radio
+  - checkbox
+  - popover
+  - modal
+  - progress
+  - antd
+  - ant
+  - mobile
+  - enterprise
+  - business
+  - guide
+  - tour
+  - tag
+  - refresh
+  - mask
+  - dialog
+  - button
+  - card
+  - block
+  - box
+  - badge
+  - avatar
+  - image
+
+environment:
+  sdk: ^3.5.4
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  #dart run icon_font_generator:generator
+  icon_font_generator: ^4.0.0
+
+icon_font:
+  input_svg_dir: "assets/icons"
+  output_font_file: "assets/fonts/icons.otf"
+
+  output_class_file: "lib/components/icon/index.dart"
+  class_name: "AntdIcons"
+  package: antd_flutter
+  format: true
+
+  font_name: "AntdIcon"
+  normalize: true
+  ignore_shapes: true
+  recursive: true
+  verbose: false
+
+flutter:
+  fonts:
+    - family: AntdIcon
+      fonts:
+        - asset: assets/fonts/icons.otf
