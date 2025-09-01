@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 typedef AntdLayerClose = Future<void> Function([dynamic data]);

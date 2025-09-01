@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';

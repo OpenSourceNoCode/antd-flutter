@@ -1,4 +1,4 @@
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 /// 滑动选择器(SliderBar)的样式配置

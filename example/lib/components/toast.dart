@@ -1,8 +1,8 @@
-import 'package:antd_flutter/components/button/index.dart';
-import 'package:antd_flutter/components/icon/icon.dart';
-import 'package:antd_flutter/components/icon/index.dart';
-import 'package:antd_flutter/components/layer.dart';
-import 'package:antd_flutter/components/toast/index.dart';
+import 'package:antd_flutter_mobile/components/button/index.dart';
+import 'package:antd_flutter_mobile/components/icon/icon.dart';
+import 'package:antd_flutter_mobile/components/icon/index.dart';
+import 'package:antd_flutter_mobile/components/layer.dart';
+import 'package:antd_flutter_mobile/components/toast/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/cupertino.dart';
 

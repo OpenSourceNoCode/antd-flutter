@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'dart:math';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 ///加载中样式

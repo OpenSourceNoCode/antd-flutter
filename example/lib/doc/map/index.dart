@@ -33,7 +33,7 @@ class MapUseComponents implements UseComponents {
 
     final file = File("$generatedDir/map.dart");
     StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.writeln("import 'package:antd_flutter/index.dart';");
+    stringBuffer.writeln("import 'package:antd_flutter_mobile/index.dart';");
     stringBuffer.writeln("import 'package:example/doc/map/custom.dart';");
     stringBuffer.writeln("import 'package:flutter/cupertino.dart';");
     stringBuffer.writeln(

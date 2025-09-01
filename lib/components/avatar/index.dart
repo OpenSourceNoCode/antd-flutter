@@ -1,8 +1,8 @@
-import 'package:antd_flutter/components/image/index.dart';
-import 'package:antd_flutter/extensions/int.dart';
-import 'package:antd_flutter/extensions/radius.dart';
-import 'package:antd_flutter/theme/theme.dart';
-import 'package:antd_flutter/theme/token.dart';
+import 'package:antd_flutter_mobile/components/image/index.dart';
+import 'package:antd_flutter_mobile/extensions/int.dart';
+import 'package:antd_flutter_mobile/extensions/radius.dart';
+import 'package:antd_flutter_mobile/theme/theme.dart';
+import 'package:antd_flutter_mobile/theme/token.dart';
 import 'package:flutter/widgets.dart';
 
 ///@t 头像

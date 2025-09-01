@@ -1,45 +1,13 @@
-name: antd_flutter
+name: antd_flutter_mobile
 description: "Antd for Flutter."
 version: 5.0.0-alpha
 homepage: https://github.com/OpenSourceNoCode/antd-flutter
 repository: https://github.com/OpenSourceNoCode/antd-flutter
 topics:
-  - ui
-  - style
-  - ui-kit
+  - antd
   - design-system
   - ui-components
   - form
-  - input
-  - slider
-  - swiper
-  - step
-  - skeleton
-  - sheet
-  - popup
-  - radio
-  - checkbox
-  - popover
-  - modal
-  - progress
-  - antd
-  - ant
-  - mobile
-  - enterprise
-  - business
-  - guide
-  - tour
-  - tag
-  - refresh
-  - mask
-  - dialog
-  - button
-  - card
-  - block
-  - box
-  - badge
-  - avatar
-  - image
 
 environment:
   sdk: ^3.5.4
@@ -62,7 +30,7 @@ icon_font:
 
   output_class_file: "lib/components/icon/index.dart"
   class_name: "AntdIcons"
-  package: antd_flutter
+  package: antd_flutter_mobile
   format: true
 
   font_name: "AntdIcon"

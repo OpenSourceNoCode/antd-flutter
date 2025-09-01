@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:antd_flutter/components/widgets/controller.dart';
-import 'package:antd_flutter/components/widgets/list/item.dart';
+import 'package:antd_flutter_mobile/components/widgets/controller.dart';
+import 'package:antd_flutter_mobile/components/widgets/list/item.dart';
 import 'package:flutter/widgets.dart';
 
 enum AntdEdge { start, center, end }

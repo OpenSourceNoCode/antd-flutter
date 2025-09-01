@@ -1,4 +1,4 @@
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/cupertino.dart';
 
 /// 折叠面板(Collapse)的整体样式配置

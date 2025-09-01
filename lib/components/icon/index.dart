@@ -9,7 +9,7 @@ class AntdIcons {
   const AntdIcons._();
 
   static const iconFontFamily = 'AntdIcon';
-  static const iconFontPackage = 'antd_flutter';
+  static const iconFontPackage = 'antd_flutter_mobile';
 
   /// Font icon named "__Search__"
   ///

@@ -1,5 +1,5 @@
-import 'package:antd_flutter/components/form/index.dart';
-import 'package:antd_flutter/components/form/item.dart';
+import 'package:antd_flutter_mobile/components/form/index.dart';
+import 'package:antd_flutter_mobile/components/form/item.dart';
 
 typedef AntdFormRuleValidator<T> = Future<String?> Function(
     AntdFormItem item, T? value, Map<String, dynamic>? formValue);

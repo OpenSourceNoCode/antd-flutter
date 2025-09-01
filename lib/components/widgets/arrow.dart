@@ -1,7 +1,7 @@
-import 'package:antd_flutter/components/define.dart';
-import 'package:antd_flutter/components/style.dart';
-import 'package:antd_flutter/theme/theme.dart';
-import 'package:antd_flutter/theme/token.dart';
+import 'package:antd_flutter_mobile/components/define.dart';
+import 'package:antd_flutter_mobile/components/style.dart';
+import 'package:antd_flutter_mobile/theme/theme.dart';
+import 'package:antd_flutter_mobile/theme/token.dart';
 import 'package:flutter/widgets.dart';
 
 class AntdArrowStyle extends AntdStyle {

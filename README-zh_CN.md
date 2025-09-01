@@ -19,13 +19,13 @@ Ant Design体系的 flutter 组件库。
 ## 📦 安装
 
 ```bash
-flutter pub add antd_flutter
+flutter pub add antd_flutter_mobile
 ```
 
 ## 🔨 示例
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 
 @override
 Widget build(BuildContext context) {

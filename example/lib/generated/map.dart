@@ -1,4 +1,4 @@
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/doc/map/custom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';import 'package:flutter/rendering.dart';
@@ -1195,10 +1195,10 @@ name: "direction",
             Text('direction(Axis)'),
             Text('null')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1209,7 +1209,7 @@ name: "opacity",
             Text('opacity(AntdMaskOpacity)'),
             Text('透明度,mask为true才有效')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1218,7 +1218,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1227,12 +1227,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1241,10 +1241,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1253,10 +1253,10 @@ name: "holeAnimationDuration",
             Text('holeAnimationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1265,10 +1265,10 @@ name: "child",
             Text('child(Widget)'),
             Text('需要被引导的高亮目标组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1279,7 +1279,7 @@ name: "outerSafeArea",
             Text('outerSafeArea(AntdPosition)'),
             Text('外部安全区域边距（通常用于避开系统UI如刘海屏）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1288,7 +1288,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1297,7 +1297,7 @@ name: "innerSafeArea",
             Text('innerSafeArea(AntdPosition)'),
             Text('内部安全区域边距（内容与边界的保留间距）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1306,7 +1306,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1315,12 +1315,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1329,10 +1329,10 @@ name: "options",
             Text('options(AntdTapOptions)'),
             Text('包括：双击间隔、长按时长、触觉反馈等')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1341,10 +1341,10 @@ name: "child",
             Text('child(Widget)'),
             Text('子组件（通常为需要应用这些交互和布局约束的内容）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1353,10 +1353,10 @@ name: "focusNode",
             Text('focusNode(FocusNode)'),
             Text('焦点')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1367,12 +1367,12 @@ name: "block",
             Text('block(bool)'),
             Text('是否充满父容器宽度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1381,7 +1381,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('按钮主题色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1390,7 +1390,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1399,12 +1399,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('是否禁用状态')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1413,7 +1413,7 @@ name: "fill",
             Text('fill(AntdButtonFill)'),
             Text('按钮填充模式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1422,7 +1422,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('solid'), value: 'solid'),AntdSelectorOption(label: Text('outline'), value: 'outline'),AntdSelectorOption(label: Text('none'), value: 'none')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1431,7 +1431,7 @@ name: "shape",
             Text('shape(AntdButtonShape)'),
             Text('按钮形状样式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1440,7 +1440,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('rounded'), value: 'rounded'),AntdSelectorOption(label: Text('rectangular'), value: 'rectangular')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1449,7 +1449,7 @@ name: "size",
             Text('size(AntdSize)'),
             Text('按钮尺寸规格')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1458,7 +1458,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('mini'), value: 'mini'),AntdSelectorOption(label: Text('small'), value: 'small'),AntdSelectorOption(label: Text('middle'), value: 'middle'),AntdSelectorOption(label: Text('large'), value: 'large')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1467,10 +1467,10 @@ name: "icon",
             Text('icon(Widget)'),
             Text('前缀图标组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1479,10 +1479,10 @@ name: "child",
             Text('child(Widget)'),
             Text('按钮内容组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1491,12 +1491,12 @@ name: "loading",
             Text('loading(bool)'),
             Text('是否显示加载状态')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1505,10 +1505,10 @@ name: "throttle",
             Text('throttle(Duration)'),
             Text('点击事件节流间隔（默认开启）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1517,10 +1517,10 @@ name: "debounce",
             Text('debounce(Duration)'),
             Text('点击事件防抖间隔（默认关闭）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1529,10 +1529,10 @@ name: "behavior",
             Text('behavior(HitTestBehavior)'),
             Text('点击事件命中测试行为')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1543,12 +1543,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1557,10 +1557,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1569,10 +1569,10 @@ name: "cancelText",
             Text('cancelText(Widget)'),
             Text('取消按钮文字，如果设置为空则不显示取消按钮')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1581,12 +1581,12 @@ name: "dismissOnAction",
             Text('dismissOnAction(bool)'),
             Text('点击选项后是否关闭')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1595,10 +1595,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('顶部的额外区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1607,12 +1607,12 @@ name: "safeArea",
             Text('safeArea(bool)'),
             Text('安全区')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -1623,10 +1623,10 @@ name: "icon",
             Text('icon(IconData)'),
             Text('图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1637,7 +1637,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('线的颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1646,7 +1646,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1655,10 +1655,10 @@ name: "child",
             Text('child(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1667,12 +1667,12 @@ name: "vertical",
             Text('vertical(bool)'),
             Text('垂直还是水平')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1681,7 +1681,7 @@ name: "position",
             Text('position(AntdDividerPosition)'),
             Text('文字位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1690,7 +1690,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('right'), value: 'right')]);
-            
+
 },
 ),
 ];}
@@ -1701,12 +1701,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1715,10 +1715,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1727,12 +1727,12 @@ name: "dismissOnAction",
             Text('dismissOnAction(bool)'),
             Text('点击选项后是否关闭')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1741,10 +1741,10 @@ name: "closeIcon",
             Text('closeIcon(Widget)'),
             Text('自定义关闭按钮图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1753,10 +1753,10 @@ name: "header",
             Text('header(Widget)'),
             Text('顶部区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1765,10 +1765,10 @@ name: "title",
             Text('title(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1779,10 +1779,10 @@ name: "leftExtra",
             Text('leftExtra(Widget)'),
             Text('标签栏左侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1791,10 +1791,10 @@ name: "rightExtra",
             Text('rightExtra(Widget)'),
             Text('标签栏右侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1803,10 +1803,10 @@ name: "activeValue",
             Text('activeValue(String)'),
             Text('默认选中的标签key（为空时不激活任何一个）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1815,7 +1815,7 @@ name: "tabAlignment",
             Text('tabAlignment(AntdTabAlignment)'),
             Text('标签对齐方式（居中时会自动启用滚动或填充）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1824,7 +1824,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
-            
+
 },
 ),
 ];}
@@ -1835,10 +1835,10 @@ name: "image",
             Text('image(Widget)'),
             Text('自定义图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1847,10 +1847,10 @@ name: "description",
             Text('description(Widget)'),
             Text('描述')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1861,10 +1861,10 @@ name: "image",
             Text('image(Widget)'),
             Text('占位内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1873,7 +1873,7 @@ name: "status",
             Text('status(AntdErrorBlockStatus)'),
             Text('自定义图标')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -1882,7 +1882,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('none'), value: 'none'),AntdSelectorOption(label: Text('disconnected'), value: 'disconnected'),AntdSelectorOption(label: Text('empty'), value: 'empty'),AntdSelectorOption(label: Text('busy'), value: 'busy')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -1891,10 +1891,10 @@ name: "title",
             Text('title(Widget)'),
             Text('描述')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1903,10 +1903,10 @@ name: "desc",
             Text('desc(Widget)'),
             Text('描述')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1915,12 +1915,12 @@ name: "fullPage",
             Text('fullPage(bool)'),
             Text('自动铺满')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1929,10 +1929,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('扩展操作')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1943,10 +1943,10 @@ name: "physics",
             Text('physics(ScrollPhysics)'),
             Text('滚动物理效果')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -1955,12 +1955,12 @@ name: "virtual",
             Text('virtual(bool)'),
             Text('启动虚拟滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1969,12 +1969,12 @@ name: "shrinkWrap",
             Text('shrinkWrap(bool)'),
             Text('自动扩展高度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -1983,10 +1983,10 @@ name: "viewportOffset",
             Text('viewportOffset(double)'),
             Text('偏移位置')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -1997,10 +1997,10 @@ name: "leftExtra",
             Text('leftExtra(Widget)'),
             Text('标签栏左侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2009,10 +2009,10 @@ name: "rightExtra",
             Text('rightExtra(Widget)'),
             Text('标签栏右侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2021,10 +2021,10 @@ name: "activeValue",
             Text('activeValue(String)'),
             Text('默认选中的标签key（为空时不激活任何一个）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2033,7 +2033,7 @@ name: "tabAlignment",
             Text('tabAlignment(AntdTabAlignment)'),
             Text('标签对齐方式（居中时会自动启用滚动或填充）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2042,7 +2042,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
-            
+
 },
 ),
 ];}
@@ -2053,10 +2053,10 @@ name: "size",
             Text('size(double)'),
             Text('加载指示器尺寸')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2065,7 +2065,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('加点的颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2074,7 +2074,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2083,10 +2083,10 @@ name: "text",
             Text('text(Widget)'),
             Text('加载中文案')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2095,12 +2095,12 @@ name: "circular",
             Text('circular(bool)'),
             Text('圆形加载中')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2109,10 +2109,10 @@ name: "child",
             Text('child(Widget)'),
             Text('被包裹的widget')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2121,12 +2121,12 @@ name: "spinning",
             Text('spinning(bool)'),
             Text('是否是加载中')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -2137,10 +2137,10 @@ name: "back",
             Text('back(Widget)'),
             Text('返回区域的文字，如果为 null 的话，backIcon 也不会渲染')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2149,10 +2149,10 @@ name: "backIcon",
             Text('backIcon(Widget)'),
             Text('返回图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2161,10 +2161,10 @@ name: "title",
             Text('title(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2173,10 +2173,10 @@ name: "subTitle",
             Text('subTitle(Widget)'),
             Text('子标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2185,10 +2185,10 @@ name: "left",
             Text('left(Widget)'),
             Text('左侧区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2197,10 +2197,10 @@ name: "right",
             Text('right(Widget)'),
             Text('右侧区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2209,7 +2209,7 @@ name: "safeArea",
             Text('safeArea(AntdPosition)'),
             Text('安全区')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2218,7 +2218,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 ];}
@@ -2229,10 +2229,10 @@ name: "image",
             Text('image(AntdResource)'),
             Text('图片')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2241,10 +2241,10 @@ name: "fit",
             Text('fit(BoxFit)'),
             Text('图片填充模式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2253,10 +2253,10 @@ name: "scale",
             Text('scale(double)'),
             Text('缩放')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2265,10 +2265,10 @@ name: "alignment",
             Text('alignment(AlignmentGeometry)'),
             Text('对齐方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2277,10 +2277,10 @@ name: "repeat",
             Text('repeat(ImageRepeat)'),
             Text('重复方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2289,10 +2289,10 @@ name: "filterQuality",
             Text('filterQuality(FilterQuality)'),
             Text('过滤质量')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2301,10 +2301,10 @@ name: "size",
             Text('size(double)'),
             Text('大小')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2313,10 +2313,10 @@ name: "radius",
             Text('radius(double)'),
             Text('圆角')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -2327,12 +2327,12 @@ name: "virtual",
             Text('virtual(bool)'),
             Text('启动虚拟滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2341,7 +2341,7 @@ name: "alignment",
             Text('alignment(AntdEdge)'),
             Text('根据方向自动优化视图边界')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2350,7 +2350,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
-            
+
 },
 ),
 ];}
@@ -2361,10 +2361,10 @@ name: "activeIndex",
             Text('activeIndex(int)'),
             Text('激活的索引')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2373,7 +2373,7 @@ name: "safeArea",
             Text('safeArea(AntdPosition)'),
             Text('是否开启安全区适配')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2382,7 +2382,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 ];}
@@ -2393,10 +2393,10 @@ name: "icon",
             Text('icon(Widget)'),
             Text('标题右边的扩展区')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2405,10 +2405,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('标题左边的扩展区')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2417,10 +2417,10 @@ name: "title",
             Text('title(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2429,10 +2429,10 @@ name: "child",
             Text('child(Widget)'),
             Text('卡片内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2441,10 +2441,10 @@ name: "footer",
             Text('footer(Widget)'),
             Text('底部内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -2455,10 +2455,10 @@ name: "leftExtra",
             Text('leftExtra(Widget)'),
             Text('标签栏左侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2467,10 +2467,10 @@ name: "rightExtra",
             Text('rightExtra(Widget)'),
             Text('标签栏右侧扩展内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2479,10 +2479,10 @@ name: "activeValue",
             Text('activeValue(String)'),
             Text('默认选中的标签key（为空时不激活任何一个）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2491,7 +2491,7 @@ name: "tabAlignment",
             Text('tabAlignment(AntdTabAlignment)'),
             Text('标签对齐方式（居中时会自动启用滚动或填充）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2500,7 +2500,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2509,7 +2509,7 @@ name: "indicatorPosition",
             Text('indicatorPosition(AntdIndicatorPosition)'),
             Text('指示器位置（顶部/底部）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2518,7 +2518,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2527,7 +2527,7 @@ name: "indicatorMode",
             Text('indicatorMode(AntdIndicatorMode)'),
             Text('指示器宽度模式（固定/自适应标签宽度）')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2536,7 +2536,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('full'), value: 'full'),AntdSelectorOption(label: Text('fixed'), value: 'fixed')]);
-            
+
 },
 ),
 ];}
@@ -2547,12 +2547,12 @@ name: "shrinkWrap",
             Text('shrinkWrap(bool)'),
             Text('自动扩展高度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -2563,10 +2563,10 @@ name: "child",
             Text('child(Widget)'),
             Text('子类')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2575,10 +2575,10 @@ name: "content",
             Text('content(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2587,10 +2587,10 @@ name: "indicator",
             Text('indicator(Widget)'),
             Text('指示灯')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2599,7 +2599,7 @@ name: "position",
             Text('position(AntdFloatingPanelPosition)'),
             Text('面板的位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2608,7 +2608,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom')]);
-            
+
 },
 ),
 ];}
@@ -2619,12 +2619,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2633,10 +2633,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2645,12 +2645,12 @@ name: "dismissOnAction",
             Text('dismissOnAction(bool)'),
             Text('点击选项后是否关闭')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2659,10 +2659,10 @@ name: "closeIcon",
             Text('closeIcon(Widget)'),
             Text('自定义关闭按钮图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2671,10 +2671,10 @@ name: "header",
             Text('header(Widget)'),
             Text('顶部区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2683,10 +2683,10 @@ name: "title",
             Text('title(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -2697,10 +2697,10 @@ name: "content",
             Text('content(String)'),
             Text('文本内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2709,10 +2709,10 @@ name: "collapseText",
             Text('collapseText(String)'),
             Text('收起操作的文案')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2721,10 +2721,10 @@ name: "expandText",
             Text('expandText(String)'),
             Text('展开操作的文案')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2733,12 +2733,12 @@ name: "defaultExpanded",
             Text('defaultExpanded(bool)'),
             Text('是否默认展开')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2747,10 +2747,10 @@ name: "rows",
             Text('rows(int)'),
             Text('展示几行')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -2761,10 +2761,10 @@ name: "height",
             Text('height(double)'),
             Text('高度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2773,10 +2773,10 @@ name: "width",
             Text('width(double)'),
             Text('宽度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2785,10 +2785,10 @@ name: "image",
             Text('image(AntdResource)'),
             Text('图片')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2797,10 +2797,10 @@ name: "fit",
             Text('fit(BoxFit)'),
             Text('图片填充模式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2809,10 +2809,10 @@ name: "scale",
             Text('scale(double)'),
             Text('缩放')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2821,10 +2821,10 @@ name: "alignment",
             Text('alignment(AlignmentGeometry)'),
             Text('对齐方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2833,10 +2833,10 @@ name: "repeat",
             Text('repeat(ImageRepeat)'),
             Text('重复方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2845,10 +2845,10 @@ name: "filterQuality",
             Text('filterQuality(FilterQuality)'),
             Text('过滤质量')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -2859,7 +2859,7 @@ name: "opacity",
             Text('opacity(AntdMaskOpacity)'),
             Text('透明度,mask为true才有效')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2868,7 +2868,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2877,12 +2877,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2891,10 +2891,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2903,10 +2903,10 @@ name: "child",
             Text('child(Widget)'),
             Text('弹出内容，比actions优先级更高')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -2915,12 +2915,12 @@ name: "closeOnAction",
             Text('closeOnAction(bool)'),
             Text('当执行action后关闭')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -2929,7 +2929,7 @@ name: "placement",
             Text('placement(AntdPlacement)'),
             Text('弹出的位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2938,7 +2938,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('leftTop'), value: 'leftTop'),AntdSelectorOption(label: Text('leftBottom'), value: 'leftBottom'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('rightTop'), value: 'rightTop'),AntdSelectorOption(label: Text('rightBottom'), value: 'rightBottom')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2947,7 +2947,7 @@ name: "mode",
             Text('mode(AntdPopoverMode)'),
             Text('设置亮色模式或者黑色模式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2956,7 +2956,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('dark'), value: 'dark')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -2965,7 +2965,7 @@ name: "trigger",
             Text('trigger(AntdPopoverTrigger)'),
             Text('如何处罚气泡')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2974,7 +2974,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('tap'), value: 'tap'),AntdSelectorOption(label: Text('longPress'), value: 'longPress'),AntdSelectorOption(label: Text('show'), value: 'show')]);
-            
+
 },
 ),
 ];}
@@ -2985,7 +2985,7 @@ name: "opacity",
             Text('opacity(AntdMaskOpacity)'),
             Text('透明度,mask为true才有效')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -2994,7 +2994,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3003,12 +3003,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3017,10 +3017,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3029,10 +3029,10 @@ name: "hole",
             Text('hole(AntdMaskHole)'),
             Text('镂空的区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3043,12 +3043,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3057,10 +3057,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3069,10 +3069,10 @@ name: "closeIcon",
             Text('closeIcon(Widget)'),
             Text('自定义关闭按钮图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3081,7 +3081,7 @@ name: "position",
             Text('position(AntdPosition)'),
             Text('弹出位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3090,7 +3090,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3099,12 +3099,12 @@ name: "avoidKeyboard",
             Text('avoidKeyboard(bool)'),
             Text('当底部弹出式 避免键盘遮挡')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -3115,10 +3115,10 @@ name: "edgeThreshold",
             Text('edgeThreshold(double)'),
             Text('触边阈值 (0-1表示百分比)')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3127,10 +3127,10 @@ name: "cacheExtent",
             Text('cacheExtent(double)'),
             Text('预渲染区域大小')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3139,10 +3139,10 @@ name: "cacheExtentStyle",
             Text('cacheExtentStyle(CacheExtentStyle)'),
             Text('预渲染区域计算方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3151,10 +3151,10 @@ name: "physics",
             Text('physics(ScrollPhysics)'),
             Text('滚动物理效果')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3163,10 +3163,10 @@ name: "dragStartBehavior",
             Text('dragStartBehavior(DragStartBehavior)'),
             Text('拖动开始行为')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3175,10 +3175,10 @@ name: "scrollBehavior",
             Text('scrollBehavior(ScrollBehavior)'),
             Text('滚动行为')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3187,12 +3187,12 @@ name: "vertical",
             Text('vertical(bool)'),
             Text('滚动方向')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3201,12 +3201,12 @@ name: "reversed",
             Text('reversed(bool)'),
             Text('是否反向滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3215,12 +3215,12 @@ name: "shrinkWrap",
             Text('shrinkWrap(bool)'),
             Text('自动扩展高度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3229,12 +3229,12 @@ name: "virtual",
             Text('virtual(bool)'),
             Text('启动虚拟滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3243,7 +3243,7 @@ name: "fit",
             Text('fit(AntdScrollItemFit)'),
             Text('自动适配策略')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3252,7 +3252,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('split'), value: 'split'),AntdSelectorOption(label: Text('child'), value: 'child')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3261,7 +3261,7 @@ name: "alignment",
             Text('alignment(AntdEdge)'),
             Text('根据方向自动优化视图边界')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3270,7 +3270,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3279,10 +3279,10 @@ name: "throttle",
             Text('throttle(Duration)'),
             Text('滚动事件节流时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3291,10 +3291,10 @@ name: "header",
             Text('header(Widget)'),
             Text('标题内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3303,10 +3303,10 @@ name: "footer",
             Text('footer(Widget)'),
             Text('标题内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3315,12 +3315,12 @@ name: "card",
             Text('card(bool)'),
             Text('卡片式列表')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -3331,7 +3331,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3340,7 +3340,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3349,10 +3349,10 @@ name: "total",
             Text('total(int)'),
             Text('总页数')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3361,10 +3361,10 @@ name: "current",
             Text('current(int)'),
             Text('当前页（从 0 开始计数）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3373,12 +3373,12 @@ name: "vertical",
             Text('vertical(bool)'),
             Text('方向，默认是水平方向')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -3389,10 +3389,10 @@ name: "child",
             Text('child(Widget)'),
             Text('子组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3401,7 +3401,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3410,7 +3410,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3419,10 +3419,10 @@ name: "percent",
             Text('percent(double)'),
             Text('百分比')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3431,10 +3431,10 @@ name: "stroke",
             Text('stroke(double)'),
             Text('线的宽度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3443,10 +3443,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3457,10 +3457,10 @@ name: "child",
             Text('child(Widget)'),
             Text('子组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3469,7 +3469,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3478,7 +3478,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3487,10 +3487,10 @@ name: "percent",
             Text('percent(double)'),
             Text('百分比')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3499,10 +3499,10 @@ name: "stroke",
             Text('stroke(double)'),
             Text('线的宽度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3511,10 +3511,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3523,10 +3523,10 @@ name: "size",
             Text('size(double)'),
             Text('大小')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3537,10 +3537,10 @@ name: "initialPrompt",
             Text('initialPrompt(Widget)'),
             Text('初始状态下显示的提示内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3549,10 +3549,10 @@ name: "initialDelay",
             Text('initialDelay(Duration)'),
             Text('初始提示内容的展示持续时间')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3561,10 +3561,10 @@ name: "child",
             Text('child(Widget)'),
             Text('主要内容区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3573,10 +3573,10 @@ name: "releasePrompt",
             Text('releasePrompt(Widget)'),
             Text('可释放刷新时显示的提示内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3585,10 +3585,10 @@ name: "completionDelay",
             Text('completionDelay(Duration)'),
             Text('刷新完成后提示内容的展示持续时间')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3597,10 +3597,10 @@ name: "completionPrompt",
             Text('completionPrompt(Widget)'),
             Text('刷新完成时显示的提示内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3609,10 +3609,10 @@ name: "pullingPrompt",
             Text('pullingPrompt(Widget)'),
             Text('下拉过程中显示的提示内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3621,10 +3621,10 @@ name: "refreshingPrompt",
             Text('refreshingPrompt(Widget)'),
             Text('正在刷新时显示的提示内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3633,10 +3633,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('动画周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3647,12 +3647,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('是否禁用整个分段控制器，为 true 时所有选项都不可交互')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3661,10 +3661,10 @@ name: "activeIndex",
             Text('activeIndex(int)'),
             Text('当前选中的分段项索引，null 表示没有选中项')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3673,10 +3673,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('选项切换时的动画过渡时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3687,10 +3687,10 @@ name: "current",
             Text('current(int)'),
             Text('指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 status 属性覆盖状态')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3699,12 +3699,12 @@ name: "vertical",
             Text('vertical(bool)'),
             Text('指定步骤条方向。目前支持水平（horizontal）和竖直（vertical）两种方向')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -3715,10 +3715,10 @@ name: "edgeThreshold",
             Text('edgeThreshold(double)'),
             Text('触边阈值 (0-1表示百分比)')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3727,10 +3727,10 @@ name: "cacheExtent",
             Text('cacheExtent(double)'),
             Text('预渲染区域大小')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3739,10 +3739,10 @@ name: "cacheExtentStyle",
             Text('cacheExtentStyle(CacheExtentStyle)'),
             Text('预渲染区域计算方式')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3751,10 +3751,10 @@ name: "dragStartBehavior",
             Text('dragStartBehavior(DragStartBehavior)'),
             Text('拖动开始行为')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3763,10 +3763,10 @@ name: "scrollBehavior",
             Text('scrollBehavior(ScrollBehavior)'),
             Text('滚动行为')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3775,12 +3775,12 @@ name: "vertical",
             Text('vertical(bool)'),
             Text('滚动方向')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3789,12 +3789,12 @@ name: "reversed",
             Text('reversed(bool)'),
             Text('是否反向滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3803,12 +3803,12 @@ name: "shrinkWrap",
             Text('shrinkWrap(bool)'),
             Text('自动扩展高度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3817,12 +3817,12 @@ name: "virtual",
             Text('virtual(bool)'),
             Text('启动虚拟滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3831,10 +3831,10 @@ name: "throttle",
             Text('throttle(Duration)'),
             Text('滚动事件节流时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3843,12 +3843,12 @@ name: "allowTouchMove",
             Text('allowTouchMove(bool)'),
             Text('是否允许手势滑动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3857,12 +3857,12 @@ name: "autoplay",
             Text('autoplay(bool)'),
             Text('是否自动切换')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3871,10 +3871,10 @@ name: "autoplayInterval",
             Text('autoplayInterval(Duration)'),
             Text('自动切换的间隔，单位为 ms')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3883,10 +3883,10 @@ name: "activeIndex",
             Text('activeIndex(int)'),
             Text('初始位置')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3895,12 +3895,12 @@ name: "loop",
             Text('loop(bool)'),
             Text('是否循环')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -3911,7 +3911,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('标签色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3920,7 +3920,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3929,7 +3929,7 @@ name: "fill",
             Text('fill(AntdTagFill)'),
             Text('填充模式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -3938,7 +3938,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('solid'), value: 'solid'),AntdSelectorOption(label: Text('outline'), value: 'outline')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -3947,12 +3947,12 @@ name: "round",
             Text('round(bool)'),
             Text('是否圆角')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -3961,10 +3961,10 @@ name: "close",
             Text('close(Widget)'),
             Text('关闭区域')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3973,10 +3973,10 @@ name: "child",
             Text('child(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -3987,10 +3987,10 @@ name: "label",
             Text('label(Widget)'),
             Text('带分割线的顶部内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -3999,10 +3999,10 @@ name: "content",
             Text('content(Widget)'),
             Text('普通的内容部分')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4013,12 +4013,12 @@ name: "animated",
             Text('animated(bool)'),
             Text('是否开启动画')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4027,12 +4027,12 @@ name: "title",
             Text('title(bool)'),
             Text('展示标题')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4041,10 +4041,10 @@ name: "rows",
             Text('rows(int)'),
             Text('行数')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4053,10 +4053,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('动画周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4067,10 +4067,10 @@ name: "child",
             Text('child(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4079,10 +4079,10 @@ name: "openThreshold",
             Text('openThreshold(double)'),
             Text('滑动到达阈值直接打开')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4091,10 +4091,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('动画周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4103,12 +4103,12 @@ name: "closeOnAction",
             Text('closeOnAction(bool)'),
             Text('是否在点击操作按钮时自动归位')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -4119,10 +4119,10 @@ name: "title",
             Text('title(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4131,10 +4131,10 @@ name: "desc",
             Text('desc(Widget)'),
             Text('描述')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4143,10 +4143,10 @@ name: "icon",
             Text('icon(Widget)'),
             Text('图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4155,7 +4155,7 @@ name: "status",
             Text('status(AntdResultStatus)'),
             Text('状态类型')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4164,7 +4164,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('error'), value: 'error'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('waiting'), value: 'waiting'),AntdSelectorOption(label: Text('warning'), value: 'warning')]);
-            
+
 },
 ),
 ];}
@@ -4175,7 +4175,7 @@ name: "opacity",
             Text('opacity(AntdMaskOpacity)'),
             Text('透明度,mask为true才有效')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4184,7 +4184,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4193,12 +4193,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4207,10 +4207,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4219,10 +4219,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('提示持续时间，若为 0 则不会自动关闭')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4231,10 +4231,10 @@ name: "icon",
             Text('icon(Widget)'),
             Text('Toast 图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4243,7 +4243,7 @@ name: "position",
             Text('position(AntdToastPosition)'),
             Text('垂直方向显示位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4252,7 +4252,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('center'), value: 'center')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4261,7 +4261,7 @@ name: "type",
             Text('type(AntdToastType)'),
             Text('toast的类型')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4270,7 +4270,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('fail'), value: 'fail'),AntdSelectorOption(label: Text('other'), value: 'other')]);
-            
+
 },
 ),
 ];}
@@ -4281,12 +4281,12 @@ name: "showMask",
             Text('showMask(bool)'),
             Text('是否显示背景蒙版')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4295,10 +4295,10 @@ name: "animationDuration",
             Text('animationDuration(Duration)'),
             Text('内容动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4307,10 +4307,10 @@ name: "closeIcon",
             Text('closeIcon(Widget)'),
             Text('自定义关闭按钮图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4319,7 +4319,7 @@ name: "position",
             Text('position(AntdPosition)'),
             Text('弹出位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4328,7 +4328,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4337,12 +4337,12 @@ name: "avoidKeyboard",
             Text('avoidKeyboard(bool)'),
             Text('当底部弹出式 避免键盘遮挡')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4351,10 +4351,10 @@ name: "cancelWidget",
             Text('cancelWidget(Widget)'),
             Text('取消按钮')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4363,10 +4363,10 @@ name: "confirmWidget",
             Text('confirmWidget(Widget)'),
             Text('确认按钮')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4375,10 +4375,10 @@ name: "titleWidget",
             Text('titleWidget(Widget)'),
             Text('标题')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4387,10 +4387,10 @@ name: "cascaderView",
             Text('cascaderView(AntdCascaderView)'),
             Text('选择器')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4401,10 +4401,10 @@ name: "placeholder",
             Text('placeholder(Widget)'),
             Text('未选中时的提示文案')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4415,10 +4415,10 @@ name: "edgeThreshold",
             Text('edgeThreshold(double)'),
             Text('触边阈值 (0-1表示百分比)')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4427,12 +4427,12 @@ name: "virtual",
             Text('virtual(bool)'),
             Text('启动虚拟滚动')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4441,7 +4441,7 @@ name: "fit",
             Text('fit(AntdScrollItemFit)'),
             Text('自动适配策略')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4450,7 +4450,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('split'), value: 'split'),AntdSelectorOption(label: Text('child'), value: 'child')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4459,12 +4459,12 @@ name: "shrinkWrap",
             Text('shrinkWrap(bool)'),
             Text('自动扩展高度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4473,12 +4473,12 @@ name: "disable",
             Text('disable(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4487,10 +4487,10 @@ name: "values",
             Text('values(Set<String>)'),
             Text('默认选中的值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4501,12 +4501,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4515,12 +4515,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4529,12 +4529,12 @@ name: "hasFeedback",
             Text('hasFeedback(bool)'),
             Text('是否展示错误反馈')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4543,7 +4543,7 @@ name: "layout",
             Text('layout(AntdFormLayout)'),
             Text('布局模式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4552,7 +4552,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4561,12 +4561,12 @@ name: "preserve",
             Text('preserve(bool)'),
             Text('当字段被删除时保留字段值')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4575,12 +4575,12 @@ name: "required",
             Text('required(bool)'),
             Text('是否必选，需要注意的是这个属性仅仅用来控制外观，并不包含校验逻辑')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4589,7 +4589,7 @@ name: "trigger",
             Text('trigger(AntdFormTrigger)'),
             Text('设置收集字段值变更的时机')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4598,7 +4598,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4607,12 +4607,12 @@ name: "validateFirst",
             Text('validateFirst(bool)'),
             Text('当某一规则校验不通过时，是否停止剩下的规则的校验。设置 parallel 时会并行校验')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4621,7 +4621,7 @@ name: "validateTrigger",
             Text('validateTrigger(AntdFormTrigger)'),
             Text('设置字段校验的时机')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4630,7 +4630,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4639,10 +4639,10 @@ name: "help",
             Text('help(Widget)'),
             Text('提示文本')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4651,10 +4651,10 @@ name: "helpIcon",
             Text('helpIcon(Widget)'),
             Text('提示图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4663,12 +4663,12 @@ name: "hidden",
             Text('hidden(bool)'),
             Text('是否隐藏整个字段')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4677,10 +4677,10 @@ name: "initialValue",
             Text('initialValue(dynamic)'),
             Text('设置子元素默认值，如果与 Form 的 initialValues 冲突则以 Form 为准')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4689,10 +4689,10 @@ name: "label",
             Text('label(Widget)'),
             Text('标签名')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4701,10 +4701,10 @@ name: "name",
             Text('name(String)'),
             Text('字段名,嵌套的路径如 "user.address.city"')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4713,10 +4713,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('右侧扩展区')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4727,12 +4727,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4741,12 +4741,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4755,12 +4755,12 @@ name: "hasFeedback",
             Text('hasFeedback(bool)'),
             Text('是否展示错误反馈')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4769,7 +4769,7 @@ name: "layout",
             Text('layout(AntdFormLayout)'),
             Text('布局模式')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4778,7 +4778,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4787,12 +4787,12 @@ name: "preserve",
             Text('preserve(bool)'),
             Text('当字段被删除时保留字段值')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4801,12 +4801,12 @@ name: "required",
             Text('required(bool)'),
             Text('是否必选，需要注意的是这个属性仅仅用来控制外观，并不包含校验逻辑')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4815,7 +4815,7 @@ name: "trigger",
             Text('trigger(AntdFormTrigger)'),
             Text('设置收集字段值变更的时机')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4824,7 +4824,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4833,12 +4833,12 @@ name: "validateFirst",
             Text('validateFirst(bool)'),
             Text('当某一规则校验不通过时，是否停止剩下的规则的校验。设置 parallel 时会并行校验')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4847,7 +4847,7 @@ name: "validateTrigger",
             Text('validateTrigger(AntdFormTrigger)'),
             Text('设置字段校验的时机')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -4856,7 +4856,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -4865,10 +4865,10 @@ name: "initialValues",
             Text('initialValues(Map<String, dynamic>)'),
             Text('表单默认值，只有初始化以及重置时生效')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4879,12 +4879,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4893,12 +4893,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4907,12 +4907,12 @@ name: "value",
             Text('value(bool)'),
             Text('值')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4921,12 +4921,12 @@ name: "autoCollect",
             Text('autoCollect(bool)'),
             Text('自动同步值到表单')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4935,12 +4935,12 @@ name: "indeterminate",
             Text('indeterminate(bool)'),
             Text('半选')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4949,10 +4949,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -4963,10 +4963,10 @@ name: "focusNode",
             Text('focusNode(FocusNode)'),
             Text('控制输入框的焦点状态')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -4975,12 +4975,12 @@ name: "clearable",
             Text('clearable(bool)'),
             Text('是否显示清除按钮（点击会清空输入内容）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -4989,10 +4989,10 @@ name: "value",
             Text('value(String)'),
             Text('输入框的初始值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5001,12 +5001,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('是否禁用输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5015,10 +5015,10 @@ name: "placeholder",
             Text('placeholder(Widget)'),
             Text('输入框为空时显示的提示文本')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5027,12 +5027,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('是否为只读模式（可选中文本但不可编辑）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5041,10 +5041,10 @@ name: "textAlign",
             Text('textAlign(TextAlign)'),
             Text('文本对齐方式（左/中/右）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5053,12 +5053,12 @@ name: "obscureIcon",
             Text('obscureIcon(bool)'),
             Text('是否显示密码可见性切换图标（仅当obscureText=true时有效）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5067,12 +5067,12 @@ name: "obscureText",
             Text('obscureText(bool)'),
             Text('是否以密码形式隐藏输入内容（显示为圆点），默认为false')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5081,12 +5081,12 @@ name: "autocorrect",
             Text('autocorrect(bool)'),
             Text('是否自动校正拼写错误（如iOS键盘的自动修正），默认为true')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5095,10 +5095,10 @@ name: "maxLines",
             Text('maxLines(int)'),
             Text('输入框的最大行数（多行文本时生效）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5107,10 +5107,10 @@ name: "minLines",
             Text('minLines(int)'),
             Text('输入框的最小行数（多行文本时生效）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5119,10 +5119,10 @@ name: "maxLength",
             Text('maxLength(int)'),
             Text('允许输入的最大字符数')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5131,10 +5131,10 @@ name: "keyboardType",
             Text('keyboardType(TextInputType)'),
             Text('键盘类型（如数字键盘、邮箱键盘等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5143,10 +5143,10 @@ name: "inputAction",
             Text('inputAction(TextInputAction)'),
             Text('键盘动作按钮类型（如搜索、发送等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5155,10 +5155,10 @@ name: "prefix",
             Text('prefix(Widget)'),
             Text('输入框前缀部件（如图标、标签等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5167,10 +5167,10 @@ name: "suffix",
             Text('suffix(Widget)'),
             Text('输入框后缀部件（如图标、按钮等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5179,10 +5179,10 @@ name: "contextMenuBuilder",
             Text('contextMenuBuilder(EditableTextContextMenuBuilder)'),
             Text('自定义上下文菜单构建器（长按文本时弹出的菜单）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5191,10 +5191,10 @@ name: "spellCheckConfiguration",
             Text('spellCheckConfiguration(SpellCheckConfiguration)'),
             Text('拼写检查配置（如启用/禁用、错误文本样式等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5203,10 +5203,10 @@ name: "magnifierConfiguration",
             Text('magnifierConfiguration(TextMagnifierConfiguration)'),
             Text('文本放大镜配置（长按选中文本时的放大效果）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5215,10 +5215,10 @@ name: "dragStartBehavior",
             Text('dragStartBehavior(DragStartBehavior)'),
             Text('拖动行为的起始方式（如立即响应或延迟响应）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5227,10 +5227,10 @@ name: "scrollPhysics",
             Text('scrollPhysics(ScrollPhysics)'),
             Text('滚动物理效果（如滚动边界行为）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5239,10 +5239,10 @@ name: "clipBehavior",
             Text('clipBehavior(Clip)'),
             Text('内容裁剪方式（如抗锯齿裁剪）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -5253,12 +5253,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5267,12 +5267,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5281,12 +5281,12 @@ name: "value",
             Text('value(bool)'),
             Text('值')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5295,12 +5295,12 @@ name: "autoCollect",
             Text('autoCollect(bool)'),
             Text('自动同步值到表单')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5309,12 +5309,12 @@ name: "indeterminate",
             Text('indeterminate(bool)'),
             Text('半选')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5323,10 +5323,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -5337,10 +5337,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('取消按钮的文案')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5349,12 +5349,12 @@ name: "autoClear",
             Text('autoClear(bool)'),
             Text('点击取消按钮后是否清空输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5363,12 +5363,12 @@ name: "autoFocus",
             Text('autoFocus(bool)'),
             Text('自动获取焦点')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5377,12 +5377,12 @@ name: "showExtra",
             Text('showExtra(bool)'),
             Text('点击取消按钮后是否清空输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5391,12 +5391,12 @@ name: "clearable",
             Text('clearable(bool)'),
             Text('是否启用清除图标，点击清除图标后会清空输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5405,10 +5405,10 @@ name: "prefix",
             Text('prefix(Widget)'),
             Text('前缀')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5417,10 +5417,10 @@ name: "placeholder",
             Text('placeholder(Widget)'),
             Text('提示文本')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5429,12 +5429,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读模式')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5443,12 +5443,12 @@ name: "lazy",
             Text('lazy(bool)'),
             Text('只有当激活后才出现输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5457,10 +5457,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('动画时长')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -5471,12 +5471,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5485,12 +5485,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5499,10 +5499,10 @@ name: "value",
             Text('value(Set<String>)'),
             Text('值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5511,12 +5511,12 @@ name: "autoCollect",
             Text('autoCollect(bool)'),
             Text('自动同步值到表单')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5525,10 +5525,10 @@ name: "columns",
             Text('columns(int)'),
             Text('列数')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -5539,10 +5539,10 @@ name: "value",
             Text('value(AntdSliderValue)'),
             Text('默认值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5551,12 +5551,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('是否禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5565,10 +5565,10 @@ name: "slider",
             Text('slider(Widget)'),
             Text('滑块的图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5577,10 +5577,10 @@ name: "max",
             Text('max(int)'),
             Text('最大值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5589,10 +5589,10 @@ name: "min",
             Text('min(int)'),
             Text('最小值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5601,10 +5601,10 @@ name: "length",
             Text('length(int)'),
             Text('长度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5613,12 +5613,12 @@ name: "range",
             Text('range(bool)'),
             Text('是否为双滑块')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5627,10 +5627,10 @@ name: "step",
             Text('step(int)'),
             Text('步距，取值必须大于 0，并且 (max - min) 可被 step 整除。当 marks 不为空对象时，step 的配置失效')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5639,12 +5639,12 @@ name: "ticks",
             Text('ticks(bool)'),
             Text('是否显示刻度')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -5655,12 +5655,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('禁用')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5669,12 +5669,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('只读')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5683,12 +5683,12 @@ name: "value",
             Text('value(bool)'),
             Text('值')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5697,12 +5697,12 @@ name: "autoCollect",
             Text('autoCollect(bool)'),
             Text('自动同步值到表单')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5711,10 +5711,10 @@ name: "content",
             Text('content(Widget)'),
             Text('选中时的内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5723,10 +5723,10 @@ name: "activeContent",
             Text('activeContent(Widget)'),
             Text('未选中时的内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5735,10 +5735,10 @@ name: "duration",
             Text('duration(Duration)'),
             Text('动画周期')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -5749,10 +5749,10 @@ name: "focusNode",
             Text('focusNode(FocusNode)'),
             Text('控制输入框的焦点状态')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5761,12 +5761,12 @@ name: "clearable",
             Text('clearable(bool)'),
             Text('是否显示清除按钮（点击会清空输入内容）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5775,10 +5775,10 @@ name: "value",
             Text('value(String)'),
             Text('输入框的初始值')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5787,12 +5787,12 @@ name: "disabled",
             Text('disabled(bool)'),
             Text('是否禁用输入框')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5801,10 +5801,10 @@ name: "placeholder",
             Text('placeholder(Widget)'),
             Text('输入框为空时显示的提示文本')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5813,12 +5813,12 @@ name: "readOnly",
             Text('readOnly(bool)'),
             Text('是否为只读模式（可选中文本但不可编辑）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5827,12 +5827,12 @@ name: "autocorrect",
             Text('autocorrect(bool)'),
             Text('是否自动校正拼写错误（如iOS键盘的自动修正），默认为true')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -5841,10 +5841,10 @@ name: "maxLines",
             Text('maxLines(int)'),
             Text('输入框的最大行数（多行文本时生效）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5853,10 +5853,10 @@ name: "minLines",
             Text('minLines(int)'),
             Text('输入框的最小行数（多行文本时生效）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5865,10 +5865,10 @@ name: "maxLength",
             Text('maxLength(int)'),
             Text('允许输入的最大字符数')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5877,10 +5877,10 @@ name: "keyboardType",
             Text('keyboardType(TextInputType)'),
             Text('键盘类型（如数字键盘、邮箱键盘等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5889,10 +5889,10 @@ name: "inputAction",
             Text('inputAction(TextInputAction)'),
             Text('键盘动作按钮类型（如搜索、发送等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5901,10 +5901,10 @@ name: "prefix",
             Text('prefix(Widget)'),
             Text('输入框前缀部件（如图标、标签等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5913,10 +5913,10 @@ name: "suffix",
             Text('suffix(Widget)'),
             Text('输入框后缀部件（如图标、按钮等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5925,10 +5925,10 @@ name: "contextMenuBuilder",
             Text('contextMenuBuilder(EditableTextContextMenuBuilder)'),
             Text('自定义上下文菜单构建器（长按文本时弹出的菜单）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5937,10 +5937,10 @@ name: "spellCheckConfiguration",
             Text('spellCheckConfiguration(SpellCheckConfiguration)'),
             Text('拼写检查配置（如启用/禁用、错误文本样式等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5949,10 +5949,10 @@ name: "magnifierConfiguration",
             Text('magnifierConfiguration(TextMagnifierConfiguration)'),
             Text('文本放大镜配置（长按选中文本时的放大效果）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5961,10 +5961,10 @@ name: "dragStartBehavior",
             Text('dragStartBehavior(DragStartBehavior)'),
             Text('拖动行为的起始方式（如立即响应或延迟响应）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5973,10 +5973,10 @@ name: "scrollPhysics",
             Text('scrollPhysics(ScrollPhysics)'),
             Text('滚动物理效果（如滚动边界行为）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5985,10 +5985,10 @@ name: "clipBehavior",
             Text('clipBehavior(Clip)'),
             Text('内容裁剪方式（如抗锯齿裁剪）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -5997,12 +5997,12 @@ name: "showCount",
             Text('showCount(bool)'),
             Text('是否展示字数统计')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -6013,12 +6013,12 @@ name: "bordered",
             Text('bordered(bool)'),
             Text('是否显示边框（默认false）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -6027,7 +6027,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('徽标背景色/小圆点颜色')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -6036,7 +6036,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -6045,10 +6045,10 @@ name: "badge",
             Text('badge(Widget)'),
             Text('徽标显示内容（数字/文字等）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6057,12 +6057,12 @@ name: "dot",
             Text('dot(bool)'),
             Text('是否显示为小红点而非内容（默认false）')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -6071,7 +6071,7 @@ name: "position",
             Text('position(AntdBadgePosition)'),
             Text('徽标相对于子组件的位置')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -6080,7 +6080,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -6089,10 +6089,10 @@ name: "child",
             Text('child(Widget)'),
             Text('徽标包裹的子组件')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6101,10 +6101,10 @@ name: "offset",
             Text('offset(Offset)'),
             Text('徽标自定义偏移量（相对默认位置调整）')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 ];}
@@ -6115,12 +6115,12 @@ name: "closeable",
             Text('closeable(bool)'),
             Text('是否可关闭')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 AntdFormItem(
@@ -6129,10 +6129,10 @@ name: "closeIcon",
             Text('closeIcon(Widget)'),
             Text('自定义关闭按钮图标')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6141,7 +6141,7 @@ name: "color",
             Text('color(AntdColor)'),
             Text('通告栏的类型')
           ],),
-              
+
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.name} : {},
@@ -6150,7 +6150,7 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.firstOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
+
 },
 ),
 AntdFormItem(
@@ -6159,10 +6159,10 @@ name: "content",
             Text('content(String)'),
             Text('公告内容')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6171,10 +6171,10 @@ name: "delay",
             Text('delay(Duration)'),
             Text('开始滚动的延迟，单位 ms')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6183,10 +6183,10 @@ name: "speed",
             Text('speed(double)'),
             Text('滚动的速度')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6195,10 +6195,10 @@ name: "extra",
             Text('extra(Widget)'),
             Text('额外操作区域，显示在关闭按钮左侧')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6207,10 +6207,10 @@ name: "icon",
             Text('icon(Widget)'),
             Text('额外操作区域，显示在关闭按钮左侧')
           ],),
-              
+
 builder: (ctx) {
               return  AntdInput();
-            
+
 },
 ),
 AntdFormItem(
@@ -6219,12 +6219,12 @@ name: "wrap",
             Text('wrap(bool)'),
             Text('是否多行展示')
           ],),
-              
+
 builder: (ctx) {
                 return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
                 ctx.onChange(check);
           },);
-                
+
 },
 ),
 ];}
@@ -6411,7 +6411,7 @@ dynamic _resolveValue(Map<String, dynamic> atr,String componentName,String name,
     var val = atr[name];
     if (type == 'Widget') {
       return val != null ? Text(val) : null;
-    } 
+    }
     if (val == null  || (val is String  && val.isEmpty)){
       return defaultValue;
     }
@@ -6424,5 +6424,5 @@ dynamic _resolveValue(Map<String, dynamic> atr,String componentName,String name,
     } else {
       return val;
     }
-    
+
 }

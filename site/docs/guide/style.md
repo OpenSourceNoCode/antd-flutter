@@ -35,7 +35,7 @@ typedef AntdStyleBuilder<Style extends AntdStyle, WidgetType> = Style Function(
 通过`AntdTheme`可以统一配置所有组件的默认样式：
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -79,7 +79,7 @@ class _AppState extends State<App> {
 使用`AntdStyleProvider`可以在任意节点覆盖子组件的样式：
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -140,7 +140,7 @@ class _AppState extends State<App> {
 样式系统采用智能合并策略，确保样式属性能够层层叠加而不冲突：
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

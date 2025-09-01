@@ -12,7 +12,7 @@ timeline: true
 最新版本
 
 ```bash [最新版本]
-flutter pub add antd_flutter
+flutter pub add antd_flutter_mobile
 ```
 
 指定版本
@@ -21,20 +21,20 @@ flutter pub add antd_flutter
 添加以下依赖到你的 pubspec.yaml,具体的版本可以在 更新日志 中找到
 
 dependencies:
-  antd_flutter: 版本
+  antd_flutter_mobile: 版本
 ```
 ## 引入
 
 在需要的页面引入
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 ```
 
 添加 `AntdProvider` 包裹你的项目根目录，然后 为路由引入 `AntdLayer.observer` 他是实现弹层的基础
 ```dart
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -75,7 +75,7 @@ class _AppState extends State<App> {
 一个按钮的示例 更多[组件](/components)
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

@@ -1,4 +1,4 @@
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 /// TabBar 基础样式定义（包含默认/激活状态的图标和标题样式）

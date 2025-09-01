@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 

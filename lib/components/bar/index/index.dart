@@ -1,5 +1,5 @@
-import 'package:antd_flutter/components/bar/index/float.dart';
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/components/bar/index/float.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 /// 样式

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/components/tab/tabs.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/widgets.dart';

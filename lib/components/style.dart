@@ -1,5 +1,5 @@
-import 'package:antd_flutter/theme/theme.dart';
-import 'package:antd_flutter/theme/token.dart';
+import 'package:antd_flutter_mobile/theme/theme.dart';
+import 'package:antd_flutter_mobile/theme/token.dart';
 import 'package:flutter/material.dart';
 
 class AntdStyle {

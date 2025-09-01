@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

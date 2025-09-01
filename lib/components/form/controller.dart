@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:antd_flutter/components/form/rule.dart';
+import 'package:antd_flutter_mobile/components/form/rule.dart';
 import 'package:flutter/widgets.dart';
 
 import 'index.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 ///轻提示样式

@@ -19,13 +19,13 @@ A Flutter component library based on the Ant Design system.
 ## 📦 Installation
 
 ```bash
-flutter pub add antd_flutter
+flutter pub add antd_flutter_mobile
 ```
 
 ## 🔨 Example
 
 ```dart
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 
 @override
 Widget build(BuildContext context) {

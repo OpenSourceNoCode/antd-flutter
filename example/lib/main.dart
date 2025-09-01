@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:collection/collection.dart';
 import 'package:example/generated/map.dart';
 import 'package:example/generated/storage.dart';

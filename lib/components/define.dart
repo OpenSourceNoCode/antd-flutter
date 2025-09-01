@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const packageName = "antd_flutter";
+const packageName = "antd_flutter_mobile";
 
 typedef FutureVoidCallback = Future<void> Function();
 

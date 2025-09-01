@@ -1,6 +1,6 @@
-import 'package:antd_flutter/components/icon/icon.dart';
-import 'package:antd_flutter/components/icon/index.dart';
-import 'package:antd_flutter/components/result/index.dart';
+import 'package:antd_flutter_mobile/components/icon/icon.dart';
+import 'package:antd_flutter_mobile/components/icon/index.dart';
+import 'package:antd_flutter_mobile/components/result/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 

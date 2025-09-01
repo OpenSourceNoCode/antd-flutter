@@ -1,5 +1,5 @@
-import 'package:antd_flutter/components/cascader/view.dart';
-import 'package:antd_flutter/components/toast/index.dart';
+import 'package:antd_flutter_mobile/components/cascader/view.dart';
+import 'package:antd_flutter_mobile/components/toast/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 

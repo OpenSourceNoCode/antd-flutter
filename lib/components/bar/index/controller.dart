@@ -1,4 +1,4 @@
-import 'package:antd_flutter/components/widgets/list/controller.dart';
+import 'package:antd_flutter_mobile/components/widgets/list/controller.dart';
 import 'package:flutter/material.dart';
 
 import 'index.dart';

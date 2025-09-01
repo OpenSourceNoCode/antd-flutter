@@ -1,4 +1,4 @@
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 /// Flex布局样式配置类（用于Row/Column等弹性布局）

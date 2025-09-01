@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:antd_flutter/components/box/style.dart';
+import 'package:antd_flutter_mobile/components/box/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 

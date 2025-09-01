@@ -1,6 +1,6 @@
-import 'package:antd_flutter/components/bar/index/controller.dart';
-import 'package:antd_flutter/components/box/index.dart';
-import 'package:antd_flutter/components/widgets/list/controller.dart';
+import 'package:antd_flutter_mobile/components/bar/index/controller.dart';
+import 'package:antd_flutter_mobile/components/box/index.dart';
+import 'package:antd_flutter_mobile/components/widgets/list/controller.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'index.dart';

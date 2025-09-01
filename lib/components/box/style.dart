@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:antd_flutter/components/box/painter.dart';
-import 'package:antd_flutter/index.dart';
+import 'package:antd_flutter_mobile/components/box/painter.dart';
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

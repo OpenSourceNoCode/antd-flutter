@@ -1,4 +1,4 @@
-import 'package:antd_flutter/extensions/color.dart';
+import 'package:antd_flutter_mobile/extensions/color.dart';
 import 'package:flutter/material.dart';
 
 class AntdOpacityDefine {

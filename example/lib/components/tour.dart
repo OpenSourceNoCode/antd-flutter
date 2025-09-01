@@ -1,8 +1,8 @@
-import 'package:antd_flutter/components/box/index.dart';
-import 'package:antd_flutter/components/box/style.dart';
-import 'package:antd_flutter/components/button/index.dart';
-import 'package:antd_flutter/components/tour/index.dart';
-import 'package:antd_flutter/components/tour/step.dart';
+import 'package:antd_flutter_mobile/components/box/index.dart';
+import 'package:antd_flutter_mobile/components/box/style.dart';
+import 'package:antd_flutter_mobile/components/button/index.dart';
+import 'package:antd_flutter_mobile/components/tour/index.dart';
+import 'package:antd_flutter_mobile/components/tour/step.dart';
 import 'package:example/components/tab/tabs.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
