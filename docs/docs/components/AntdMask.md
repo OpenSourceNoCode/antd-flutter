@@ -212,7 +212,7 @@ class AntdMaskWaitDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdMask'></iframe>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdMask'></iframe>
 </div>
 </div>
 

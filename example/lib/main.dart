@@ -115,7 +115,7 @@ class _AppState extends State<App> {
       builder: (c, _) {
         return Scaffold(
           body: Layout(
-            title: "Antd Flutter",
+            title: "Antd Flutter Mobile",
             menus: menus,
             child: panels,
           ),

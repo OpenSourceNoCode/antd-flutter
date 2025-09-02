@@ -137,7 +137,7 @@ class AntdFloatingIndicatorDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdFloatingPanel'></iframe>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdFloatingPanel'></iframe>
 </div>
 </div>
 

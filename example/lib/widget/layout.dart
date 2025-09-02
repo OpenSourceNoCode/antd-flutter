@@ -40,10 +40,11 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     // 获取初始路由
-    final initialRoute = Uri.base.path;
+    final initialRoute = Uri.base.queryParameters;
+
     return Navigator(
-      initialRoute: initialRoute != '/'
-          ? initialRoute
+      initialRoute: initialRoute.containsKey('target')
+          ? initialRoute['target']
           : widget.menus.where((value) => value.group == false).first.path,
       observers: [AntdLayer.observer],
       onGenerateRoute: (setting) {
