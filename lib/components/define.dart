@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 const packageName = "antd_flutter_mobile";
 
@@ -198,31 +195,6 @@ enum AntdPlacement {
   final bool before;
 
   const AntdPlacement({required this.horizontal, required this.before});
-}
-
-class AntdResource {
-  final File? file;
-  final String? assetName;
-  final String? url;
-  final Uint8List? bytes;
-
-  const AntdResource({this.file, this.assetName, this.url, this.bytes});
-
-  ImageProvider? toImage() {
-    if (file != null) {
-      return FileImage(file!);
-    }
-    if (assetName != null) {
-      return AssetImage(assetName!);
-    }
-    if (url != null) {
-      return NetworkImage(url!);
-    }
-    if (bytes != null) {
-      return MemoryImage(bytes!);
-    }
-    return null;
-  }
 }
 
 abstract class AntdComponent<Style extends AntdStyle, WidgetType>

@@ -198,7 +198,7 @@ class AntdFormStore extends ChangeNotifier {
 
     if (!_items.containsKey(name) ||
         oldState?.widget.initialValue != state.widget.initialValue) {
-      var initValue;
+      dynamic initValue;
       if (state.widget.initialValue is Map<String, dynamic>) {
         initValue =
             _findValueByPath(state.widget.initialValue, name.split("."));

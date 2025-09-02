@@ -86,7 +86,7 @@ class _Child extends StatelessWidget {
   final String title;
   final String desc;
 
-  const _Child({super.key, required this.title, required this.desc});
+  const _Child({required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {

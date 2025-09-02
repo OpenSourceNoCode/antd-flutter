@@ -1,11 +1,11 @@
-<div align="center"><a name="readme-top"></a>
-<div style="display: flex;align-items: center;justify-content: center">
-<img height="180" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg">
-<img height="180" src="https://storage.googleapis.com/cms-storage-bucket/lockup_flutter_horizontal.847ae81f5430402216fd.svg">
+<div align="center">
+<div align="center">
+<img height="90" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg">
+<img height="90" src="https://storage.googleapis.com/cms-storage-bucket/lockup_flutter_horizontal.847ae81f5430402216fd.svg">
 </div>
-<h1>Antd Flutter</h1>
+<h1>Antd Flutter Mobile</h1>
 
-Ant Design体系的 flutter 组件库。
+Antd Flutter Mobile是 Ant Design Mobile 在 Flutter 平台的实现版本。零依赖、超轻量（整包仅 200k），50+ 高质量组件，覆盖主题，弹层、表单、列表精准定位等常见交互场景。
 
 </div>
 

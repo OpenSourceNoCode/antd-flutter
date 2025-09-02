@@ -77,13 +77,13 @@ class AntdTabsTabAlignmentDemo extends StatelessWidget {
 /// 通过alignment 可以控制第二个内容到达那里时再切页 默认是滚动一半时切页
 /// @l [AntdTabs]
 class AntdTabsTabPhysicsDemo extends StatelessWidget {
-  AntdTabsTabPhysicsDemo({
+  const AntdTabsTabPhysicsDemo({
     super.key,
   });
-  AntdTabController tabController = AntdTabController();
 
   @override
   Widget build(BuildContext context) {
+    AntdTabController tabController = AntdTabController();
     return DemoWrapper(outline: true, child: [
       AntdTabs(
           controller: tabController,
@@ -118,13 +118,13 @@ class AntdTabsTabPhysicsDemo extends StatelessWidget {
 /// @t 事件
 /// @l [AntdTabs]
 class AntdTabsTabOnChangeDemo extends StatelessWidget {
-  AntdTabsTabOnChangeDemo({
+  const AntdTabsTabOnChangeDemo({
     super.key,
   });
-  AntdTabController tabController = AntdTabController();
 
   @override
   Widget build(BuildContext context) {
+    AntdTabController tabController = AntdTabController();
     return DemoWrapper(outline: true, child: [
       AntdTabs(
           onChange: (value, index) {

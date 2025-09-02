@@ -160,11 +160,11 @@ class MdUseComponents implements UseComponents {
     }
 
     var str = buffer.toString();
-    for (var value in relateNames) {
-      // 使用正则确保精确匹配
-      // str = str.replaceAllMapped(RegExp(r'\b' + RegExp.escape(value) + r'\b'),
-      //     (match) => '[$value](#$value)');
-    }
+    // for (var value in relateNames) {
+    //   // 使用正则确保精确匹配
+    //   str = str.replaceAllMapped(RegExp(r'\b' + RegExp.escape(value) + r'\b'),
+    //       (match) => '[$value](#$value)');
+    // }
 
     return str;
   }

@@ -22,7 +22,7 @@ class AntdImageDemo extends StatelessWidget {
   const AntdImageDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [AntdImage(image: AntdResource(url: url))]);
+    return const DemoWrapper(child: [AntdImage(image: NetworkImage(url))]);
   }
 }
 
@@ -41,7 +41,7 @@ class AntdImageFitDemo extends StatelessWidget {
       return AntdImage(
           style: const AntdImageStyle(bodyStyle: AntdBoxStyle(size: 100)),
           fit: value,
-          image: const AntdResource(url: url));
+          image: const NetworkImage(url));
     }).toList());
   }
 }
@@ -61,17 +61,17 @@ class AntdImageRadiusDemo extends StatelessWidget {
           style: AntdImageStyle(
               bodyStyle: AntdBoxStyle(
                   size: 100, radius: const Radius.circular(8).all)),
-          image: const AntdResource(url: url)),
+          image: const NetworkImage(url)),
       AntdImage(
           style: AntdImageStyle(
               bodyStyle: AntdBoxStyle(
                   size: 100, radius: const Radius.circular(18).all)),
-          image: const AntdResource(url: url)),
+          image: const NetworkImage(url)),
       AntdImage(
           style: AntdImageStyle(
               bodyStyle: AntdBoxStyle(
                   size: 100, radius: const Radius.circular(9999).all)),
-          image: const AntdResource(url: url))
+          image: const NetworkImage(url))
     ]);
   }
 }
@@ -92,7 +92,7 @@ class AntdImageFailedDemo extends StatelessWidget {
           width: 100,
           style: AntdImageStyle(
               bodyStyle: AntdBoxStyle(radius: const Radius.circular(8).all)),
-          image: const AntdResource(url: "1111"))
+          image: const AssetImage(""))
     ]);
   }
 }
@@ -216,7 +216,7 @@ class AntdImageFailedDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdImageStyle, AntdImage&gt; | - | - |
 | height | 高度 | double | - | - |
 | width | 宽度 | double | - | - |
-| image | 图片 | AntdResource | - | - |
+| image | 图片 | ImageProvider | - | - |
 | fit | 图片填充模式 | BoxFit | - | - |
 | scale | 缩放 | double | 1.0 | - |
 | alignment | 对齐方式 | AlignmentGeometry | Alignment.center | - |

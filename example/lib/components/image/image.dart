@@ -14,7 +14,7 @@ class AntdImageDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdImage(
-        image: AntdResource(url: url),
+        image: NetworkImage(url),
       )
     ]);
   }
@@ -32,7 +32,7 @@ class AntdImageFitDemo extends StatelessWidget {
       return AntdImage(
         style: const AntdImageStyle(bodyStyle: AntdBoxStyle(size: 100)),
         fit: value,
-        image: const AntdResource(url: url),
+        image: const NetworkImage(url),
       );
     }).toList());
   }
@@ -50,19 +50,19 @@ class AntdImageRadiusDemo extends StatelessWidget {
         style: AntdImageStyle(
             bodyStyle:
                 AntdBoxStyle(size: 100, radius: const Radius.circular(8).all)),
-        image: const AntdResource(url: url),
+        image: const NetworkImage(url),
       ),
       AntdImage(
         style: AntdImageStyle(
             bodyStyle:
                 AntdBoxStyle(size: 100, radius: const Radius.circular(18).all)),
-        image: const AntdResource(url: url),
+        image: const NetworkImage(url),
       ),
       AntdImage(
         style: AntdImageStyle(
             bodyStyle: AntdBoxStyle(
                 size: 100, radius: const Radius.circular(9999).all)),
-        image: const AntdResource(url: url),
+        image: const NetworkImage(url),
       )
     ]);
   }
@@ -81,7 +81,7 @@ class AntdImageFailedDemo extends StatelessWidget {
         width: 100,
         style: AntdImageStyle(
             bodyStyle: AntdBoxStyle(radius: const Radius.circular(8).all)),
-        image: const AntdResource(url: "1111"),
+        image: const AssetImage(""),
       ),
     ]);
   }

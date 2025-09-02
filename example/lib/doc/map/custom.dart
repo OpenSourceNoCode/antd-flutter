@@ -89,8 +89,8 @@ Map<String, dynamic> customFull = {
               )
             : Text("我是选项$i的内容")),
   ),
-  "AntdAvatar-image": AntdResource(url: demoAvatarImages[0]),
-  "AntdImage-image": AntdResource(url: url),
+  "AntdAvatar-image": AssetImage(demoAvatarImages[0]),
+  "AntdImage-image": const NetworkImage(url),
   "AntdCollapse-items": List.generate(
     50,
     (i) => AntdCollapseItem(

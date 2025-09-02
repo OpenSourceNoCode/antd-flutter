@@ -1,11 +1,11 @@
-<div align="center"><a name="readme-top"></a>
-<div style="display: flex;align-items: center;justify-content: center">
-<img height="180" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg">
-<img height="180" src="https://storage.googleapis.com/cms-storage-bucket/lockup_flutter_horizontal.847ae81f5430402216fd.svg">
+<div align="center">
+<div align="center">
+<img height="90" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg">
+<img height="90" src="https://storage.googleapis.com/cms-storage-bucket/lockup_flutter_horizontal.847ae81f5430402216fd.svg">
 </div>
-<h1>Antd Flutter</h1>
+<h1>Antd Flutter Mobile</h1>
 
-A Flutter component library based on the Ant Design system.
+Antd Flutter Mobile is an implementation of Ant Design Mobile for the Flutter platform. With zero dependencies and an ultra-lightweight package (only 200kB in total), it offers 50+ high-quality components covering common interaction scenarios such as themes, overlays, forms, and precise list positioning.
 
 </div>
 

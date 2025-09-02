@@ -295,7 +295,7 @@ class AntdModalWaitDemo extends StatelessWidget {
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
-| actions | 面板选项列表 | List&lt;T&gt; | - | - |
+| actions | 面板选项列表 | List&lt;AntdModalAction&gt; | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | - | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdDialogState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |

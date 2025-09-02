@@ -210,6 +210,7 @@ class AntdWrapStyle extends AntdStyle {
   });
 
   /// 从另一个AntdWrapStyle实例复制属性值（空值不覆盖）
+  @override
   AntdWrapStyle copyFrom(AntdWrapStyle? style) {
     if (style == null) {
       return this;

@@ -240,7 +240,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
         AntdSegmentedItem(
           child: Column(
             children: [
-              AntdAvatar(image: AntdResource(url: demoAvatarImages[0])),
+              AntdAvatar(image: NetworkImage(demoAvatarImages[0])),
               const Row(
                 children: [
                   AntdIcon(

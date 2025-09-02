@@ -81,7 +81,7 @@ class AntdSwipeActionImageDemo extends StatelessWidget {
       AntdSwipeAction(items: [
         AntdSwipeItem(content: Text("删除"), confirmContent: Text("确定删除")),
         AntdSwipeItem(content: Text("收藏"), confirmContent: Text("确定收藏"))
-      ], child: AntdImage(image: AntdResource(url: url)))
+      ], child: AntdImage(image: NetworkImage(url)))
     ]);
   }
 }

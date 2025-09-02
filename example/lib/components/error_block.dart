@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 var style = AntdErrorBlockStyle(builder: (status) {
   return switch (status) {
     null => const AntdImage(
-        image: AntdResource(assetName: "assets/images/error_default.png"),
+        image: AssetImage("assets/images/error_default.png"),
       ),
     AntdErrorBlockStatus.none => const AntdImage(
-        image: AntdResource(assetName: "assets/images/error_default.png"),
+        image: AssetImage("assets/images/error_default.png"),
       ),
     AntdErrorBlockStatus.disconnected => const AntdImage(
-        image: AntdResource(assetName: "assets/images/error_disconnected.png"),
+        image: AssetImage("assets/images/error_disconnected.png"),
       ),
     AntdErrorBlockStatus.empty => const AntdImage(
-        image: AntdResource(assetName: "assets/images/error_empty.png"),
+        image: AssetImage("assets/images/error_empty.png"),
       ),
     AntdErrorBlockStatus.busy => const AntdImage(
-        image: AntdResource(assetName: "assets/images/error_busy.png"),
+        image: AssetImage("assets/images/error_busy.png"),
       ),
   };
 });

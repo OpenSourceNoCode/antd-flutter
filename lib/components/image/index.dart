@@ -79,7 +79,7 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
   final double? width;
 
   ///图片
-  final AntdResource image;
+  final ImageProvider image;
 
   ///	图片填充模式
   final BoxFit? fit;
@@ -196,7 +196,7 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
           alignment: alignment,
           repeat: repeat,
           filterQuality: filterQuality,
-          image: image.toImage()!,
+          image: image,
         ),
       ),
     );

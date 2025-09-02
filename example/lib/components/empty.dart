@@ -12,8 +12,7 @@ class AntdEmptyDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdEmpty(
         ///写在主题里即可 不必一个个写
-        image: AntdImage(
-            image: AntdResource(assetName: "assets/images/empty.png")),
+        image: AntdImage(image: AssetImage("assets/images/empty.png")),
       )
     ]);
   }
@@ -29,8 +28,7 @@ class AntdEmptyDescriptionDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdEmpty(
         ///写在主题里即可 不必一个个写
-        image: AntdImage(
-            image: AntdResource(assetName: "assets/images/empty.png")),
+        image: AntdImage(image: AssetImage("assets/images/empty.png")),
         description: Text("暂无数据"),
       )
     ]);
@@ -51,8 +49,7 @@ class AntdEmptyCustomerDemo extends StatelessWidget {
             AntdEmptyStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary)),
 
         ///写在主题里即可 不必一个个写
-        image: AntdImage(
-            image: AntdResource(assetName: "assets/images/empty.png")),
+        image: const AntdImage(image: AssetImage("assets/images/empty.png")),
         description: const Text("暂无数据"),
       )
     ]);

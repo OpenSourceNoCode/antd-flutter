@@ -1,5 +1,5 @@
 name: antd_flutter_mobile
-description: "Antd for Flutter."
+description: "Antd Flutter Mobile is an implementation of Ant Design Mobile for the Flutter platform. With zero dependencies and an ultra-lightweight package (only 200kB in total), it offers 50+ high-quality components covering common interaction scenarios such as themes, overlays, forms, and precise list positioning."
 version: 5.0.0-alpha
 homepage: https://github.com/OpenSourceNoCode/antd-flutter
 repository: https://github.com/OpenSourceNoCode/antd-flutter
@@ -8,6 +8,7 @@ topics:
   - design-system
   - ui-components
   - form
+  - lightweight
 
 environment:
   sdk: ^3.5.4

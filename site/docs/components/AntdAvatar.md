@@ -23,10 +23,10 @@ class AntdAvatarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[0])),
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[1])),
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[2])),
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[3]))
+      AntdAvatar(image: NetworkImage(demoAvatarImages[0])),
+      AntdAvatar(image: NetworkImage(demoAvatarImages[1])),
+      AntdAvatar(image: NetworkImage(demoAvatarImages[2])),
+      AntdAvatar(image: NetworkImage(demoAvatarImages[3]))
     ]);
   }
 }
@@ -42,7 +42,7 @@ class AntdAvatarPlaceholderDemo extends StatelessWidget {
   const AntdAvatarPlaceholderDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [AntdAvatar(image: AntdResource(url: ""))]);
+    return const DemoWrapper(child: [AntdAvatar(image: AssetImage(""))]);
   }
 }
 
@@ -57,9 +57,9 @@ class AntdAvatarSizeDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[0]), size: 32),
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[1]), size: 48),
-      AntdAvatar(image: AntdResource(url: demoAvatarImages[2]), size: 64)
+      AntdAvatar(image: NetworkImage(demoAvatarImages[0]), size: 32),
+      AntdAvatar(image: NetworkImage(demoAvatarImages[1]), size: 48),
+      AntdAvatar(image: NetworkImage(demoAvatarImages[2]), size: 64)
     ]);
   }
 }
@@ -181,7 +181,7 @@ class AntdAvatarSizeDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdImageStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdImageStyle, AntdImage&gt; | - | - |
-| image | 图片 | AntdResource | - | - |
+| image | 图片 | ImageProvider | - | - |
 | fit | 图片填充模式 | BoxFit | - | - |
 | scale | 缩放 | double | 1.0 | - |
 | alignment | 对齐方式 | AlignmentGeometry | Alignment.center | - |

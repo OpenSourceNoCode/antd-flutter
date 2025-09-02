@@ -25,7 +25,7 @@ typedef AntdImageViewerScaleOffsetChange = void Function(
 ///@o 87
 ///@d 通过放大查看图片全貌。
 ///@u 需要点开图片查看细节，配合缩略图使用。
-@deprecated
+@Deprecated("")
 class AntdImageViewer extends AntdBaseMask<AntdImageViewerStyle,
     AntdImageViewer, _AntdImageViewerState> {
   const AntdImageViewer({

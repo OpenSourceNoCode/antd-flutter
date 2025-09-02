@@ -143,7 +143,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
       AntdSegmented(activeIndex: 0, items: [
         AntdSegmentedItem(
             child: Column(children: [
-          AntdAvatar(image: AntdResource(url: demoAvatarImages[0])),
+          AntdAvatar(image: NetworkImage(demoAvatarImages[0])),
           const Row(children: [AntdIcon(icon: AntdIcons.add), Text("Daily")])
         ])),
         const AntdSegmentedItem(child: Text("Weekly")),

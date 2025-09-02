@@ -238,15 +238,15 @@ class AntdIndexBarState<T extends AntdSectionProvider>
 
   @override
   Widget? buildItemBuilder(
-      AntdScrollItemContext<T, AntdIndexBarController<T>> entity) {
+      AntdScrollItemContext<T, AntdIndexBarController<T>> ctx) {
     var child = AntdBox(
       style: style.itemStyle,
-      child: super.buildItemBuilder(entity),
+      child: super.buildItemBuilder(ctx),
     );
-    var sectionItem = entity.controller.getSectionItem(entity.index);
+    var sectionItem = ctx.controller.getSectionItem(ctx.index);
     if (sectionItem.isSectionHeader && widget.headerBuilder != null) {
       var header =
-          widget.headerBuilder!(context, sectionItem.section, entity.index);
+          widget.headerBuilder!(context, sectionItem.section, ctx.index);
 
       return AntdColumn(children: [
         AntdBox(

@@ -111,7 +111,7 @@ class AntdDialogAction extends AntdAction {
 }
 
 abstract class AntdBaseDialog<
-    Action extends AntdDialogAction,
+    T extends AntdDialogAction,
     WidgetType,
     Style extends AntdDialogStyle,
     StateType> extends AntdBasePopup<Style, WidgetType, StateType> {
@@ -134,7 +134,7 @@ abstract class AntdBaseDialog<
       : super(avoidKeyboard: false);
 
   ///面板选项列表
-  final List<Action>? actions;
+  final List<T>? actions;
 
   ///点击选项后是否关闭
   final bool? dismissOnAction;
@@ -148,8 +148,8 @@ abstract class AntdBaseDialog<
 
 abstract class AntdBaseDialogState<
     Style extends AntdDialogStyle,
-    Action extends AntdDialogAction,
-    Dialog extends AntdBaseDialog<Action, Dialog, Style, StateType>,
+    T extends AntdDialogAction,
+    Dialog extends AntdBaseDialog<T, Dialog, Style, StateType>,
     StateType> extends AntdCenterAnimationPopupState<Style, Dialog, StateType> {
   List<Widget> buildActions();
 

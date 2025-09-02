@@ -143,7 +143,7 @@ class _AntdSwipeItemsState extends State<AntdSwipeItems>
   @override
   void initState() {
     super.initState();
-    for (var item in widget.items) {
+    for (var _ in widget.items) {
       _itemWidths.add(0);
     }
 

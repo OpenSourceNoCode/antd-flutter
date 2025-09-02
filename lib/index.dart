@@ -34,6 +34,7 @@ export 'components/form/rule.dart';
 export 'components/icon/icon.dart';
 export 'components/icon/index.dart';
 export 'components/image/index.dart';
+export 'components/image/view.dart';
 export 'components/indicator/index.dart';
 export 'components/input/index.dart';
 export 'components/layer.dart';

@@ -23,9 +23,7 @@ class AntdEmptyDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdEmpty(
-          image: AntdImage(
-              image: AntdResource(assetName: "assets/images/empty.png")))
+      AntdEmpty(image: AntdImage(image: AssetImage("assets/images/empty.png")))
     ]);
   }
 }
@@ -40,7 +38,11 @@ class AntdEmptyDescriptionDemo extends StatelessWidget {
   const AntdEmptyDescriptionDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [AntdEmpty(description: Text("暂无数据"))]);
+    return const DemoWrapper(child: [
+      AntdEmpty(
+          image: AntdImage(image: AssetImage("assets/images/empty.png")),
+          description: Text("暂无数据"))
+    ]);
   }
 }
 
@@ -59,6 +61,7 @@ class AntdEmptyCustomerDemo extends StatelessWidget {
       AntdEmpty(
           style: AntdEmptyStyle(
               bodyStyle: AntdBoxStyle(color: token.colorPrimary)),
+          image: const AntdImage(image: AssetImage("assets/images/empty.png")),
           description: const Text("暂无数据"))
     ]);
   }

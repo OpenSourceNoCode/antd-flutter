@@ -67,7 +67,6 @@ class AntdDividerVerticalDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var token = AntdTheme.ofToken(context);
     return const DemoWrapper(child: [
       Row(
         children: [

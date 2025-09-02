@@ -18,16 +18,16 @@ class AntdAvatarDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[0]),
+        image: NetworkImage(demoAvatarImages[0]),
       ),
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[1]),
+        image: NetworkImage(demoAvatarImages[1]),
       ),
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[2]),
+        image: NetworkImage(demoAvatarImages[2]),
       ),
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[3]),
+        image: NetworkImage(demoAvatarImages[3]),
       ),
     ]);
   }
@@ -43,7 +43,7 @@ class AntdAvatarPlaceholderDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdAvatar(
-        image: AntdResource(url: ""),
+        image: AssetImage(""),
       ),
     ]);
   }
@@ -58,15 +58,15 @@ class AntdAvatarSizeDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[0]),
+        image: NetworkImage(demoAvatarImages[0]),
         size: 32,
       ),
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[1]),
+        image: NetworkImage(demoAvatarImages[1]),
         size: 48,
       ),
       AntdAvatar(
-        image: AntdResource(url: demoAvatarImages[2]),
+        image: NetworkImage(demoAvatarImages[2]),
         size: 64,
       ),
     ]);

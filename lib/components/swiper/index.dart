@@ -30,7 +30,6 @@ typedef AntdSwiperOnIndexChange = void Function(int index);
 
 class AntdSwiperController extends AntdScrollPositionController<Widget> {
   final ValueNotifier<int> _currentIndex = ValueNotifier(0);
-  bool _loop = false;
   int get currentIndex => _currentIndex.value;
 
   void next() {
@@ -155,7 +154,6 @@ class _AntdSwiperState extends AntdScrollPositionedBaseState<Widget,
   @override
   void initState() {
     super.initState();
-    scrollController._loop = widget.loop;
     scrollController.addPositionListener((ctx) {
       if (ctx.isFirstAppear) {
         widget.onChange?.call(ctx.index);

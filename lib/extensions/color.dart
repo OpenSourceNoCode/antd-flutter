@@ -38,14 +38,16 @@ extension ColorExtensions on Color {
     final clampedAmount = amount.clamp(0, 100) / 100;
 
     // 将RGB转换为HSL色彩空间
-    final hsl = _rgbToHsl(red, green, blue);
+    final hsl = _rgbToHsl((r * 255.0).round() & 0xff,
+        (g * 255.0).round() & 0xff, (b * 255.0).round() & 0xff);
     double h = hsl[0], s = hsl[1], l = hsl[2];
 
     // 降低明度并限制范围（类似PWM信号占空比调节原理[1](@ref)）
     l = (l - clampedAmount).clamp(0.0, 1.0);
 
     // 转换回RGB并保留原始透明度
-    return _hslToRgb(h, s, l).withAlpha(alpha);
+    return _hslToRgb(h, s, l)
+        .withValues(alpha: ((a * 255.0).round() & 0xff).toDouble());
   }
 
   // RGB转HSL算法（符合CIE 1931色彩标准）
@@ -85,7 +87,7 @@ extension ColorExtensions on Color {
     }
 
     return Color.fromARGB(
-      alpha,
+      ((a * 255.0).round() & 0xff),
       (r * 255).round(),
       (g * 255).round(),
       (b * 255).round(),
@@ -103,12 +105,14 @@ extension ColorExtensions on Color {
 
   Color withDoubleAlpha(double alpha) {
     // 公式：最终颜色 = 白色背景 × (1 - alpha) + 黑色前景 × alpha
-    final r =
-        (255 * (1 - alpha) + red * alpha).round(); // 255 * 0.96 = 244.8 → 245
-    final g = (255 * (1 - alpha) + green * alpha).round(); // 同上
-    final b = (255 * (1 - alpha) + blue * alpha).round(); // 同上
+    final r_ = (255 * (1 - alpha) + ((r * 255.0).round() & 0xff) * alpha)
+        .round(); // 255 * 0.96 = 244.8 → 245
+    final g_ = (255 * (1 - alpha) + ((g * 255.0).round() & 0xff) * alpha)
+        .round(); // 同上
+    final b_ = (255 * (1 - alpha) + ((b * 255.0).round() & 0xff) * alpha)
+        .round(); // 同上
 
-    return Color.fromRGBO(r, g, b, 1);
+    return Color.fromRGBO(r_, g_, b_, 1);
   }
 
   bool isStableColor(int color) {
@@ -117,10 +121,10 @@ extension ColorExtensions on Color {
 
   /// 计算前景色在背景色上的最终显示颜色
   Color getAlphaColor(Color color) {
-    final fR = red;
-    final fG = green;
-    final fB = blue;
-    final originAlpha = alpha / 255; // 转换为 0-1 范围
+    final fR = (r * 255.0).round() & 0xff;
+    final fG = (g * 255.0).round() & 0xff;
+    final fB = (b * 255.0).round() & 0xff;
+    final originAlpha = ((a * 255.0).round() & 0xff) / 255; // 转换为 0-1 范围
 
     // 如果前景色本身有透明度，直接返回原始颜色
     if (originAlpha < 1) {
@@ -128,9 +132,9 @@ extension ColorExtensions on Color {
     }
 
     // 解析背景色
-    final bR = color.red;
-    final bG = color.green;
-    final bB = color.blue;
+    final bR = (r * 255.0).round() & 0xff;
+    final bG = (g * 255.0).round() & 0xff;
+    final bB = (b * 255.0).round() & 0xff;
 
     // 遍历 alpha 值（从 0.01 到 1，步长 0.01）
     for (double fA = 0.01; fA <= 1; fA += 0.01) {

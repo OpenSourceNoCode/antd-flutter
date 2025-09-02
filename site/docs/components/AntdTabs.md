@@ -68,10 +68,10 @@ class AntdTabsTabAlignmentDemo extends StatelessWidget {
 
 ```dart
 class AntdTabsTabPhysicsDemo extends StatelessWidget {
-  AntdTabsTabPhysicsDemo({super.key});
-  AntdTabController tabController = AntdTabController();
+  const AntdTabsTabPhysicsDemo({super.key});
   @override
   Widget build(BuildContext context) {
+    AntdTabController tabController = AntdTabController();
     return DemoWrapper(outline: true, child: [
       AntdTabs(
           controller: tabController,
@@ -108,10 +108,10 @@ class AntdTabsTabPhysicsDemo extends StatelessWidget {
 
 ```dart
 class AntdTabsTabOnChangeDemo extends StatelessWidget {
-  AntdTabsTabOnChangeDemo({super.key});
-  AntdTabController tabController = AntdTabController();
+  const AntdTabsTabOnChangeDemo({super.key});
   @override
   Widget build(BuildContext context) {
+    AntdTabController tabController = AntdTabController();
     return DemoWrapper(outline: true, child: [
       AntdTabs(
           onChange: (value, index) {

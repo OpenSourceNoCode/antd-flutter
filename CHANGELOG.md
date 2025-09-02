@@ -1,7 +1,13 @@
 # Changelog
 
-## 5.0.0-alpha
+## 5.0.0-alpha - 2025-09-01
 
 ### Added
-- 初始版本发布
-- 包含基础组件系统
+- Initial version release
+- Includes basic component system
+
+## 5..0.0-alpha.1 - 2025-09-02
+
+### Added
+- Removed dart:io dependency
+- Added additional code comments and improved documentation
