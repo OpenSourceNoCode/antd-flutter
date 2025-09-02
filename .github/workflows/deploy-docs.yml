@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'pnpm'
-          cache-dependency-path: docs/pnpm-lock.yaml
+          cache-dependency-path: ./docs/pnpm-lock.yaml
 
       # 4. 安装dumi依赖
       - name: Install dumi dependencies
