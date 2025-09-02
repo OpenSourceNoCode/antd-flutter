@@ -1,16 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "X-Frame-Options",
-          "value": ""
-        },
-        {
-          "key": "Test",
-          "value": "111"
+          "value": "SAMEORIGIN"
         },
         {
           "key": "Content-Security-Policy",
