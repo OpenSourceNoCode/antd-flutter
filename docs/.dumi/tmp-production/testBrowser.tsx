@@ -11,7 +11,7 @@ import type { Location } from 'history';
 
 
 import { getPluginManager as getDumiPluginManager } from './core/plugin';
-import { setPluginManager as setDumiPluginManager } from '/Users/howie/Documents/project/antd-flutter/docs/node_modules/.pnpm/dumi@2.4.18_@babel+core@7.26.10_@swc+helpers@0.5.1_@types+node@20.5.1_@types+react@19.1_32bd86257c5512f606a0afe869fca965/node_modules/dumi/dist/client/theme-api/utils.js';
+import { setPluginManager as setDumiPluginManager } from '/Users/howie/Documents/project/antd-flutter/docs/node_modules/.pnpm/dumi@2.4.18_@babel+core@7.23.6_@swc+helpers@0.5.1_@types+node@20.5.1_@types+react@19.1._a09416131a5eb856c33861395270ef7f/node_modules/dumi/dist/client/theme-api/utils.js';
 const publicPath = '/';
 const runtimePublicPath = false;
 

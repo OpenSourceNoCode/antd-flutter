@@ -4,7 +4,7 @@
 import { history } from 'dumi';
 import React, { useState, useLayoutEffect, useCallback, type ReactNode } from 'react';
 import { RawIntlProvider, createIntl, createIntlCache } from '/Users/howie/Documents/project/antd-flutter/docs/node_modules/.pnpm/react-intl@7.1.6_react@18.3.1_typescript@5.8.3/node_modules/react-intl';
-import { useIsomorphicLayoutEffect } from '/Users/howie/Documents/project/antd-flutter/docs/node_modules/.pnpm/dumi@2.4.18_@babel+core@7.26.10_@swc+helpers@0.5.1_@types+node@20.5.1_@types+react@19.1_32bd86257c5512f606a0afe869fca965/node_modules/dumi/dist/client/theme-api/utils.js'
+import { useIsomorphicLayoutEffect } from '/Users/howie/Documents/project/antd-flutter/docs/node_modules/.pnpm/dumi@2.4.18_@babel+core@7.23.6_@swc+helpers@0.5.1_@types+node@20.5.1_@types+react@19.1._a09416131a5eb856c33861395270ef7f/node_modules/dumi/dist/client/theme-api/utils.js'
 import { locales, messages } from './config';
 
 const cache = createIntlCache();

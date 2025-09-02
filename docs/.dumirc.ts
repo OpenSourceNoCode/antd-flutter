@@ -5,7 +5,7 @@ export default defineConfig({
   title:"Antd Flutter Mobile",
   base:'/antd-flutter/',
   publicPath:'/antd-flutter/',
-  hash:true,
+  exportStatic:false,
   themeConfig: {
     ...defineThemeConfig({
       name: 'Antd Flutter Mobile',
@@ -46,18 +46,5 @@ export default defineConfig({
         {title: '暗黑模式', details: '基于 Antd Token 系统，不仅支持暗黑主题，更实现了完整设计体系的无缝贯通。'},
       ],
     }),
-    // 新增的配置项
-    resolve: {
-      codeBlockMode: 'active', // 启用代码块交互功能
-    },
-    extraBabelPlugins: [
-      // 确保加载 Dart 语言支持
-      ['prismjs', {
-        languages: ['dart'],
-        plugins: ['line-numbers', 'show-language'],
-        theme: 'okaidia', // 可选主题：okaidia/tomorrow等
-        css: true
-      }]
-    ],
   },
 });

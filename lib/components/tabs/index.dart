@@ -246,9 +246,9 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
 
   @override
   Widget? buildItemBuilder(
-      AntdScrollItemContext<T, AntdScrollPositionController<T>> entity) {
-    var tab = entity.data;
-    var index = entity.index;
+      AntdScrollItemContext<T, AntdScrollPositionController<T>> ctx) {
+    var tab = ctx.data;
+    var index = ctx.index;
     return ValueListenableBuilder(
         valueListenable: scrollController.currentIndex,
         builder: (context, value, _) {

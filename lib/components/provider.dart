@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
@@ -29,24 +27,22 @@ class AntdProvider extends StatefulWidget {
   State<AntdProvider> createState() => _AntdAntdProviderState();
 }
 
-var defaultToken = generateToken(AntdBaseToken(
-    radiusSize: 4,
-    colorError: const Color(0xffff3141),
-    colorInfo: const Color(0xff1677ff),
-    colorLink: const Color(0xff1677ff),
-    colorPrimary: const Color(0xff1677ff),
-    colorSuccess: const Color(0xff00b578),
-    colorTextBase: const Color(0xff171717),
-    colorBgBase: const Color(0xffffffff),
-    colorWarning: const Color(0xffff8f1f),
-    fontSize: 14,
-    lineType: '',
-    lineWidth: 1,
-    sizeStep: 4,
-    sizeUnit: 2,
-    defaultTextStyle: TextStyle(
-      fontFamily: Platform.isIOS ? 'PingFang SC' : null,
-    )));
+var defaultToken = generateToken(const AntdBaseToken(
+  radiusSize: 4,
+  colorError: Color(0xffff3141),
+  colorInfo: Color(0xff1677ff),
+  colorLink: Color(0xff1677ff),
+  colorPrimary: Color(0xff1677ff),
+  colorSuccess: Color(0xff00b578),
+  colorTextBase: Color(0xff171717),
+  colorBgBase: Color(0xffffffff),
+  colorWarning: Color(0xffff8f1f),
+  fontSize: 14,
+  lineType: '',
+  lineWidth: 1,
+  sizeStep: 4,
+  sizeUnit: 2,
+));
 
 class _AntdAntdProviderState extends State<AntdProvider> {
   AntdTheme? theme;

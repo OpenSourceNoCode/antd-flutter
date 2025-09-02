@@ -213,8 +213,9 @@ class AntdMaskHole {
 
   static EdgeInsets? _subtractEdgeInsets(EdgeInsets? a, EdgeInsets? b) {
     if (a == null && b == null) return null;
-    if (a == null)
+    if (a == null) {
       return EdgeInsets.fromLTRB(-b!.left, -b.top, -b.right, -b.bottom);
+    }
     if (b == null) return a;
     return EdgeInsets.fromLTRB(
       a.left - b.left,
