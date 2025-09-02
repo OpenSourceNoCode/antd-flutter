@@ -35,12 +35,11 @@ jobs:
         with:
           node-version: '18'
           cache: 'pnpm'
-          cache-dependency-path: ./docs/pnpm-lock.yaml
 
       # 4. 安装dumi依赖
       - name: Install dumi dependencies
         working-directory: ./docs
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       # 5. 构建dumi文档
       - name: Build dumi docs
