@@ -7,6 +7,7 @@
 
 Antd Flutter Mobile is an implementation of Ant Design Mobile for the Flutter platform. With zero dependencies and an ultra-lightweight package (only 200kB in total), it offers 50+ high-quality components covering common interaction scenarios such as themes, overlays, forms, and precise list positioning.
 
+English · [中文](https://github.com/OpenSourceNoCode/antd-flutter/blob/main/README-zh_CN.md)
 </div>
 
 ## ✨ Features
@@ -30,15 +31,12 @@ import 'package:antd_flutter_mobile/index.dart';
 @override
 Widget build(BuildContext context) {
   return const AntdButton(
-    child: Text("我是一个按钮"),
+    child: Text("Button"),
+    onTap:() {
+      AntdToast.show(
+        "Toast",
+      );
+    }
   );
 }
 ```
-
-### Customizing Themes
-
-Refer to the [Customizing Themes]() documentation。
-
-### Style System
-
-Refer to the [Style System]() documentation。

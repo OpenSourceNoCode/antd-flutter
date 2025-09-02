@@ -7,6 +7,8 @@
 
 Antd Flutter Mobile是 Ant Design Mobile 在 Flutter 平台的实现版本。零依赖、超轻量（整包仅 200k），50+ 高质量组件，覆盖主题，弹层、表单、列表精准定位等常见交互场景。
 
+[English](https://github.com/OpenSourceNoCode/antd-flutter) · 中文
+
 </div>
 
 ## ✨ 特性
@@ -34,11 +36,3 @@ Widget build(BuildContext context) {
   );
 }
 ```
-
-### 定制主题
-
-参考 [定制主题]() 文档。
-
-### 样式系统
-
-参考 [样式系统]() 文档。
