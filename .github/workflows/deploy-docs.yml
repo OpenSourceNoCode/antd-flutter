@@ -19,45 +19,37 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # 1. 检出代码（包含docs目录）
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 安装 pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      # 3. 设置 Node.js（在 pnpm 之后设置以确保 PATH 正确）
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      # 4. 安装dumi依赖
       - name: Install dumi dependencies
         working-directory: ./docs
         run: pnpm install
 
-      # 5. 构建dumi文档
       - name: Build dumi docs
         working-directory: ./docs
         run: pnpm run build
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
 
-      # 6. 添加.nojekyll文件
       - name: Add .nojekyll file
         working-directory: ./docs/dist
         run: touch .nojekyll
 
-      # 7. 检查生成的文件
       - name: List built files
         working-directory: ./docs/dist
         run: ls -la
 
-      # 8. 部署到GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -73,7 +65,7 @@ jobs:
         working-directory: ./example
         run: |
           flutter pub get
-          flutter build web --release
+          flutter build web --release --base-href /antd-flutter/ --wasm
 
       - name: Deploy to Separate Branch
         uses: peaceiris/actions-gh-pages@v3
