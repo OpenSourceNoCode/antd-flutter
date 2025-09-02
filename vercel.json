@@ -4,13 +4,8 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Frame-Options",
-          "value": "ALLOW-FROM https://你的主站域名.com"
-        },
-        // 或者完全移除 X-Frame-Options，改用 CSP
-        {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self' https://你的主站域名.com https://*.github.io;"
+          "value": "frame-ancestors 'self' https://*.github.io https://*.vercel.app;"
         }
       ]
     }
