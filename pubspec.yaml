@@ -45,3 +45,4 @@ flutter:
     - family: AntdIcon
       fonts:
         - asset: assets/fonts/icons.otf
+
