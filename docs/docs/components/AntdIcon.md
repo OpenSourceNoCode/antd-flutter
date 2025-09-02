@@ -12,7 +12,10 @@ subtitle: 图标
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdIcon'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 自定样式
 
@@ -222,9 +225,6 @@ class AntdIconFillDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdIcon'></iframe>
-</div>
 </div>
 
   <style>
@@ -236,7 +236,6 @@ class AntdIconFillDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

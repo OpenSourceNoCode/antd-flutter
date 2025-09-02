@@ -19,7 +19,6 @@ subtitle: 图片查看器
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

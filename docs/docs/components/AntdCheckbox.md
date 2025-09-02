@@ -12,7 +12,10 @@ subtitle: 复选框
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCheckbox'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 受控模式
 
@@ -181,9 +184,6 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCheckbox'></iframe>
-</div>
 </div>
 
   <style>
@@ -195,7 +195,6 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

@@ -12,7 +12,10 @@ subtitle: 可勾选列表
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCheckList'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 基础使用
 
@@ -149,9 +152,6 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCheckList'></iframe>
-</div>
 </div>
 
   <style>
@@ -163,7 +163,6 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

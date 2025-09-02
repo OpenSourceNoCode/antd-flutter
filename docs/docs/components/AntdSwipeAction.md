@@ -12,7 +12,10 @@ subtitle: 滑动操作
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdSwipeAction'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 基础用法
 
@@ -104,9 +107,6 @@ class AntdSwipeActionControllerDemo extends StatefulWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdSwipeAction'></iframe>
-</div>
 </div>
 
   <style>
@@ -118,7 +118,6 @@ class AntdSwipeActionControllerDemo extends StatefulWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

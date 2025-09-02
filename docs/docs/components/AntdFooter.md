@@ -12,7 +12,10 @@ subtitle: 页脚
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdFooter'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 基础页脚
 
@@ -127,9 +130,6 @@ class AntdFooterChipsAllDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdFooter'></iframe>
-</div>
 </div>
 
   <style>
@@ -141,7 +141,6 @@ class AntdFooterChipsAllDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

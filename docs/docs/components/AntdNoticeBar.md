@@ -12,7 +12,10 @@ subtitle: 通告栏
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdNoticeBar'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 通告栏语义
 
@@ -120,9 +123,6 @@ class AntdNoticeBarCustomDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdNoticeBar'></iframe>
-</div>
 </div>
 
   <style>
@@ -134,7 +134,6 @@ class AntdNoticeBarCustomDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

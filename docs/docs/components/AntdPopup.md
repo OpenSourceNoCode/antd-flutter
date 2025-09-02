@@ -12,7 +12,10 @@ subtitle: 弹出层
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdPopup'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 弹出方向
 
@@ -252,9 +255,6 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdPopup'></iframe>
-</div>
 </div>
 
   <style>
@@ -266,7 +266,6 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

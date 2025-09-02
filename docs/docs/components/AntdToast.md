@@ -12,7 +12,10 @@ subtitle: 轻提示
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdToast'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 事件
 
@@ -158,9 +161,6 @@ class AntdToastManuleDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdToast'></iframe>
-</div>
 </div>
 
   <style>
@@ -172,7 +172,6 @@ class AntdToastManuleDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

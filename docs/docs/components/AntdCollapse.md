@@ -12,7 +12,10 @@ subtitle: 折叠面板
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCollapse'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 事件
 
@@ -122,9 +125,6 @@ class _AntdCollapseLoadingDemoStateDemo extends State<AntdCollapseLoadingDemo> {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCollapse'></iframe>
-</div>
 </div>
 
   <style>
@@ -136,7 +136,6 @@ class _AntdCollapseLoadingDemoStateDemo extends State<AntdCollapseLoadingDemo> {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

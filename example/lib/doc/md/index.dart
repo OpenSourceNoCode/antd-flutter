@@ -47,17 +47,17 @@ class MdUseComponents implements UseComponents {
           buffer.writeln();
 
           buffer.writeln("<div class='preview-container'>");
-          buffer.writeln("<div>");
-          buffer.writeln();
-          for (final demo in component.demos) {
-            buffer.writeln(generateDemoMd(demo));
-          }
-          buffer.writeln("</div>");
           buffer.writeln("<div class='phone-preview'>");
           buffer.writeln(
               "<iframe src='https://opensourcenocode.github.io/antd-flutter?target=${component.comment.name}'></iframe>");
           buffer.writeln("</div>");
 
+          buffer.writeln("<div style='flex: 1;'>");
+          buffer.writeln();
+          for (final demo in component.demos) {
+            buffer.writeln(generateDemoMd(demo));
+          }
+          buffer.writeln("</div>");
           buffer.writeln("</div>");
         }
 

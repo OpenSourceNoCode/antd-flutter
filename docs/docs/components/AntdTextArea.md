@@ -12,7 +12,10 @@ subtitle: 文本域
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdTextArea'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 基本的输入框组件
 
@@ -117,9 +120,6 @@ class AntdTextAreaReadOnlyDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdTextArea'></iframe>
-</div>
 </div>
 
   <style>
@@ -131,7 +131,6 @@ class AntdTextAreaReadOnlyDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;

@@ -12,7 +12,10 @@ subtitle: 胶囊选项卡
 ## 代码展示
 
 <div class='preview-container'>
-<div>
+<div class='phone-preview'>
+<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCapsuleTabs'></iframe>
+</div>
+<div style='flex: 1;'>
 
 ### 自定义样式
 
@@ -46,9 +49,6 @@ class AntdCapsuleTabsStyleDemo extends StatelessWidget {
 ```
 
 </div>
-<div class='phone-preview'>
-<iframe src='https://opensourcenocode.github.io/antd-flutter?target=AntdCapsuleTabs'></iframe>
-</div>
 </div>
 
   <style>
@@ -60,7 +60,6 @@ class AntdCapsuleTabsStyleDemo extends StatelessWidget {
 }
 
 .phone-preview {
-  flex: 1;
   min-width: 375px;
   max-width: 375px;
   border: 10px solid #f3f3f3;
