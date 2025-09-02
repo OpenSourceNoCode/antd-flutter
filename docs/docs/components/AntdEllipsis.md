@@ -44,7 +44,7 @@ class AntdEllipsisCustomDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdEllipsis'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdEllipsis'></iframe>
 </div>
 </div>
 

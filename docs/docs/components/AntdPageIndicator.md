@@ -69,7 +69,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdPageIndicator'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdPageIndicator'></iframe>
 </div>
 </div>
 

@@ -187,7 +187,7 @@ class AntdSliderCustomDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdSlider'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdSlider'></iframe>
 </div>
 </div>
 

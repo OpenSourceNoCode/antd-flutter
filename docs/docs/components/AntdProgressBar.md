@@ -148,7 +148,7 @@ class AntdProgressBarBgColorDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdProgressBar'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdProgressBar'></iframe>
 </div>
 </div>
 

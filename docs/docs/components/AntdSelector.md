@@ -104,7 +104,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdSelector'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdSelector'></iframe>
 </div>
 </div>
 

@@ -62,7 +62,7 @@ class AntdSkeletonRowsDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdSkeleton'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdSkeleton'></iframe>
 </div>
 </div>
 

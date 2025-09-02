@@ -12,7 +12,7 @@ import Loading from '@@/dumi/theme/loading';
 import { ApplyPluginsType } from 'umi';
 
 
-const publicPath = "/antd-flutter/";
+const publicPath = "/";
 const runtimePublicPath = false;
 
 async function render() {
@@ -35,7 +35,7 @@ async function render() {
     initialValue: {},
   });
 
-  const basename = contextOpts.basename || '/antd-flutter/';
+  const basename = contextOpts.basename || '/';
   const historyType = contextOpts.historyType || 'browser';
 
   const history = createHistory({

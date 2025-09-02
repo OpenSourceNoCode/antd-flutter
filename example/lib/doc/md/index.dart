@@ -12,7 +12,7 @@ class MdUseComponents implements UseComponents {
   @override
   Future<void> process(
       List<ComponentDefine> components, Directory scriptDir) async {
-    String sideDocRoot = '${scriptDir.parent.path}/site/docs/components';
+    String sideDocRoot = '${scriptDir.parent.path}/docs/docs/components';
     String outputDir = '${scriptDir.path}/assets/docs';
 
     // 确保目录存在
@@ -55,7 +55,7 @@ class MdUseComponents implements UseComponents {
           buffer.writeln("</div>");
           buffer.writeln("<div class='phone-preview'>");
           buffer.writeln(
-              "<iframe src='http://localhost:49470/${component.comment.name}'></iframe>");
+              "<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/${component.comment.name}'></iframe>");
           buffer.writeln("</div>");
 
           buffer.writeln("</div>");

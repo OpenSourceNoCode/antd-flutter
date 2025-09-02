@@ -2,9 +2,6 @@ import {defineConfig} from 'dumi';
 import {defineThemeConfig} from "dumi-theme-antd/dist/defineThemeConfig";
 
 export default defineConfig({
-  title:"Antd Flutter Mobile",
-  base:'/antd-flutter/',
-  publicPath:'/antd-flutter/',
   exportStatic:false,
   themeConfig: {
     ...defineThemeConfig({

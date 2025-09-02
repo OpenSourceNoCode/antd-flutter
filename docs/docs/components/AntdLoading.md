@@ -80,7 +80,7 @@ class AntdLoadingChildDemo extends StatelessWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdLoading'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdLoading'></iframe>
 </div>
 </div>
 

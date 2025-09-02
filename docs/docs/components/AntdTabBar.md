@@ -125,7 +125,7 @@ class AntdTabBarSafeAreaDemo extends StatefulWidget {
 
 </div>
 <div class='phone-preview'>
-<iframe src='http://localhost:49470/AntdTabBar'></iframe>
+<iframe src='https://antd-flutter-git-example-howie206s-projects.vercel.app/AntdTabBar'></iframe>
 </div>
 </div>
 
