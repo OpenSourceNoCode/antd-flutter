@@ -5,6 +5,14 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "X-Frame-Options",
+          "value": ""
+        },
+        {
+          "key": "Test",
+          "value": "111"
+        },
+        {
           "key": "Content-Security-Policy",
           "value": "frame-ancestors https://*.github.io https://*.vercel.app;"
         }
