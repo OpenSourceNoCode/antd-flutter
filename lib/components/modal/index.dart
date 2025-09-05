@@ -74,7 +74,8 @@ class AntdModalAction extends AntdDialogAction {
 ///@o 89
 ///@d 用于重要信息的告知或操作的反馈，并附带少量的选项供用户进行操作。
 ///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。
-class AntdModal extends AntdDialog<AntdModalAction> {
+class AntdModal
+    extends AntdInnerDialog<AntdModalAction, AntdModal, AntdModalState> {
   const AntdModal(
       {super.key,
       super.style,
@@ -82,6 +83,7 @@ class AntdModal extends AntdDialog<AntdModalAction> {
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
       super.animationDuration = const Duration(milliseconds: 400),
@@ -92,53 +94,138 @@ class AntdModal extends AntdDialog<AntdModalAction> {
       super.header,
       super.title});
 
-  static Future<T?> alert<T>(Widget content,
-      [final Widget alert = const Text("我知道了"),
-      final AntdActionOnTap? onConfirm]) {
+  static Future<T?> show<T>(
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      required final Widget content,
+      final List<AntdModalAction>? actions,
+      AntdModal? modal}) {
     return AntdModal(
-      builder: (_, ctx) {
-        return content;
-      },
+      key: key ?? modal?.key,
+      style: modal?.style,
+      styleBuilder: modal?.styleBuilder,
+      onClosed: modal?.onClosed,
+      onOpened: modal?.onOpened,
+      onMaskTap: modal?.onMaskTap,
+      opacity: modal?.opacity,
+      dismissOnMaskTap: modal?.dismissOnMaskTap != false,
+      showMask: modal?.showMask != false,
+      animationDuration: modal?.animationDuration,
+      actions: actions,
+      dismissOnAction: modal?.dismissOnAction != false,
+      builder: modal?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: modal?.closeIcon,
+      header: header ?? modal?.header,
+      title: title ?? modal?.header,
+    ).open<T>();
+  }
+
+  static Future<T?> alert<T>(Widget content,
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      final Widget alert = const Text("我知道了"),
+      final AntdActionOnTap? onConfirm,
+      final AntdModal? modal}) {
+    return AntdModal(
+      key: key ?? modal?.key,
+      style: modal?.style,
+      styleBuilder: modal?.styleBuilder,
+      onClosed: modal?.onClosed,
+      onOpened: modal?.onOpened,
+      onMaskTap: modal?.onMaskTap,
+      opacity: modal?.opacity,
+      dismissOnMaskTap: modal?.dismissOnMaskTap != false,
+      showMask: modal?.showMask != false,
+      animationDuration: modal?.animationDuration,
       actions: [
         AntdModalAction(
           title: alert,
           primary: true,
           onTap: onConfirm,
-        )
+        ),
+        ...(modal?.actions ?? [])
       ],
-    ).open();
+      dismissOnAction: modal?.dismissOnAction != false,
+      builder: modal?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: modal?.closeIcon,
+      header: header ?? modal?.header,
+      title: title ?? modal?.header,
+    ).open<T>();
   }
 
   static Future<T?> confirm<T>(Widget content,
-      [final Widget confirm = const Text("确认"),
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      final Widget confirm = const Text("确认"),
       final AntdActionOnTap? onConfirm,
       final Widget cancel = const Text("取消"),
-      final AntdActionOnTap? onCancel]) {
+      final AntdActionOnTap? onCancel,
+      final AntdModal? modal}) {
     return AntdModal(
-      builder: (_, ctx) {
-        return content;
-      },
+      key: key ?? modal?.key,
+      style: modal?.style,
+      styleBuilder: modal?.styleBuilder,
+      onClosed: modal?.onClosed,
+      onOpened: modal?.onOpened,
+      onMaskTap: modal?.onMaskTap,
+      opacity: modal?.opacity,
+      dismissOnMaskTap: modal?.dismissOnMaskTap != false,
+      showMask: modal?.showMask != false,
+      animationDuration: modal?.animationDuration,
       actions: [
         AntdModalAction(
-          title: confirm,
+          title: cancel,
           primary: true,
-          onTap: onConfirm,
+          onTap: onCancel,
         ),
         AntdModalAction(
-          title: cancel,
-          onTap: onCancel,
-        )
+          title: confirm,
+          onTap: onConfirm,
+        ),
+        ...(modal?.actions ?? [])
       ],
-    ).open();
+      dismissOnAction: modal?.dismissOnAction != false,
+      builder: modal?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: modal?.closeIcon,
+      header: header ?? modal?.header,
+      title: title ?? modal?.header,
+    ).open<T>();
   }
 
   @override
   State<StatefulWidget> createState() {
-    return _AntdModalState();
+    return AntdModalState();
   }
+
+  @override
+  AntdStyleBuilder<AntdDialogStyle, AntdModal>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.modalStyle;
+  }
+
+  @override
+  AntdModal getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  String get layerType => "modal";
 }
 
-class _AntdModalState extends AntdDialogState<AntdModalAction> {
+class AntdModalState
+    extends AntdInnerDialogState<AntdModalAction, AntdModalState, AntdModal> {
   @override
   AntdModalAction copyForm(covariant AntdModalAction action) {
     return action.copyForm(AntdModalAction(
@@ -146,5 +233,10 @@ class _AntdModalState extends AntdDialogState<AntdModalAction> {
         handlerTap(action);
       },
     ));
+  }
+
+  @override
+  AntdModalState getState() {
+    return this;
   }
 }

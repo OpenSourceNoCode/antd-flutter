@@ -28,24 +28,27 @@ class AntdAlertDialogDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-          child: const Text("基础弹窗"),
+          child: const Text("基础弹窗 open打开"),
           onTap: () {
             AntdDialog(
                 title: const Text("我是标题"),
                 header: const Text("我是Header"),
+                actions: const [AntdDialogAction(title: Text("我是一个Action"))],
                 builder: (controller, ctx) {
                   return const Center(child: Text("明月松间照，清泉石上流"));
                 }).open();
           }),
       AntdButton(
-          child: const Text("对话框"),
+          child: const Text("对话框 静态方法"),
           onTap: () {
-            AntdDialog.alert(const Text("明月松间照，清泉石上流"));
+            AntdDialog.alert(const Text("明月松间照，清泉石上流"),
+                header: const Text("我是Header"), title: const Text("我是Title"));
           }),
       AntdButton(
-          child: const Text("确认框"),
+          child: const Text("确认框 静态方法"),
           onTap: () {
-            AntdDialog.confirm(const Text("明月松间照，清泉石上流"));
+            AntdDialog.confirm(const Text("明月松间照，清泉石上流"),
+                header: const Text("我是Header"), title: const Text("我是Title"));
           })
     ]);
   }
@@ -283,14 +286,15 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | style | 样式 | AntdDialogStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDialogStyle, AntdDialog&lt;T&gt;&gt; | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDialogStyle, Dialog&gt; | - | - |
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
+| opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
-| actions | 面板选项列表 | List&lt;T&gt; | - | - |
+| actions | 面板选项列表 | List&lt;AntdDialogAction&gt; | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | - | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdDialogState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |

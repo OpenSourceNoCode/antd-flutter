@@ -27,7 +27,7 @@ class AntdProvider extends StatefulWidget {
   State<AntdProvider> createState() => _AntdAntdProviderState();
 }
 
-var defaultToken = generateToken(const AntdBaseToken(
+final defaultToken = generateToken(const AntdBaseToken(
   radiusSize: 4,
   colorError: Color(0xffff3141),
   colorInfo: Color(0xff1677ff),
@@ -44,13 +44,15 @@ var defaultToken = generateToken(const AntdBaseToken(
   sizeUnit: 2,
 ));
 
+final defaultTheme = AntdTheme(token: defaultToken);
+
 class _AntdAntdProviderState extends State<AntdProvider> {
   AntdTheme? theme;
 
   @override
   void initState() {
     super.initState();
-    theme = widget.theme ?? AntdTheme(token: defaultToken);
+    theme = widget.theme ?? defaultTheme;
   }
 
   @override

@@ -200,7 +200,7 @@ class _AntdTourControllerDemoStateDemo extends State<AntdTourControllerDemo> {
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
-| holeAnimationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
+| holeAnimationDuration | 镂空内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
 | child | 需要被引导的高亮目标组件 | Widget | - | - |
 | controller | 引导流程的控制器，用于手动控制步骤切换 | AntdTourController | - | - |
 

@@ -18,11 +18,43 @@ Widget getBox(bool top) {
   );
 }
 
-/// @t 弹出方向
-/// @d 上下左右四个方向
+/// @t 基础用法
+/// @d 多种打开方式
 /// @l [AntdPopup]
 class AntdPopupDemo extends StatelessWidget {
   const AntdPopupDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdButton(
+          onTap: () {
+            AntdPopup.show(content: getBox(true));
+          },
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdPopup(
+              builder: (close, state) => getBox(true),
+            ).open();
+          },
+          child: const Text("open 方法")),
+      AntdButton(
+          onTap: () {
+            AntdLayer.open(AntdPopup(
+              builder: (close, state) => getBox(true),
+            ));
+          },
+          child: const Text("AntdLayer Open"))
+    ]);
+  }
+}
+
+/// @t 弹出方向
+/// @d 上下左右四个方向
+/// @l [AntdPopup]
+class AntdPopupPositionDemo extends StatelessWidget {
+  const AntdPopupPositionDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +260,7 @@ class AntdPopupWaitDemo extends StatelessWidget {
             ));
             AntdToast.show(
               "弹出层关闭了我才出现的",
-              duration: Duration(seconds: 0),
+              duration: const Duration(seconds: 0),
             );
           },
           child: const Text("等待完成")),

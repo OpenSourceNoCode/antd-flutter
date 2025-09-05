@@ -71,7 +71,7 @@ abstract class AntdBaseMask<Style extends AntdMaskStyle, WidgetType, StateType>
   ///内容动画时长
   final Duration? animationDuration;
 
-  ///内容动画时长
+  ///镂空内容动画时长
   final Duration? holeAnimationDuration;
 
   ///镂空的区域
@@ -319,8 +319,9 @@ abstract class AntdMaskBaseState<
   @protected
   late AnimationController controller = AnimationController(
     vsync: this,
-    duration: widget.animationDuration,
+    duration: widget.animationDuration ?? const Duration(milliseconds: 400),
   );
+
   @protected
   late Animation<double> maskAnimation = Tween(begin: 0.0, end: 1.0).animate(
     CurvedAnimation(
@@ -331,7 +332,7 @@ abstract class AntdMaskBaseState<
   @protected
   late AnimationController holeController = AnimationController(
     vsync: this,
-    duration: widget.holeAnimationDuration,
+    duration: widget.holeAnimationDuration ?? const Duration(milliseconds: 400),
   );
   @protected
   late Animation<AntdMaskHole> holeAnimation = _setHole(hole, hole, false);
@@ -704,8 +705,26 @@ class AntdMask extends AntdBaseMask<AntdMaskStyle, AntdMask, AntdMaskState> {
       super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 200),
+      super.animationDuration = const Duration(milliseconds: 400),
       super.hole});
+
+  static Future<T?> show<T>(
+      {final Key? key, final Widget? content, final AntdMask? mask}) {
+    return AntdMask(
+      key: key ?? mask?.key,
+      style: mask?.style,
+      styleBuilder: mask?.styleBuilder,
+      onClosed: mask?.onClosed,
+      onOpened: mask?.onOpened,
+      onMaskTap: mask?.onMaskTap,
+      builder: mask?.builder ?? (content != null ? (_, ctx) => content : null),
+      opacity: mask?.opacity,
+      dismissOnMaskTap: mask?.dismissOnMaskTap,
+      showMask: mask?.showMask,
+      animationDuration: mask?.animationDuration,
+    ).open();
+  }
+
   @override
   AntdMaskStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {

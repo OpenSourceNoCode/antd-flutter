@@ -12,30 +12,44 @@ class AntdAlertModalDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-        child: const Text("基础弹窗"),
+        child: const Text("基础弹窗 open打开"),
         onTap: () {
           AntdModal(
               title: const Text("我是标题"),
               header: const Text("我是Header"),
+              actions: const [
+                AntdModalAction(
+                  title: Text("好的"),
+                  primary: true,
+                )
+              ],
               builder: (controller, ctx) => const Center(
                     child: Text("我是基础弹窗"),
                   )).open();
         },
       ),
       AntdButton(
-        child: const Text("提示对话框"),
+        child: const Text("提示对话框 静态方法"),
         onTap: () {
-          AntdModal.alert(const Center(
-            child: Text("明月松间照，清泉石上流"),
-          ));
+          AntdModal.alert(
+              const Center(
+                child: Text(
+                  "明月松间照，清泉石上流",
+                ),
+              ),
+              header: const Text("我是Header"),
+              title: const Text("我是Title"));
         },
       ),
       AntdButton(
-        child: const Text("确认对话框"),
+        child: const Text("确认对话框 静态方法"),
         onTap: () {
-          AntdModal.confirm(const Center(
-            child: Text("明月松间照，清泉石上流"),
-          ));
+          AntdModal.confirm(
+              const Center(
+                child: Text("明月松间照，清泉石上流"),
+              ),
+              header: const Text("我是Header"),
+              title: const Text("我是Title"));
         },
       ),
     ]);

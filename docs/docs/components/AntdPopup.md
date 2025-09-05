@@ -17,13 +17,44 @@ subtitle: 弹出层
 </div>
 <div style='flex: 1;'>
 
+### 基础用法
+
+多种打开方式
+
+```dart
+class AntdPopupDemo extends StatelessWidget {
+  const AntdPopupDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdButton(
+          onTap: () {
+            AntdPopup.show(content: getBox(true));
+          },
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdPopup(builder: (close, state) => getBox(true)).open();
+          },
+          child: const Text("open 方法")),
+      AntdButton(
+          onTap: () {
+            AntdLayer.open(AntdPopup(builder: (close, state) => getBox(true)));
+          },
+          child: const Text("AntdLayer Open"))
+    ]);
+  }
+}
+
+```
+
 ### 弹出方向
 
 上下左右四个方向
 
 ```dart
-class AntdPopupDemo extends StatelessWidget {
-  const AntdPopupDemo({super.key});
+class AntdPopupPositionDemo extends StatelessWidget {
+  const AntdPopupPositionDemo({super.key});
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
@@ -210,7 +241,7 @@ class AntdPopupWaitDemo extends StatelessWidget {
             await AntdLayer.open(AntdPopup(builder: (close, ctx) {
               return getBox(true);
             }));
-            AntdToast.show("弹出层关闭了我才出现的", duration: Duration(seconds: 0));
+            AntdToast.show("弹出层关闭了我才出现的", duration: const Duration(seconds: 0));
           },
           child: const Text("等待完成"))
     ]);
@@ -368,6 +399,7 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
+| opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdPopupState&gt; | - | - |

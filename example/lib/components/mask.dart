@@ -2,10 +2,56 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
-/// @t 事件
+/// @t 基础用法
+/// @d 多种打开方式
 /// @l [AntdMask]
 class AntdMaskDemo extends StatelessWidget {
   const AntdMaskDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(child: [
+      AntdButton(
+          onTap: () {
+            AntdMask.show(
+                content: Center(
+              child: AntdBox(
+                style: AntdBoxStyle(size: 50, color: token.colorPrimary),
+              ),
+            ));
+          },
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdMask(
+              builder: (close, state) => Center(
+                child: AntdBox(
+                  style: AntdBoxStyle(size: 50, color: token.colorPrimary),
+                ),
+              ),
+            ).open();
+          },
+          child: const Text("open 方法")),
+      AntdButton(
+          onTap: () {
+            AntdLayer.open(AntdMask(
+              builder: (close, state) => Center(
+                child: AntdBox(
+                  style: AntdBoxStyle(size: 50, color: token.colorPrimary),
+                ),
+              ),
+            ));
+          },
+          child: const Text("AntdLayer Open"))
+    ]);
+  }
+}
+
+/// @t 事件
+/// @l [AntdMask]
+class AntdMaskEventDemo extends StatelessWidget {
+  const AntdMaskEventDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +70,7 @@ class AntdMaskDemo extends StatelessWidget {
               },
             ));
           },
-          child: const Text("显示背景蒙层"))
+          child: const Text("事件"))
     ]);
   }
 }

@@ -268,7 +268,7 @@ class AntdAlignmentDemo extends StatelessWidget {
                   color: token.colorPrimary,
                   alignment: v,
                   textStyle: TextStyle(color: token.colorWhite)),
-              child: Text("${v.toString().replaceAll("Alignment.", "")}"));
+              child: Text(v.toString().replaceAll("Alignment.", "")));
         }).toList());
   }
 }
@@ -481,6 +481,33 @@ class AntdStylCustomDemo extends StatelessWidget {
         outline: true,
         style: const AntdBoxStyle(alignment: Alignment.center),
         child: [
+          AntdStyleBuilderProvider<AntdBoxStyle, AntdBox>(
+              builder: (context, box, style, token) {
+                return AntdBoxStyle(
+                    color: token.colorPrimary,
+                    size: 100,
+                    textStyle:
+                        token.font.md.copyWith(color: token.colorSuccess),
+                    alignment: Alignment.center);
+              },
+              child: Row(children: [
+                AntdStyleProvider<AntdBoxStyle>(
+                    style: const AntdBoxStyle(size: 50),
+                    child: AntdBox(
+                        style: AntdBoxStyle(
+                            radius: 10.radius.all,
+                            textStyle: const TextStyle(color: Colors.white)),
+                        styleBuilder: (context, box, style, token) {
+                          return AntdBoxStyle(
+                              border: token.borderSide
+                                  .copyWith(color: token.colorSuccess, width: 3)
+                                  .all);
+                        },
+                        child: const Text("box1"))),
+                AntdBox(
+                    style: AntdBoxStyle(margin: 10.left),
+                    child: const Text("box2"))
+              ])),
           AntdBox(
               disabled: true,
               style: AntdBoxStyle(

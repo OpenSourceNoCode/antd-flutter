@@ -12,11 +12,16 @@ class AntdAlertDialogDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-        child: const Text("基础弹窗"),
+        child: const Text("基础弹窗 open打开"),
         onTap: () {
           AntdDialog(
               title: const Text("我是标题"),
               header: const Text("我是Header"),
+              actions: const [
+                AntdDialogAction(
+                  title: Text("我是一个Action"),
+                )
+              ],
               builder: (controller, ctx) {
                 return const Center(
                   child: Text("明月松间照，清泉石上流"),
@@ -25,15 +30,17 @@ class AntdAlertDialogDemo extends StatelessWidget {
         },
       ),
       AntdButton(
-        child: const Text("对话框"),
+        child: const Text("对话框 静态方法"),
         onTap: () {
-          AntdDialog.alert(const Text("明月松间照，清泉石上流"));
+          AntdDialog.alert(const Text("明月松间照，清泉石上流"),
+              header: const Text("我是Header"), title: const Text("我是Title"));
         },
       ),
       AntdButton(
-        child: const Text("确认框"),
+        child: const Text("确认框 静态方法"),
         onTap: () {
-          AntdDialog.confirm(const Text("明月松间照，清泉石上流"));
+          AntdDialog.confirm(const Text("明月松间照，清泉石上流"),
+              header: const Text("我是Header"), title: const Text("我是Title"));
         },
       ),
     ]);

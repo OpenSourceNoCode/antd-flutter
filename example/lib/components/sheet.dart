@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// @t 基础用法
-/// @d 直接通过open打开
+/// @d 多种打开方式
 /// @l [AntdActionSheet]
 class AntdActionSheetDemo extends StatelessWidget {
   const AntdActionSheetDemo({super.key});
@@ -13,7 +13,31 @@ class AntdActionSheetDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-        child: const Text("最简单的用法"),
+        child: const Text("静态方法"),
+        onTap: () {
+          AntdActionSheet.show(
+            const [
+              AntdAction(title: Text("辅助")),
+              AntdAction(title: Text("修改")),
+              AntdAction(title: Text("保存"))
+            ],
+          );
+        },
+      ),
+      AntdButton(
+        child: const Text("open 方法"),
+        onTap: () {
+          const AntdActionSheet(
+            actions: [
+              AntdAction(title: Text("辅助")),
+              AntdAction(title: Text("修改")),
+              AntdAction(title: Text("保存"))
+            ],
+          ).open();
+        },
+      ),
+      AntdButton(
+        child: const Text("AntdLayer Open"),
         onTap: () {
           AntdLayer.open(const AntdActionSheet(
             actions: [

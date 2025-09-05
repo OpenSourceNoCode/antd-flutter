@@ -17,12 +17,56 @@ subtitle: 背景蒙层
 </div>
 <div style='flex: 1;'>
 
-### 事件
+### 基础用法
 
+多种打开方式
 
 ```dart
 class AntdMaskDemo extends StatelessWidget {
   const AntdMaskDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(child: [
+      AntdButton(
+          onTap: () {
+            AntdMask.show(
+                content: Center(
+                    child: AntdBox(
+                        style: AntdBoxStyle(
+                            size: 50, color: token.colorPrimary))));
+          },
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdMask(
+                builder: (close, state) => Center(
+                    child: AntdBox(
+                        style: AntdBoxStyle(
+                            size: 50, color: token.colorPrimary)))).open();
+          },
+          child: const Text("open 方法")),
+      AntdButton(
+          onTap: () {
+            AntdLayer.open(AntdMask(
+                builder: (close, state) => Center(
+                    child: AntdBox(
+                        style: AntdBoxStyle(
+                            size: 50, color: token.colorPrimary)))));
+          },
+          child: const Text("AntdLayer Open"))
+    ]);
+  }
+}
+
+```
+
+### 事件
+
+
+```dart
+class AntdMaskEventDemo extends StatelessWidget {
+  const AntdMaskEventDemo({super.key});
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
@@ -36,7 +80,7 @@ class AntdMaskDemo extends StatelessWidget {
               AntdToast.show("点击了蒙层");
             }));
           },
-          child: const Text("显示背景蒙层"))
+          child: const Text("事件"))
     ]);
   }
 }
@@ -331,7 +375,7 @@ class AntdMaskWaitDemo extends StatelessWidget {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
+| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
 | hole | 镂空的区域 | AntdMaskHole | - | - |
 
 

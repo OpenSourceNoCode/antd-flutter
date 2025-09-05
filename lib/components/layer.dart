@@ -15,8 +15,16 @@ class AntdLayer {
   }
 
   static Future<T?> open<T>(Widget widget, {String? layerType}) async {
-    final context = observer.navigator?.context;
-    if (context == null) return null;
+    final overlay = observer.navigator?.overlay;
+    if (overlay == null) {
+      AntdLogs.i(
+          msg:
+              "Navigator context is null, cannot proceed with layer operation. "
+              "Please add AntdLayer.observer to your MaterialApp/Navigator observers",
+          docUrl: "guide",
+          biz: "AntdLayer");
+      return null;
+    }
 
     final key = _getWidgetKey(widget);
     final completer = Completer<T?>();
@@ -31,7 +39,7 @@ class AntdLayer {
     );
 
     _layerQueue.addLast(layerInfo);
-    Overlay.of(context).insert(entry);
+    overlay.insert(entry);
 
     return completer.future.whenComplete(() {
       entry.remove();

@@ -141,17 +141,28 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
 
   static Future<T?> show<T>(String text,
       {final Key? key,
+      final Widget? body,
       final Duration? duration = const Duration(milliseconds: 2000),
-      final AntdToastType? type,
       final Widget? icon,
-      final AntdToastPosition position = AntdToastPosition.top}) {
+      final AntdToastPosition? position,
+      final AntdToast? toast}) {
     return AntdToast(
-      key: key,
-      builder: (_, ctx) => Text(text),
-      duration: duration,
-      icon: icon,
-      type: type,
-      position: position,
+      key: key ?? toast?.key,
+      style: toast?.style,
+      styleBuilder: toast?.styleBuilder,
+      onClosed: toast?.onClosed,
+      onOpened: toast?.onOpened,
+      onMaskTap: toast?.onMaskTap,
+      builder: toast?.builder ?? (_, ctx) => body ?? Text(text),
+      opacity: toast?.opacity,
+      dismissOnMaskTap: toast?.dismissOnMaskTap != false,
+      showMask: toast?.showMask,
+      animationDuration: toast?.animationDuration,
+      duration: duration ?? toast?.duration,
+      icon: icon ?? toast?.icon,
+      position: position ?? toast?.position,
+      dismissOnTap: toast?.dismissOnTap != false,
+      type: toast?.type,
     ).open();
   }
 }

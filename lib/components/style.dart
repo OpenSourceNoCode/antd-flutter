@@ -67,25 +67,40 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
     final theme = AntdTheme.of(context);
     final token = theme.token;
 
-    final inputStyle = getInputStyle(context);
-    if (inputStyle != null && inputStyle.inherit != true) {
-      return getFinalStyle(context, inputStyle, token);
-    }
-
     final widget = getWidget(context);
     Style style = getDefaultStyle(context, theme, token);
+    var themeStyle =
+        getThemeStyle(context, theme)?.call(context, widget, style, token);
+
+    style = margeStyle(style, themeStyle);
+    final inputStyle = getInputStyle(context);
+    if (inputStyle != null) {
+      if (inputStyle.inherit != true) {
+        return getFinalStyle(context, margeStyle(style, inputStyle), token);
+      }
+    }
 
     final styleBuilder = getStyleBuilder(context);
     final buildStyle = styleBuilder?.call(context, widget, style, token);
-    if (buildStyle != null && buildStyle.inherit != true) {
-      return getFinalStyle(context, buildStyle, token);
+    if (buildStyle != null) {
+      if (buildStyle.inherit != true) {
+        return getFinalStyle(context,
+            margeStyle(margeStyle(style, buildStyle), inputStyle), token);
+      }
     }
 
     final styleProviderStyle = context
         .dependOnInheritedWidgetOfExactType<AntdStyleProvider<Style>>()
         ?.style;
-    if (styleProviderStyle != null && styleProviderStyle.inherit != true) {
-      return getFinalStyle(context, styleProviderStyle, token);
+    if (styleProviderStyle != null) {
+      if (styleProviderStyle.inherit != true) {
+        return getFinalStyle(
+            context,
+            margeStyle(
+                margeStyle(margeStyle(style, styleProviderStyle), buildStyle),
+                inputStyle),
+            token);
+      }
     }
 
     final styleBuildProviderStyle = context
@@ -93,18 +108,12 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
             AntdStyleBuilderProvider<Style, WidgetType>>()
         ?.builder
         ?.call(context, widget, style, token);
-    if (styleBuildProviderStyle != null &&
-        styleBuildProviderStyle.inherit != true) {
-      return getFinalStyle(context, styleBuildProviderStyle, token);
-    }
 
-    var themeStyle =
-        getThemeStyle(context, theme)?.call(context, widget, style, token);
     style = margeStyle(
         margeStyle(
             margeStyle(
                 margeStyle(
-                  margeStyle(style, themeStyle),
+                  style,
                   styleBuildProviderStyle,
                 ),
                 styleProviderStyle),

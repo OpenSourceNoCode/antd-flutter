@@ -170,20 +170,25 @@ class _AutoPropertiesDemoState extends State<AutoPropertiesDemo> {
                         child: AntdForm(
                           initialValues: properties,
                           builder: (controller) {
-                            return AntdList(items: [
-                              AntdBox(
-                                outerSafeArea: AntdPosition.top,
-                                child: AntdButton(
-                                  color: AntdColor.primary,
-                                  block: true,
-                                  onTap: () {
-                                    close(controller.getFieldsValue());
-                                  },
-                                  child: Text("确定"),
-                                ),
-                              ),
-                              ...getFormItem(widget.name),
-                            ]);
+                            return AntdList(
+                                style: AntdListStyle(
+                                    itemStyle: AntdBoxStyle(
+                                        feedbackStyle: AntdBoxStyle(
+                                            color: token.colorTransparent))),
+                                items: [
+                                  AntdBox(
+                                    outerSafeArea: AntdPosition.top,
+                                    child: AntdButton(
+                                      color: AntdColor.primary,
+                                      block: true,
+                                      onTap: () {
+                                        close(controller.getFieldsValue());
+                                      },
+                                      child: Text("确定"),
+                                    ),
+                                  ),
+                                  ...getFormItem(widget.name),
+                                ]);
                           },
                         ),
                       );

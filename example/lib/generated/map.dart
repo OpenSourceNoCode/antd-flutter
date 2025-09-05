@@ -258,6 +258,7 @@ onClosed:_resolveValue(atr,'AntdActionSheet','onClosed','VoidCallback',null),
 onOpened:_resolveValue(atr,'AntdActionSheet','onOpened','VoidCallback',null),
 onMaskTap:_resolveValue(atr,'AntdActionSheet','onMaskTap','VoidCallback',null),
 dismissOnMaskTap:_resolveValue(atr,'AntdActionSheet','dismissOnMaskTap','bool',true),
+opacity:_resolveValue(atr,'AntdActionSheet','opacity','AntdMaskOpacity',null),
 showMask:_resolveValue(atr,'AntdActionSheet','showMask','bool',true),
 animationDuration:_resolveValue(atr,'AntdActionSheet','animationDuration','Duration',const Duration(milliseconds: 400)),
 actions:_resolveValue(atr,'AntdActionSheet','actions','List<AntdAction>',null),
@@ -295,14 +296,15 @@ Widget _AntdDialogFormMap(Map<String,dynamic> atr){
 return AntdDialog(
 key:_resolveValue(atr,'AntdDialog','key','Key',null),
 style:_resolveValue(atr,'AntdDialog','style','AntdDialogStyle',null),
-styleBuilder:_resolveValue(atr,'AntdDialog','styleBuilder','AntdStyleBuilder<AntdDialogStyle, AntdDialog<T>>',null),
+styleBuilder:_resolveValue(atr,'AntdDialog','styleBuilder','AntdStyleBuilder<AntdDialogStyle, Dialog>',null),
 onClosed:_resolveValue(atr,'AntdDialog','onClosed','VoidCallback',null),
 onOpened:_resolveValue(atr,'AntdDialog','onOpened','VoidCallback',null),
 onMaskTap:_resolveValue(atr,'AntdDialog','onMaskTap','VoidCallback',null),
+opacity:_resolveValue(atr,'AntdDialog','opacity','AntdMaskOpacity',null),
 dismissOnMaskTap:_resolveValue(atr,'AntdDialog','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdDialog','showMask','bool',true),
 animationDuration:_resolveValue(atr,'AntdDialog','animationDuration','Duration',const Duration(milliseconds: 400)),
-actions:_resolveValue(atr,'AntdDialog','actions','List<T>',null),
+actions:_resolveValue(atr,'AntdDialog','actions','List<AntdDialogAction>',null),
 dismissOnAction:_resolveValue(atr,'AntdDialog','dismissOnAction','bool',null),
 builder:_resolveValue(atr,'AntdDialog','builder','AntdMaskBuilder<AntdDialogState>',null),
 closeIcon:_resolveValue(atr,'AntdDialog','closeIcon','Widget',null),
@@ -509,16 +511,17 @@ Widget _AntdModalFormMap(Map<String,dynamic> atr){
 return AntdModal(
 key:_resolveValue(atr,'AntdModal','key','Key',null),
 style:_resolveValue(atr,'AntdModal','style','AntdDialogStyle',null),
-styleBuilder:_resolveValue(atr,'AntdModal','styleBuilder','AntdStyleBuilder<AntdDialogStyle, AntdDialog<T>>',null),
+styleBuilder:_resolveValue(atr,'AntdModal','styleBuilder','AntdStyleBuilder<AntdDialogStyle, Dialog>',null),
 onClosed:_resolveValue(atr,'AntdModal','onClosed','VoidCallback',null),
 onOpened:_resolveValue(atr,'AntdModal','onOpened','VoidCallback',null),
 onMaskTap:_resolveValue(atr,'AntdModal','onMaskTap','VoidCallback',null),
+opacity:_resolveValue(atr,'AntdModal','opacity','AntdMaskOpacity',null),
 dismissOnMaskTap:_resolveValue(atr,'AntdModal','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdModal','showMask','bool',true),
 animationDuration:_resolveValue(atr,'AntdModal','animationDuration','Duration',const Duration(milliseconds: 400)),
 actions:_resolveValue(atr,'AntdModal','actions','List<AntdModalAction>',null),
 dismissOnAction:_resolveValue(atr,'AntdModal','dismissOnAction','bool',null),
-builder:_resolveValue(atr,'AntdModal','builder','AntdMaskBuilder<AntdDialogState>',null),
+builder:_resolveValue(atr,'AntdModal','builder','AntdMaskBuilder<AntdModalState>',null),
 closeIcon:_resolveValue(atr,'AntdModal','closeIcon','Widget',null),
 header:_resolveValue(atr,'AntdModal','header','Widget',null),
 title:_resolveValue(atr,'AntdModal','title','Widget',null),
@@ -606,7 +609,7 @@ builder:_resolveValue(atr,'AntdMask','builder','AntdMaskBuilder<AntdMaskState>',
 opacity:_resolveValue(atr,'AntdMask','opacity','AntdMaskOpacity',null),
 dismissOnMaskTap:_resolveValue(atr,'AntdMask','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdMask','showMask','bool',true),
-animationDuration:_resolveValue(atr,'AntdMask','animationDuration','Duration',const Duration(milliseconds: 200)),
+animationDuration:_resolveValue(atr,'AntdMask','animationDuration','Duration',const Duration(milliseconds: 400)),
 hole:_resolveValue(atr,'AntdMask','hole','AntdMaskHole',null),
 );
 }
@@ -652,6 +655,7 @@ styleBuilder:_resolveValue(atr,'AntdPopup','styleBuilder','AntdStyleBuilder<Antd
 onClosed:_resolveValue(atr,'AntdPopup','onClosed','VoidCallback',null),
 onOpened:_resolveValue(atr,'AntdPopup','onOpened','VoidCallback',null),
 onMaskTap:_resolveValue(atr,'AntdPopup','onMaskTap','VoidCallback',null),
+opacity:_resolveValue(atr,'AntdPopup','opacity','AntdMaskOpacity',null),
 dismissOnMaskTap:_resolveValue(atr,'AntdPopup','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdPopup','showMask','bool',true),
 builder:_resolveValue(atr,'AntdPopup','builder','AntdMaskBuilder<AntdPopupState>',null),
@@ -1236,10 +1240,10 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
@@ -1275,7 +1279,7 @@ AntdFormItem(
 name: "holeAnimationDuration",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('holeAnimationDuration(Duration)'),
-            Text('内容动画时长')
+            Text('镂空内容动画时长')
           ],),
               
 builder: (ctx) {
@@ -1306,10 +1310,10 @@ name: "outerSafeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -1324,10 +1328,10 @@ name: "innerSafeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -1408,10 +1412,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -1440,10 +1444,10 @@ name: "fill",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdButtonFill.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('solid'), value: 'solid'),AntdSelectorOption(label: Text('outline'), value: 'outline'),AntdSelectorOption(label: Text('none'), value: 'none')]);
             
@@ -1458,10 +1462,10 @@ name: "shape",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdButtonShape.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('rounded'), value: 'rounded'),AntdSelectorOption(label: Text('rectangular'), value: 'rectangular')]);
             
@@ -1476,10 +1480,10 @@ name: "size",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdSize.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('mini'), value: 'mini'),AntdSelectorOption(label: Text('small'), value: 'small'),AntdSelectorOption(label: Text('middle'), value: 'middle'),AntdSelectorOption(label: Text('large'), value: 'large')]);
             
@@ -1561,6 +1565,24 @@ builder: (ctx) {
 ),
 ];}
 List<AntdFormItem> _getAntdActionSheetItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
 AntdFormItem(
 name: "showMask",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -1664,10 +1686,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -1708,10 +1730,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdDividerPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('right'), value: 'right')]);
             
@@ -1719,6 +1741,24 @@ builder: (ctx) {
 ),
 ];}
 List<AntdFormItem> _getAntdDialogItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
 AntdFormItem(
 name: "showMask",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -1842,10 +1882,10 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdTabAlignment.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
             
@@ -1900,10 +1940,10 @@ name: "status",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdErrorBlockStatus.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('none'), value: 'none'),AntdSelectorOption(label: Text('disconnected'), value: 'disconnected'),AntdSelectorOption(label: Text('empty'), value: 'empty'),AntdSelectorOption(label: Text('busy'), value: 'busy')]);
             
@@ -2060,10 +2100,10 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdTabAlignment.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
             
@@ -2092,10 +2132,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -2236,10 +2276,10 @@ name: "safeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -2270,10 +2310,10 @@ name: "alignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdEdge.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
             
@@ -2400,10 +2440,10 @@ name: "safeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -2518,10 +2558,10 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdTabAlignment.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
             
@@ -2536,10 +2576,10 @@ name: "indicatorPosition",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdIndicatorPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom')]);
             
@@ -2554,10 +2594,10 @@ name: "indicatorMode",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdIndicatorMode.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('full'), value: 'full'),AntdSelectorOption(label: Text('fixed'), value: 'fixed')]);
             
@@ -2581,6 +2621,24 @@ builder: (ctx) {
 ),
 ];}
 List<AntdFormItem> _getAntdModalItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
 AntdFormItem(
 name: "showMask",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -2704,10 +2762,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFloatingPanelPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom')]);
             
@@ -2886,10 +2944,10 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
@@ -2956,10 +3014,10 @@ name: "placement",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPlacement.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('leftTop'), value: 'leftTop'),AntdSelectorOption(label: Text('leftBottom'), value: 'leftBottom'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('rightTop'), value: 'rightTop'),AntdSelectorOption(label: Text('rightBottom'), value: 'rightBottom')]);
             
@@ -2974,10 +3032,10 @@ name: "mode",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPopoverMode.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('dark'), value: 'dark')]);
             
@@ -2992,10 +3050,10 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPopoverTrigger.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('tap'), value: 'tap'),AntdSelectorOption(label: Text('longPress'), value: 'longPress'),AntdSelectorOption(label: Text('show'), value: 'show')]);
             
@@ -3012,10 +3070,10 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
@@ -3084,10 +3142,10 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
@@ -3140,10 +3198,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -3189,6 +3247,24 @@ builder: (ctx) {
 ),
 ];}
 List<AntdFormItem> _getAntdPopupItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
 AntdFormItem(
 name: "showMask",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -3236,10 +3312,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -3398,10 +3474,10 @@ name: "fit",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdScrollItemFit.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('split'), value: 'split'),AntdSelectorOption(label: Text('child'), value: 'child')]);
             
@@ -3416,10 +3492,10 @@ name: "alignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdEdge.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
             
@@ -3498,10 +3574,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -3566,10 +3642,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -4008,10 +4084,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -4026,10 +4102,10 @@ name: "fill",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdTagFill.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('solid'), value: 'solid'),AntdSelectorOption(label: Text('outline'), value: 'outline')]);
             
@@ -4252,10 +4328,10 @@ name: "status",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdResultStatus.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('error'), value: 'error'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('waiting'), value: 'waiting'),AntdSelectorOption(label: Text('warning'), value: 'warning')]);
             
@@ -4272,10 +4348,10 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
@@ -4340,10 +4416,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdToastPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('center'), value: 'center')]);
             
@@ -4358,10 +4434,10 @@ name: "type",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdToastType.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('fail'), value: 'fail'),AntdSelectorOption(label: Text('other'), value: 'other')]);
             
@@ -4416,10 +4492,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
@@ -4538,10 +4614,10 @@ name: "fit",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdScrollItemFit.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('split'), value: 'split'),AntdSelectorOption(label: Text('child'), value: 'child')]);
             
@@ -4640,10 +4716,10 @@ name: "layout",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormLayout.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal')]);
             
@@ -4686,10 +4762,10 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormTrigger.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
             
@@ -4718,10 +4794,10 @@ name: "validateTrigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormTrigger.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
             
@@ -4866,10 +4942,10 @@ name: "layout",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormLayout.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal')]);
             
@@ -4912,10 +4988,10 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormTrigger.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
             
@@ -4944,10 +5020,10 @@ name: "validateTrigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdFormTrigger.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
             
@@ -6124,10 +6200,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
@@ -6168,10 +6244,10 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdBadgePosition.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight')]);
             
@@ -6238,10 +6314,10 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.name} : {},
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
                   ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.firstOrNull));
+                      .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             

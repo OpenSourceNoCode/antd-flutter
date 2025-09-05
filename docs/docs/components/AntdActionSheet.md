@@ -19,7 +19,7 @@ subtitle: 动作面板
 
 ### 基础用法
 
-直接通过open打开
+多种打开方式
 
 ```dart
 class AntdActionSheetDemo extends StatelessWidget {
@@ -28,7 +28,25 @@ class AntdActionSheetDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-          child: const Text("最简单的用法"),
+          child: const Text("静态方法"),
+          onTap: () {
+            AntdActionSheet.show(const [
+              AntdAction(title: Text("辅助")),
+              AntdAction(title: Text("修改")),
+              AntdAction(title: Text("保存"))
+            ]);
+          }),
+      AntdButton(
+          child: const Text("open 方法"),
+          onTap: () {
+            const AntdActionSheet(actions: [
+              AntdAction(title: Text("辅助")),
+              AntdAction(title: Text("修改")),
+              AntdAction(title: Text("保存"))
+            ]).open();
+          }),
+      AntdButton(
+          child: const Text("AntdLayer Open"),
           onTap: () {
             AntdLayer.open(const AntdActionSheet(actions: [
               AntdAction(title: Text("辅助")),
@@ -287,6 +305,7 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
+| opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
 | actions | 面板选项列表 | List&lt;AntdAction&gt; | - | - |

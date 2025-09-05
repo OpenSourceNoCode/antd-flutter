@@ -64,7 +64,7 @@ class AntdSwipeActionDemo extends StatelessWidget {
                   padding: 16.all,
                   width: double.infinity,
                   color: token.colorTransparent),
-              child: const Text("左右滑动,中间点击复位")))
+              child: const Text("左右滑动")))
     ]);
   }
 }

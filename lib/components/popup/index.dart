@@ -51,6 +51,7 @@ abstract class AntdBasePopup<Style extends AntdPopupStyle, WidgetType,
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap,
       super.showMask,
       super.builder,
@@ -168,6 +169,7 @@ abstract class AntdPopupInner<WidgetType, StateType>
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap,
       super.showMask,
       super.builder,
@@ -296,6 +298,7 @@ class AntdPopup extends AntdPopupInner<AntdPopup, AntdPopupState> {
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
       super.builder,
@@ -303,6 +306,30 @@ class AntdPopup extends AntdPopupInner<AntdPopup, AntdPopupState> {
       super.closeIcon,
       super.position = AntdPosition.bottom,
       super.avoidKeyboard = true});
+
+  static Future<T?> show<T>(
+      {final Key? key,
+      final Widget? content,
+      final AntdPosition position = AntdPosition.bottom,
+      final AntdPopup? popup}) {
+    return AntdPopup(
+            key: key ?? popup?.key,
+            style: popup?.style,
+            styleBuilder: popup?.styleBuilder,
+            onClosed: popup?.onClosed,
+            onOpened: popup?.onOpened,
+            onMaskTap: popup?.onMaskTap,
+            builder: popup?.builder ??
+                (content != null ? (_, ctx) => content : null),
+            opacity: popup?.opacity,
+            dismissOnMaskTap: popup?.dismissOnMaskTap != false,
+            showMask: popup?.showMask != false,
+            animationDuration: popup?.animationDuration,
+            closeIcon: popup?.closeIcon,
+            position: position,
+            avoidKeyboard: popup?.avoidKeyboard != false)
+        .open();
+  }
 
   @override
   AntdPopup getWidget(BuildContext context) {

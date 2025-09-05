@@ -49,13 +49,50 @@ class AntdButtonStyleDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
-          style: AntdButtonStyle(
-              buttonStyle: AntdBoxStyle(
-                  border: const BorderSide(color: Colors.red).all,
-                  color: Colors.green,
-                  textStyle:
-                      const TextStyle(fontSize: 22, color: Colors.black))),
-          child: const Text("自定义样式"))
+          style: const AntdButtonStyle(
+              buttonStyle: AntdBoxStyle(color: Colors.green)),
+          styleBuilder: (context, button, style, token) {
+            if (button.size == AntdSize.large) {
+              return AntdButtonStyle(
+                  buttonStyle: AntdBoxStyle(
+                      textStyle:
+                          token.font.xxl.copyWith(color: token.colorWarning)));
+            }
+            return style;
+          },
+          child: const Text("自定义样式")),
+      AntdStyleBuilderProvider<AntdButtonStyle, AntdButton>(
+          builder: (context, button, style, token) {
+            return AntdButtonStyle(
+                buttonStyle: AntdBoxStyle(
+                    border: token.borderSide
+                        .copyWith(width: 4, color: token.colorSuccess)
+                        .all));
+          },
+          child: Column(children: [
+            AntdStyleProvider<AntdButtonStyle>(
+                style: const AntdButtonStyle(
+                    buttonStyle: AntdBoxStyle(opacity: 0.5)),
+                child: AntdButton(
+                    size: AntdSize.large,
+                    style: AntdButtonStyle(
+                        buttonStyle: AntdBoxStyle(
+                            border:
+                                const BorderSide(width: 2, color: Colors.red)
+                                    .all)),
+                    styleBuilder: (context, button, style, token) {
+                      if (button.size == AntdSize.large) {
+                        return AntdButtonStyle(
+                            buttonStyle: AntdBoxStyle(
+                                color: token.colorPrimary,
+                                textStyle: token.font.xxl
+                                    .copyWith(color: token.colorWarning)));
+                      }
+                      return style;
+                    },
+                    child: const Text("Button"))),
+            const AntdButton(child: Text("Button"))
+          ]))
     ]);
   }
 }

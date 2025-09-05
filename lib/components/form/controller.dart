@@ -10,11 +10,9 @@ class _Value {
   dynamic _beforeValue;
   dynamic _value;
 
-  _Value(dynamic value) : _value = value;
-
-  set value(dynamic setValue) {
-    _beforeValue = _value;
-    _value = setValue;
+  _Value(_Value? beforeValue, dynamic value) {
+    _beforeValue = beforeValue?.value;
+    _value = value;
   }
 
   dynamic get beforeValue => _beforeValue;
@@ -197,7 +195,8 @@ class AntdFormStore extends ChangeNotifier {
     _feedbackRebuildMark[name] = ValueNotifier(false);
 
     if (!_items.containsKey(name) ||
-        oldState?.widget.initialValue != state.widget.initialValue) {
+        oldState?.widget.initialValue != state.widget.initialValue ||
+        _setInitValue.containsKey(name)) {
       dynamic initValue;
       if (state.widget.initialValue is Map<String, dynamic>) {
         initValue =
@@ -207,7 +206,7 @@ class AntdFormStore extends ChangeNotifier {
       }
       initValue ??= _findValueByPath(_setInitValue, name.split("."));
       _initValue[name] = initValue;
-      _value[name] = _Value(initValue);
+      _value[name] = _Value(null, initValue);
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -303,14 +302,7 @@ class AntdFormStore extends ChangeNotifier {
 
   T? _setValue<T>(String name, T? value) {
     var normalizeValue = _normalizeValue(name, value);
-    late _Value innerValue;
-    if (_value.containsKey(name)) {
-      innerValue = _value[name]!;
-      innerValue.value = normalizeValue;
-    } else {
-      innerValue = _Value(normalizeValue);
-    }
-
+    late _Value innerValue = _Value(_value[name], normalizeValue);
     _value[name] = innerValue;
 
     var beDependencies = _dependencies[name];
@@ -391,7 +383,7 @@ class AntdFormStore extends ChangeNotifier {
   void _reset() {
     _value.clear();
     _initValue.forEach((name, value) {
-      _value[name] = _Value(_value);
+      _value[name] = _Value(null, _value);
     });
     _isChanged.clear();
     _isTouched.clear();
@@ -400,7 +392,7 @@ class AntdFormStore extends ChangeNotifier {
 
   void _resetFields(List<String> name) {
     for (var value in name) {
-      _value[value] = _Value(_initValue[value]);
+      _value[value] = _Value(null, _initValue[value]);
     }
   }
 

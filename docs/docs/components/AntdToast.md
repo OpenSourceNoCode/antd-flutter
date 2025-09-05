@@ -19,7 +19,7 @@ subtitle: 轻提示
 
 ### 事件
 
-一个简单的提示
+多种打开方式
 
 ```dart
 class AntdToastDemo extends StatelessWidget {
@@ -29,19 +29,20 @@ class AntdToastDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdButton(
           onTap: () {
-            AntdLayer.open(AntdToast(
-                onOpened: () {
-                  AntdToast.show("第一个打开了");
-                },
-                duration: Duration(seconds: 0),
-                builder: (_, ctx) {
-                  return Text("我是第一个");
-                },
-                onClosed: () {
-                  AntdToast.show("第一个关闭了");
-                }));
+            AntdToast.show("Toast");
           },
-          child: const Text("轻提示"))
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdToast(builder: (close, state) => const Text("Toast")).open();
+          },
+          child: const Text("open方法")),
+      AntdButton(
+          onTap: () {
+            AntdLayer.open(
+                AntdToast(builder: (close, state) => const Text("Toast")));
+          },
+          child: const Text("AntdLayer Open"))
     ]);
   }
 }

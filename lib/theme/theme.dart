@@ -254,7 +254,11 @@ class AntdTheme {
     var provider =
         context.dependOnInheritedWidgetOfExactType<AntdThemeProvider>();
     if (provider?.theme == null) {
-      throw "Theme not found. Please wrap your component root with AntdThemeProvider.";
+      AntdLogs.i(
+          msg: "Root not wrapped with AntdProvider. Using default theme.",
+          docUrl: "guide",
+          biz: "AntdTheme");
+      return defaultTheme;
     }
     return provider!.theme;
   }

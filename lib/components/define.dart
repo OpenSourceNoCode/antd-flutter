@@ -303,12 +303,114 @@ class AntdTokenBuilder extends StatelessWidget {
   }
 }
 
+enum AntdLogLevel {
+  verbose(0, 'Verbose'),
+  debug(1, 'Debug'),
+  info(2, 'Info'),
+  warning(3, 'Warning'),
+  error(4, 'Error'),
+  none(5, 'None');
+
+  final int level;
+  final String name;
+  const AntdLogLevel(this.level, this.name);
+}
+
 class AntdLogs {
-  static void d({final String? biz, required final String msg}) {
+  static const String _root = "https://antd-flutter.vercel.app";
+
+  static AntdLogLevel _currentLevel =
+      kDebugMode ? AntdLogLevel.debug : AntdLogLevel.info;
+
+  static bool _enableStackTrace = kDebugMode;
+
+  static set logLevel(AntdLogLevel level) {
+    _currentLevel = level;
+  }
+
+  static set enableStackTrace(bool enabled) {
+    _enableStackTrace = enabled;
+  }
+
+  static void v({String? biz, required String msg, String? docUrl}) {
+    if (_shouldLog(AntdLogLevel.verbose)) {
+      _printLog('Verbose', biz, msg, docUrl);
+    }
+  }
+
+  static void d({String? biz, required String msg, String? docUrl}) {
+    if (_shouldLog(AntdLogLevel.debug)) {
+      _printLog('Debug', biz, msg, docUrl);
+      if (_enableStackTrace) {
+        debugPrint("[Antd Logs][Debug]:以下是该模块的堆栈");
+        debugPrintStack();
+      }
+    }
+  }
+
+  static void i({String? biz, required String msg, String? docUrl}) {
+    if (_shouldLog(AntdLogLevel.info)) {
+      _printLog('Info', biz, msg, docUrl);
+    }
+  }
+
+  static void w(
+      {String? biz, required String msg, String? docUrl, Object? error}) {
+    if (_shouldLog(AntdLogLevel.warning)) {
+      _printLog('Warning', biz,
+          '$msg${error != null ? ' - Error: $error' : ''}', docUrl);
+    }
+  }
+
+  static void e(
+      {String? biz,
+      required String msg,
+      String? docUrl,
+      Object? error,
+      StackTrace? stackTrace}) {
+    if (_shouldLog(AntdLogLevel.error)) {
+      _printLog('Error', biz, '$msg${error != null ? ' - Error: $error' : ''}',
+          docUrl);
+
+      if (stackTrace != null) {
+        debugPrint("[Antd Logs][Error]:堆栈跟踪:");
+        debugPrint(stackTrace.toString());
+      } else if (_enableStackTrace) {
+        debugPrint("[Antd Logs][Error]:以下是该模块的堆栈");
+        debugPrintStack();
+      }
+    }
+  }
+
+  static bool _shouldLog(AntdLogLevel level) {
+    return kDebugMode && level.level >= _currentLevel.level;
+  }
+
+  static void _printLog(String level, String? biz, String msg, String? docUrl) {
+    final buffer = StringBuffer();
+    buffer.write('[Antd] $level ');
+    if (biz != null) {
+      buffer.write('$biz ');
+    }
+    buffer.write('---$msg');
+
+    if (docUrl != null) {
+      buffer.write('\n📖 Docs $_root/$docUrl');
+    }
+
+    debugPrint(buffer.toString());
+  }
+
+  static void configure({
+    AntdLogLevel level = AntdLogLevel.debug,
+    bool enableStackTrace = true,
+  }) {
+    _currentLevel = level;
+    _enableStackTrace = enableStackTrace;
+
     if (kDebugMode) {
-      debugPrint("[Antd Logs]:Model:[$biz]---$msg");
-      debugPrint("[Antd Logs]:以下是该模块的堆栈");
-      debugPrintStack();
+      debugPrint(
+          '[Antd Logs] 配置完成 - 级别: ${level.name}, 堆栈跟踪: ${enableStackTrace ? "启用" : "禁用"}');
     }
   }
 }

@@ -54,7 +54,7 @@ class AntdSwipeActionDemo extends StatelessWidget {
               padding: 16.all,
               width: double.infinity,
               color: token.colorTransparent),
-          child: const Text("左右滑动,中间点击复位"),
+          child: const Text("左右滑动"),
         ),
       ),
     ]);
@@ -106,7 +106,7 @@ class _AntdSwipeActionControllerDemoStateDemo
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(outline: true, child: [
-      ...List.generate(3, (i) {
+      ...List.generate(1, (i) {
         return AntdSwipeAction(
           key: ValueKey(i),
           controller: controller,
@@ -175,7 +175,7 @@ class _AntdSwipeActionControllerDemoStateDemo
                 padding: 16.all,
                 width: double.infinity,
                 color: token.colorTransparent),
-            child: const Text("左右滑动,中间点击复位"),
+            child: const Text("左右滑动"),
           ),
         );
       })

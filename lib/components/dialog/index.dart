@@ -122,6 +122,7 @@ abstract class AntdBaseDialog<
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap,
       super.showMask,
       super.animationDuration,
@@ -200,20 +201,18 @@ abstract class AntdBaseDialogState<
   }
 }
 
-///@t 对话框
-///@g 反馈
-///@o 97
-///@d 用于重要信息的告知或操作的反馈，并附带少量的选项供用户进行操作。
-///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Dialog 在当前页面正中打开一个浮层，承载相应的操作。
-class AntdDialog<T extends AntdDialogAction>
-    extends AntdBaseDialog<T, AntdDialog<T>, AntdDialogStyle, AntdDialogState> {
-  const AntdDialog(
+abstract class AntdInnerDialog<
+    T extends AntdDialogAction,
+    Dialog extends AntdInnerDialog<T, Dialog, StateType>,
+    StateType> extends AntdBaseDialog<T, Dialog, AntdDialogStyle, StateType> {
+  const AntdInnerDialog(
       {super.key,
       super.style,
       super.styleBuilder,
       super.onClosed,
       super.onOpened,
       super.onMaskTap,
+      super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
       super.animationDuration = const Duration(milliseconds: 400),
@@ -223,11 +222,6 @@ class AntdDialog<T extends AntdDialogAction>
       super.closeIcon,
       super.header,
       super.title});
-
-  @override
-  State<StatefulWidget> createState() {
-    return AntdDialogState();
-  }
 
   @override
   AntdDialogStyle getDefaultStyle(
@@ -271,67 +265,11 @@ class AntdDialog<T extends AntdDialogAction>
       AntdDialogStyle defaultStyle, AntdDialogStyle? style) {
     return defaultStyle.copyFrom(style);
   }
-
-  @override
-  AntdStyleBuilder<AntdDialogStyle, AntdDialog<T>>? getThemeStyle(
-      BuildContext context, AntdTheme theme) {
-    return theme.dialogStyle;
-  }
-
-  @override
-  AntdDialog<T> getWidget(BuildContext context) {
-    return this;
-  }
-
-  @override
-  String get layerType => "dialog";
-
-  static Future<T?> alert<T>(Widget content,
-      [final Widget alert = const Text("我知道了"),
-      final AntdActionOnTap? onConfirm]) {
-    return AntdDialog(
-      builder: (_, ctx) {
-        return content;
-      },
-      actions: [
-        AntdDialogAction(
-          title: alert,
-          primary: true,
-          onTap: onConfirm,
-        )
-      ],
-    ).open();
-  }
-
-  static Future<T?> confirm<T>(Widget content,
-      [final Widget confirm = const Text("确认"),
-      final AntdActionOnTap? onConfirm,
-      final Widget cancel = const Text("取消"),
-      final AntdActionOnTap? onCancel]) {
-    return AntdDialog(
-      builder: (_, ctx) {
-        return content;
-      },
-      actions: [
-        AntdDialogAction(
-          title: cancel,
-          bottom: true,
-          primary: false,
-          onTap: onCancel,
-        ),
-        AntdDialogAction(
-          title: confirm,
-          bottom: true,
-          primary: true,
-          onTap: onConfirm,
-        ),
-      ],
-    ).open();
-  }
 }
 
-class AntdDialogState<T extends AntdDialogAction> extends AntdBaseDialogState<
-    AntdDialogStyle, T, AntdDialog<T>, AntdDialogState> {
+abstract class AntdInnerDialogState<T extends AntdDialogAction, StateType,
+        Dialog extends AntdInnerDialog<T, Dialog, StateType>>
+    extends AntdBaseDialogState<AntdDialogStyle, T, Dialog, StateType> {
   @protected
   handlerTap(AntdAction? action) async {
     if (action?.onTap != null) {
@@ -389,10 +327,170 @@ class AntdDialogState<T extends AntdDialogAction> extends AntdBaseDialogState<
     }
     return actionWidgets;
   }
+}
+
+///@t 对话框
+///@g 反馈
+///@o 97
+///@d 用于重要信息的告知或操作的反馈，并附带少量的选项供用户进行操作。
+///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Dialog 在当前页面正中打开一个浮层，承载相应的操作。
+class AntdDialog
+    extends AntdInnerDialog<AntdDialogAction, AntdDialog, AntdDialogState> {
+  const AntdDialog(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.onClosed,
+      super.onOpened,
+      super.onMaskTap,
+      super.opacity,
+      super.dismissOnMaskTap = true,
+      super.showMask = true,
+      super.animationDuration = const Duration(milliseconds: 400),
+      super.actions,
+      super.dismissOnAction,
+      super.builder,
+      super.closeIcon,
+      super.header,
+      super.title});
 
   @override
-  @protected
-  AntdDialogState<T> getState() {
+  State<StatefulWidget> createState() {
+    return AntdDialogState();
+  }
+
+  @override
+  AntdStyleBuilder<AntdDialogStyle, AntdDialog>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.dialogStyle;
+  }
+
+  @override
+  AntdDialog getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  String get layerType => "dialog";
+
+  static Future<T?> show<T>(
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      required final Widget content,
+      final List<AntdDialogAction>? actions,
+      AntdDialog? dialog}) {
+    return AntdDialog(
+      key: key ?? dialog?.key,
+      style: dialog?.style,
+      styleBuilder: dialog?.styleBuilder,
+      onClosed: dialog?.onClosed,
+      onOpened: dialog?.onOpened,
+      onMaskTap: dialog?.onMaskTap,
+      opacity: dialog?.opacity,
+      dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
+      showMask: dialog?.showMask != false,
+      animationDuration: dialog?.animationDuration,
+      actions: actions,
+      dismissOnAction: dialog?.dismissOnAction != false,
+      builder: dialog?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: dialog?.closeIcon,
+      header: header ?? dialog?.header,
+      title: title ?? dialog?.header,
+    ).open<T>();
+  }
+
+  static Future<T?> alert<T>(Widget content,
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      final Widget alert = const Text("我知道了"),
+      final AntdActionOnTap? onConfirm,
+      final AntdDialog? dialog}) {
+    return AntdDialog(
+      key: key ?? dialog?.key,
+      style: dialog?.style,
+      styleBuilder: dialog?.styleBuilder,
+      onClosed: dialog?.onClosed,
+      onOpened: dialog?.onOpened,
+      onMaskTap: dialog?.onMaskTap,
+      opacity: dialog?.opacity,
+      dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
+      showMask: dialog?.showMask != false,
+      animationDuration: dialog?.animationDuration,
+      actions: [
+        AntdDialogAction(
+          title: alert,
+          primary: true,
+          onTap: onConfirm,
+        ),
+        ...(dialog?.actions ?? [])
+      ],
+      dismissOnAction: dialog?.dismissOnAction != false,
+      builder: dialog?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: dialog?.closeIcon,
+      header: header ?? dialog?.header,
+      title: title ?? dialog?.header,
+    ).open<T>();
+  }
+
+  static Future<T?> confirm<T>(Widget content,
+      {final Key? key,
+      final Widget? header,
+      final Widget? title,
+      final Widget confirm = const Text("确认"),
+      final AntdActionOnTap? onConfirm,
+      final Widget cancel = const Text("取消"),
+      final AntdActionOnTap? onCancel,
+      final AntdDialog? dialog}) {
+    return AntdDialog(
+      key: key ?? dialog?.key,
+      style: dialog?.style,
+      styleBuilder: dialog?.styleBuilder,
+      onClosed: dialog?.onClosed,
+      onOpened: dialog?.onOpened,
+      onMaskTap: dialog?.onMaskTap,
+      opacity: dialog?.opacity,
+      dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
+      showMask: dialog?.showMask != false,
+      animationDuration: dialog?.animationDuration,
+      actions: [
+        AntdDialogAction(
+          title: cancel,
+          bottom: true,
+          primary: false,
+          onTap: onCancel,
+        ),
+        AntdDialogAction(
+          title: confirm,
+          bottom: true,
+          primary: true,
+          onTap: onConfirm,
+        ),
+        ...(dialog?.actions ?? [])
+      ],
+      dismissOnAction: dialog?.dismissOnAction != false,
+      builder: dialog?.builder ??
+          (_, ctx) {
+            return content;
+          },
+      closeIcon: dialog?.closeIcon,
+      header: header ?? dialog?.header,
+      title: title ?? dialog?.header,
+    ).open<T>();
+  }
+}
+
+class AntdDialogState extends AntdInnerDialogState<AntdDialogAction,
+    AntdDialogState, AntdDialog> {
+  @override
+  AntdDialogState getState() {
     return this;
   }
 }

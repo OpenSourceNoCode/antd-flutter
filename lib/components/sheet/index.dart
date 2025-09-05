@@ -224,6 +224,7 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
       super.onOpened,
       super.onMaskTap,
       super.dismissOnMaskTap = true,
+      super.opacity,
       super.showMask = true,
       super.animationDuration = const Duration(milliseconds: 400),
       required this.actions,
@@ -251,6 +252,33 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
 
   ///安全区
   final bool safeArea;
+
+  static Future<T?> show<T>(List<AntdAction> actions,
+      {final Key? key,
+      final Widget? cancelText,
+      final bool? dismissOnAction = true,
+      final Widget? extra,
+      final AntdActionCallback? onAction,
+      final AntdActionSheet? sheet}) {
+    return AntdActionSheet(
+      key: key ?? sheet?.key,
+      style: sheet?.style,
+      styleBuilder: sheet?.styleBuilder,
+      onClosed: sheet?.onClosed,
+      onOpened: sheet?.onOpened,
+      onMaskTap: sheet?.onMaskTap,
+      opacity: sheet?.opacity,
+      dismissOnMaskTap: sheet?.dismissOnMaskTap != false,
+      showMask: sheet?.showMask != false,
+      animationDuration: sheet?.animationDuration,
+      actions: actions,
+      cancelText: cancelText ?? sheet?.cancelText,
+      dismissOnAction: dismissOnAction ?? sheet?.dismissOnAction,
+      extra: extra ?? sheet?.extra,
+      onAction: onAction ?? sheet?.onAction,
+      safeArea: sheet?.safeArea == true,
+    ).open();
+  }
 
   @override
   State<StatefulWidget> createState() {

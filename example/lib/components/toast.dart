@@ -7,7 +7,7 @@ import 'package:example/widget/demo.dart';
 import 'package:flutter/cupertino.dart';
 
 /// @t 事件
-/// @d 一个简单的提示
+/// @d 多种打开方式
 /// @l [AntdToast]
 class AntdToastDemo extends StatelessWidget {
   const AntdToastDemo({super.key});
@@ -17,22 +17,23 @@ class AntdToastDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdButton(
           onTap: () {
+            AntdToast.show("Toast");
+          },
+          child: const Text("静态方法")),
+      AntdButton(
+          onTap: () {
+            AntdToast(
+              builder: (close, state) => const Text("Toast"),
+            ).open();
+          },
+          child: const Text("open方法")),
+      AntdButton(
+          onTap: () {
             AntdLayer.open(AntdToast(
-              onOpened: () {
-                AntdToast.show(
-                  "第一个打开了",
-                );
-              },
-              duration: Duration(seconds: 0),
-              builder: (_, ctx) {
-                return Text("我是第一个");
-              },
-              onClosed: () {
-                AntdToast.show("第一个关闭了");
-              },
+              builder: (close, state) => const Text("Toast"),
             ));
           },
-          child: const Text("轻提示"))
+          child: const Text("AntdLayer Open")),
     ]);
   }
 }
