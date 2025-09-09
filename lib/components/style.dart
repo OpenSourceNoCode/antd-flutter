@@ -1,5 +1,6 @@
 import 'package:antd_flutter_mobile/theme/theme.dart';
 import 'package:antd_flutter_mobile/theme/token.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AntdStyle {
@@ -27,6 +28,12 @@ class AntdStyleProvider<Style extends AntdStyle> extends InheritedWidget {
   @override
   bool updateShouldNotify(covariant AntdStyleProvider<Style> oldWidget) {
     return oldWidget.style != style;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Style>('style', style));
   }
 }
 

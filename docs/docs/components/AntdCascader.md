@@ -37,8 +37,7 @@ class AntdCascaderDemo extends StatelessWidget {
                   AntdToast.show(values.join(","));
                 },
                 titleWidget: const Text("地址选择"),
-                cascaderView:
-                    const AntdCascaderView(options: cascaderOptions)));
+                cascaderView: AntdCascaderView(options: cascaderOptions)));
           })
     ]);
   }
@@ -173,5 +172,20 @@ class AntdCascaderDemo extends StatelessWidget {
 | onCancel | 确认事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
 | cascaderView | 选择器 | AntdCascaderView | - | - |
 
+
+## 级联选择器样式(AntdCascaderStyle) <a id='AntdCascaderStyle'></a>
+
+| 属性名 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
+| maskColor | 背景色 | Color | - | - |
+| maskOpacity | 透明度 | double | - | - |
+| bodyStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| closeIconStyle | 关闭按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| headerStyle | 头部容器样式（包含标题和操作按钮的区域） | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| titleStyle | 标题文本样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| cancelStyle | 取消按钮样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| confirmStyle | 确认按钮样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| headerFlexStyle | 头部弹性布局样式（控制标题和按钮的排列方式） | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 
 

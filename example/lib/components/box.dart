@@ -277,7 +277,7 @@ class AntdAlignmentDemo extends StatelessWidget {
         ].map((v) {
           return AntdBox(
             style: AntdBoxStyle(
-                size: 120,
+                size: 100,
                 color: token.colorPrimary,
                 alignment: v,
                 textStyle: TextStyle(color: token.colorWhite)),
@@ -370,57 +370,60 @@ class AntdEventDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
+    var style = AntdBoxStyle(
+        size: 100,
+        alignment: Alignment.center,
+        textStyle: TextStyle(color: token.colorWhite),
+        color: token.colorPrimary);
     return DemoWrapper(
         outline: true,
         style: const AntdBoxStyle(alignment: Alignment.center),
         child: [
           AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
+            style: style,
             onTap: () {
               AntdToast.show("触发了单击");
             },
             child: const Text("单机"),
           ),
           AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
-            options:
-                const AntdTapOptions(hapticFeedback: AntdHapticFeedback.heavy),
+            style: style,
             onDoubleTap: () {
               AntdToast.show("触发了双击");
             },
             child: const Text("双击"),
           ),
           AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
+            style: style,
             onLongPress: () {
               AntdToast.show("触发了长按");
             },
             child: const Text("长按"),
           ),
           AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
-            disabled: true,
+            style: style,
             onTap: () {
-              AntdToast.show("如果在触发之前移动手指则会重新计算");
+              AntdToast.show("单击");
+            },
+            onDoubleTap: () {
+              AntdToast.show("双击");
             },
             onLongPress: () {
-              AntdToast.show("触发了禁用");
+              AntdToast.show("长按");
+            },
+            child: const Text("同时存在"),
+          ),
+          AntdBox(
+            style: style,
+            disabled: true,
+            onTap: () {
+              AntdToast.show("单击");
+            },
+            onDoubleTap: () {
+              AntdToast.show("双击");
+            },
+            onLongPress: () {
+              AntdToast.show("长按");
             },
             options: const AntdTapOptions(alwaysTriggerTap: true),
             child: const Text("禁用"),
@@ -432,58 +435,149 @@ class AntdEventDemo extends StatelessWidget {
                 textStyle: TextStyle(color: token.colorWhite),
                 color: token.colorPrimary),
             onTap: () {
-              AntdToast.show("触发了单击");
+              AntdToast.show("虽然移动了 但还是触发了单击");
             },
             options: const AntdTapOptions(allowOffset: true),
-            child: const Text("移动后抬起任然触发"),
+            child: const Text("移动后触发"),
           ),
           AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
+            style: style,
             onTap: () {
-              AntdToast.show("先触发了单机");
+              AntdToast.show("触发后500毫秒才执行单击");
             },
             onDoubleTap: () {
-              AntdToast.show("触发了长按");
-            },
-            options:
-                const AntdTapOptions(allowOffset: true, alwaysTriggerTap: true),
-            child: const Text("自定义触摸配置"),
-          ),
-          AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
-            onTap: () {
-              AntdToast.show("触发了单机");
-            },
-            options: const AntdTapOptions(
-                throttle: Duration(milliseconds: 1000),
-                debounce: Duration(milliseconds: 100)),
-            child: const Text("节流和防抖"),
-          ),
-          AntdBox(
-            style: AntdBoxStyle(
-                size: 100,
-                alignment: Alignment.center,
-                textStyle: TextStyle(color: token.colorWhite),
-                color: token.colorPrimary),
-            onDoubleTap: () {
-              AntdToast.show("触发了双击");
+              AntdToast.show("触发后500毫秒才执行双击");
             },
             onLongPress: () {
-              AntdToast.show("触发了长按");
+              AntdToast.show("触发后500毫秒才执行长按");
             },
-            options: const AntdTapOptions(
-                doubleTapTimeout: 50, longPressTimeout: 100),
-            child: const Text("自定义长按和双击间隔"),
+            options:
+                const AntdTapOptions(debounce: Duration(milliseconds: 500)),
+            child: const Text("防抖 500毫秒"),
+          ),
+          AntdBox(
+            style: style,
+            onTap: () {
+              AntdToast.show("1s内执行一次单击");
+            },
+            onDoubleTap: () {
+              AntdToast.show("1s内执行一次双击");
+            },
+            onLongPress: () {
+              AntdToast.show("1s内执行一次长按");
+            },
+            options:
+                const AntdTapOptions(debounce: Duration(milliseconds: 1000)),
+            child: const Text("节流 1s"),
+          ),
+          AntdBox(
+            style: style,
+            onTap: () {
+              AntdToast.show("触发单击");
+            },
+            onDoubleTap: () {
+              AntdToast.show("触发双击");
+            },
+            onLongPress: () {
+              AntdToast.show("触发长按");
+            },
+            options: const AntdTapOptions(alwaysTriggerTap: true),
+            child: const Text("一直触发单击"),
           ),
         ]);
+  }
+}
+
+/// @t 穿透
+/// @d 蓝色会接收到所有事件,绿色和红色则不会
+/// @l [AntdBox]
+class AntdListenerDemo extends StatelessWidget {
+  const AntdListenerDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    var style = AntdBoxStyle(
+        size: 300,
+        alignment: Alignment.center,
+        textStyle: TextStyle(color: token.colorWhite),
+        color: token.colorPrimary);
+    return DemoWrapper(
+        outline: true,
+        style: const AntdBoxStyle(alignment: Alignment.center),
+        child: [
+          AntdBox(
+            style: style,
+            onTap: () {
+              AntdToast.show("触发蓝色单击");
+            },
+            onDoubleTap: () {
+              AntdToast.show("触发蓝色双击");
+            },
+            onLongPress: () {
+              AntdToast.show("触发蓝色长按");
+            },
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+            child: AntdBox(
+              onTap: () {
+                AntdToast.show("触发红色单击");
+              },
+              onDoubleTap: () {
+                AntdToast.show("触发红色双击");
+              },
+              onLongPress: () {
+                AntdToast.show("触发红色长按");
+              },
+              style: style
+                  .copyFrom(const AntdBoxStyle(size: 200, color: Colors.red)),
+              child: AntdBox(
+                onTap: () {
+                  AntdToast.show("触发绿色单击");
+                },
+                onDoubleTap: () {
+                  AntdToast.show("触发绿色双击");
+                },
+                onLongPress: () {
+                  AntdToast.show("触发绿色长按");
+                },
+                style: style.copyFrom(
+                    const AntdBoxStyle(size: 100, color: Colors.green)),
+                child: const Text("允许穿透"),
+              ),
+            ),
+          ),
+        ]);
+  }
+}
+
+/// @t 按下时反馈
+/// @l [AntdBox]
+class AntdFeedbackStyleDemo extends StatelessWidget {
+  const AntdFeedbackStyleDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    var style = AntdBoxStyle(
+        size: 100,
+        alignment: Alignment.center,
+        textStyle: TextStyle(color: token.colorWhite),
+        color: token.colorPrimary,
+        feedbackStyle: AntdBoxStyle(
+            border: token.borderSide
+                .copyWith(width: 2, color: token.colorPrimary)
+                .all,
+            color: token.colorSuccess));
+    return DemoWrapper(child: [
+      AntdBox(
+        style: style,
+        child: const Text("按下时反馈"),
+      ),
+      AntdBox(
+        style: style,
+        options: const AntdTapOptions(feedbackDuration: Duration(seconds: 2)),
+        child: const Text("自定义反馈时长"),
+      )
+    ]);
   }
 }
 
@@ -494,7 +588,6 @@ class AntdStylCustomDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var focusNode = FocusNode();
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(
         outline: true,
@@ -560,42 +653,6 @@ class AntdStylCustomDemo extends StatelessWidget {
                         .copyWith(color: token.colorPrimary, width: 3)
                         .all)),
             child: const Text("禁用样式"),
-          ),
-          AntdBox(
-            style: AntdBoxStyle(
-                size: 50,
-                color: Colors.white,
-                feedbackStyle: AntdBoxStyle(
-                    size: 100,
-                    alignment: Alignment.center,
-                    color: token.colorError,
-                    border: token.borderSide
-                        .copyWith(color: token.colorPrimary, width: 3)
-                        .all)),
-            child: const Text("按下反馈样式"),
-          ),
-          AntdBox(
-            options: const AntdTapOptions(alwaysTriggerTap: true),
-            onDoubleTap: () {
-              if (focusNode.hasFocus) {
-                focusNode.unfocus();
-              }
-            },
-            style: AntdBoxStyle(
-                size: 50,
-                color: Colors.white,
-                focusStyle: AntdBoxStyle(
-                    size: 100,
-                    alignment: Alignment.center,
-                    textStyle:
-                        token.font.default_.copyWith(color: token.colorWhite),
-                    color: token.colorPrimary,
-                    border: token.borderSide
-                        .copyWith(color: token.colorWarning, width: 3)
-                        .all)),
-            child: AntdBox(
-              child: const Text("获取焦点样式(双击取消焦点)"),
-            ),
           ),
         ]);
   }

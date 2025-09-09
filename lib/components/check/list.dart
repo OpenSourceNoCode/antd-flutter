@@ -52,7 +52,8 @@ class AntdCheckList extends AntdScrollPositionedBase<AntdCheckItem,
       super.shrinkWrap = true,
       this.disable,
       this.onChange,
-      this.values});
+      this.values,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   ///禁用
   final bool? disable;
@@ -62,6 +63,9 @@ class AntdCheckList extends AntdScrollPositionedBase<AntdCheckItem,
 
   ///默认选中的值
   final Set<String>? values;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   @override
   State<StatefulWidget> createState() {
@@ -127,6 +131,7 @@ class _AntdCheckListState extends AntdScrollPositionedBaseState<AntdCheckItem,
               } else {
                 _values.remove(value);
               }
+              handleHapticFeedback(widget.hapticFeedback);
               widget.onChange?.call(_values, value, check);
             });
           },

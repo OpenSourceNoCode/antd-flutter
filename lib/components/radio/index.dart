@@ -40,18 +40,18 @@ class AntdRadioStyle extends AntdCheckboxStyle {
 ///@d 在一组可选项中进行单选。
 ///@u 单选框所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。
 class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
-  const AntdRadio({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.disabled,
-    super.readOnly,
-    super.value,
-    super.autoCollect,
-    super.onChange,
-    super.indeterminate,
-    super.extra,
-  });
+  const AntdRadio(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.disabled,
+      super.readOnly,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.indeterminate,
+      super.extra,
+      super.hapticFeedback});
 
   @override
   AntdRadioStyle getDefaultStyle(

@@ -132,7 +132,8 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
     var style = AntdListStyle.defaultStyle(token, false);
     return AntdCollapseStyle(
         itemStyle: style.itemStyle,
-        childStyle: style.childStyle,
+        childStyle: style.childStyle?.copyWith(
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         bodyStyle: style.bodyStyle,
         titleStyle: AntdBoxStyle(textStyle: token.font.lg),
         iconStyle: AntdIconStyle(size: 20, color: token.colorTextQuaternary),
@@ -230,14 +231,20 @@ class _AntdCollapseState extends AntdScrollPositionedBaseState<AntdCollapseItem,
           ),
         ),
         AnimatedSize(
-          curve: Curves.easeOut,
           duration: const Duration(milliseconds: 200),
-          child: active
-              ? AntdBox(
-                  style: style.contentStyle,
-                  child: item.content,
-                )
-              : const AntdBox(),
+          alignment: Alignment.topCenter,
+          clipBehavior: Clip.none,
+          curve: Curves.easeOutCubic,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 200),
+            opacity: active ? 1.0 : 0.0,
+            child: active
+                ? AntdBox(
+                    style: style.contentStyle,
+                    child: item.content,
+                  )
+                : const AntdBox(),
+          ),
         )
       ],
     );

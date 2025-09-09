@@ -447,6 +447,7 @@ class _AntdTabsLoadingDemoStateDemo extends State<AntdTabsLoadingDemo> {
 | tabs | 标签页配置列表（至少包含一个标签） | List&lt;AntdTab&gt; | - | - |
 | indicatorPosition | 指示器位置（顶部/底部）:`top` \| `bottom` | AntdIndicatorPosition | bottom | - |
 | indicatorMode | 指示器宽度模式（固定/自适应标签宽度）:`full` \| `fixed` | AntdIndicatorMode | fixed | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
 
 
 ## 标签页样式(AntdTabsStyle) <a id='AntdTabsStyle'></a>

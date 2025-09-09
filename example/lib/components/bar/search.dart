@@ -12,7 +12,7 @@ class AntdSearchBarAutoShowExtraDemo extends StatelessWidget {
     return DemoWrapper(outline: true, child: [
       AntdSearchBar(
         extra: const Text("取消"),
-        onCancel: () {
+        onExtraTap: () {
           AntdToast.show("点击了取消");
         },
         placeholder: const Text("请输入内容"),

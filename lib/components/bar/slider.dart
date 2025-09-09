@@ -75,13 +75,20 @@ class AntdSliderBarController
     extends AntdScrollPositionController<AntdSliderBarItem> {
   final ValueNotifier<int> _currentIndex = ValueNotifier(0);
   int get currentIndex => _currentIndex.value;
+  AntdHapticFeedback? _hapticFeedback;
 
   AntdScrollPositionController<Widget>? _panelController;
 
   @override
   Future<void> toIndex(int index,
-      {AntdScrollToIndexConfig config = const AntdScrollToIndexConfig()}) {
+      {AntdScrollToIndexConfig config =
+          const AntdScrollToIndexConfig()}) async {
+    if (_currentIndex.value == index) {
+      return;
+    }
     _currentIndex.value = index;
+    handleHapticFeedback(_hapticFeedback);
+
     if (_panelController != null) {
       _panelController!.toIndex(index, config: config);
     }
@@ -98,21 +105,33 @@ typedef AntdSliderBarOnChange = void Function(AntdSliderBarItem item);
 ///@u 需要用户快速导航至某一项内容集合，并可以在多个内容之间来回切换。
 class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
     AntdSliderBarStyle, AntdSliderBar, AntdSliderBarController> {
-  const AntdSliderBar({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.controller,
-    super.onItemPosition,
-    super.onEdgeReached,
-    super.virtual = false,
-    super.alignment,
-    required super.items,
-    this.onChange,
-  }) : super(vertical: true);
+  const AntdSliderBar(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.physics,
+      super.shrinkWrap,
+      super.controller,
+      super.onItemPosition,
+      super.throttle,
+      super.edgeThreshold,
+      super.onEdgeReached,
+      super.virtual = false,
+      super.alignment,
+      required super.items,
+      this.onChange,
+      this.titlePlacement = AntdEdge.center,
+      this.hapticFeedback = AntdHapticFeedback.light})
+      : super(vertical: true);
 
   ///变更事件
   final AntdSliderBarOnChange? onChange;
+
+  ///标题和视图的对齐方式
+  final AntdEdge titlePlacement;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   @override
   AntdSliderBarStyle getDefaultStyle(
@@ -169,6 +188,7 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
     AntdSliderBar> {
   AntdScrollPositionController<Widget> panelController =
       AntdScrollPositionController();
+  late AntdScrollToIndexConfig _config;
 
   @override
   void initState() {
@@ -181,6 +201,16 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
         }
       });
     }
+  }
+
+  @override
+  void updateDependentValues(covariant AntdSliderBar? oldWidget) {
+    super.updateDependentValues(oldWidget);
+    scrollController._hapticFeedback = widget.hapticFeedback;
+    _config = AntdScrollToIndexConfig(
+        jump: false,
+        viewportAlign: widget.titlePlacement,
+        itemAlign: widget.titlePlacement);
   }
 
   @override
@@ -210,7 +240,7 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
               color: style.activeTitleStyle?.color,
             ),
             onTap: () {
-              scrollController.toIndex(entity.index);
+              scrollController.toIndex(entity.index, config: _config);
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -223,7 +253,9 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
                 ),
                 Expanded(
                     child: AntdBox(
-                  style: (active ? style.activeTitleStyle : style.titleStyle)
+                  style: (active
+                          ? style.titleStyle?.copyFrom(style.activeTitleStyle)
+                          : style.titleStyle)
                       ?.copyWith(
                           radius: BorderRadius.only(
                               bottomRight: before ? radius : Radius.zero,
@@ -259,7 +291,7 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
               .toList(),
           onItemPosition: (context) {
             if (context.isFirstAppear) {
-              scrollController.toIndex(context.index);
+              scrollController.toIndex(context.index, config: _config);
             }
           },
           itemBuilder: (AntdScrollItemContext<Widget,

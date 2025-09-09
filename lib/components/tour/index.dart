@@ -120,9 +120,8 @@ class AntdTourController extends ChangeNotifier {
   }
 
   void finish() {
-    _currentIndex = 0;
     _maskState?.close();
-    notifyListeners();
+    _currentIndex = 0;
   }
 
   @override

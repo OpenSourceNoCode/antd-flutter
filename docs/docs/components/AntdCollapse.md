@@ -29,7 +29,8 @@ class AntdCollapseDemo extends StatelessWidget {
       AntdCollapse(
           value: const [1],
           onChange: (index, check) {
-            AntdToast.show("触发了index:${index},当前选中:${check}");
+            AntdToast.show("触发了index:${index},当前选中:${check}",
+                position: AntdToastPosition.top);
           },
           items: const [
             AntdCollapseItem(title: Text("第一项"), content: text),
@@ -58,7 +59,8 @@ class AntdCollapseStyleDemo extends StatelessWidget {
                   color: token.colorPrimary,
                   textStyle: token.font.lg.copyWith(color: token.colorWhite))),
           onChange: (index, check) {
-            AntdToast.show("触发了index:${index},当前选中:${check}");
+            AntdToast.show("触发了index:${index},当前选中:${check}",
+                position: AntdToastPosition.top);
           },
           items: const [
             AntdCollapseItem(title: Text("第13项"), content: text),

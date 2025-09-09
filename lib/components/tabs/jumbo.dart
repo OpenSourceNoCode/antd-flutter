@@ -56,18 +56,18 @@ class AntdJumboStyle extends AntdTabsStyle {
 ///@u 选项需要有进一步描述时，用在展示型界面的列表或模块中。
 class AntdJumboTabs
     extends AntdBaseTabs<AntdJumboStyle, AntdJumboTab, AntdJumboTabs> {
-  const AntdJumboTabs({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.leftExtra,
-    super.rightExtra,
-    super.controller,
-    super.activeValue,
-    super.onChange,
-    super.tabAlignment = AntdTabAlignment.center,
-    required super.tabs,
-  });
+  const AntdJumboTabs(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.leftExtra,
+      super.rightExtra,
+      super.controller,
+      super.activeValue,
+      super.onChange,
+      super.tabAlignment = AntdTabAlignment.center,
+      required super.tabs,
+      super.hapticFeedback});
 
   @override
   AntdJumboStyle getDefaultStyle(

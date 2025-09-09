@@ -1,6 +1,7 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/components/image/image.dart';
 import 'package:example/widget/demo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 /// @t 基础用法
@@ -21,7 +22,10 @@ class AntdSwipeActionDemo extends StatelessWidget {
             style: AntdSwipeItemStyle(
                 style: AntdBoxStyle(color: token.colorError)),
             content: const Text("取消关注"),
-            confirmContent: const Text("确定取消关注"),
+            confirmContent: const Text(
+              "确定取消关注",
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           AntdSwipeItem(
             left: true,
@@ -34,19 +38,28 @@ class AntdSwipeActionDemo extends StatelessWidget {
             style: AntdSwipeItemStyle(
                 style: AntdBoxStyle(color: token.colorPrimary)),
             content: const Text("取消关注"),
-            confirmContent: const Text("确定取消关注"),
+            confirmContent: const Text(
+              "确定取消关注",
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           AntdSwipeItem(
             style: AntdSwipeItemStyle(
                 style: AntdBoxStyle(color: token.colorError)),
             content: const Text("免打扰"),
-            confirmContent: const Text("确定免打扰"),
+            confirmContent: const Text(
+              "确定免打扰",
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           AntdSwipeItem(
             style: AntdSwipeItemStyle(
                 style: AntdBoxStyle(color: token.colorSuccess)),
             content: const Text("删除"),
-            confirmContent: const Text("确定删除"),
+            confirmContent: const Text(
+              "确定删除",
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
         child: AntdBox(
@@ -106,7 +119,7 @@ class _AntdSwipeActionControllerDemoStateDemo
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(outline: true, child: [
-      ...List.generate(1, (i) {
+      ...List.generate(3, (i) {
         return AntdSwipeAction(
           key: ValueKey(i),
           controller: controller,
@@ -122,52 +135,76 @@ class _AntdSwipeActionControllerDemoStateDemo
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorPrimary)),
               content: const Text("取消关注left"),
-              confirmContent: const Text("确定取消关注"),
+              confirmContent: const Text(
+                "确定取消关注",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               left: true,
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorWhite)),
               content: const Text("免打扰left"),
-              confirmContent: const Text("确定免打扰"),
+              confirmContent: const Text(
+                "确定免打扰",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               left: true,
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorError)),
               content: const Text("删除left"),
-              confirmContent: const Text("确定删除"),
+              confirmContent: const Text(
+                "确定删除",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               left: true,
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorSuccess)),
               content: const Text("删除2left"),
-              confirmContent: const Text("确定删除2"),
+              confirmContent: const Text(
+                "确定删除2",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorPrimary)),
               content: const Text("取消关注"),
-              confirmContent: const Text("确定取消关注"),
+              confirmContent: const Text(
+                "确定取消关注",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorWhite)),
               content: Text("免打扰"),
-              confirmContent: Text("确定免打扰"),
+              confirmContent: const Text(
+                "确定免打扰",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorError)),
               content: Text("删除"),
-              confirmContent: Text("确定删除"),
+              confirmContent: const Text(
+                "确定删除",
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorSuccess)),
               content: const Text("删除2"),
-              confirmContent: const Text("确定删除2"),
+              confirmContent: const Text(
+                "确定删除2",
+                overflow: TextOverflow.ellipsis,
+              ),
             )
           ],
           child: AntdBox(

@@ -22,7 +22,7 @@ class AntdCascaderDemo extends StatelessWidget {
               AntdToast.show(values.join(","));
             },
             titleWidget: const Text("地址选择"),
-            cascaderView: const AntdCascaderView(
+            cascaderView: AntdCascaderView(
               options: cascaderOptions,
             ),
           ));

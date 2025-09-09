@@ -74,7 +74,8 @@ class AntdCheckboxStyle extends AntdStyle {
     );
 
     return AntdCheckboxStyle(
-        bodyStyle: const AntdBoxStyle(),
+        bodyStyle: const AntdBoxStyle(
+            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
         defaultStyle: defaultBoxStyle,
         activeStyle: defaultBoxStyle.copyWith(
           color: designToken.colorPrimary,
@@ -108,18 +109,21 @@ abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
   ///内容
   final Widget? extra;
 
-  const AntdBaseCheckbox({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.disabled,
-    super.readOnly,
-    super.value,
-    super.autoCollect,
-    super.onChange,
-    this.indeterminate,
-    this.extra,
-  });
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
+
+  const AntdBaseCheckbox(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.disabled,
+      super.readOnly,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      this.indeterminate,
+      this.extra,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   @override
   Widget get child => this;
@@ -164,6 +168,7 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
     return AntdBox(
         style: style.bodyStyle,
         onTap: () {
+          handleHapticFeedback(widget.hapticFeedback);
           changeValue(() => !(value == true));
         },
         disabled: widget.disabled,

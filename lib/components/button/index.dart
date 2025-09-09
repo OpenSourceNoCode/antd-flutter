@@ -144,7 +144,8 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
             : token.radiusSize.roundToDouble()),
         border: fill != AntdButtonFill.none
             ? Border.all(color: setColor ?? token.colorBorder, width: 1)
-            : null);
+            : null,
+        options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
 
     if (fill == AntdButtonFill.solid && setColor != null) {
       style = style.copyFrom(AntdBoxStyle(

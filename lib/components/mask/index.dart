@@ -103,13 +103,14 @@ class AntdMaskHole {
   final Size size;
   final EdgeInsets? padding;
   final double? radius;
+  final bool? hitTest;
 
-  const AntdMaskHole({
-    required this.offset,
-    required this.size,
-    this.padding,
-    this.radius,
-  });
+  const AntdMaskHole(
+      {required this.offset,
+      required this.size,
+      this.padding,
+      this.radius,
+      this.hitTest});
 
   AntdPopoverTarget toPopoverTarget() {
     if (padding == null || _isPaddingEmpty(padding!)) {
@@ -340,7 +341,7 @@ abstract class AntdMaskBaseState<
   late Animation<double> holeOpAnimation = Tween(begin: 0.0, end: 1.0).animate(
     CurvedAnimation(
       parent: holeController,
-      curve: const Interval(0.5, 1, curve: Curves.easeOutCubic),
+      curve: const Interval(0.5, 1, curve: Curves.linear),
     ),
   );
 
@@ -400,7 +401,7 @@ abstract class AntdMaskBaseState<
 
   @protected
   Interval buildMaskInterval() {
-    return const Interval(0, 0.5, curve: Curves.easeOutCubic);
+    return const Interval(0, 0.5, curve: Curves.linear);
   }
 
   @protected
@@ -647,6 +648,72 @@ class _MaskPainter extends CustomPainter {
   bool shouldRepaint(_MaskPainter oldDelegate) {
     return oldDelegate.color != color || oldDelegate.hole != hole;
   }
+
+  @override
+  bool? hitTest(Offset position) {
+    if (hole == null || hole?.hitTest != true) {
+      return null;
+    }
+
+    final offset = hole!.offset;
+    final size = hole!.size;
+    final padding = hole!.padding;
+    final radius = hole!.radius;
+
+    if (size.width.isInfinite || size.height.isInfinite) {
+      final xHit = size.width.isInfinite
+          ? true
+          : (position.dx >= offset.dx - (padding?.left ?? 0) &&
+              position.dx <= offset.dx + size.width + (padding?.right ?? 0));
+
+      final yHit = size.height.isInfinite
+          ? true
+          : (position.dy >= offset.dy - (padding?.top ?? 0) &&
+              position.dy <= offset.dy + size.height + (padding?.bottom ?? 0));
+
+      if (xHit && yHit) {
+        if (radius != null &&
+            radius > 0 &&
+            !size.width.isInfinite &&
+            !size.height.isInfinite) {
+          final roundedRect = RRect.fromRectAndRadius(
+            Rect.fromLTWH(
+              offset.dx,
+              offset.dy,
+              size.width,
+              size.height,
+            ),
+            Radius.circular(radius),
+          );
+          return roundedRect.contains(position) ? false : null;
+        }
+        return false;
+      }
+      return null;
+    }
+
+    final effectiveRect = Rect.fromCenter(
+      center: offset + Offset(size.width / 2, size.height / 2),
+      width: size.width + (padding?.horizontal ?? 0),
+      height: size.height + (padding?.vertical ?? 0),
+    );
+
+    if (effectiveRect.contains(position)) {
+      if (radius != null && radius > 0) {
+        final roundedRect = RRect.fromRectAndRadius(
+          Rect.fromCenter(
+            center: offset + Offset(size.width / 2, size.height / 2),
+            width: size.width,
+            height: size.height,
+          ),
+          Radius.circular(radius),
+        );
+        return roundedRect.contains(position) ? false : null;
+      }
+      return false;
+    }
+    return null;
+  }
 }
 
 abstract class AntdMaskProxy<Style extends AntdMaskStyle, WidgetType>
@@ -671,7 +738,10 @@ abstract class AntdMaskProxyState<Style extends AntdMaskStyle,
   Future<V?> open<V>([AntdMaskHole? hole]) async {
     return await AntdLayer.open(AntdMask(
       style: style,
-      onClosed: widget.onClosed,
+      onClosed: () {
+        widget.onClosed?.call();
+        buildOnClosed();
+      },
       onOpened: widget.onOpened,
       onMaskTap: widget.onMaskTap,
       opacity: widget.opacity,
@@ -684,6 +754,8 @@ abstract class AntdMaskProxyState<Style extends AntdMaskStyle,
       },
     ));
   }
+
+  buildOnClosed() {}
 
   Widget buildBuilder(Widget? child, AntdLayerClose close, AntdMaskState state);
 }

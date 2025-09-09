@@ -31,7 +31,7 @@ class AntdToastDemo extends StatelessWidget {
           onTap: () {
             AntdToast.show("Toast");
           },
-          child: const Text("静态方法")),
+          child: Text("静态方法")),
       AntdButton(
           onTap: () {
             AntdToast(builder: (close, state) => const Text("Toast")).open();

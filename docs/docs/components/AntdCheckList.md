@@ -273,6 +273,7 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
 | disable | 禁用 | bool | - | - |
 | onChange | 选项改变时触发 | AntdCheckListChange | - | - |
 | values | 默认选中的值 | Set&lt;String&gt; | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 可勾选列表样式(AntdCheckListStyle) <a id='AntdCheckListStyle'></a>

@@ -101,7 +101,7 @@ Map<String, dynamic> customFull = {
   ),
   "AntdEllipsis-content": ellipsisText,
   "AntdFloatingPanel-content":
-      AntdList(items: List.generate(10, (i) => Text("$i"))),
+      AntdList(shrinkWrap: true, items: List.generate(10, (i) => Text("$i"))),
   "AntdFloatingPanel-child": AntdBox(
     onTap: () {
       AntdToast.show("背景点击事件");
@@ -252,5 +252,6 @@ Map<String, dynamic> customFull = {
       child: Text("Yearly"),
     )
   ],
-  "AntdTour-child": AntdBox()
+  "AntdTour-child": AntdBox(),
+  "AntdDropdown-items": <AntdDropdownItem>[],
 };

@@ -1,11 +1,22 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
+/// 级联选择器样式
+/// @l [AntdCascader]
 class AntdCascaderStyle extends AntdPopupStyle {
+  /// 头部容器样式（包含标题和操作按钮的区域）
   final AntdBoxStyle? headerStyle;
+
+  /// 标题文本样式
   final AntdBoxStyle? titleStyle;
+
+  /// 取消按钮样式
   final AntdBoxStyle? cancelStyle;
+
+  /// 确认按钮样式
   final AntdBoxStyle? confirmStyle;
+
+  /// 头部弹性布局样式（控制标题和按钮的排列方式）
   final AntdFlexStyle? headerFlexStyle;
 
   const AntdCascaderStyle(
@@ -103,7 +114,8 @@ class AntdCascader
         maskOpacity: popupStyle.maskOpacity,
         headerFlexStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
-        cancelStyle: const AntdBoxStyle(),
+        cancelStyle: const AntdBoxStyle(
+            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
         confirmStyle: const AntdBoxStyle(),
         headerStyle: AntdBoxStyle(
             padding:
@@ -142,6 +154,7 @@ class AntdCascaderState extends AntdOffsetAnimationPopupState<AntdCascaderStyle,
                   close();
                   widget.onCancel?.call(values);
                 },
+                style: style.cancelStyle,
                 child: widget.cancelWidget,
               ),
               if (widget.titleWidget != null)
@@ -154,6 +167,7 @@ class AntdCascaderState extends AntdOffsetAnimationPopupState<AntdCascaderStyle,
                   close();
                   widget.onConfirm?.call(values);
                 },
+                style: style.confirmStyle,
                 child: widget.confirmWidget,
               ),
             ],

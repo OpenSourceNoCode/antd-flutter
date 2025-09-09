@@ -273,6 +273,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
 | items | 分段选项列表，至少需要包含两个选项 | List&lt;AntdSegmentedItem&gt; | - | - |
 | onChange | 选项变化时的回调函数，返回选中项的索引 | ValueChanged&lt;int&gt; | - | - |
 | duration | 选项切换时的动画过渡时长 | Duration | const Duration(milliseconds: 200) | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 分段项(AntdSegmentedItem) <a id='AntdSegmentedItem'></a>

@@ -3,11 +3,11 @@ import 'package:example/doc/map/custom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';import 'package:flutter/rendering.dart';
 Widget formMap(String name,Map<String,dynamic> properties){
-if (name == 'AntdFlex'){
-return _AntdFlexFormMap(properties);
-}
 if (name == 'AntdTour'){
 return _AntdTourFormMap(properties);
+}
+if (name == 'AntdFlex'){
+return _AntdFlexFormMap(properties);
 }
 if (name == 'AntdBox'){
 return _AntdBoxFormMap(properties);
@@ -15,11 +15,11 @@ return _AntdBoxFormMap(properties);
 if (name == 'AntdButton'){
 return _AntdButtonFormMap(properties);
 }
-if (name == 'AntdActionSheet'){
-return _AntdActionSheetFormMap(properties);
-}
 if (name == 'AntdIcon'){
 return _AntdIconFormMap(properties);
+}
+if (name == 'AntdActionSheet'){
+return _AntdActionSheetFormMap(properties);
 }
 if (name == 'AntdDivider'){
 return _AntdDividerFormMap(properties);
@@ -48,17 +48,17 @@ return _AntdLoadingFormMap(properties);
 if (name == 'AntdNavBar'){
 return _AntdNavBarFormMap(properties);
 }
-if (name == 'AntdSliderBar'){
-return _AntdSliderBarFormMap(properties);
-}
 if (name == 'AntdAvatar'){
 return _AntdAvatarFormMap(properties);
 }
-if (name == 'AntdTabBar'){
-return _AntdTabBarFormMap(properties);
+if (name == 'AntdSliderBar'){
+return _AntdSliderBarFormMap(properties);
 }
 if (name == 'AntdCard'){
 return _AntdCardFormMap(properties);
+}
+if (name == 'AntdTabBar'){
+return _AntdTabBarFormMap(properties);
 }
 if (name == 'AntdTabs'){
 return _AntdTabsFormMap(properties);
@@ -66,14 +66,14 @@ return _AntdTabsFormMap(properties);
 if (name == 'AntdCollapse'){
 return _AntdCollapseFormMap(properties);
 }
-if (name == 'AntdModal'){
-return _AntdModalFormMap(properties);
-}
 if (name == 'AntdFloatingPanel'){
 return _AntdFloatingPanelFormMap(properties);
 }
 if (name == 'AntdEllipsis'){
 return _AntdEllipsisFormMap(properties);
+}
+if (name == 'AntdModal'){
+return _AntdModalFormMap(properties);
 }
 if (name == 'AntdImage'){
 return _AntdImageFormMap(properties);
@@ -90,17 +90,20 @@ return _AntdImageViewerFormMap(properties);
 if (name == 'AntdPageIndicator'){
 return _AntdPageIndicatorFormMap(properties);
 }
+if (name == 'AntdList'){
+return _AntdListFormMap(properties);
+}
 if (name == 'AntdPopup'){
 return _AntdPopupFormMap(properties);
 }
-if (name == 'AntdList'){
-return _AntdListFormMap(properties);
+if (name == 'AntdProgressCircle'){
+return _AntdProgressCircleFormMap(properties);
 }
 if (name == 'AntdProgressBar'){
 return _AntdProgressBarFormMap(properties);
 }
-if (name == 'AntdProgressCircle'){
-return _AntdProgressCircleFormMap(properties);
+if (name == 'AntdDropdown'){
+return _AntdDropdownFormMap(properties);
 }
 if (name == 'AntdPullToRefresh'){
 return _AntdPullToRefreshFormMap(properties);
@@ -171,24 +174,14 @@ return _AntdSwitchFormMap(properties);
 if (name == 'AntdTextArea'){
 return _AntdTextAreaFormMap(properties);
 }
-if (name == 'AntdBadge'){
-return _AntdBadgeFormMap(properties);
-}
 if (name == 'AntdNoticeBar'){
 return _AntdNoticeBarFormMap(properties);
 }
+if (name == 'AntdBadge'){
+return _AntdBadgeFormMap(properties);
+}
 return AntdBox();
 }
-Widget _AntdFlexFormMap(Map<String,dynamic> atr){
-return AntdFlex(
-key:_resolveValue(atr,'AntdFlex','key','Key',null),
-style:_resolveValue(atr,'AntdFlex','style','AntdFlexStyle',null),
-styleBuilder:_resolveValue(atr,'AntdFlex','styleBuilder','AntdStyleBuilder<AntdFlexStyle, AntdFlex>',null),
-direction:_resolveValue(atr,'AntdFlex','direction','Axis',null),
-children:_resolveValue(atr,'AntdFlex','children','List<Widget>',null),
-);
-}
-
 Widget _AntdTourFormMap(Map<String,dynamic> atr){
 return AntdTour(
 key:_resolveValue(atr,'AntdTour','key','Key',null),
@@ -205,6 +198,16 @@ animationDuration:_resolveValue(atr,'AntdTour','animationDuration','Duration',co
 holeAnimationDuration:_resolveValue(atr,'AntdTour','holeAnimationDuration','Duration',const Duration(milliseconds: 400)),
 child:_resolveValue(atr,'AntdTour','child','Widget',null),
 controller:_resolveValue(atr,'AntdTour','controller','AntdTourController',null),
+);
+}
+
+Widget _AntdFlexFormMap(Map<String,dynamic> atr){
+return AntdFlex(
+key:_resolveValue(atr,'AntdFlex','key','Key',null),
+style:_resolveValue(atr,'AntdFlex','style','AntdFlexStyle',null),
+styleBuilder:_resolveValue(atr,'AntdFlex','styleBuilder','AntdStyleBuilder<AntdFlexStyle, AntdFlex>',null),
+direction:_resolveValue(atr,'AntdFlex','direction','Axis',null),
+children:_resolveValue(atr,'AntdFlex','children','List<Widget>',null),
 );
 }
 
@@ -249,6 +252,16 @@ behavior:_resolveValue(atr,'AntdButton','behavior','HitTestBehavior',null),
 );
 }
 
+Widget _AntdIconFormMap(Map<String,dynamic> atr){
+return AntdIcon(
+key:_resolveValue(atr,'AntdIcon','key','Key',null),
+style:_resolveValue(atr,'AntdIcon','style','AntdIconStyle',null),
+styleBuilder:_resolveValue(atr,'AntdIcon','styleBuilder','AntdStyleBuilder<AntdIconStyle, AntdIcon>',null),
+icon:_resolveValue(atr,'AntdIcon','icon','IconData',null),
+onTap:_resolveValue(atr,'AntdIcon','onTap','VoidCallback',null),
+);
+}
+
 Widget _AntdActionSheetFormMap(Map<String,dynamic> atr){
 return AntdActionSheet(
 key:_resolveValue(atr,'AntdActionSheet','key','Key',null),
@@ -267,16 +280,6 @@ dismissOnAction:_resolveValue(atr,'AntdActionSheet','dismissOnAction','bool',tru
 extra:_resolveValue(atr,'AntdActionSheet','extra','Widget',null),
 onAction:_resolveValue(atr,'AntdActionSheet','onAction','AntdActionCallback',null),
 safeArea:_resolveValue(atr,'AntdActionSheet','safeArea','bool',true),
-);
-}
-
-Widget _AntdIconFormMap(Map<String,dynamic> atr){
-return AntdIcon(
-key:_resolveValue(atr,'AntdIcon','key','Key',null),
-style:_resolveValue(atr,'AntdIcon','style','AntdIconStyle',null),
-styleBuilder:_resolveValue(atr,'AntdIcon','styleBuilder','AntdStyleBuilder<AntdIconStyle, AntdIcon>',null),
-icon:_resolveValue(atr,'AntdIcon','icon','IconData',null),
-onTap:_resolveValue(atr,'AntdIcon','onTap','VoidCallback',null),
 );
 }
 
@@ -325,6 +328,7 @@ activeValue:_resolveValue(atr,'AntdCapsuleTabs','activeValue','String',null),
 onChange:_resolveValue(atr,'AntdCapsuleTabs','onChange','AntdTabsOnChange<AntdTab>',null),
 tabAlignment:_resolveValue(atr,'AntdCapsuleTabs','tabAlignment','AntdTabAlignment',AntdTabAlignment.center),
 tabs:_resolveValue(atr,'AntdCapsuleTabs','tabs','List<AntdTab>',null),
+hapticFeedback:_resolveValue(atr,'AntdCapsuleTabs','hapticFeedback','AntdHapticFeedback',null),
 );
 }
 
@@ -386,6 +390,7 @@ activeValue:_resolveValue(atr,'AntdJumboTabs','activeValue','String',null),
 onChange:_resolveValue(atr,'AntdJumboTabs','onChange','AntdTabsOnChange<AntdJumboTab>',null),
 tabAlignment:_resolveValue(atr,'AntdJumboTabs','tabAlignment','AntdTabAlignment',AntdTabAlignment.center),
 tabs:_resolveValue(atr,'AntdJumboTabs','tabs','List<AntdJumboTab>',null),
+hapticFeedback:_resolveValue(atr,'AntdJumboTabs','hapticFeedback','AntdHapticFeedback',null),
 );
 }
 
@@ -420,21 +425,6 @@ onBack:_resolveValue(atr,'AntdNavBar','onBack','VoidCallback',null),
 );
 }
 
-Widget _AntdSliderBarFormMap(Map<String,dynamic> atr){
-return AntdSliderBar(
-key:_resolveValue(atr,'AntdSliderBar','key','Key',null),
-style:_resolveValue(atr,'AntdSliderBar','style','AntdSliderBarStyle',null),
-styleBuilder:_resolveValue(atr,'AntdSliderBar','styleBuilder','AntdStyleBuilder<AntdSliderBarStyle, AntdSliderBar>',null),
-controller:_resolveValue(atr,'AntdSliderBar','controller','AntdSliderBarController',null),
-onItemPosition:_resolveValue(atr,'AntdSliderBar','onItemPosition','AntdItemPositionListener<AntdSliderBarItem>',null),
-onEdgeReached:_resolveValue(atr,'AntdSliderBar','onEdgeReached','AntdOnScrollEdge',null),
-virtual:_resolveValue(atr,'AntdSliderBar','virtual','bool',false),
-alignment:_resolveValue(atr,'AntdSliderBar','alignment','AntdEdge',null),
-items:_resolveValue(atr,'AntdSliderBar','items','List<AntdSliderBarItem>',null),
-onChange:_resolveValue(atr,'AntdSliderBar','onChange','AntdSliderBarOnChange',null),
-);
-}
-
 Widget _AntdAvatarFormMap(Map<String,dynamic> atr){
 return AntdAvatar(
 key:_resolveValue(atr,'AntdAvatar','key','Key',null),
@@ -451,15 +441,24 @@ radius:_resolveValue(atr,'AntdAvatar','radius','double',null),
 );
 }
 
-Widget _AntdTabBarFormMap(Map<String,dynamic> atr){
-return AntdTabBar(
-key:_resolveValue(atr,'AntdTabBar','key','Key',null),
-style:_resolveValue(atr,'AntdTabBar','style','AntdTabBarStyle',null),
-styleBuilder:_resolveValue(atr,'AntdTabBar','styleBuilder','AntdStyleBuilder<AntdTabBarStyle, AntdTabBar>',null),
-activeIndex:_resolveValue(atr,'AntdTabBar','activeIndex','int',1),
-onChange:_resolveValue(atr,'AntdTabBar','onChange','AntdTabBarOnChange',null),
-safeArea:_resolveValue(atr,'AntdTabBar','safeArea','AntdPosition',null),
-items:_resolveValue(atr,'AntdTabBar','items','List<AntdTabBarItem>',null),
+Widget _AntdSliderBarFormMap(Map<String,dynamic> atr){
+return AntdSliderBar(
+key:_resolveValue(atr,'AntdSliderBar','key','Key',null),
+style:_resolveValue(atr,'AntdSliderBar','style','AntdSliderBarStyle',null),
+styleBuilder:_resolveValue(atr,'AntdSliderBar','styleBuilder','AntdStyleBuilder<AntdSliderBarStyle, AntdSliderBar>',null),
+physics:_resolveValue(atr,'AntdSliderBar','physics','ScrollPhysics',null),
+shrinkWrap:_resolveValue(atr,'AntdSliderBar','shrinkWrap','bool',null),
+controller:_resolveValue(atr,'AntdSliderBar','controller','AntdSliderBarController',null),
+onItemPosition:_resolveValue(atr,'AntdSliderBar','onItemPosition','AntdItemPositionListener<AntdSliderBarItem>',null),
+throttle:_resolveValue(atr,'AntdSliderBar','throttle','Duration',null),
+edgeThreshold:_resolveValue(atr,'AntdSliderBar','edgeThreshold','double',null),
+onEdgeReached:_resolveValue(atr,'AntdSliderBar','onEdgeReached','AntdOnScrollEdge',null),
+virtual:_resolveValue(atr,'AntdSliderBar','virtual','bool',false),
+alignment:_resolveValue(atr,'AntdSliderBar','alignment','AntdEdge',null),
+items:_resolveValue(atr,'AntdSliderBar','items','List<AntdSliderBarItem>',null),
+onChange:_resolveValue(atr,'AntdSliderBar','onChange','AntdSliderBarOnChange',null),
+titlePlacement:_resolveValue(atr,'AntdSliderBar','titlePlacement','AntdEdge',AntdEdge.center),
+hapticFeedback:_resolveValue(atr,'AntdSliderBar','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -473,6 +472,18 @@ extra:_resolveValue(atr,'AntdCard','extra','Widget',null),
 title:_resolveValue(atr,'AntdCard','title','Widget',null),
 child:_resolveValue(atr,'AntdCard','child','Widget',null),
 footer:_resolveValue(atr,'AntdCard','footer','Widget',null),
+);
+}
+
+Widget _AntdTabBarFormMap(Map<String,dynamic> atr){
+return AntdTabBar(
+key:_resolveValue(atr,'AntdTabBar','key','Key',null),
+style:_resolveValue(atr,'AntdTabBar','style','AntdTabBarStyle',null),
+styleBuilder:_resolveValue(atr,'AntdTabBar','styleBuilder','AntdStyleBuilder<AntdTabBarStyle, AntdTabBar>',null),
+activeIndex:_resolveValue(atr,'AntdTabBar','activeIndex','int',1),
+onChange:_resolveValue(atr,'AntdTabBar','onChange','AntdTabBarOnChange',null),
+safeArea:_resolveValue(atr,'AntdTabBar','safeArea','AntdPosition',null),
+items:_resolveValue(atr,'AntdTabBar','items','List<AntdTabBarItem>',null),
 );
 }
 
@@ -490,6 +501,7 @@ tabAlignment:_resolveValue(atr,'AntdTabs','tabAlignment','AntdTabAlignment',Antd
 tabs:_resolveValue(atr,'AntdTabs','tabs','List<AntdTab>',null),
 indicatorPosition:_resolveValue(atr,'AntdTabs','indicatorPosition','AntdIndicatorPosition',AntdIndicatorPosition.bottom),
 indicatorMode:_resolveValue(atr,'AntdTabs','indicatorMode','AntdIndicatorMode',AntdIndicatorMode.fixed),
+hapticFeedback:_resolveValue(atr,'AntdTabs','hapticFeedback','AntdHapticFeedback',null),
 );
 }
 
@@ -504,27 +516,6 @@ shrinkWrap:_resolveValue(atr,'AntdCollapse','shrinkWrap','bool',true),
 controller:_resolveValue(atr,'AntdCollapse','controller','AntdCollapseController',null),
 value:_resolveValue(atr,'AntdCollapse','value','List<int>',null),
 onChange:_resolveValue(atr,'AntdCollapse','onChange','AntdCollapseChange',null),
-);
-}
-
-Widget _AntdModalFormMap(Map<String,dynamic> atr){
-return AntdModal(
-key:_resolveValue(atr,'AntdModal','key','Key',null),
-style:_resolveValue(atr,'AntdModal','style','AntdDialogStyle',null),
-styleBuilder:_resolveValue(atr,'AntdModal','styleBuilder','AntdStyleBuilder<AntdDialogStyle, Dialog>',null),
-onClosed:_resolveValue(atr,'AntdModal','onClosed','VoidCallback',null),
-onOpened:_resolveValue(atr,'AntdModal','onOpened','VoidCallback',null),
-onMaskTap:_resolveValue(atr,'AntdModal','onMaskTap','VoidCallback',null),
-opacity:_resolveValue(atr,'AntdModal','opacity','AntdMaskOpacity',null),
-dismissOnMaskTap:_resolveValue(atr,'AntdModal','dismissOnMaskTap','bool',true),
-showMask:_resolveValue(atr,'AntdModal','showMask','bool',true),
-animationDuration:_resolveValue(atr,'AntdModal','animationDuration','Duration',const Duration(milliseconds: 400)),
-actions:_resolveValue(atr,'AntdModal','actions','List<AntdModalAction>',null),
-dismissOnAction:_resolveValue(atr,'AntdModal','dismissOnAction','bool',null),
-builder:_resolveValue(atr,'AntdModal','builder','AntdMaskBuilder<AntdModalState>',null),
-closeIcon:_resolveValue(atr,'AntdModal','closeIcon','Widget',null),
-header:_resolveValue(atr,'AntdModal','header','Widget',null),
-title:_resolveValue(atr,'AntdModal','title','Widget',null),
 );
 }
 
@@ -555,6 +546,27 @@ onExpandTap:_resolveValue(atr,'AntdEllipsis','onExpandTap','VoidCallback',null),
 onCollapseTap:_resolveValue(atr,'AntdEllipsis','onCollapseTap','VoidCallback',null),
 defaultExpanded:_resolveValue(atr,'AntdEllipsis','defaultExpanded','bool',false),
 rows:_resolveValue(atr,'AntdEllipsis','rows','int',1),
+);
+}
+
+Widget _AntdModalFormMap(Map<String,dynamic> atr){
+return AntdModal(
+key:_resolveValue(atr,'AntdModal','key','Key',null),
+style:_resolveValue(atr,'AntdModal','style','AntdDialogStyle',null),
+styleBuilder:_resolveValue(atr,'AntdModal','styleBuilder','AntdStyleBuilder<AntdDialogStyle, Dialog>',null),
+onClosed:_resolveValue(atr,'AntdModal','onClosed','VoidCallback',null),
+onOpened:_resolveValue(atr,'AntdModal','onOpened','VoidCallback',null),
+onMaskTap:_resolveValue(atr,'AntdModal','onMaskTap','VoidCallback',null),
+opacity:_resolveValue(atr,'AntdModal','opacity','AntdMaskOpacity',null),
+dismissOnMaskTap:_resolveValue(atr,'AntdModal','dismissOnMaskTap','bool',true),
+showMask:_resolveValue(atr,'AntdModal','showMask','bool',true),
+animationDuration:_resolveValue(atr,'AntdModal','animationDuration','Duration',const Duration(milliseconds: 400)),
+actions:_resolveValue(atr,'AntdModal','actions','List<AntdModalAction>',null),
+dismissOnAction:_resolveValue(atr,'AntdModal','dismissOnAction','bool',null),
+builder:_resolveValue(atr,'AntdModal','builder','AntdMaskBuilder<AntdModalState>',null),
+closeIcon:_resolveValue(atr,'AntdModal','closeIcon','Widget',null),
+header:_resolveValue(atr,'AntdModal','header','Widget',null),
+title:_resolveValue(atr,'AntdModal','title','Widget',null),
 );
 }
 
@@ -594,6 +606,7 @@ placement:_resolveValue(atr,'AntdPopover','placement','AntdPlacement',AntdPlacem
 mode:_resolveValue(atr,'AntdPopover','mode','AntdPopoverMode',AntdPopoverMode.light),
 controller:_resolveValue(atr,'AntdPopover','controller','AntdPopoverController',null),
 trigger:_resolveValue(atr,'AntdPopover','trigger','AntdPopoverTrigger',AntdPopoverTrigger.tap),
+hapticFeedback:_resolveValue(atr,'AntdPopover','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -647,25 +660,6 @@ vertical:_resolveValue(atr,'AntdPageIndicator','vertical','bool',false),
 );
 }
 
-Widget _AntdPopupFormMap(Map<String,dynamic> atr){
-return AntdPopup(
-key:_resolveValue(atr,'AntdPopup','key','Key',null),
-style:_resolveValue(atr,'AntdPopup','style','AntdPopupStyle',null),
-styleBuilder:_resolveValue(atr,'AntdPopup','styleBuilder','AntdStyleBuilder<AntdPopupStyle, AntdPopup>',null),
-onClosed:_resolveValue(atr,'AntdPopup','onClosed','VoidCallback',null),
-onOpened:_resolveValue(atr,'AntdPopup','onOpened','VoidCallback',null),
-onMaskTap:_resolveValue(atr,'AntdPopup','onMaskTap','VoidCallback',null),
-opacity:_resolveValue(atr,'AntdPopup','opacity','AntdMaskOpacity',null),
-dismissOnMaskTap:_resolveValue(atr,'AntdPopup','dismissOnMaskTap','bool',true),
-showMask:_resolveValue(atr,'AntdPopup','showMask','bool',true),
-builder:_resolveValue(atr,'AntdPopup','builder','AntdMaskBuilder<AntdPopupState>',null),
-animationDuration:_resolveValue(atr,'AntdPopup','animationDuration','Duration',const Duration(milliseconds: 400)),
-closeIcon:_resolveValue(atr,'AntdPopup','closeIcon','Widget',null),
-position:_resolveValue(atr,'AntdPopup','position','AntdPosition',AntdPosition.bottom),
-avoidKeyboard:_resolveValue(atr,'AntdPopup','avoidKeyboard','bool',true),
-);
-}
-
 Widget _AntdListFormMap(Map<String,dynamic> atr){
 return AntdList(
 key:_resolveValue(atr,'AntdList','key','Key',null),
@@ -695,18 +689,22 @@ card:_resolveValue(atr,'AntdList','card','bool',null),
 );
 }
 
-Widget _AntdProgressBarFormMap(Map<String,dynamic> atr){
-return AntdProgressBar(
-key:_resolveValue(atr,'AntdProgressBar','key','Key',null),
-style:_resolveValue(atr,'AntdProgressBar','style','AntdProgressBarStyle',null),
-styleBuilder:_resolveValue(atr,'AntdProgressBar','styleBuilder','AntdStyleBuilder<AntdProgressBarStyle, W>',null),
-child:_resolveValue(atr,'AntdProgressBar','child','Widget',null),
-color:_resolveValue(atr,'AntdProgressBar','color','AntdColor',null),
-percent:_resolveValue(atr,'AntdProgressBar','percent','double',0.0),
-stroke:_resolveValue(atr,'AntdProgressBar','stroke','double',8.0),
-duration:_resolveValue(atr,'AntdProgressBar','duration','Duration',const Duration(milliseconds: 1000)),
-onChange:_resolveValue(atr,'AntdProgressBar','onChange','void Function(double percent)',null),
-onFinish:_resolveValue(atr,'AntdProgressBar','onFinish','VoidCallback',null),
+Widget _AntdPopupFormMap(Map<String,dynamic> atr){
+return AntdPopup(
+key:_resolveValue(atr,'AntdPopup','key','Key',null),
+style:_resolveValue(atr,'AntdPopup','style','AntdPopupStyle',null),
+styleBuilder:_resolveValue(atr,'AntdPopup','styleBuilder','AntdStyleBuilder<AntdPopupStyle, AntdPopup>',null),
+onClosed:_resolveValue(atr,'AntdPopup','onClosed','VoidCallback',null),
+onOpened:_resolveValue(atr,'AntdPopup','onOpened','VoidCallback',null),
+onMaskTap:_resolveValue(atr,'AntdPopup','onMaskTap','VoidCallback',null),
+opacity:_resolveValue(atr,'AntdPopup','opacity','AntdMaskOpacity',null),
+dismissOnMaskTap:_resolveValue(atr,'AntdPopup','dismissOnMaskTap','bool',true),
+showMask:_resolveValue(atr,'AntdPopup','showMask','bool',true),
+builder:_resolveValue(atr,'AntdPopup','builder','AntdMaskBuilder<AntdPopupState>',null),
+animationDuration:_resolveValue(atr,'AntdPopup','animationDuration','Duration',const Duration(milliseconds: 400)),
+closeIcon:_resolveValue(atr,'AntdPopup','closeIcon','Widget',null),
+position:_resolveValue(atr,'AntdPopup','position','AntdPosition',AntdPosition.bottom),
+avoidKeyboard:_resolveValue(atr,'AntdPopup','avoidKeyboard','bool',true),
 );
 }
 
@@ -723,6 +721,41 @@ duration:_resolveValue(atr,'AntdProgressCircle','duration','Duration',const Dura
 onChange:_resolveValue(atr,'AntdProgressCircle','onChange','void Function(double percent)',null),
 onFinish:_resolveValue(atr,'AntdProgressCircle','onFinish','VoidCallback',null),
 size:_resolveValue(atr,'AntdProgressCircle','size','double',47.0),
+);
+}
+
+Widget _AntdProgressBarFormMap(Map<String,dynamic> atr){
+return AntdProgressBar(
+key:_resolveValue(atr,'AntdProgressBar','key','Key',null),
+style:_resolveValue(atr,'AntdProgressBar','style','AntdProgressBarStyle',null),
+styleBuilder:_resolveValue(atr,'AntdProgressBar','styleBuilder','AntdStyleBuilder<AntdProgressBarStyle, W>',null),
+child:_resolveValue(atr,'AntdProgressBar','child','Widget',null),
+color:_resolveValue(atr,'AntdProgressBar','color','AntdColor',null),
+percent:_resolveValue(atr,'AntdProgressBar','percent','double',0.0),
+stroke:_resolveValue(atr,'AntdProgressBar','stroke','double',8.0),
+duration:_resolveValue(atr,'AntdProgressBar','duration','Duration',const Duration(milliseconds: 1000)),
+onChange:_resolveValue(atr,'AntdProgressBar','onChange','void Function(double percent)',null),
+onFinish:_resolveValue(atr,'AntdProgressBar','onFinish','VoidCallback',null),
+);
+}
+
+Widget _AntdDropdownFormMap(Map<String,dynamic> atr){
+return AntdDropdown(
+key:_resolveValue(atr,'AntdDropdown','key','Key',null),
+style:_resolveValue(atr,'AntdDropdown','style','AntdDropdownStyle',null),
+styleBuilder:_resolveValue(atr,'AntdDropdown','styleBuilder','AntdStyleBuilder<AntdDropdownStyle, AntdDropdown>',null),
+onClosed:_resolveValue(atr,'AntdDropdown','onClosed','VoidCallback',null),
+onOpened:_resolveValue(atr,'AntdDropdown','onOpened','VoidCallback',null),
+onMaskTap:_resolveValue(atr,'AntdDropdown','onMaskTap','VoidCallback',null),
+builder:_resolveValue(atr,'AntdDropdown','builder','AntdMaskBuilder<AntdMaskState>',null),
+opacity:_resolveValue(atr,'AntdDropdown','opacity','AntdMaskOpacity',AntdMaskOpacity.thin),
+dismissOnMaskTap:_resolveValue(atr,'AntdDropdown','dismissOnMaskTap','bool',true),
+showMask:_resolveValue(atr,'AntdDropdown','showMask','bool',true),
+animationDuration:_resolveValue(atr,'AntdDropdown','animationDuration','Duration',const Duration(milliseconds: 200)),
+items:_resolveValue(atr,'AntdDropdown','items','List<AntdDropdownItem>',null),
+icon:_resolveValue(atr,'AntdDropdown','icon','Widget',null),
+activeIcon:_resolveValue(atr,'AntdDropdown','activeIcon','Widget',null),
+extra:_resolveValue(atr,'AntdDropdown','extra','AntdMaskBuilder<AntdMaskState>',null),
 );
 }
 
@@ -753,6 +786,7 @@ activeIndex:_resolveValue(atr,'AntdSegmented','activeIndex','int',null),
 items:_resolveValue(atr,'AntdSegmented','items','List<AntdSegmentedItem>',null),
 onChange:_resolveValue(atr,'AntdSegmented','onChange','ValueChanged<int>',null),
 duration:_resolveValue(atr,'AntdSegmented','duration','Duration',const Duration(milliseconds: 200)),
+hapticFeedback:_resolveValue(atr,'AntdSegmented','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -919,6 +953,7 @@ value:_resolveValue(atr,'AntdCascaderView','value','List<String>',null),
 options:_resolveValue(atr,'AntdCascaderView','options','List<AntdCascaderOption>',null),
 onTabsChange:_resolveValue(atr,'AntdCascaderView','onTabsChange','AntdTabsOnChange<AntdTab>',null),
 onChange:_resolveValue(atr,'AntdCascaderView','onChange','AntdCascaderViewChange',null),
+hapticFeedback:_resolveValue(atr,'AntdCascaderView','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -938,6 +973,7 @@ shrinkWrap:_resolveValue(atr,'AntdCheckList','shrinkWrap','bool',true),
 disable:_resolveValue(atr,'AntdCheckList','disable','bool',null),
 onChange:_resolveValue(atr,'AntdCheckList','onChange','AntdCheckListChange',null),
 values:_resolveValue(atr,'AntdCheckList','values','Set<String>',null),
+hapticFeedback:_resolveValue(atr,'AntdCheckList','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -1065,6 +1101,7 @@ autoCollect:_resolveValue(atr,'AntdRadio','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdRadio','onChange','ValueChanged<bool>',null),
 indeterminate:_resolveValue(atr,'AntdRadio','indeterminate','bool',null),
 extra:_resolveValue(atr,'AntdRadio','extra','Widget',null),
+hapticFeedback:_resolveValue(atr,'AntdRadio','hapticFeedback','AntdHapticFeedback',null),
 );
 }
 
@@ -1081,7 +1118,7 @@ clearable:_resolveValue(atr,'AntdSearchBar','clearable','bool',true),
 prefix:_resolveValue(atr,'AntdSearchBar','prefix','Widget',null),
 onClear:_resolveValue(atr,'AntdSearchBar','onClear','VoidCallback',null),
 onChange:_resolveValue(atr,'AntdSearchBar','onChange','ValueChanged<String?>',null),
-onCancel:_resolveValue(atr,'AntdSearchBar','onCancel','VoidCallback',null),
+onExtraTap:_resolveValue(atr,'AntdSearchBar','onExtraTap','VoidCallback',null),
 placeholder:_resolveValue(atr,'AntdSearchBar','placeholder','Widget',null),
 readOnly:_resolveValue(atr,'AntdSearchBar','readOnly','bool',false),
 controller:_resolveValue(atr,'AntdSearchBar','controller','AntdSearchBarController',null),
@@ -1121,6 +1158,7 @@ range:_resolveValue(atr,'AntdSlider','range','bool',false),
 step:_resolveValue(atr,'AntdSlider','step','int',1),
 ticks:_resolveValue(atr,'AntdSlider','ticks','bool',false),
 renderTicks:_resolveValue(atr,'AntdSlider','renderTicks','AntdSliderRenderTicks',null),
+hapticFeedback:_resolveValue(atr,'AntdSlider','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -1137,6 +1175,7 @@ onChange:_resolveValue(atr,'AntdSwitch','onChange','ValueChanged<bool>',null),
 content:_resolveValue(atr,'AntdSwitch','content','Widget',null),
 activeContent:_resolveValue(atr,'AntdSwitch','activeContent','Widget',null),
 duration:_resolveValue(atr,'AntdSwitch','duration','Duration',const Duration(milliseconds: 200)),
+hapticFeedback:_resolveValue(atr,'AntdSwitch','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
 }
 
@@ -1182,21 +1221,6 @@ countBuilder:_resolveValue(atr,'AntdTextArea','countBuilder','AntdTextAreaCountB
 );
 }
 
-Widget _AntdBadgeFormMap(Map<String,dynamic> atr){
-return AntdBadge(
-key:_resolveValue(atr,'AntdBadge','key','Key',null),
-style:_resolveValue(atr,'AntdBadge','style','AntdBadgeStyle',null),
-styleBuilder:_resolveValue(atr,'AntdBadge','styleBuilder','AntdStyleBuilder<AntdBadgeStyle, AntdBadge>',null),
-bordered:_resolveValue(atr,'AntdBadge','bordered','bool',null),
-color:_resolveValue(atr,'AntdBadge','color','AntdColor',AntdColor.danger),
-badge:_resolveValue(atr,'AntdBadge','badge','Widget',null),
-dot:_resolveValue(atr,'AntdBadge','dot','bool',null),
-position:_resolveValue(atr,'AntdBadge','position','AntdBadgePosition',AntdBadgePosition.topRight),
-child:_resolveValue(atr,'AntdBadge','child','Widget',null),
-offset:_resolveValue(atr,'AntdBadge','offset','Offset',null),
-);
-}
-
 Widget _AntdNoticeBarFormMap(Map<String,dynamic> atr){
 return AntdNoticeBar(
 key:_resolveValue(atr,'AntdNoticeBar','key','Key',null),
@@ -1216,20 +1240,21 @@ wrap:_resolveValue(atr,'AntdNoticeBar','wrap','bool',true),
 );
 }
 
-List<AntdFormItem> _getAntdFlexItemList(){return [
-AntdFormItem(
-name: "direction",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('direction(Axis)'),
-            Text('null')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-];}
+Widget _AntdBadgeFormMap(Map<String,dynamic> atr){
+return AntdBadge(
+key:_resolveValue(atr,'AntdBadge','key','Key',null),
+style:_resolveValue(atr,'AntdBadge','style','AntdBadgeStyle',null),
+styleBuilder:_resolveValue(atr,'AntdBadge','styleBuilder','AntdStyleBuilder<AntdBadgeStyle, AntdBadge>',null),
+bordered:_resolveValue(atr,'AntdBadge','bordered','bool',null),
+color:_resolveValue(atr,'AntdBadge','color','AntdColor',AntdColor.danger),
+badge:_resolveValue(atr,'AntdBadge','badge','Widget',null),
+dot:_resolveValue(atr,'AntdBadge','dot','bool',null),
+position:_resolveValue(atr,'AntdBadge','position','AntdBadgePosition',AntdBadgePosition.topRight),
+child:_resolveValue(atr,'AntdBadge','child','Widget',null),
+offset:_resolveValue(atr,'AntdBadge','offset','Offset',null),
+);
+}
+
 List<AntdFormItem> _getAntdTourItemList(){return [
 AntdFormItem(
 name: "opacity",
@@ -1292,6 +1317,20 @@ name: "child",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('child(Widget)'),
             Text('需要被引导的高亮目标组件')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
+List<AntdFormItem> _getAntdFlexItemList(){return [
+AntdFormItem(
+name: "direction",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('direction(Axis)'),
+            Text('null')
           ],),
               
 builder: (ctx) {
@@ -1564,6 +1603,20 @@ builder: (ctx) {
 },
 ),
 ];}
+List<AntdFormItem> _getAntdIconItemList(){return [
+AntdFormItem(
+name: "icon",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('icon(IconData)'),
+            Text('图标')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
 List<AntdFormItem> _getAntdActionSheetItemList(){return [
 AntdFormItem(
 name: "opacity",
@@ -1659,20 +1712,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-];}
-List<AntdFormItem> _getAntdIconItemList(){return [
-AntdFormItem(
-name: "icon",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('icon(IconData)'),
-            Text('图标')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
 },
 ),
 ];}
@@ -1888,6 +1927,24 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('center'), value: 'center')]);
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -2109,6 +2166,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdLoadingItemList(){return [
 AntdFormItem(
@@ -2286,40 +2361,6 @@ builder: (ctx) {
 },
 ),
 ];}
-List<AntdFormItem> _getAntdSliderBarItemList(){return [
-AntdFormItem(
-name: "virtual",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('virtual(bool)'),
-            Text('启动虚拟滚动')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "alignment",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('alignment(AntdEdge)'),
-            Text('根据方向自动优化视图边界')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdEdge.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
-            
-},
-),
-];}
 List<AntdFormItem> _getAntdAvatarItemList(){return [
 AntdFormItem(
 name: "image",
@@ -2418,12 +2459,12 @@ builder: (ctx) {
 },
 ),
 ];}
-List<AntdFormItem> _getAntdTabBarItemList(){return [
+List<AntdFormItem> _getAntdSliderBarItemList(){return [
 AntdFormItem(
-name: "activeIndex",
+name: "physics",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('activeIndex(int)'),
-            Text('激活的索引')
+            Text('physics(ScrollPhysics)'),
+            Text('滚动物理效果')
           ],),
               
 builder: (ctx) {
@@ -2432,20 +2473,108 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "safeArea",
+name: "shrinkWrap",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('safeArea(AntdPosition)'),
-            Text('是否开启安全区适配')
+            Text('shrinkWrap(bool)'),
+            Text('自动扩展高度')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "throttle",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('throttle(Duration)'),
+            Text('滚动事件节流时长')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "edgeThreshold",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('edgeThreshold(double)'),
+            Text('触边阈值 (0-1表示百分比)')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "virtual",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('virtual(bool)'),
+            Text('启动虚拟滚动')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "alignment",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('alignment(AntdEdge)'),
+            Text('根据方向自动优化视图边界')
           ],),
               
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
-                  ctx.onChange(AntdPosition.values
+                  ctx.onChange(AntdEdge.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
+                options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
+            
+},
+),
+AntdFormItem(
+name: "titlePlacement",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('titlePlacement(AntdEdge)'),
+            Text('标题和视图的对齐方式')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdEdge.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('start'), value: 'start'),AntdSelectorOption(label: Text('center'), value: 'center'),AntdSelectorOption(label: Text('end'), value: 'end')]);
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -2508,6 +2637,38 @@ name: "footer",
               
 builder: (ctx) {
               return  AntdInput();
+            
+},
+),
+];}
+List<AntdFormItem> _getAntdTabBarItemList(){return [
+AntdFormItem(
+name: "activeIndex",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('activeIndex(int)'),
+            Text('激活的索引')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "safeArea",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('safeArea(AntdPosition)'),
+            Text('是否开启安全区适配')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdPosition.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
 },
 ),
@@ -2603,6 +2764,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdCollapseItemList(){return [
 AntdFormItem(
@@ -2617,102 +2796,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-];}
-List<AntdFormItem> _getAntdModalItemList(){return [
-AntdFormItem(
-name: "opacity",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('opacity(AntdMaskOpacity)'),
-            Text('透明度,mask为true才有效')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
-},
-),
-AntdFormItem(
-name: "showMask",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('showMask(bool)'),
-            Text('是否显示背景蒙版')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "animationDuration",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('animationDuration(Duration)'),
-            Text('内容动画时长')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "dismissOnAction",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('dismissOnAction(bool)'),
-            Text('点击选项后是否关闭')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "closeIcon",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('closeIcon(Widget)'),
-            Text('自定义关闭按钮图标')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "header",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('header(Widget)'),
-            Text('顶部区域')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "title",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('title(Widget)'),
-            Text('标题')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
 },
 ),
 ];}
@@ -2828,6 +2911,102 @@ name: "rows",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('rows(int)'),
             Text('展示几行')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
+List<AntdFormItem> _getAntdModalItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
+AntdFormItem(
+name: "showMask",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('showMask(bool)'),
+            Text('是否显示背景蒙版')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "animationDuration",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('animationDuration(Duration)'),
+            Text('内容动画时长')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "dismissOnAction",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('dismissOnAction(bool)'),
+            Text('点击选项后是否关闭')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "closeIcon",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('closeIcon(Widget)'),
+            Text('自定义关闭按钮图标')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "header",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('header(Widget)'),
+            Text('顶部区域')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "title",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('title(Widget)'),
+            Text('标题')
           ],),
               
 builder: (ctx) {
@@ -3045,7 +3224,7 @@ AntdFormItem(
 name: "trigger",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('trigger(AntdPopoverTrigger)'),
-            Text('如何处罚气泡')
+            Text('如何触发气泡')
           ],),
               
 builder: (ctx) {
@@ -3056,6 +3235,24 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('tap'), value: 'tap'),AntdSelectorOption(label: Text('longPress'), value: 'longPress'),AntdSelectorOption(label: Text('show'), value: 'show')]);
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -3236,96 +3433,6 @@ name: "vertical",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('vertical(bool)'),
             Text('方向，默认是水平方向')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-];}
-List<AntdFormItem> _getAntdPopupItemList(){return [
-AntdFormItem(
-name: "opacity",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('opacity(AntdMaskOpacity)'),
-            Text('透明度,mask为true才有效')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdMaskOpacity.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
-            
-},
-),
-AntdFormItem(
-name: "showMask",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('showMask(bool)'),
-            Text('是否显示背景蒙版')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "animationDuration",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('animationDuration(Duration)'),
-            Text('内容动画时长')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "closeIcon",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('closeIcon(Widget)'),
-            Text('自定义关闭按钮图标')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "position",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('position(AntdPosition)'),
-            Text('弹出位置')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdPosition.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
-            
-},
-),
-AntdFormItem(
-name: "avoidKeyboard",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('avoidKeyboard(bool)'),
-            Text('当底部弹出式 避免键盘遮挡')
           ],),
               
 builder: (ctx) {
@@ -3552,42 +3659,44 @@ builder: (ctx) {
 },
 ),
 ];}
-List<AntdFormItem> _getAntdProgressBarItemList(){return [
+List<AntdFormItem> _getAntdPopupItemList(){return [
 AntdFormItem(
-name: "child",
+name: "opacity",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('child(Widget)'),
-            Text('子组件')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "color",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('color(AntdColor)'),
-            Text('颜色')
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
           ],),
               
 builder: (ctx) {
               return AntdSelector(
               value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
                 onChange: (values) {
-                  ctx.onChange(AntdColor.values
+                  ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
             
 },
 ),
 AntdFormItem(
-name: "percent",
+name: "showMask",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('percent(double)'),
-            Text('百分比')
+            Text('showMask(bool)'),
+            Text('是否显示背景蒙版')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "animationDuration",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('animationDuration(Duration)'),
+            Text('内容动画时长')
           ],),
               
 builder: (ctx) {
@@ -3596,10 +3705,10 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "stroke",
+name: "closeIcon",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('stroke(double)'),
-            Text('线的宽度')
+            Text('closeIcon(Widget)'),
+            Text('自定义关闭按钮图标')
           ],),
               
 builder: (ctx) {
@@ -3608,15 +3717,35 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "duration",
+name: "position",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('duration(Duration)'),
-            Text('周期')
+            Text('position(AntdPosition)'),
+            Text('弹出位置')
           ],),
               
 builder: (ctx) {
-              return  AntdInput();
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdPosition.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('top'), value: 'top'),AntdSelectorOption(label: Text('bottom'), value: 'bottom'),AntdSelectorOption(label: Text('left'), value: 'left'),AntdSelectorOption(label: Text('right'), value: 'right'),AntdSelectorOption(label: Text('horizontal'), value: 'horizontal'),AntdSelectorOption(label: Text('vertical'), value: 'vertical'),AntdSelectorOption(label: Text('all'), value: 'all')]);
             
+},
+),
+AntdFormItem(
+name: "avoidKeyboard",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('avoidKeyboard(bool)'),
+            Text('当底部弹出式 避免键盘遮挡')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 ];}
@@ -3692,6 +3821,144 @@ name: "size",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('size(double)'),
             Text('大小')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
+List<AntdFormItem> _getAntdProgressBarItemList(){return [
+AntdFormItem(
+name: "child",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('child(Widget)'),
+            Text('子组件')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "color",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('color(AntdColor)'),
+            Text('颜色')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdColor.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+            
+},
+),
+AntdFormItem(
+name: "percent",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('percent(double)'),
+            Text('百分比')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "stroke",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('stroke(double)'),
+            Text('线的宽度')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "duration",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('duration(Duration)'),
+            Text('周期')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
+List<AntdFormItem> _getAntdDropdownItemList(){return [
+AntdFormItem(
+name: "opacity",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('opacity(AntdMaskOpacity)'),
+            Text('透明度,mask为true才有效')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdMaskOpacity.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('transparent'), value: 'transparent'),AntdSelectorOption(label: Text('thin'), value: 'thin'),AntdSelectorOption(label: Text('thick'), value: 'thick')]);
+            
+},
+),
+AntdFormItem(
+name: "showMask",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('showMask(bool)'),
+            Text('是否显示背景蒙版')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "animationDuration",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('animationDuration(Duration)'),
+            Text('内容动画时长')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "icon",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('icon(Widget)'),
+            Text('默认的图标')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "activeIcon",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('activeIcon(Widget)'),
+            Text('激活后的图标')
           ],),
               
 builder: (ctx) {
@@ -3846,6 +4113,24 @@ name: "duration",
               
 builder: (ctx) {
               return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -4577,6 +4862,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdCheckListItemList(){return [
 AntdFormItem(
@@ -4660,6 +4963,24 @@ name: "values",
               
 builder: (ctx) {
               return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -5499,6 +5820,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdSearchBarItemList(){return [
 AntdFormItem(
@@ -5817,6 +6156,24 @@ builder: (ctx) {
                 
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdSwitchItemList(){return [
 AntdFormItem(
@@ -5908,6 +6265,24 @@ name: "duration",
               
 builder: (ctx) {
               return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('开启反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
             
 },
 ),
@@ -6176,108 +6551,6 @@ builder: (ctx) {
 },
 ),
 ];}
-List<AntdFormItem> _getAntdBadgeItemList(){return [
-AntdFormItem(
-name: "bordered",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('bordered(bool)'),
-            Text('是否显示边框（默认false）')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "color",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('color(AntdColor)'),
-            Text('徽标背景色/小圆点颜色')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdColor.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
-            
-},
-),
-AntdFormItem(
-name: "badge",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('badge(Widget)'),
-            Text('徽标显示内容（数字/文字等）')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "dot",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('dot(bool)'),
-            Text('是否显示为小红点而非内容（默认false）')
-          ],),
-              
-builder: (ctx) {
-                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
-                ctx.onChange(check);
-          },);
-                
-},
-),
-AntdFormItem(
-name: "position",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('position(AntdBadgePosition)'),
-            Text('徽标相对于子组件的位置')
-          ],),
-              
-builder: (ctx) {
-              return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
-                onChange: (values) {
-                  ctx.onChange(AntdBadgePosition.values
-                      .firstWhere((value) => value.name == values?.lastOrNull));
-                },
-                options: [AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight')]);
-            
-},
-),
-AntdFormItem(
-name: "child",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('child(Widget)'),
-            Text('徽标包裹的子组件')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "offset",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('offset(Offset)'),
-            Text('徽标自定义偏移量（相对默认位置调整）')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-];}
 List<AntdFormItem> _getAntdNoticeBarItemList(){return [
 AntdFormItem(
 name: "closeable",
@@ -6398,13 +6671,115 @@ builder: (ctx) {
 },
 ),
 ];}
+List<AntdFormItem> _getAntdBadgeItemList(){return [
+AntdFormItem(
+name: "bordered",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('bordered(bool)'),
+            Text('是否显示边框（默认false）')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "color",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('color(AntdColor)'),
+            Text('徽标背景色/小圆点颜色')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdColor.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+            
+},
+),
+AntdFormItem(
+name: "badge",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('badge(Widget)'),
+            Text('徽标显示内容（数字/文字等）')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "dot",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('dot(bool)'),
+            Text('是否显示为小红点而非内容（默认false）')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "position",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('position(AntdBadgePosition)'),
+            Text('徽标相对于子组件的位置')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdBadgePosition.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('topLeft'), value: 'topLeft'),AntdSelectorOption(label: Text('topRight'), value: 'topRight'),AntdSelectorOption(label: Text('bottomLeft'), value: 'bottomLeft'),AntdSelectorOption(label: Text('bottomRight'), value: 'bottomRight')]);
+            
+},
+),
+AntdFormItem(
+name: "child",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('child(Widget)'),
+            Text('徽标包裹的子组件')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "offset",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('offset(Offset)'),
+            Text('徽标自定义偏移量（相对默认位置调整）')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+];}
 
 List<AntdFormItem> getFormItem(String name){
-if (name == 'AntdFlex'){
-return _getAntdFlexItemList();
-}
 if (name == 'AntdTour'){
 return _getAntdTourItemList();
+}
+if (name == 'AntdFlex'){
+return _getAntdFlexItemList();
 }
 if (name == 'AntdBox'){
 return _getAntdBoxItemList();
@@ -6412,11 +6787,11 @@ return _getAntdBoxItemList();
 if (name == 'AntdButton'){
 return _getAntdButtonItemList();
 }
-if (name == 'AntdActionSheet'){
-return _getAntdActionSheetItemList();
-}
 if (name == 'AntdIcon'){
 return _getAntdIconItemList();
+}
+if (name == 'AntdActionSheet'){
+return _getAntdActionSheetItemList();
 }
 if (name == 'AntdDivider'){
 return _getAntdDividerItemList();
@@ -6445,17 +6820,17 @@ return _getAntdLoadingItemList();
 if (name == 'AntdNavBar'){
 return _getAntdNavBarItemList();
 }
-if (name == 'AntdSliderBar'){
-return _getAntdSliderBarItemList();
-}
 if (name == 'AntdAvatar'){
 return _getAntdAvatarItemList();
 }
-if (name == 'AntdTabBar'){
-return _getAntdTabBarItemList();
+if (name == 'AntdSliderBar'){
+return _getAntdSliderBarItemList();
 }
 if (name == 'AntdCard'){
 return _getAntdCardItemList();
+}
+if (name == 'AntdTabBar'){
+return _getAntdTabBarItemList();
 }
 if (name == 'AntdTabs'){
 return _getAntdTabsItemList();
@@ -6463,14 +6838,14 @@ return _getAntdTabsItemList();
 if (name == 'AntdCollapse'){
 return _getAntdCollapseItemList();
 }
-if (name == 'AntdModal'){
-return _getAntdModalItemList();
-}
 if (name == 'AntdFloatingPanel'){
 return _getAntdFloatingPanelItemList();
 }
 if (name == 'AntdEllipsis'){
 return _getAntdEllipsisItemList();
+}
+if (name == 'AntdModal'){
+return _getAntdModalItemList();
 }
 if (name == 'AntdImage'){
 return _getAntdImageItemList();
@@ -6487,17 +6862,20 @@ return _getAntdImageViewerItemList();
 if (name == 'AntdPageIndicator'){
 return _getAntdPageIndicatorItemList();
 }
+if (name == 'AntdList'){
+return _getAntdListItemList();
+}
 if (name == 'AntdPopup'){
 return _getAntdPopupItemList();
 }
-if (name == 'AntdList'){
-return _getAntdListItemList();
+if (name == 'AntdProgressCircle'){
+return _getAntdProgressCircleItemList();
 }
 if (name == 'AntdProgressBar'){
 return _getAntdProgressBarItemList();
 }
-if (name == 'AntdProgressCircle'){
-return _getAntdProgressCircleItemList();
+if (name == 'AntdDropdown'){
+return _getAntdDropdownItemList();
 }
 if (name == 'AntdPullToRefresh'){
 return _getAntdPullToRefreshItemList();
@@ -6568,11 +6946,11 @@ return _getAntdSwitchItemList();
 if (name == 'AntdTextArea'){
 return _getAntdTextAreaItemList();
 }
-if (name == 'AntdBadge'){
-return _getAntdBadgeItemList();
-}
 if (name == 'AntdNoticeBar'){
 return _getAntdNoticeBarItemList();
+}
+if (name == 'AntdBadge'){
+return _getAntdBadgeItemList();
 }
 return [];
 }

@@ -174,6 +174,7 @@ class AntdJumboTabsStyleDemo extends StatelessWidget {
 | onChange | 标签切换时的回调（参数为当前选中key） | AntdTabsOnChange&lt;AntdJumboTab&gt; | - | - |
 | tabAlignment | 标签对齐方式（居中时会自动启用滚动或填充）:`left` \| `center` | AntdTabAlignment | center | - |
 | tabs | 标签页配置列表（至少包含一个标签） | List&lt;AntdJumboTab&gt; | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
 
 
 ## 复杂选项卡项定义(AntdJumboTab) <a id='AntdJumboTab'></a>

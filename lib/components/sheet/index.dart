@@ -141,11 +141,11 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return AntdActionStyle(
         bodyStyle: AntdBoxStyle(
-          color: token.colorWhite,
-          feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
-          padding: token.size.xl.all,
-          border: token.borderSide.bottom,
-        ),
+            color: token.colorWhite,
+            feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
+            padding: token.size.xl.all,
+            border: token.borderSide.bottom,
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         titleStyle: AntdBoxStyle(
           alignment: Alignment.center,
           textStyle: token.font.xxl.copyWith(

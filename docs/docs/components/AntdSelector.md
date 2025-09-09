@@ -246,6 +246,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 | label | 选项的主标签组件 | Widget | - | - |
 | value | 选项的唯一标识值 | String | - | - |
 | onChange | 更改事件 | ValueChanged&lt;bool&gt; | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 ## 选择器样式配置类(AntdSelectorStyle) <a id='AntdSelectorStyle'></a>
 

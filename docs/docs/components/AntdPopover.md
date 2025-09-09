@@ -349,7 +349,8 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | placement | 弹出的位置:`top` \| `topLeft` \| `topRight` \| `bottom` \| `bottomLeft` \| `bottomRight` \| `left` \| `leftTop` \| `leftBottom` \| `right` \| `rightTop` \| `rightBottom` | AntdPlacement | top | - |
 | mode | 设置亮色模式或者黑色模式:`light` \| `dark` | AntdPopoverMode | light | - |
 | controller | 控制器,如果使用了控制器必须要手动打开，内部的点击会失效 | AntdPopoverController | - | - |
-| trigger | 如何处罚气泡:`tap` \| `longPress` \| `show` | AntdPopoverTrigger | tap | - |
+| trigger | 如何触发气泡:`tap` \| `longPress` \| `show` | AntdPopoverTrigger | tap | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 样式(AntdPopoverActionStyle) <a id='AntdPopoverActionStyle'></a>

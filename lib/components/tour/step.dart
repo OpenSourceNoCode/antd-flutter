@@ -188,7 +188,9 @@ class AntdTourStepState extends AntdState<AntdTourStepStyle, AntdTourStep> {
       onLayout: (ctx) {
         controller?.updateStep(widget.index, ctx.renderBox);
         if (widget.defaultOpen) {
-          controller?.open(widget.index);
+          Future.delayed(const Duration(milliseconds: 500), () {
+            controller?.open(widget.index);
+          });
         }
       },
       child: widget.child,

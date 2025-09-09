@@ -28,7 +28,7 @@ class AntdSearchBarAutoShowExtraDemo extends StatelessWidget {
     return DemoWrapper(outline: true, child: [
       AntdSearchBar(
           extra: const Text("取消"),
-          onCancel: () {
+          onExtraTap: () {
             AntdToast.show("点击了取消");
           },
           placeholder: const Text("请输入内容"))
@@ -232,7 +232,7 @@ class AntdSearchBarLazyDemo extends StatelessWidget {
 | prefix | 前缀 | Widget | - | - |
 | onClear | 点击清除按钮后触发 | VoidCallback | - | - |
 | onChange | 值变更 | ValueChanged&lt;String?&gt; | - | - |
-| onCancel | 点击取消按钮时触发 | VoidCallback | - | - |
+| onExtraTap | 点击额外区域时触发 | VoidCallback | - | - |
 | placeholder | 提示文本 | Widget | - | - |
 | readOnly | 只读模式 | bool | false | - |
 | controller | 搜索控制器 | AntdSearchBarController | - | - |

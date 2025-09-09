@@ -151,10 +151,8 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   bool tapState = false;
   bool focusState = false;
   late var mediaQuery = MediaQuery.of(context);
-  late AntdTapOptions _options = widget.options?.copyWith(
-          disabled: widget.disabled, hapticFeedback: style.hapticFeedback) ??
-      AntdTapOptions(disabled: widget.disabled == true);
-  bool get _hasFocusNode => widget.onFocus != null || style.focusStyle != null;
+  late AntdTapOptions _options = const AntdTapOptions();
+  bool _hasFocusNode = false;
   late final FocusNode _focusNode = widget.focusNode ?? FocusNode();
 
   late final AntdTapHandler _handler = AntdTapHandler(
@@ -263,8 +261,24 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
       execLayoutCallback(false);
     });
 
-    _options = widget.options?.copyWith(disabled: widget.disabled) ??
-        AntdTapOptions(disabled: widget.disabled == true);
+    AntdTapAccepter getAccepter() {
+      if (widget.options?.accepter != null) {
+        return widget.options!.accepter!;
+      }
+      if (widget.options?.allowOffset == true || style.feedbackStyle != null) {
+        return AntdTapAccepter.listener;
+      }
+      return AntdTapAccepter.gesture;
+    }
+
+    _options = AntdTapOptions(
+            hapticFeedback: style.hapticFeedback, accepter: getAccepter())
+        .copyFrom(style.options)
+        .copyFrom(widget.options)
+        .copyWith(
+          disabled: widget.disabled,
+        );
+    _hasFocusNode = widget.onFocus != null || style.focusStyle != null;
     _focusNode.canRequestFocus = _options.disabled != true;
 
     _handler.options = _options;
@@ -308,35 +322,7 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
 
     var child = innerStyle.render(widget.child);
     if (_handler.hasHandlers || style.feedbackStyle != null) {
-      if (!_handler.hasHandlers) {
-        child = Listener(
-          behavior: _options.behavior,
-          onPointerDown: (detail) {
-            _handler.handlePointerDown(TapDownDetails(
-                globalPosition: detail.position,
-                localPosition: detail.localPosition,
-                kind: detail.kind));
-          },
-          onPointerUp: (detail) {
-            _handler.handlePointerUp(TapUpDetails(
-                globalPosition: detail.position,
-                localPosition: detail.localPosition,
-                kind: detail.kind));
-          },
-          onPointerCancel: (detail) {
-            _handler.handlePointerCancel();
-          },
-          child: child,
-        );
-      } else {
-        child = GestureDetector(
-          behavior: _options.behavior,
-          onTapDown: _handler.handlePointerDown,
-          onTapUp: _handler.handlePointerUp,
-          onTapCancel: _handler.handlePointerCancel,
-          child: child,
-        );
-      }
+      child = _handler.wrap(child);
     }
 
     if (innerStyle.radius != null && innerStyle.shadows == null) {

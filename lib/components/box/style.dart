@@ -395,32 +395,35 @@ class AntdBoxStyle extends AntdKitStyle {
   ///@l[AntdBox]
   final AntdKitStyle? feedbackStyle;
 
-  const AntdBoxStyle({
-    super.inherit,
-    super.padding,
-    super.margin,
-    super.opacity,
-    super.color,
-    super.border,
-    super.radius,
-    super.textStyle,
-    super.height,
-    super.minHeight,
-    super.width,
-    super.minWidth,
-    super.size,
-    super.layoutModes,
-    super.backdropFilter,
-    super.shadows,
-    super.gradient,
-    super.alignment,
-    super.visibility,
-    super.hapticFeedback,
-    super.colorFilter,
-    this.focusStyle,
-    this.disabledStyle,
-    this.feedbackStyle,
-  });
+  ///触摸配置 优先级低于[AntdBox]上的options
+  final AntdTapOptions? options;
+
+  const AntdBoxStyle(
+      {super.inherit,
+      super.padding,
+      super.margin,
+      super.opacity,
+      super.color,
+      super.border,
+      super.radius,
+      super.textStyle,
+      super.height,
+      super.minHeight,
+      super.width,
+      super.minWidth,
+      super.size,
+      super.layoutModes,
+      super.backdropFilter,
+      super.shadows,
+      super.gradient,
+      super.alignment,
+      super.visibility,
+      super.hapticFeedback,
+      super.colorFilter,
+      this.focusStyle,
+      this.disabledStyle,
+      this.feedbackStyle,
+      this.options});
 
   @override
   AntdBoxStyle copyFrom(covariant AntdBoxStyle? style) {
@@ -451,7 +454,9 @@ class AntdBoxStyle extends AntdKitStyle {
         colorFilter: style.colorFilter,
         focusStyle: focusStyle.merge(style.focusStyle),
         disabledStyle: disabledStyle.merge(style.disabledStyle),
-        feedbackStyle: feedbackStyle.merge(style.feedbackStyle));
+        feedbackStyle: feedbackStyle.merge(style.feedbackStyle),
+        options:
+            options == null ? style.options : options?.copyFrom(style.options));
   }
 
   AntdBoxStyle overFrom(covariant AntdKitStyle? style) {
@@ -460,26 +465,27 @@ class AntdBoxStyle extends AntdKitStyle {
     }
 
     return copyWith(
-        padding: style.padding,
-        margin: style.margin,
-        opacity: style.opacity,
-        color: style.color,
-        border: style.border,
-        radius: style.radius,
-        textStyle: style.textStyle,
-        height: style.height,
-        minHeight: style.minHeight,
-        width: style.width,
-        minWidth: style.minWidth,
-        size: style.size,
-        layoutModes: style.layoutModes,
-        backdropFilter: style.backdropFilter,
-        shadows: style.shadows,
-        gradient: style.gradient,
-        alignment: style.alignment,
-        visibility: style.visibility,
-        hapticFeedback: style.hapticFeedback,
-        colorFilter: style.colorFilter);
+      padding: style.padding,
+      margin: style.margin,
+      opacity: style.opacity,
+      color: style.color,
+      border: style.border,
+      radius: style.radius,
+      textStyle: style.textStyle,
+      height: style.height,
+      minHeight: style.minHeight,
+      width: style.width,
+      minWidth: style.minWidth,
+      size: style.size,
+      layoutModes: style.layoutModes,
+      backdropFilter: style.backdropFilter,
+      shadows: style.shadows,
+      gradient: style.gradient,
+      alignment: style.alignment,
+      visibility: style.visibility,
+      hapticFeedback: style.hapticFeedback,
+      colorFilter: style.colorFilter,
+    );
   }
 
   @override
@@ -508,7 +514,8 @@ class AntdBoxStyle extends AntdKitStyle {
       final AntdKitStyle? focusStyle,
       final AntdKitStyle? disabledStyle,
       final AntdKitStyle? feedbackStyle,
-      final ColorFilter? colorFilter}) {
+      final ColorFilter? colorFilter,
+      final AntdTapOptions? options}) {
     if (!inherit) {
       return this;
     }
@@ -543,6 +550,7 @@ class AntdBoxStyle extends AntdKitStyle {
       focusStyle: focusStyle,
       feedbackStyle: feedbackStyle,
       disabledStyle: disabledStyle,
+      options: options,
     );
   }
 }

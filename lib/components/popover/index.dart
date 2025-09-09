@@ -223,7 +223,8 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
       this.mode = AntdPopoverMode.light,
       this.closeOnAction = true,
       this.controller,
-      this.trigger = AntdPopoverTrigger.tap});
+      this.trigger = AntdPopoverTrigger.tap,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   ///弹出内容，比actions优先级更高
   final Widget child;
@@ -243,8 +244,11 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
   ///控制器,如果使用了控制器必须要手动打开，内部的点击会失效
   final AntdPopoverController? controller;
 
-  ///如何处罚气泡
+  ///如何触发气泡
   final AntdPopoverTrigger trigger;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   @override
   State<StatefulWidget> createState() {
@@ -350,12 +354,14 @@ class _AntdPopoverState
           widget.controller != null || widget.trigger != AntdPopoverTrigger.tap
               ? null
               : () async {
+                  handleHapticFeedback(widget.hapticFeedback);
                   await open();
                 },
       onLongPress: widget.controller != null ||
               widget.trigger != AntdPopoverTrigger.longPress
           ? null
           : () async {
+              handleHapticFeedback(widget.hapticFeedback);
               await open();
             },
       onLayout: (context) {

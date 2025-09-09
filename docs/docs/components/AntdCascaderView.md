@@ -45,7 +45,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
   const AntdCascaderViewDefaultDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: true, child: [
       AntdCascaderView(value: ['2-1', '3-1'], options: cascaderOptions)
     ]);
   }
@@ -169,6 +169,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | options | 配置每一列的选项 | List&lt;AntdCascaderOption&gt; | - | - |
 | onTabsChange | 默认选中项 | AntdTabsOnChange&lt;AntdTab&gt; | - | - |
 | onChange | 选项变化时的回调 | AntdCascaderViewChange | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 配置项样式(AntdCascaderOptionStyle) <a id='AntdCascaderOptionStyle'></a>

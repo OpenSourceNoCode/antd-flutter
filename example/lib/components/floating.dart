@@ -104,9 +104,10 @@ class AntdFloatingAnchorsDemo extends StatelessWidget {
           style: AntdBoxStyle(width: double.infinity, height: 500),
         ),
         content: AntdList(
+            shrinkWrap: true,
             items: data.map((value) {
-          return Text(value);
-        }).toList()),
+              return Text(value);
+            }).toList()),
       )
     ]);
   }

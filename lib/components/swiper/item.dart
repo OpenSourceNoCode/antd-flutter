@@ -76,7 +76,9 @@ class AntdSwipeItem extends AntdComponent<AntdSwipeItemStyle, AntdSwipeItem> {
   @override
   AntdSwipeItemStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    return const AntdSwipeItemStyle();
+    return const AntdSwipeItemStyle(
+        style: AntdBoxStyle(
+            options: AntdTapOptions(accepter: AntdTapAccepter.listener)));
   }
 
   @override

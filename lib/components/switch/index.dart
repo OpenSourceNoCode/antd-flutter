@@ -77,6 +77,9 @@ class AntdSwitch
   ///动画周期
   final Duration duration;
 
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
+
   const AntdSwitch(
       {super.key,
       super.style,
@@ -88,7 +91,8 @@ class AntdSwitch
       super.onChange,
       this.content,
       this.activeContent,
-      this.duration = const Duration(milliseconds: 200)});
+      this.duration = const Duration(milliseconds: 200),
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   @override
   AntdSwitchStyle getDefaultStyle(
@@ -105,7 +109,10 @@ class AntdSwitch
         radius: 24.radius.all);
 
     var style = AntdSwitchStyle(
-      bodyStyle: const AntdBoxStyle(minWidth: 56, width: 70),
+      bodyStyle: const AntdBoxStyle(
+          minWidth: 56,
+          width: 70,
+          options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
       trackStyle: trackStyle,
       activeTrackStyle: trackStyle.copyWith(color: token.colorPrimary),
       thumbStyle: thumbStyle,
@@ -212,6 +219,7 @@ class _AntdSwitchState
       disabled: widget.disabled,
       onTap: () {
         changeValue(() {
+          handleHapticFeedback(widget.hapticFeedback);
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _startAnimation();
           });

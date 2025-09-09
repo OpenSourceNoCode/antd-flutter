@@ -103,7 +103,10 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
               AntdToastPosition.center => null,
               AntdToastPosition.bottom => token.size.xxl.bottom,
               null => null,
-            }),
+            },
+            options: dismissOnTap == true
+                ? const AntdTapOptions(accepter: AntdTapAccepter.listener)
+                : null),
         icon: switch (type) {
           null => null,
           AntdToastType.success => const AntdIcon(

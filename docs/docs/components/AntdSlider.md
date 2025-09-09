@@ -25,7 +25,7 @@ class AntdSliderDemo extends StatelessWidget {
   const AntdSliderDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(child: [
+    return DemoWrapper(outline: true, child: [
       AntdSlider(onChange: (value) {
         AntdToast.show("当前选中值为start:${value.start},end:${value.end}");
       })
@@ -310,6 +310,7 @@ class AntdSliderCustomDemo extends StatelessWidget {
 | step | 步距，取值必须大于 0，并且 (max - min) 可被 step 整除。当 marks 不为空对象时，step 的配置失效 | int | 1 | - |
 | ticks | 是否显示刻度 | bool | false | - |
 | renderTicks | 渲染的tick | AntdSliderRenderTicks | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 样式(AntdSliderStyle) <a id='AntdSliderStyle'></a>

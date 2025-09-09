@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AntdTabController<T extends AntdTab>
     extends AntdScrollPositionController<T> {
   ValueNotifier<int> currentIndex = ValueNotifier(0);
+  AntdHapticFeedback? _hapticFeedback;
   final List<AntdScrollPositionController<Widget>> _panelScrollControllers = [];
   final AntdScrollToIndexConfig _scrollConfig = const AntdScrollToIndexConfig(
       viewportAlign: AntdEdge.center,
@@ -22,6 +23,7 @@ class AntdTabController<T extends AntdTab>
   }
 
   void _switchToTab(int targetIndex) {
+    handleHapticFeedback(_hapticFeedback);
     currentIndex.value = targetIndex;
     indicatorController?.move(targetIndex);
     toIndex(targetIndex, config: _scrollConfig);
@@ -120,21 +122,22 @@ abstract class AntdBaseTabs<Style extends AntdTabsStyle, T extends AntdTab,
         WidgetType>
     extends AntdScrollPositionedBase<T, Style, WidgetType,
         AntdTabController<T>> {
-  const AntdBaseTabs({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.virtual = false,
-    super.controller,
-    this.activeValue,
-    this.onChange,
-    required this.tabs,
-    this.indicatorPosition = AntdIndicatorPosition.bottom,
-    this.indicatorMode = AntdIndicatorMode.fixed,
-    this.leftExtra,
-    this.rightExtra,
-    this.tabAlignment = AntdTabAlignment.center,
-  }) : super(vertical: false, fit: AntdScrollItemFit.split);
+  const AntdBaseTabs(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.virtual = false,
+      super.controller,
+      this.activeValue,
+      this.onChange,
+      required this.tabs,
+      this.indicatorPosition = AntdIndicatorPosition.bottom,
+      this.indicatorMode = AntdIndicatorMode.fixed,
+      this.leftExtra,
+      this.rightExtra,
+      this.tabAlignment = AntdTabAlignment.center,
+      this.hapticFeedback = AntdHapticFeedback.light})
+      : super(vertical: false, fit: AntdScrollItemFit.split);
 
   /// 默认选中的标签key（为空时不激活任何一个）
   final String? activeValue;
@@ -159,6 +162,9 @@ abstract class AntdBaseTabs<Style extends AntdTabsStyle, T extends AntdTab,
 
   /// 标签对齐方式（居中时会自动启用滚动或填充）
   final AntdTabAlignment tabAlignment;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 }
 
 abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
@@ -202,6 +208,7 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
   @override
   void updateDependentValues(covariant S? oldWidget) {
     super.updateDependentValues(oldWidget);
+    scrollController._hapticFeedback = widget.hapticFeedback;
     if (oldWidget?.activeValue != widget.activeValue) {
       _setActiveIndex(widget.activeValue);
     }
@@ -258,8 +265,10 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
             onTap: () {
               scrollController.switchTo(index);
             },
-            style:
-                (active ? style.activeTitleStyle : style.titleStyle)?.copyWith(
+            style: (active
+                    ? style.titleStyle?.copyFrom(style.activeTitleStyle)
+                    : style.titleStyle)
+                ?.copyWith(
               alignment: Alignment.center,
             ),
             child: buildHeader(tab, index, active),
@@ -313,31 +322,31 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
 ///@d 内容组之间进行导航切换。
 ///@u 当前内容需要分成同层级结构的组，进行内容切换展示，常用在表单或者列表的顶部。
 class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
-  const AntdTabs({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.leftExtra,
-    super.rightExtra,
-    super.controller,
-    super.activeValue,
-    super.onChange,
-    super.tabAlignment = AntdTabAlignment.center,
-    required super.tabs,
-    super.indicatorPosition = AntdIndicatorPosition.bottom,
-    super.indicatorMode = AntdIndicatorMode.fixed,
-  });
+  const AntdTabs(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.leftExtra,
+      super.rightExtra,
+      super.controller,
+      super.activeValue,
+      super.onChange,
+      super.tabAlignment = AntdTabAlignment.center,
+      required super.tabs,
+      super.indicatorPosition = AntdIndicatorPosition.bottom,
+      super.indicatorMode = AntdIndicatorMode.fixed,
+      super.hapticFeedback});
 
   @override
   AntdTabsStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     var titleTextStyle = token.font.lg;
     var titleStyle = AntdBoxStyle(
-      padding: token.size.default_.top
-          .marge(token.size.md.bottom)
-          .marge(token.size.lg.horizontal),
-      textStyle: titleTextStyle,
-    );
+        padding: token.size.default_.top
+            .marge(token.size.md.bottom)
+            .marge(token.size.lg.horizontal),
+        textStyle: titleTextStyle,
+        options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
     var style = AntdTabsStyle(
         tabStyle: AntdBoxStyle(
           color: token.colorWhite,
@@ -408,7 +417,7 @@ class AntdTabsState extends AntdBaseTabsState<AntdTabsStyle, AntdTab, AntdTabs>
 class AntdTabShaderMask extends StatelessWidget {
   final Widget child;
   final Curve fadeCurve;
-  final double fadeWidth; // 模糊区域宽度比例 (0.05 ~ 0.3)
+  final double fadeWidth;
 
   const AntdTabShaderMask({
     super.key,
@@ -442,7 +451,6 @@ class AntdTabShaderMask extends StatelessWidget {
   }
 
   List<double> _calculateStops() {
-    // 对称的stops数组
     return [
       0.0,
       fadeWidth * 0.25,
@@ -461,13 +469,10 @@ class AntdTabShaderMask extends StatelessWidget {
     final edge = fadeWidth.clamp(0.05, 0.3);
 
     if (x < edge) {
-      // 左侧：线性映射到[0,0.5]
       return (x / edge) * 0.5;
     } else if (x > 1 - edge) {
-      // 右侧：线性映射到[0.5,1]
       return 0.5 + ((x - (1 - edge)) / edge) * 0.5;
     } else {
-      // 中间：直接映射到0.5
       return 0.5;
     }
   }

@@ -4,7 +4,7 @@ import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
 const cascaderOptions = [
-  AntdCascaderOption(child: Text("浙江"), value: '1'),
+  AntdCascaderOption(value: '1', child: Text("浙江")),
   AntdCascaderOption(child: Text("安徽"), value: '2'),
   AntdCascaderOption(child: Text("江苏"), value: '3'),
   AntdCascaderOption(
@@ -64,7 +64,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: true, child: [
       AntdCascaderView(
         value: ['2-1', '3-1'],
         options: cascaderOptions,

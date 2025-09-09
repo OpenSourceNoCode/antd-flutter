@@ -354,7 +354,7 @@ abstract class AntdInputBase<WidgetType>
     this.onAppPrivateCommand,
     this.dragStartBehavior = DragStartBehavior.start,
     this.scrollController,
-    this.scrollPhysics,
+    this.scrollPhysics = const ClampingScrollPhysics(),
     this.clipBehavior = Clip.hardEdge,
     this.onFocus,
   });
@@ -534,6 +534,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       scrollPadding: EdgeInsets.zero,
       dragStartBehavior: widget.dragStartBehavior,
       onChanged: _handlerOnChange,
+      contextMenuBuilder: widget.contextMenuBuilder,
       onEditingComplete: widget.onEditingComplete,
       onSubmitted: widget.onSubmitted,
       onAppPrivateCommand: widget.onAppPrivateCommand,
@@ -577,8 +578,9 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                       );
                     },
                   ),
-                selectionGestureDetectorBuilder.buildGestureDetector(
-                    behavior: HitTestBehavior.translucent, child: editText)
+                TextFieldTapRegion(
+                    child: selectionGestureDetectorBuilder.buildGestureDetector(
+                        behavior: HitTestBehavior.translucent, child: editText))
               ],
             ),
           ),

@@ -252,7 +252,7 @@ class AntdNoticeBarCustomDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | iconStyle | 左侧图标大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| closeIconStyle | 关闭图标大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| closeStyle | 关闭区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | bodyStyle | 内容的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | extraStyle | 扩展区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 

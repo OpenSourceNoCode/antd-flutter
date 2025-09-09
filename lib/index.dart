@@ -22,6 +22,7 @@ export 'components/collapse/index.dart';
 export 'components/define.dart';
 export 'components/dialog/index.dart';
 export 'components/divider/index.dart';
+export 'components/dropdown/index.dart';
 export 'components/ellipsis/index.dart';
 export 'components/empty/index.dart';
 export 'components/flex/index.dart';

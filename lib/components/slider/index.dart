@@ -98,7 +98,8 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
       this.step = 1,
       this.length = 100,
       this.ticks = false,
-      this.renderTicks});
+      this.renderTicks,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   ///默认值
   final AntdSliderValue? value;
@@ -132,6 +133,9 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
 
   ///渲染的tick
   final AntdSliderRenderTicks? renderTicks;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   @override
   State<StatefulWidget> createState() {
@@ -252,10 +256,21 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
     return nearestKey;
   }
 
+  _handlerOnChange() {
+    if (widget.ticks) {
+      handleHapticFeedback(widget.hapticFeedback);
+    }
+
+    widget.onChange?.call(AntdSliderValue(
+      start: _values.firstOrNull ?? 0,
+      end: _values.lastOrNull ?? 0,
+    ));
+  }
+
   Widget buildSlider(AntdSliderStyle style, int index, int currentValue) {
-    var child = GestureDetector(
+    var child = Listener(
       behavior: HitTestBehavior.opaque,
-      onHorizontalDragUpdate: (details) {
+      onPointerMove: (details) {
         if (widget.disabled == true) {
           return;
         }
@@ -275,10 +290,7 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
         setState(() {
           _values[index] = value;
         });
-        widget.onChange?.call(AntdSliderValue(
-          start: _values.firstOrNull ?? 0,
-          end: _values.lastOrNull ?? 0,
-        ));
+        _handlerOnChange();
       },
       child: AntdBox(
         style: style.sliderStyle,
@@ -305,16 +317,27 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
     );
   }
 
+  double getMinOffset() {
+    if (widget.min != null) {
+      return _markXOffset[widget.min] ?? 0.0;
+    }
+    return 0.0;
+  }
+
   List<double> getOffsets() {
     var values = _values;
-    var startMarkOffset = _markXOffset[values[0]] ?? 0;
-    var endMarkOffset = _markXOffset[values[1]] ?? 0;
+    var startMarkOffset = _markXOffset[values[0]] ?? 0.0;
+    var endMarkOffset = _markXOffset[values[1]] ?? 0.0;
     return startMarkOffset <= endMarkOffset
         ? [startMarkOffset, endMarkOffset]
         : [endMarkOffset, startMarkOffset];
   }
 
   bool isActive(int value) {
+    if ((widget.min != null && value < widget.min!) ||
+        (widget.max != null && value > widget.max!)) {
+      return false;
+    }
     return (value <= _values[1] && value >= _values[0]) ||
         (value <= _values[0] && value >= _values[1]);
   }
@@ -323,8 +346,9 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
   Widget render(BuildContext context) {
     int totalSteps = (widget.length / widget.step).toInt();
     var offsets = getOffsets();
+    var minOffset = max(offsets[0], getMinOffset());
     var activeTractWidth = max(
-        offsets[1] - offsets[0] - (_markXOffset.values.firstOrNull ?? 0), 0.0);
+        offsets[1] - minOffset - (_markXOffset.values.firstOrNull ?? 0), 0.0);
     return AntdBox(
       disabled: widget.disabled,
       style:
@@ -353,10 +377,10 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
               )),
           Positioned(
               top: sliderY - (activeTractHeight - sliderSize.height) / 2,
-              left: max(offsets[0], _markXOffset.values.firstOrNull ?? 0),
+              left: max(minOffset, _markXOffset.values.firstOrNull ?? 0),
               child: AntdBox(
-                style:
-                    style.activeTrackStyle?.copyWith(width: activeTractWidth),
+                style: style.activeTrackStyle
+                    ?.copyWith(width: activeTractWidth.toDouble()),
                 onLayout: (ctx) {
                   if (activeTractHeight != ctx.size.height) {
                     setState(() {
@@ -390,10 +414,7 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
                           _values[0] = value;
                         }
 
-                        widget.onChange?.call(AntdSliderValue(
-                          start: _values.firstOrNull ?? 0,
-                          end: _values.lastOrNull ?? 0,
-                        ));
+                        _handlerOnChange();
                       });
                     },
                     child: Column(

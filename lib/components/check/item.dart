@@ -127,13 +127,13 @@ class AntdCheckItem
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return AntdCheckItemStyle(
         bodyStyle: AntdBoxStyle(
-          color: token.colorWhite,
-        ),
+            color: token.colorWhite,
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         itemStyle: AntdBoxStyle(
             padding: token.size.lg.vertical.marge(token.size.lg.right),
             margin: token.size.lg.left,
-            border: AntdScrollItemProvider.ofMaybe(context)?.position !=
-                    AntdScrollItemPosition.middle
+            border: AntdScrollItemProvider.ofMaybe(context)?.position ==
+                    AntdScrollItemPosition.last
                 ? null
                 : token.borderSide.bottom),
         itemFlexStyle: const AntdFlexStyle(

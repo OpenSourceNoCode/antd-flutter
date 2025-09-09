@@ -9,7 +9,7 @@ class AntdSliderDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(child: [
+    return DemoWrapper(outline: true, child: [
       AntdSlider(
         onChange: (value) {
           AntdToast.show(

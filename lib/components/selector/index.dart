@@ -91,6 +91,9 @@ class AntdSelectorOption
   ///更改事件
   final ValueChanged<bool>? onChange;
 
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
+
   const AntdSelectorOption(
       {super.key,
       super.style,
@@ -100,7 +103,8 @@ class AntdSelectorOption
       this.check = false,
       required this.label,
       this.value,
-      this.onChange});
+      this.onChange,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   AntdSelectorOption copyFrom(AntdSelectorOption? other) {
     if (other == null) return this;
@@ -133,8 +137,10 @@ class AntdSelectorOption
       ),
     );
     return AntdBox(
+        style: style.bodyStyle,
         disabled: disabled,
         onTap: () {
+          handleHapticFeedback(hapticFeedback);
           onChange?.call(!check);
         },
         child: Stack(
@@ -183,7 +189,8 @@ class AntdSelectorOption
       activeItemStyle: base.copyWith(
           color: token.colorPrimaryBg,
           textStyle: text.copyWith(color: token.colorPrimary)),
-      bodyStyle: const AntdBoxStyle(),
+      bodyStyle: const AntdBoxStyle(
+          options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
       labelStyle: const AntdBoxStyle(),
       descriptionStyle: AntdBoxStyle(
           textStyle: token.font.sm.copyWith(color: token.colorTextDescription)),

@@ -234,6 +234,7 @@ class AntdSwitchDisabledDemo extends StatelessWidget {
 | content | 选中时的内容 | Widget | - | - |
 | activeContent | 未选中时的内容 | Widget | - | - |
 | duration | 动画周期 | Duration | const Duration(milliseconds: 200) | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 开关组件的基础样式（包含所有状态）(AntdSwitchStyle) <a id='AntdSwitchStyle'></a>

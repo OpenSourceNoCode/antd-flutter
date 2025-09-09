@@ -96,9 +96,10 @@ class AntdFloatingAnchorsDemo extends StatelessWidget {
               child: Text("我是背景内容，我可以被正常点击"),
               style: AntdBoxStyle(width: double.infinity, height: 500)),
           content: AntdList(
+              shrinkWrap: true,
               items: data.map((value) {
-            return Text(value);
-          }).toList()))
+                return Text(value);
+              }).toList()))
     ]);
   }
 }

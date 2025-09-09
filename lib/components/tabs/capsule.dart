@@ -7,18 +7,18 @@ import 'package:flutter/widgets.dart';
 ///@d 内容组之间进行导航切换。实现自[AntdTab]支持他的所有行为
 ///@u 选项卡的另外一种样式，用在展示型界面的列表或模块中。
 class AntdCapsuleTabs extends AntdTabs {
-  const AntdCapsuleTabs({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.leftExtra,
-    super.rightExtra,
-    super.controller,
-    super.activeValue,
-    super.onChange,
-    super.tabAlignment = AntdTabAlignment.center,
-    required super.tabs,
-  });
+  const AntdCapsuleTabs(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.leftExtra,
+      super.rightExtra,
+      super.controller,
+      super.activeValue,
+      super.onChange,
+      super.tabAlignment = AntdTabAlignment.center,
+      required super.tabs,
+      super.hapticFeedback});
 
   @override
   AntdTabsStyle getDefaultStyle(

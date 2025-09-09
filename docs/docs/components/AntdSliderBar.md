@@ -242,13 +242,19 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdSliderBarStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSliderBarStyle, AntdSliderBar&gt; | - | - |
+| physics | 滚动物理效果 | ScrollPhysics | - | - |
+| shrinkWrap | 自动扩展高度 | bool | - | - |
 | controller | 控制器 | AntdSliderBarController | - | - |
 | onItemPosition | item变更事件 | AntdItemPositionListener&lt;AntdSliderBarItem&gt; | - | - |
+| throttle | 滚动事件节流时长 | Duration | - | - |
+| edgeThreshold | 触边阈值 (0-1表示百分比) | double | - | - |
 | onEdgeReached | 当触碰到边界时的回调 | AntdOnScrollEdge | - | - |
 | virtual | 启动虚拟滚动 | bool | false | - |
 | alignment | 根据方向自动优化视图边界:`start` \| `center` \| `end` | AntdEdge | - | - |
 | items | 滚动的数据 | List&lt;AntdSliderBarItem&gt; | - | - |
 | onChange | 变更事件 | AntdSliderBarOnChange | - | - |
+| titlePlacement | 标题和视图的对齐方式:`start` \| `center` \| `end` | AntdEdge | center | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 滑动选择器(SliderBar)的样式配置(AntdSliderBarStyle) <a id='AntdSliderBarStyle'></a>

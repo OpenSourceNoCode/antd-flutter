@@ -86,6 +86,8 @@ class AntdCascaderOption
 
   AntdCascaderOption copyFrom(AntdCascaderOption other) {
     return AntdCascaderOption(
+      style: other.style ?? style,
+      styleBuilder: other.styleBuilder ?? styleBuilder,
       value: other.value,
       parentValue: other.parentValue ?? parentValue,
       title: other.title ?? title,
@@ -103,7 +105,6 @@ class AntdCascaderOption
     var uncheckIcon = this.uncheckIcon ?? style.uncheckIcon;
     var checkIcon = this.checkIcon ?? style.checkIcon;
     return AntdBox(
-      options: const AntdTapOptions(behavior: HitTestBehavior.opaque),
       onTap: onTap,
       disabled: disabled,
       style: check
@@ -128,7 +129,10 @@ class AntdCascaderOption
         childStyle: AntdBoxStyle(
             padding: token.size.lg.vertical.marge(token.size.lg.right),
             margin: token.size.lg.left,
-            border: token.borderSide.bottom),
+            border: token.borderSide.bottom,
+            options: const AntdTapOptions(
+                accepter: AntdTapAccepter.listener,
+                behavior: HitTestBehavior.opaque)),
         flexStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         checkIcon: icon,
@@ -200,7 +204,8 @@ class AntdCascaderView
       this.value,
       required this.options,
       this.onTabsChange,
-      this.onChange});
+      this.onChange,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   ///未选中时的提示文案
   final Widget placeholder;
@@ -216,6 +221,9 @@ class AntdCascaderView
 
   ///选项变化时的回调
   final AntdCascaderViewChange? onChange;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   AntdCascaderView copyFrom(AntdCascaderView? view) {
     return AntdCascaderView(
@@ -383,6 +391,7 @@ class _AntdCascaderViewState
                         return item.copyFrom(AntdCascaderOption(
                           check: check == true,
                           onTap: () {
+                            handleHapticFeedback(widget.hapticFeedback);
                             item.onTap?.call();
                             if (check == true) {
                               _values.remove(i);

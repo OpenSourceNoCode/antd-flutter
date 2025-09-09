@@ -35,7 +35,8 @@ class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
   @override
   AntdBoxStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    return const AntdBoxStyle();
+    return const AntdBoxStyle(
+        options: AntdTapOptions(accepter: AntdTapAccepter.listener));
   }
 
   @override
@@ -104,7 +105,8 @@ class AntdSegmented
       this.activeIndex,
       required this.items,
       this.onChange,
-      this.duration = const Duration(milliseconds: 200)});
+      this.duration = const Duration(milliseconds: 200),
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   /// 是否禁用整个分段控制器，为 true 时所有选项都不可交互
   final bool disabled;
@@ -121,6 +123,9 @@ class AntdSegmented
   /// 选项切换时的动画过渡时长
   final Duration duration;
 
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
+
   @override
   State<StatefulWidget> createState() {
     return _AntdSegmentedState();
@@ -136,7 +141,7 @@ class AntdSegmented
             radius: token.radius.default_.radius.all),
         bodyRowStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         itemStyle: AntdBoxStyle(
-          padding: token.size.md.horizontal.marge(token.size.xs.vertical),
+          padding: token.size.ms.horizontal.marge(token.size.xxs.vertical),
         ),
         activeItemStyle: AntdBoxStyle(color: token.colorWhite));
   }
@@ -272,6 +277,7 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
                             if (widget.disabled || item.disable == true) {
                               return;
                             }
+                            handleHapticFeedback(widget.hapticFeedback);
                             item.onTap?.call();
                             widget.onChange?.call(index);
 

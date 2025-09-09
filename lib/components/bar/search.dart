@@ -93,7 +93,7 @@ class AntdSearchBar
       this.prefix,
       this.onClear,
       this.onChange,
-      this.onCancel,
+      this.onExtraTap,
       this.placeholder,
       this.controller,
       this.readOnly = false,
@@ -124,8 +124,8 @@ class AntdSearchBar
   ///值变更
   final ValueChanged<String?>? onChange;
 
-  ///点击取消按钮时触发
-  final VoidCallback? onCancel;
+  ///点击额外区域时触发
+  final VoidCallback? onExtraTap;
 
   ///提示文本
   final Widget? placeholder;
@@ -154,7 +154,8 @@ class AntdSearchBar
         border: token.borderSide.all,
         padding: token.size.default_.horizontal.marge(token.size.xs.vertical),
         color: token.colorWhite,
-        radius: token.radius.default_.radius.all);
+        radius: token.radius.default_.radius.all,
+        options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
     return AntdSearchBarStyle(
         bodyStyle: bodyStyle,
         bodyFlexStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
@@ -171,7 +172,9 @@ class AntdSearchBar
                 margin:
                     EdgeInsets.only(right: token.size.xxs.roundToDouble()))),
         extraStyle: AntdBoxStyle(
-            textStyle: token.font.lg, padding: token.size.lg.horizontal),
+          textStyle: token.font.lg,
+          padding: token.size.lg.horizontal,
+        ),
         placeholderFlexStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -249,9 +252,9 @@ class _AntdSearchBarState extends AntdState<AntdSearchBarStyle, AntdSearchBar> {
         placeholder: placeholder);
     var extra = widget.extra != null
         ? AntdBox(
-            onTap: widget.onCancel != null || widget.autoClear == true
+            onTap: widget.onExtraTap != null || widget.autoClear == true
                 ? () {
-                    widget.onCancel?.call();
+                    widget.onExtraTap?.call();
                     innerController.unActive();
                   }
                 : null,

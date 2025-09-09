@@ -36,7 +36,8 @@ class AntdSwipeActionDemo extends StatelessWidget {
                 style: AntdSwipeItemStyle(
                     style: AntdBoxStyle(color: token.colorError)),
                 content: const Text("取消关注"),
-                confirmContent: const Text("确定取消关注")),
+                confirmContent:
+                    const Text("确定取消关注", overflow: TextOverflow.ellipsis)),
             AntdSwipeItem(
                 left: true,
                 style: AntdSwipeItemStyle(
@@ -47,17 +48,20 @@ class AntdSwipeActionDemo extends StatelessWidget {
                 style: AntdSwipeItemStyle(
                     style: AntdBoxStyle(color: token.colorPrimary)),
                 content: const Text("取消关注"),
-                confirmContent: const Text("确定取消关注")),
+                confirmContent:
+                    const Text("确定取消关注", overflow: TextOverflow.ellipsis)),
             AntdSwipeItem(
                 style: AntdSwipeItemStyle(
                     style: AntdBoxStyle(color: token.colorError)),
                 content: const Text("免打扰"),
-                confirmContent: const Text("确定免打扰")),
+                confirmContent:
+                    const Text("确定免打扰", overflow: TextOverflow.ellipsis)),
             AntdSwipeItem(
                 style: AntdSwipeItemStyle(
                     style: AntdBoxStyle(color: token.colorSuccess)),
                 content: const Text("删除"),
-                confirmContent: const Text("确定删除"))
+                confirmContent:
+                    const Text("确定删除", overflow: TextOverflow.ellipsis))
           ],
           child: AntdBox(
               style: AntdBoxStyle(

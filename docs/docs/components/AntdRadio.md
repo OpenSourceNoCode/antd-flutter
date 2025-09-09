@@ -218,6 +218,7 @@ class AntdRadioDisabledDemo extends StatelessWidget {
 | onChange | 变更事件 | ValueChanged&lt;bool&gt; | - | - |
 | indeterminate | 半选 | bool | - | - |
 | extra | 内容 | Widget | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
 
 
 ## 单选框组件样式配置类(AntdRadioStyle) <a id='AntdRadioStyle'></a>

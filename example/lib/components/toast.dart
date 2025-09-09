@@ -4,7 +4,7 @@ import 'package:antd_flutter_mobile/components/icon/index.dart';
 import 'package:antd_flutter_mobile/components/layer.dart';
 import 'package:antd_flutter_mobile/components/toast/index.dart';
 import 'package:example/widget/demo.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// @t 事件
 /// @d 多种打开方式
@@ -19,7 +19,7 @@ class AntdToastDemo extends StatelessWidget {
           onTap: () {
             AntdToast.show("Toast");
           },
-          child: const Text("静态方法")),
+          child: Text("静态方法")),
       AntdButton(
           onTap: () {
             AntdToast(
