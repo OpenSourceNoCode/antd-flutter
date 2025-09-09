@@ -98,7 +98,7 @@ const RESOURCES = {"canvaskit/skwasm.js": "1ef3ea3a0fec4569e5d531da25f34095",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "33b7d9392238c04c131b6ce224e13711",
 "assets/packages/antd_flutter_mobile/assets/fonts/icons.otf": "f6ce8fe211920fbb029b1647f2ef567d",
 "main.dart.mjs": "4963b8eeebab80dc18cfa36a28d6d9e1",
-"flutter_bootstrap.js": "ab38c8b4c4b6a69afc283e199a44c2ab",
+"flutter_bootstrap.js": "6fe814fb7a702f22f9ad460824070da8",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "index.html": "8dbfc050d50fc29d9c384e90fba88ea9",
 "/": "8dbfc050d50fc29d9c384e90fba88ea9"};
