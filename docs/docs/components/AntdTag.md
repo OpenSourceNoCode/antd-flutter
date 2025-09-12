@@ -63,7 +63,8 @@ class AntdTagCustomDemo extends StatelessWidget {
           style: AntdTagStyle(
               bodyStyle:
                   AntdBoxStyle(color: token.colorPrimary, padding: 4.all),
-              closeStyle: AntdBoxStyle(color: token.colorWarning)),
+              closeIconStyle: AntdIconStyle(
+                  bodyStyle: AntdBoxStyle(color: token.colorWarning))),
           child: const Text("自定义样式"),
           close: AntdBox(child: Text("取消")))
     ]);
@@ -198,7 +199,6 @@ class AntdTagCustomDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 主体样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| closeStyle | 关闭样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | closeIconStyle | 关闭样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | rowStyle | 轴对齐 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 

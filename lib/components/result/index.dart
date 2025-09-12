@@ -112,8 +112,7 @@ class AntdResult extends AntdComponent<AntdResultStyle, AntdResult> {
     var childList = <Widget>[];
     var showIcon = icon ?? status?.icon;
     if (showIcon != null) {
-      childList.add(AntdStyleProvider<AntdIconStyle>(
-          style: style.iconStyle, child: showIcon));
+      childList.add(AntdIconWrap(style: style.iconStyle, child: showIcon));
     }
 
     var showTitle = title ?? status?.title;

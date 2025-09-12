@@ -14,21 +14,25 @@ class AntdActionStyle extends AntdStyle {
   ///对齐样式
   final AntdFlexStyle? columnStyle;
 
+  ///安全区
+  final AntdPosition? safeArea;
+
   const AntdActionStyle(
       {super.inherit,
       this.bodyStyle,
       this.titleStyle,
       this.descriptionStyle,
-      this.columnStyle});
+      this.columnStyle,
+      this.safeArea});
 
   @override
   AntdActionStyle copyFrom(AntdActionStyle? style) {
     return AntdActionStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      titleStyle: titleStyle.merge(style?.titleStyle),
-      descriptionStyle: descriptionStyle.merge(style?.descriptionStyle),
-      columnStyle: columnStyle.merge(style?.columnStyle),
-    );
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        titleStyle: titleStyle.merge(style?.titleStyle),
+        descriptionStyle: descriptionStyle.merge(style?.descriptionStyle),
+        columnStyle: columnStyle.merge(style?.columnStyle),
+        safeArea: style?.safeArea ?? safeArea);
   }
 
   AntdActionStyle margeBorder(bool first, bool last) {
@@ -52,13 +56,34 @@ class AntdActionStyle extends AntdStyle {
                 color: border.right.color, width: border.right.width / 2));
     return copyFrom(AntdActionStyle(bodyStyle: AntdBoxStyle(border: border)));
   }
+
+  factory AntdActionStyle.defaultStyle(
+      AntdAliasToken token, AntdBaseAction action) {
+    return AntdActionStyle(
+        bodyStyle: AntdBoxStyle(
+            color: token.colorWhite,
+            feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
+            padding: token.size.xl.all,
+            border: token.borderSide.bottom,
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+        titleStyle: AntdBoxStyle(
+          alignment: Alignment.center,
+          textStyle: token.font.xxl.copyWith(
+              color: action.danger == true ? token.colorError : null,
+              fontWeight: action.bold == true ? FontWeight.w600 : null),
+        ),
+        descriptionStyle: AntdBoxStyle(
+          textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
+          margin: token.size.xs.top,
+        ),
+        columnStyle: const AntdFlexStyle());
+  }
 }
 
 typedef AntdActionOnTap = void Function(AntdLayerClose close);
 
-/// 定义
-/// @l [AntdActionSheet]
-class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
+abstract class AntdBaseAction<Style extends AntdActionStyle, WidgetType>
+    extends AntdComponent<Style, WidgetType> {
   ///是否为危险状态
   final bool? danger;
 
@@ -68,7 +93,7 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
   ///是否为禁用状态
   final bool? disabled;
 
-  ///点击时触发
+  ///点击时触发,单独使用无效
   final AntdActionOnTap? onTap;
 
   ///标题
@@ -80,7 +105,7 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
   ///安全区
   final AntdPosition? safeArea;
 
-  const AntdAction({
+  const AntdBaseAction({
     super.key,
     super.style,
     super.styleBuilder,
@@ -93,29 +118,10 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
     this.safeArea,
   });
 
-  AntdAction copyForm(covariant AntdAction? action) {
-    return AntdAction(
-      key: action?.key ?? key,
-      style: action?.style ?? style,
-      styleBuilder: action?.styleBuilder ?? styleBuilder,
-      danger: action?.danger ?? danger,
-      description: action?.description ?? description,
-      disabled: action?.disabled ?? disabled,
-      title: action?.title ?? title,
-      onTap: action?.onTap ?? onTap,
-      bold: action?.bold ?? bold,
-    );
-  }
-
   @override
-  Widget render(BuildContext context, AntdActionStyle style) {
+  Widget render(BuildContext context, Style style) {
     return AntdBox(
-      innerSafeArea: safeArea,
-      onTap: onTap != null
-          ? () {
-              onTap!(([dynamic data]) async {});
-            }
-          : null,
+      innerSafeArea: safeArea ?? style.safeArea,
       disabled: disabled,
       style: style.bodyStyle,
       child: AntdColumn(
@@ -135,32 +141,32 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
       ),
     );
   }
+}
+
+/// 定义
+/// @l [AntdActionSheet]
+class AntdSheetAction extends AntdBaseAction<AntdActionStyle, AntdSheetAction> {
+  const AntdSheetAction({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.danger,
+    super.description,
+    super.disabled,
+    super.title,
+    super.onTap,
+    super.bold,
+    super.safeArea,
+  });
 
   @override
   AntdActionStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    return AntdActionStyle(
-        bodyStyle: AntdBoxStyle(
-            color: token.colorWhite,
-            feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
-            padding: token.size.xl.all,
-            border: token.borderSide.bottom,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
-        titleStyle: AntdBoxStyle(
-          alignment: Alignment.center,
-          textStyle: token.font.xxl.copyWith(
-              color: danger == true ? token.colorError : null,
-              fontWeight: bold == true ? FontWeight.w600 : null),
-        ),
-        descriptionStyle: AntdBoxStyle(
-          textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
-          margin: token.size.xs.top,
-        ),
-        columnStyle: const AntdFlexStyle());
+    return AntdActionStyle.defaultStyle(token, this);
   }
 
   @override
-  AntdAction getWidget(BuildContext context) {
+  AntdSheetAction getWidget(BuildContext context) {
     return this;
   }
 
@@ -168,6 +174,12 @@ class AntdAction extends AntdComponent<AntdActionStyle, AntdAction> {
   AntdActionStyle margeStyle(
       AntdActionStyle defaultStyle, AntdActionStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdStyleBuilder<AntdActionStyle, AntdSheetAction>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.sheetActionStyle;
   }
 }
 
@@ -186,7 +198,6 @@ class AntdActionSheetStyle extends AntdPopupStyle {
   const AntdActionSheetStyle(
       {super.inherit,
       super.bodyStyle,
-      super.closeIconStyle,
       super.maskColor,
       super.maskOpacity,
       this.actionStyle,
@@ -197,7 +208,6 @@ class AntdActionSheetStyle extends AntdPopupStyle {
   AntdActionSheetStyle copyFrom(covariant AntdActionSheetStyle? style) {
     return AntdActionSheetStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
       maskColor: style?.maskColor ?? maskColor,
       maskOpacity: style?.maskOpacity ?? maskOpacity,
       actionStyle: actionStyle.merge(style?.actionStyle),
@@ -236,7 +246,7 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
       : super(position: AntdPosition.bottom);
 
   ///面板选项列表
-  final List<AntdAction> actions;
+  final List<AntdSheetAction> actions;
 
   ///取消按钮文字，如果设置为空则不显示取消按钮
   final Widget? cancelText;
@@ -253,7 +263,7 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
   ///安全区
   final bool safeArea;
 
-  static Future<T?> show<T>(List<AntdAction> actions,
+  static Future<T?> show<T>(List<AntdSheetAction> actions,
       {final Key? key,
       final Widget? cancelText,
       final bool? dismissOnAction = true,
@@ -302,10 +312,6 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
           color: token.colorFillTertiary,
           radius: token.radius.default_.radius.top,
         ),
-        closeIconStyle: AntdIconStyle(
-          size: token.size.xxl.roundToDouble(),
-          color: token.colorIcon,
-        ),
         actionStyle: const AntdActionStyle(),
         cancelActionStyle: AntdActionStyle(
             bodyStyle: AntdBoxStyle(margin: token.size.md.top)));
@@ -334,9 +340,9 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
 
 class AntdActionSheetState extends AntdOffsetAnimationPopupState<
     AntdActionSheetStyle, AntdActionSheet, AntdActionSheetState> {
-  _handlerTap(AntdAction? action, bool cancel) async {
+  _handlerTap(AntdSheetAction action, bool cancel) async {
     if (widget.onAction != null) {
-      widget.onAction!(action?.key, cancel);
+      widget.onAction!(action.key, cancel);
     }
 
     if (cancel) {
@@ -348,8 +354,8 @@ class AntdActionSheetState extends AntdOffsetAnimationPopupState<
       await close();
     }
 
-    if (action?.onTap != null) {
-      action?.onTap?.call(close);
+    if (action.onTap != null) {
+      action.onTap?.call(close);
     }
   }
 
@@ -360,31 +366,36 @@ class AntdActionSheetState extends AntdOffsetAnimationPopupState<
       childList.add(AntdBox(style: style.extraStyle, child: widget.extra!));
     }
 
+    Widget wrap(AntdSheetAction action, bool cancel) {
+      return AntdBox(
+        options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+        onTap: () {
+          _handlerTap(action, cancel);
+        },
+        child: action,
+      );
+    }
+
     for (var action in widget.actions) {
       childList.add(AntdStyleProvider<AntdActionStyle>(
-          style: style.actionStyle,
-          child: action.copyForm(AntdAction(
-            onTap: (_) {
-              _handlerTap(action, false);
-            },
-            safeArea: widget.safeArea &&
-                    action == widget.actions.last &&
-                    widget.cancelText == null
-                ? AntdPosition.bottom
-                : null,
-          ))));
+          style: AntdActionStyle(
+                  safeArea: widget.safeArea &&
+                          action == widget.actions.last &&
+                          widget.cancelText == null
+                      ? AntdPosition.bottom
+                      : null)
+              .copyFrom(style.actionStyle),
+          child: wrap(action, false)));
     }
 
     if (widget.cancelText != null) {
       childList.add(AntdStyleProvider<AntdActionStyle>(
           style: style.cancelActionStyle,
-          child: AntdAction(
-            onTap: (_) {
-              _handlerTap(null, true);
-            },
-            title: widget.cancelText,
-            safeArea: widget.safeArea ? AntdPosition.bottom : null,
-          )));
+          child: wrap(
+              AntdSheetAction(
+                  title: widget.cancelText,
+                  safeArea: widget.safeArea ? AntdPosition.bottom : null),
+              true)));
     }
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -91,15 +91,15 @@ class AntdCheckboxCustomDemo extends StatelessWidget {
               icon: AntdIcons.smile,
             ),
             activeIcon: AntdIcon(
-              style: AntdIconStyle(color: token.colorPrimary),
+              style: AntdIconStyle(size: 22, color: token.colorPrimary),
               icon: AntdIcons.smileFill,
             ),
             disableIcon: AntdIcon(
               style: AntdIconStyle(color: token.colorPrimary),
               icon: AntdIcons.delete,
             ),
-            defaultStyle: const AntdBoxStyle(size: 16),
-            activeStyle: const AntdBoxStyle(size: 16)),
+            activeIconStyle: AntdIconStyle(
+                bodyStyle: AntdBoxStyle(color: token.colorWhite))),
         extra: const Text("我是自定义内容"),
       ),
     ]);

@@ -8,7 +8,7 @@ class AntdSearchBarStyle extends AntdStyle {
   final AntdBoxStyle? bodyStyle;
 
   ///对齐样式
-  final AntdFlexStyle? bodyFlexStyle;
+  final AntdFlexStyle? bodyRowStyle;
 
   /// 输入框样式配置
   final AntdInputStyle? inputStyle;
@@ -26,31 +26,31 @@ class AntdSearchBarStyle extends AntdStyle {
   final Widget? placeholder;
 
   ///对齐样式
-  final AntdFlexStyle? placeholderFlexStyle;
+  final AntdFlexStyle? placeholderRowStyle;
 
   const AntdSearchBarStyle(
       {super.inherit,
       this.bodyStyle,
-      this.bodyFlexStyle,
+      this.bodyRowStyle,
       this.inputStyle,
       this.activeBodyStyle,
       this.iconStyle,
       this.extraStyle,
       this.placeholder,
-      this.placeholderFlexStyle});
+      this.placeholderRowStyle});
 
   @override
   AntdSearchBarStyle copyFrom(covariant AntdSearchBarStyle? style) {
     return AntdSearchBarStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      bodyFlexStyle: bodyFlexStyle.merge(style?.bodyFlexStyle),
+      bodyRowStyle: bodyRowStyle.merge(style?.bodyRowStyle),
       activeBodyStyle: activeBodyStyle.merge(style?.activeBodyStyle),
       inputStyle: inputStyle.merge(style?.inputStyle),
       iconStyle: iconStyle.merge(style?.iconStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
       placeholder: style?.placeholder ?? placeholder,
-      placeholderFlexStyle:
-          placeholderFlexStyle.merge(style?.placeholderFlexStyle),
+      placeholderRowStyle:
+          placeholderRowStyle.merge(style?.placeholderRowStyle),
     );
   }
 }
@@ -158,7 +158,7 @@ class AntdSearchBar
         options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
     return AntdSearchBarStyle(
         bodyStyle: bodyStyle,
-        bodyFlexStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+        bodyRowStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         inputStyle: AntdInputStyle(
             textStyle: token.font.md,
             placeholderStyle: AntdBoxStyle(
@@ -175,7 +175,7 @@ class AntdSearchBar
           textStyle: token.font.lg,
           padding: token.size.lg.horizontal,
         ),
-        placeholderFlexStyle: const AntdFlexStyle(
+        placeholderRowStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
         ));
@@ -185,6 +185,15 @@ class AntdSearchBar
   AntdSearchBarStyle margeStyle(
       AntdSearchBarStyle defaultStyle, AntdSearchBarStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdSearchBarStyle getFinalStyle(
+      BuildContext context, AntdSearchBarStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSearchBarStyle(
+            activeBodyStyle: style.bodyStyle.merge(style.activeBodyStyle)));
   }
 
   @override
@@ -269,7 +278,7 @@ class _AntdSearchBarState extends AntdState<AntdSearchBarStyle, AntdSearchBar> {
           var showInput = value == true;
 
           var child = AntdRow(
-            style: style.bodyFlexStyle,
+            style: style.bodyRowStyle,
             children: [
               Expanded(
                   child: AntdBox(
@@ -284,7 +293,7 @@ class _AntdSearchBarState extends AntdState<AntdSearchBarStyle, AntdSearchBar> {
                 child: AnimatedCrossFade(
                     firstChild: input,
                     secondChild: AntdRow(
-                      style: style.placeholderFlexStyle,
+                      style: style.placeholderRowStyle,
                       children: [
                         prefix,
                         AntdBox(

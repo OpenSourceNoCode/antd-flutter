@@ -19,14 +19,20 @@ class AntdCollapseStyle extends AntdStyle {
   /// 面板展开时的内容区域样式
   final AntdBoxStyle? contentStyle;
 
-  /// 折叠图标的默认样式（颜色/大小等）
+  /// 折叠图标的默认样式
   final AntdIconStyle? iconStyle;
 
   /// 默认状态下的折叠图标
   final Widget? icon;
 
+  /// 展开图标的默认样式
+  final AntdIconStyle? activeIconStyle;
+
   /// 展开状态下的折叠图标
   final Widget? activeIcon;
+
+  /// 禁用图标的默认样式
+  final AntdIconStyle? disableIconStyle;
 
   /// 禁用状态下的折叠图标
   final Widget? disableIcon;
@@ -39,7 +45,9 @@ class AntdCollapseStyle extends AntdStyle {
     this.contentStyle,
     this.iconStyle,
     this.icon,
+    this.activeIconStyle,
     this.activeIcon,
+    this.disableIconStyle,
     this.disableIcon,
   });
 
@@ -50,10 +58,13 @@ class AntdCollapseStyle extends AntdStyle {
       childStyle: childStyle.merge(style?.childStyle),
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       titleStyle: titleStyle.merge(style?.titleStyle),
-      iconStyle: iconStyle.merge(style?.iconStyle),
       contentStyle: contentStyle.merge(style?.contentStyle),
+      iconStyle: iconStyle.merge(style?.iconStyle),
       icon: style?.icon ?? icon,
+      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
       activeIcon: style?.activeIcon ?? activeIcon,
+      disableIconStyle: disableIconStyle.merge(style?.disableIconStyle),
+      disableIcon: style?.disableIcon ?? disableIcon,
     );
   }
 }
@@ -147,6 +158,18 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
   }
 
   @override
+  AntdCollapseStyle getFinalStyle(
+      BuildContext context, AntdCollapseStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdCollapseStyle(
+            activeIcon: style.activeIcon ?? style.icon,
+            activeIconStyle: style.iconStyle.merge(style.activeIconStyle),
+            disableIcon: style.disableIcon ?? style.icon,
+            disableIconStyle: style.iconStyle.merge(style.disableIconStyle)));
+  }
+
+  @override
   AntdCollapseStyle margeStyle(
       AntdCollapseStyle defaultStyle, AntdCollapseStyle? style) {
     return defaultStyle.copyFrom(style);
@@ -180,6 +203,24 @@ class _AntdCollapseState extends AntdScrollPositionedBaseState<AntdCollapseItem,
     value.addAll(widget.value ?? []);
   }
 
+  Widget getIcon(AntdCollapseItem item, int index) {
+    if (item.disabled) {
+      return AntdIconWrap(
+        style: style.disableIconStyle,
+        child: item.disableIcon ?? style.disableIcon,
+      );
+    }
+    return value.contains(index)
+        ? AntdIconWrap(
+            style: style.activeIconStyle,
+            child: item.activeIcon ?? style.activeIcon,
+          )
+        : AntdIconWrap(
+            style: style.iconStyle,
+            child: item.icon ?? style.icon,
+          );
+  }
+
   @override
   Widget? buildItemBuilder(
       AntdScrollItemContext<AntdCollapseItem, AntdCollapseController> entity) {
@@ -196,14 +237,7 @@ class _AntdCollapseState extends AntdScrollPositionedBaseState<AntdCollapseItem,
           style: style.titleStyle,
           child: item.title,
         ),
-        AntdStyleProvider<AntdIconStyle>(
-            style: style.iconStyle!,
-            child: (item.disabled
-                    ? (item.disableIcon ?? style.disableIcon)
-                    : ((active
-                        ? (item.activeIcon ?? style.activeIcon)
-                        : (item.icon ?? style.icon)))) ??
-                const AntdBox())
+        getIcon(item, entity.index)
       ],
     );
     var finalHeader =

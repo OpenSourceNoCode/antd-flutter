@@ -41,7 +41,6 @@ class _LayoutState extends State<Layout> {
     var token = AntdTheme.ofToken(context);
     // 获取初始路由
     final initialRoute = Uri.base.queryParameters;
-
     return Navigator(
       initialRoute: initialRoute.containsKey('target')
           ? initialRoute['target']

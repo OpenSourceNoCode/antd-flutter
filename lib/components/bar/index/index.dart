@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 /// 样式
 /// @l [AntdIndexBar]
 class AntdIndexBarStyle extends AntdStyle {
-  ///浮动头的样式
+  ///主体的样式
   final AntdBoxStyle? bodyStyle;
 
   ///浮动头的样式
@@ -158,6 +158,16 @@ class AntdIndexBar<T extends AntdSectionProvider>
   }
 
   @override
+  AntdIndexBarStyle getFinalStyle(
+      BuildContext context, AntdIndexBarStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdIndexBarStyle(
+            floatHeaderStyle: style.headerStyle.merge(style.floatHeaderStyle),
+            activeIndexStyle: style.indexStyle.merge(style.activeIndexStyle)));
+  }
+
+  @override
   State<StatefulWidget> createState() {
     return AntdIndexBarState<T>();
   }
@@ -292,15 +302,16 @@ class AntdIndexBarState<T extends AntdSectionProvider>
                       }
                       return data;
                     })),
-          Positioned(
-              right: 0,
-              top: 0,
-              bottom: 0,
-              child: AntdIndexBarFloatBar<T>(
-                  onIndexChange: widget.onIndexChange,
-                  controller: scrollController,
-                  indexBuilder: widget.indexBuilder,
-                  style: style))
+          if (widget.indexBuilder != null)
+            Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: AntdIndexBarFloatBar<T>(
+                    onIndexChange: widget.onIndexChange,
+                    controller: scrollController,
+                    indexBuilder: widget.indexBuilder,
+                    style: style))
         ],
       ),
     );

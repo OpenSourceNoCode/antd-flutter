@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
@@ -142,6 +144,18 @@ class AntdSwitch
   }
 
   @override
+  AntdSwitchStyle getFinalStyle(
+      BuildContext context, AntdSwitchStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSwitchStyle(
+            activeContentStyle:
+                style.contentStyle.merge(style.activeContentStyle),
+            activeTrackStyle: style.trackStyle.merge(style.activeTrackStyle),
+            activeThumbStyle: style.thumbStyle.merge(style.activeThumbStyle)));
+  }
+
+  @override
   AntdSwitch getWidget(BuildContext context) {
     return this;
   }
@@ -161,7 +175,8 @@ class _AntdSwitchState
   double trackWidth = 0;
   double thumbWidth = 0;
   double contentWidth = 0;
-  Size trackPadding = Size.zero;
+  double contentTrackWidth = 0;
+  EdgeInsets trackPadding = EdgeInsets.zero;
 
   late final AnimationController _controller = AnimationController(
     duration: widget.duration,
@@ -171,12 +186,15 @@ class _AntdSwitchState
     begin: 0,
     end: 1,
   );
-  late final Animation<double> _animation = tween.animate(_controller);
+  late final Animation<double> _animation = tween
+      .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
   @override
   void updateDependentValues(covariant AntdSwitch? oldWidget) {
     super.updateDependentValues(oldWidget);
-    _startAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startAnimation();
+    });
   }
 
   void _startAnimation() {
@@ -187,6 +205,15 @@ class _AntdSwitchState
     }
   }
 
+  void _handlerAnimation() {
+    _controller.reset();
+    _startAnimation();
+  }
+
+  void _handlerContentTrackWidth() {
+    contentTrackWidth = trackWidth - trackPadding.right - contentWidth;
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -194,10 +221,24 @@ class _AntdSwitchState
   }
 
   Widget? buildContent() {
-    if (value == true) {
-      return widget.activeContent ?? style.activeContent;
+    var activeContent = widget.activeContent ?? style.activeContent;
+    var content = widget.content ?? style.content;
+    return _get(value == true, activeContent, content);
+  }
+
+  T? _get<T>(bool open, T? activeStyle, T? style) {
+    if (open) {
+      if (_animation.value > 0.5) {
+        return activeStyle;
+      } else {
+        return style;
+      }
     }
-    return widget.content ?? style.content;
+    if (_animation.value < 0.5) {
+      return style;
+    } else {
+      return activeStyle;
+    }
   }
 
   @override
@@ -207,13 +248,12 @@ class _AntdSwitchState
       onLayout: (context) {
         if (context.hasSizeChange) {
           thumbWidth = context.size.width;
+          _handlerAnimation();
         }
       },
-      style: open ? style.activeThumbStyle : style.thumbStyle,
+      style: _get(open, style.activeThumbStyle, style.thumbStyle),
     );
 
-    var trackStyle = open ? style.activeTrackStyle : style.trackStyle;
-    var contentStyle = open ? style.activeContentStyle : style.contentStyle;
     return AntdBox(
       style: style.bodyStyle,
       disabled: widget.disabled,
@@ -232,33 +272,33 @@ class _AntdSwitchState
           final thumbOffset = _animation.value * (trackWidth - thumbWidth) -
               (trackWidth - thumbWidth);
 
-          var endOffset = trackWidth - contentWidth;
-          final contentOffset = endOffset -
-              _animation.value * endOffset +
-              (open ? trackPadding.width : -trackPadding.height);
-
           return AntdBox(
-            style: trackStyle,
+            style: _get(open, style.activeTrackStyle, style.trackStyle),
             onLayout: (context) {
               if (context.hasSizeChange) {
                 trackWidth = context.removeInsetsSize.width;
-                trackPadding =
-                    Size(context.padding.left, context.padding.right);
+                trackPadding = context.padding;
+                _handlerContentTrackWidth();
+                _handlerAnimation();
               }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Transform.translate(
-                  offset: Offset(contentOffset, 0),
+                  offset: Offset(
+                      max(trackPadding.left,
+                          (1 - _animation.value) * contentTrackWidth),
+                      0),
                   child: AntdBox(
                     onLayout: (ctx) {
                       if (ctx.hasSizeChange) {
                         contentWidth = ctx.size.width;
-                        _startAnimation();
+                        _handlerContentTrackWidth();
                       }
                     },
-                    style: contentStyle,
+                    style: _get(
+                        open, style.activeContentStyle, style.contentStyle),
                     child: buildContent(),
                   ),
                 ),

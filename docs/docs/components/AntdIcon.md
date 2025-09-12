@@ -336,6 +336,8 @@ class AntdIconFillDemo extends StatelessWidget {
 | style | 样式 | AntdIconStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdIconStyle, AntdIcon&gt; | - | - |
 | icon | 图标 | IconData | - | - |
+| child | 和图标在一起的内容 | Widget | - | - |
+| row | child和icon按行还是按列布局 | bool | true | - |
 | onTap | 触摸后的回调 | VoidCallback | - | - |
 
 
@@ -355,6 +357,8 @@ class AntdIconFillDemo extends StatelessWidget {
 | textDirection | 文本方向（LTR/RTL） | TextDirection | - | - |
 | applyTextScaling | 是否应用文本缩放 | bool | - | - |
 | blendMode | 颜色混合模式 | BlendMode | - | - |
-| bodyStyle |  | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| bodyStyle | 图标容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| flexStyle | 布局样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| childStyle | childStyle | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 
 

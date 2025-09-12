@@ -8,7 +8,7 @@ class AntdCheckItemStyle extends AntdStyle {
   final AntdBoxStyle? bodyStyle;
 
   /// 单个选项对齐样式
-  final AntdFlexStyle? itemFlexStyle;
+  final AntdFlexStyle? itemRowStyle;
 
   /// 单个选项的样式
   final AntdBoxStyle? itemStyle;
@@ -28,7 +28,7 @@ class AntdCheckItemStyle extends AntdStyle {
   const AntdCheckItemStyle(
       {super.inherit,
       this.bodyStyle,
-      this.itemFlexStyle,
+      this.itemRowStyle,
       this.itemStyle,
       this.iconStyle,
       this.activeIcon,
@@ -39,7 +39,7 @@ class AntdCheckItemStyle extends AntdStyle {
   AntdCheckItemStyle copyFrom(AntdCheckItemStyle? style) {
     return AntdCheckItemStyle(
         iconStyle: iconStyle.merge(style?.iconStyle),
-        itemFlexStyle: itemFlexStyle.merge(style?.itemFlexStyle),
+        itemRowStyle: itemRowStyle.merge(style?.itemRowStyle),
         itemStyle: itemStyle.merge(style?.itemStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         activeIcon: style?.activeIcon ?? activeIcon,
@@ -136,7 +136,7 @@ class AntdCheckItem
                     AntdScrollItemPosition.last
                 ? null
                 : token.borderSide.bottom),
-        itemFlexStyle: const AntdFlexStyle(
+        itemRowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         iconStyle: AntdIconStyle(
             size: token.size.xxl.roundToDouble(),
@@ -198,10 +198,9 @@ class _AntdCheckItemState extends AntdState<AntdCheckItemStyle, AntdCheckItem> {
       },
       child: AntdBox(
         style: style.itemStyle,
-        child: AntdRow(style: style.itemFlexStyle, children: [
+        child: AntdRow(style: style.itemRowStyle, children: [
           if (widget.child != null) widget.child!,
-          AntdStyleProvider<AntdIconStyle>(
-              style: style.iconStyle, child: _getIcon() ?? const AntdBox())
+          AntdIconWrap(style: style.iconStyle, child: _getIcon())
         ]),
       ),
     );

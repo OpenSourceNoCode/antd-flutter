@@ -37,3 +37,12 @@
 - Added `feedbackDuration` and accepter properties to `AntdBox`
 - Added optional haptic feedback (enabled by default with light feedback) for interactive components
 - `AntdMaskHole` now supports controllable hit testing
+
+## 5.0.3-alpha.1
+
+- `AntdTheme` added support for `actionSheetStyle`, `dialogActionStyle`, and `modalActionStyle`
+- `AntdProvider` removed support for default Overlay
+- Added `AntdIconWrap` to support mixed usage of `IconData` and `AntdBox`
+- Optimized style naming for `AntdPopoverStyle`
+- Added `AntdModalType` for `AntdModal` and `AntdDialogType` for `AntdDialog`, allowing customization of different styles in dynamic styling
+- Fixed an issue where the default state of `AntdSwitch` might be incorrect

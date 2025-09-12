@@ -13,6 +13,9 @@ class AntdBadgeStyle extends AntdStyle {
   /// 徽标包裹内容的样式
   final AntdBoxStyle? bodyStyle;
 
+  /// child的样式
+  final AntdBoxStyle? childStyle;
+
   /// 徽标的位置偏移量
   final Offset? offset;
 
@@ -21,6 +24,7 @@ class AntdBadgeStyle extends AntdStyle {
     this.dotStyle,
     this.badgeStyle,
     this.bodyStyle,
+    this.childStyle,
     this.offset,
   });
 
@@ -30,6 +34,7 @@ class AntdBadgeStyle extends AntdStyle {
         dotStyle: dotStyle.merge(style?.dotStyle),
         badgeStyle: badgeStyle.merge(style?.badgeStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        childStyle: childStyle.merge(style?.childStyle),
         offset: style?.offset ?? offset);
   }
 }
@@ -97,8 +102,7 @@ class AntdBadge extends AntdStateComponent<AntdBadgeStyle, AntdBadge> {
           radius: 10.radius.all,
           color: setColor,
         ),
-        badgeStyle: badgeStyle,
-        bodyStyle: const AntdBoxStyle());
+        badgeStyle: badgeStyle);
   }
 
   @override
@@ -205,7 +209,10 @@ class _AntdBadgeState extends State<AntdBadge> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        widget.child!,
+        AntdBox(
+          style: style.childStyle,
+          child: widget.child,
+        ),
         Positioned.fill(
             top: getTop(size.value),
             left: getLeft(size.value),

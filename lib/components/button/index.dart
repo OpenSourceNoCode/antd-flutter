@@ -10,8 +10,6 @@ enum AntdButtonShape { rounded, rectangular }
 /// @l [AntdButton]
 class AntdButtonStyle extends AntdStyle {
   /// 按钮图标的样式配置
-  ///
-  /// 当按钮包含图标时生效
   final AntdIconStyle? iconStyle;
 
   /// 按钮容器的样式配置
@@ -222,9 +220,9 @@ class _AntdButtonState extends AntdState<AntdButtonStyle, AntdButton> {
     } else {
       var childList = <Widget>[];
       if (widget.icon != null) {
-        childList.add(AntdStyleProvider<AntdIconStyle>(
+        childList.add(AntdIconWrap(
           style: style.iconStyle,
-          child: widget.icon!,
+          child: widget.icon,
         ));
       }
       if (widget.child != null) {

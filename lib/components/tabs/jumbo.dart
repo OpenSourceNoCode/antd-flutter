@@ -120,6 +120,17 @@ class AntdJumboTabs
   }
 
   @override
+  AntdJumboStyle getFinalStyle(
+      BuildContext context, AntdJumboStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdJumboStyle(
+            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle),
+            activeDescTextStyle:
+                style.descStyle.merge(style.activeDescTextStyle)));
+  }
+
+  @override
   AntdJumboTabs getWidget(BuildContext context) {
     return this;
   }

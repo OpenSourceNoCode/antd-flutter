@@ -41,27 +41,32 @@ class AntdDropdownStyle extends AntdMaskStyle {
   /// 用于设置下拉菜单内部选项列表的容器样式
   final AntdBoxStyle? extraStyle;
 
+  ///图标样式
+  final AntdIconStyle? iconStyle;
+
   ///默认的图标
   final Widget? icon;
+
+  ///图标样式
+  final AntdIconStyle? activeIconStyle;
 
   ///激活后的图标
   final Widget? activeIcon;
 
-  ///图标样式
-  final AntdIconStyle? iconStyle;
-
-  const AntdDropdownStyle(
-      {super.inherit,
-      super.maskColor,
-      super.maskOpacity,
-      this.bodyStyle,
-      this.childRowStyle,
-      this.childStyle,
-      this.itemStyle,
-      this.extraStyle,
-      this.icon,
-      this.activeIcon,
-      this.iconStyle});
+  const AntdDropdownStyle({
+    super.inherit,
+    super.maskColor,
+    super.maskOpacity,
+    this.bodyStyle,
+    this.childRowStyle,
+    this.childStyle,
+    this.itemStyle,
+    this.extraStyle,
+    this.iconStyle,
+    this.icon,
+    this.activeIconStyle,
+    this.activeIcon,
+  });
 
   @override
   AntdDropdownStyle copyFrom(covariant AntdDropdownStyle? style) {
@@ -73,9 +78,10 @@ class AntdDropdownStyle extends AntdMaskStyle {
       childStyle: childStyle.merge(style?.childStyle),
       itemStyle: itemStyle.merge(style?.itemStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
-      icon: style?.icon ?? icon,
-      activeIcon: style?.activeIcon ?? activeIcon,
       iconStyle: iconStyle.merge(style?.iconStyle),
+      icon: style?.icon ?? icon,
+      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+      activeIcon: style?.activeIcon ?? activeIcon,
     );
   }
 }
@@ -145,6 +151,15 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
           icon: AntdIcons.upFill,
         ),
         iconStyle: AntdIconStyle(size: 16, color: token.colorTextSecondary));
+  }
+
+  @override
+  AntdDropdownStyle getFinalStyle(
+      BuildContext context, AntdDropdownStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdDropdownStyle(
+            activeIconStyle: style.iconStyle.merge(style.activeIconStyle)));
   }
 
   @override
@@ -255,12 +270,11 @@ class _AntdDropdownState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   item.child(index == currentIndex),
-                  AntdStyleProvider<AntdIconStyle>(
+                  AntdIconWrap(
                       style: style.iconStyle,
                       child: (index == currentIndex
-                              ? (widget.activeIcon ?? style.activeIcon)
-                              : (widget.icon ?? style.icon)) ??
-                          const AntdBox())
+                          ? (widget.activeIcon ?? style.activeIcon)
+                          : (widget.icon ?? style.icon)))
                 ],
               ),
             ));

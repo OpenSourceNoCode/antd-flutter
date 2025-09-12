@@ -17,6 +17,74 @@ subtitle: 按钮
 </div>
 <div style='flex: 1;'>
 
+### 填充模式
+
+
+```dart
+class AntdButtonFillDemo extends StatelessWidget {
+  const AntdButtonFillDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const DemoWrapper(child: [
+      AntdButton(fill: AntdButtonFill.solid, child: Text('solid')),
+      AntdButton(fill: AntdButtonFill.outline, child: Text('outline')),
+      AntdButton(fill: AntdButtonFill.none, child: Text('none'))
+    ]);
+  }
+}
+
+```
+
+### 块级按钮
+
+
+```dart
+class AntdButtonBlockDemo extends StatelessWidget {
+  const AntdButtonBlockDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const DemoWrapper(child: [
+      AntdButton(block: true, size: AntdSize.large, child: Text('solid'))
+    ]);
+  }
+}
+
+```
+
+### 不同尺寸
+
+
+```dart
+class AntdButtonSizeDemo extends StatelessWidget {
+  const AntdButtonSizeDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(
+        child: AntdSize.values.map((size) {
+      return AntdButton(size: size, child: Text(size.name));
+    }).toList());
+  }
+}
+
+```
+
+### 语意按钮
+
+
+```dart
+class AntdButtonColorDemo extends StatelessWidget {
+  const AntdButtonColorDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(
+        child: AntdColor.values.map((color) {
+      return AntdButton(color: color, child: Text(color.name));
+    }).toList());
+  }
+}
+
+```
+
 ### 自定义图标
 
 前缀可是任意的[Widget](/widget)
@@ -288,7 +356,7 @@ class AntdButtonThrottleDebounceDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
-| iconStyle | 当按钮包含图标时生效 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| iconStyle | 按钮图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | buttonStyle | 按钮容器的样式配置 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | loadingWidget | 当按钮处于加载状态时显示的组件,如果为null，则使用[AntdLoading](/antd-loading) | Widget | - | - |
 

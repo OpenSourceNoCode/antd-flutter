@@ -254,9 +254,11 @@ class _AntdCollapseLoadingDemoStateDemo extends State<AntdCollapseLoadingDemo> {
 | itemStyle | 单个折叠项的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | childStyle | 子类的样式,当没有使用itemBuilder的默认样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | contentStyle | 面板展开时的内容区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| iconStyle | 折叠图标的默认样式（颜色/大小等） | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| iconStyle | 折叠图标的默认样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | icon | 默认状态下的折叠图标 | Widget | - | - |
+| activeIconStyle | 展开图标的默认样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | activeIcon | 展开状态下的折叠图标 | Widget | - | - |
+| disableIconStyle | 禁用图标的默认样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | disableIcon | 禁用状态下的折叠图标 | Widget | - | - |
 
 ## 折叠面板中的单个可折叠项(AntdCollapseItem) <a id='AntdCollapseItem'></a>

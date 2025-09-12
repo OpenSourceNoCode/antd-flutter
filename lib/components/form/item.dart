@@ -60,7 +60,7 @@ class AntdFormItemStyle extends AntdStyle {
   final AntdBoxStyle? labelStyle;
 
   /// 标签文本容器样式
-  final AntdFlexStyle? labelFlexStyle;
+  final AntdFlexStyle? labelRowStyle;
 
   /// 校验反馈信息容器样式
   final AntdBoxStyle? feedbackStyle;
@@ -72,7 +72,7 @@ class AntdFormItemStyle extends AntdStyle {
   final AntdIconStyle? extraIconStyle;
 
   ///扩展区域的对齐样式
-  final AntdFlexStyle? extraFlexStyle;
+  final AntdFlexStyle? extraRowStyle;
 
   /// 栅格布局跨度配置
   final AntdFormItemSpan span;
@@ -86,11 +86,11 @@ class AntdFormItemStyle extends AntdStyle {
       this.itemStyle,
       this.itemFlexStyle,
       this.labelStyle,
-      this.labelFlexStyle,
+      this.labelRowStyle,
       this.feedbackStyle,
       this.helpIconStyle,
       this.extraIconStyle,
-      this.extraFlexStyle,
+      this.extraRowStyle,
       this.span = const AntdFormItemSpan(),
       this.requireStyle});
 
@@ -101,7 +101,7 @@ class AntdFormItemStyle extends AntdStyle {
       itemStyle: itemStyle.merge(style?.itemStyle),
       itemFlexStyle: itemFlexStyle.merge(style?.itemFlexStyle),
       labelStyle: labelStyle.merge(style?.labelStyle),
-      labelFlexStyle: labelFlexStyle.merge(style?.labelFlexStyle),
+      labelRowStyle: labelRowStyle.merge(style?.labelRowStyle),
       feedbackStyle: feedbackStyle.merge(style?.feedbackStyle),
       helpIconStyle: helpIconStyle.merge(style?.helpIconStyle),
       extraIconStyle: extraIconStyle.merge(style?.extraIconStyle),
@@ -275,7 +275,11 @@ class AntdFormItem extends AntdFormBase<AntdFormItemStyle, AntdFormItem> {
         ),
         feedbackStyle: AntdBoxStyle(
             textStyle: token.font.sm.copyWith(color: token.colorErrorText)),
-        bodyStyle: const AntdBoxStyle(),
+        bodyStyle: const AntdBoxStyle(
+          options: AntdTapOptions(
+              behavior: HitTestBehavior.translucent,
+              accepter: AntdTapAccepter.listener),
+        ),
         itemStyle: const AntdBoxStyle(),
         itemFlexStyle: AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
@@ -291,12 +295,12 @@ class AntdFormItem extends AntdFormBase<AntdFormItemStyle, AntdFormItem> {
                 ? token.size.xs.bottom
                 : token.size.default_.right,
             textStyle: token.font.xxl.copyWith(color: token.colorTextLabel)),
-        labelFlexStyle: const AntdFlexStyle(
+        labelRowStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
         ),
         span: const AntdFormItemSpan(),
         requireStyle: AntdFormItemRequireStyle(color: token.colorError),
-        extraFlexStyle: const AntdFlexStyle());
+        extraRowStyle: const AntdFlexStyle());
   }
 
   @override
@@ -335,7 +339,7 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
   bool? readOnly;
   late final FocusNode _createFocusNode = FocusNode();
   late final FocusNode? _inheritedFocusNode = AntdFocus.maybeOf(context);
-  late final FocusNode _focusNode = _inheritedFocusNode ?? _createFocusNode;
+  late final FocusNode focusNode = _inheritedFocusNode ?? _createFocusNode;
 
   @override
   void dispose() {
@@ -376,7 +380,7 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
 
     return AntdBox(
       style: style.labelStyle,
-      child: AntdRow(style: style.labelFlexStyle, children: [
+      child: AntdRow(style: style.labelRowStyle, children: [
         if (required == true || existsRequired == true)
           Padding(
             padding: 2.right,
@@ -398,7 +402,7 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
                   child: widget.help,
                 );
               },
-              child: AntdStyleProvider<AntdIconStyle>(
+              child: AntdIconWrap(
                   style: style.helpIconStyle, child: widget.helpIcon),
             ))
         ])))
@@ -495,8 +499,7 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
     );
 
     Widget? extra = widget.extra != null
-        ? AntdStyleProvider<AntdIconStyle>(
-            style: style.extraIconStyle, child: widget.extra!)
+        ? AntdIconWrap(style: style.extraIconStyle, child: widget.extra)
         : null;
     var itemProvider = AntdFormItemProvider(
       getValue: () {
@@ -540,16 +543,15 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
               ],
             );
       return AntdRow(
-        style: style.extraFlexStyle,
+        style: style.extraRowStyle,
         children: [Expanded(child: child), if (extra != null) extra],
       );
     }
 
     return AntdBox(
-      options: const AntdTapOptions(behavior: HitTestBehavior.translucent),
-      focusNode: _focusNode,
+      focusNode: focusNode,
       onTap: () {
-        _focusNode.requestFocus();
+        focusNode.requestFocus();
         controller?.addTouched(widget.name);
       },
       disabled: disabled,

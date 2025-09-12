@@ -281,10 +281,10 @@ class AntdToastManuleDemo extends StatelessWidget {
 | showMask | 是否显示背景蒙版 | bool | false | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
 | duration | 提示持续时间，若为 0 则不会自动关闭 | Duration | const Duration(milliseconds: 2000) | - |
-| icon | Toast 图标 | Widget | - | - |
+| icon | Toast 图标 | AntdIcon | - | - |
 | position | 垂直方向显示位置:`top` \| `bottom` \| `center` | AntdToastPosition | - | - |
 | dismissOnTap | 当触摸的时候关闭 | bool | true | - |
-| type | toast的类型:`success` \| `fail` \| `other` | AntdToastType | - | - |
+| type | toast的类型:`success` \| `fail` \| `normal` | AntdToastType | - | - |
 
 
 ## 轻提示样式(AntdToastStyle) <a id='AntdToastStyle'></a>
@@ -295,7 +295,7 @@ class AntdToastManuleDemo extends StatelessWidget {
 | maskColor | 背景色 | Color | - | - |
 | maskOpacity | 透明度 | double | - | - |
 | bodyStyle | 主体样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| iconStyle | 图标大小 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| iconStyle | 图标大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | columnStyle | 内容排列布局样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | icon | 图标 | Widget | - | - |
 

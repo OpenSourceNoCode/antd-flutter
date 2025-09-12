@@ -246,12 +246,12 @@ class AntdSearchBarLazyDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 搜索栏容器默认样式（非激活状态） | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| bodyFlexStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| bodyRowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | inputStyle | 输入框样式配置 | [AntdInputStyle](../components/antd-input/#AntdInputStyle) | - | - |
 | activeBodyStyle | 搜索栏激活状态容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | iconStyle | 占位符图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | extraStyle | 右侧附加内容容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | placeholder | 自定义占位符组件（替代默认文本占位符） | Widget | - | - |
-| placeholderFlexStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| placeholderRowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 
 

@@ -31,27 +31,27 @@ class AntdActionSheetDemo extends StatelessWidget {
           child: const Text("静态方法"),
           onTap: () {
             AntdActionSheet.show(const [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ]);
           }),
       AntdButton(
           child: const Text("open 方法"),
           onTap: () {
             const AntdActionSheet(actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ]).open();
           }),
       AntdButton(
           child: const Text("AntdLayer Open"),
           onTap: () {
             AntdLayer.open(const AntdActionSheet(actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ]));
           })
     ]);
@@ -76,9 +76,9 @@ class AntdActionSheetCancelExtraDemo extends StatelessWidget {
                 extra: Text("请选择你要进行的操作"),
                 cancelText: Text("取消"),
                 actions: [
-                  AntdAction(title: Text("辅助")),
-                  AntdAction(title: Text("修改")),
-                  AntdAction(title: Text("保存"))
+                  AntdSheetAction(title: Text("辅助")),
+                  AntdSheetAction(title: Text("修改")),
+                  AntdSheetAction(title: Text("保存"))
                 ]));
           })
     ]);
@@ -103,9 +103,9 @@ class AntdActionSheetDisableDanderDemo extends StatelessWidget {
                 extra: Text("请选择你要进行的操作"),
                 cancelText: Text("取消"),
                 actions: [
-                  AntdAction(title: Text("辅助")),
-                  AntdAction(title: Text("修改"), disabled: true),
-                  AntdAction(
+                  AntdSheetAction(title: Text("辅助")),
+                  AntdSheetAction(title: Text("修改"), disabled: true),
+                  AntdSheetAction(
                       title: Text("删除"),
                       description: Text("删除后数据不可恢复"),
                       danger: true,
@@ -143,13 +143,13 @@ class AntdActionSheetEventDemo extends StatelessWidget {
                 extra: Text("请选择你要进行的操作"),
                 cancelText: Text("取消"),
                 actions: [
-                  AntdAction(
+                  AntdSheetAction(
                       title: Text("辅助"),
                       onTap: (_) {
                         AntdToast.show("点击了辅助按钮");
                       }),
-                  AntdAction(title: Text("修改"), disabled: true),
-                  AntdAction(
+                  AntdSheetAction(title: Text("修改"), disabled: true),
+                  AntdSheetAction(
                       title: Text("删除"),
                       description: Text("删除后数据不可恢复"),
                       danger: true,
@@ -178,9 +178,9 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
                 extra: Text("请选择你要进行的操作"),
                 cancelText: Text("取消"),
                 actions: [
-                  AntdAction(title: Text("辅助")),
-                  AntdAction(title: Text("修改")),
-                  AntdAction(title: Text("保存"))
+                  AntdSheetAction(title: Text("辅助")),
+                  AntdSheetAction(title: Text("修改")),
+                  AntdSheetAction(title: Text("保存"))
                 ]));
             AntdToast.show("弹出层关闭了我才出现的", duration: Duration(seconds: 0));
           })
@@ -308,7 +308,7 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
-| actions | 面板选项列表 | List&lt;AntdAction&gt; | - | - |
+| actions | 面板选项列表 | List&lt;AntdSheetAction&gt; | - | - |
 | cancelText | 取消按钮文字，如果设置为空则不显示取消按钮 | Widget | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | true | - |
 | extra | 顶部的额外区域 | Widget | - | - |
@@ -316,18 +316,18 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | safeArea | 安全区 | bool | true | - |
 
 
-## 定义(AntdAction) <a id='AntdAction'></a>
+## 定义(AntdSheetAction) <a id='AntdSheetAction'></a>
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | style | 样式 | AntdActionStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdAction&gt; | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdSheetAction&gt; | - | - |
 | danger | 是否为危险状态 | bool | - | - |
 | description | 描述 | Widget | - | - |
 | disabled | 是否为禁用状态 | bool | - | - |
-| onTap | 点击时触发 | AntdActionOnTap | - | - |
 | title | 标题 | Widget | - | - |
+| onTap | 点击时触发,单独使用无效 | AntdActionOnTap | - | - |
 | bold | 标题是否加粗 | bool | - | - |
 | safeArea | 安全区:`top` \| `bottom` \| `left` \| `right` \| `horizontal` \| `vertical` \| `all` | AntdPosition | - | - |
 
@@ -337,7 +337,6 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| closeIconStyle | 关闭按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | maskColor | 背景色 | Color | - | - |
 | maskOpacity | 透明度 | double | - | - |
 | actionStyle | 样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |

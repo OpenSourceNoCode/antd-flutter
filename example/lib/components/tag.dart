@@ -47,7 +47,8 @@ class AntdTagCustomDemo extends StatelessWidget {
       AntdTag(
         style: AntdTagStyle(
             bodyStyle: AntdBoxStyle(color: token.colorPrimary, padding: 4.all),
-            closeStyle: AntdBoxStyle(color: token.colorWarning)),
+            closeIconStyle: AntdIconStyle(
+                bodyStyle: AntdBoxStyle(color: token.colorWarning))),
         child: const Text("自定义样式"),
         close: AntdBox(
           child: Text("取消"),

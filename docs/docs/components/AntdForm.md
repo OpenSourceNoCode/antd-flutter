@@ -529,6 +529,8 @@ class AntdFormCardDemo extends StatelessWidget {
 | validateFirst | 当某一规则校验不通过时，是否停止剩下的规则的校验。设置 parallel 时会并行校验 | bool | - | - |
 | validateTrigger | 设置字段校验的时机:`onChange` \| `onFocus` \| `any` | AntdFormTrigger | - | - |
 | controller | 控制器 | AntdFormController | - | - |
+| header | 头部区域 通常放置标题 | Widget | - | - |
+| footer | 尾部区域 通常放置提交按钮 | Widget | - | - |
 | initialValues | 表单默认值，只有初始化以及重置时生效 | Map&lt;String, dynamic&gt; | - | - |
 | builder | 子项 | AntdFormBuilder | - | - |
 | onFieldsChange | 字段更新时触发 | AntdFormFieldsChange | - | - |
@@ -569,11 +571,11 @@ class AntdFormCardDemo extends StatelessWidget {
 | itemStyle | 表单控件容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | itemFlexStyle | item的对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | labelStyle | 标签文本容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| labelFlexStyle | 标签文本容器样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| labelRowStyle | 标签文本容器样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | feedbackStyle | 校验反馈信息容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | helpIconStyle | 帮助提示图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | extraIconStyle | 额外操作图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| extraFlexStyle | 扩展区域的对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| extraRowStyle | 扩展区域的对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | span | 栅格布局跨度配置 | AntdFormItemSpan | const AntdFormItemSpan() | - |
 | requireStyle | 必填标记样式 | [AntdFormItemRequireStyle](../components/antd-form-item-require/#AntdFormItemRequireStyle) | - | - |
 

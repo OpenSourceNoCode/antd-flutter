@@ -44,6 +44,8 @@ class AntdSliderBarStyle extends AntdStyle {
         titleStyle: titleStyle.merge(style?.titleStyle),
         activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle),
         indicatorStyle: indicatorStyle.merge(style?.indicatorStyle),
+        activeIndicatorStyle:
+            activeIndicatorStyle.merge(style?.activeIndicatorStyle),
         activeCornerRadius: style?.activeCornerRadius ?? activeCornerRadius);
   }
 }
@@ -149,10 +151,9 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
         bodyStyle: AntdBoxStyle(color: token.colorFillContent, width: 100),
         contentStyle: AntdBoxStyle(color: token.colorWhite),
         indicatorStyle: indicatorStyle,
-        activeIndicatorStyle:
-            indicatorStyle.copyWith(color: token.colorPrimary),
+        activeIndicatorStyle: AntdBoxStyle(color: token.colorPrimary),
         titleStyle: titleStyle,
-        activeTitleStyle: titleStyle.copyWith(
+        activeTitleStyle: AntdBoxStyle(
             radius: BorderRadius.circular(0),
             color: token.colorWhite,
             textStyle: token.font.sm.copyWith(color: token.colorPrimary)));
@@ -162,6 +163,17 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
   AntdSliderBarStyle margeStyle(
       AntdSliderBarStyle defaultStyle, AntdSliderBarStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdSliderBarStyle getFinalStyle(
+      BuildContext context, AntdSliderBarStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSliderBarStyle(
+            activeIndicatorStyle:
+                style.indicatorStyle.merge(style.activeIndicatorStyle),
+            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
   }
 
   @override

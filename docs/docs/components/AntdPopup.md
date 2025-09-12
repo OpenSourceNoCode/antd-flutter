@@ -418,5 +418,6 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 | maskOpacity | 透明度 | double | - | - |
 | bodyStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | closeIconStyle | 关闭按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| closeIcon | 关闭图标 | Widget | - | - |
 
 

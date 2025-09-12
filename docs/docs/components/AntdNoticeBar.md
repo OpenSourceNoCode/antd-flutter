@@ -46,8 +46,14 @@ class AntdNoticeBarCloseableDemo extends StatelessWidget {
   const AntdNoticeBarCloseableDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(
-        child: [AntdNoticeBar(closeable: true, content: "默认")]);
+    return DemoWrapper(child: [
+      AntdNoticeBar(
+          closeable: true,
+          onClose: () {
+            AntdToast.show("点击了关闭", position: AntdToastPosition.top);
+          },
+          content: "默认")
+    ]);
   }
 }
 
@@ -252,7 +258,7 @@ class AntdNoticeBarCustomDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | iconStyle | 左侧图标大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| closeStyle | 关闭区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| closeIconStyle | 关闭区域样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | bodyStyle | 内容的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | extraStyle | 扩展区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 

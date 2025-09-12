@@ -10,7 +10,7 @@ class AntdToastStyle extends AntdMaskStyle {
   final AntdBoxStyle? bodyStyle;
 
   ///图标大小
-  final AntdBoxStyle? iconStyle;
+  final AntdIconStyle? iconStyle;
 
   ///内容排列布局样式
   final AntdFlexStyle? columnStyle;
@@ -42,7 +42,7 @@ class AntdToastStyle extends AntdMaskStyle {
 
 enum AntdToastPosition { top, bottom, center }
 
-enum AntdToastType { success, fail, other }
+enum AntdToastType { success, fail, normal }
 
 ///@t 轻提示
 ///@g 反馈
@@ -73,7 +73,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
   final Duration? duration;
 
   ///Toast 图标
-  final Widget? icon;
+  final AntdIcon? icon;
 
   ///垂直方向显示位置
   final AntdToastPosition? position;
@@ -94,10 +94,13 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return AntdToastStyle(
         bodyStyle: AntdBoxStyle(
+            minWidth: icon?.icon != null ? 130 : null,
             color: token.colorBlack.withValues(alpha: 0.7),
             radius: token.radius.default_.radius.all,
             textStyle: token.font.md.copyWith(color: token.colorWhite),
-            padding: icon != null ? 40.all : token.size.lg.all,
+            padding: icon != null
+                ? 40.vertical.marge(token.size.lg.horizontal)
+                : token.size.lg.all,
             margin: switch (position) {
               AntdToastPosition.top => token.size.xxl.top,
               AntdToastPosition.center => null,
@@ -115,9 +118,12 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
           AntdToastType.fail => const AntdIcon(
               icon: AntdIcons.close,
             ),
-          AntdToastType.other => null,
+          AntdToastType.normal => null,
         },
-        iconStyle: AntdBoxStyle(margin: token.size.default_.bottom),
+        iconStyle: AntdIconStyle(
+            size: 32,
+            color: token.colorWhite,
+            bodyStyle: AntdBoxStyle(margin: token.size.default_.bottom)),
         columnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         maskOpacity: getOpacity());
   }
@@ -146,7 +152,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
       {final Key? key,
       final Widget? body,
       final Duration? duration = const Duration(milliseconds: 2000),
-      final Widget? icon,
+      final AntdIcon? icon,
       final AntdToastPosition? position,
       final AntdToast? toast}) {
     return AntdToast(
@@ -226,10 +232,9 @@ class AntdToastState extends AntdMaskBaseState<AntdToastStyle, AntdToast,
   @protected
   Widget? buildBuilder() {
     var child = super.buildBuilder();
-
+    var icon = widget.icon ?? style.icon;
     var columns = <Widget>[
-      if (widget.icon != null)
-        AntdBox(style: style.iconStyle, child: widget.icon!),
+      if (icon != null) AntdIconWrap(style: style.iconStyle, child: icon),
       if (child != null) child
     ];
 

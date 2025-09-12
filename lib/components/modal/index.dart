@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 ///弹窗定义
 ///@l [AntdModal]
-class AntdModalAction extends AntdDialogAction {
+class AntdModalAction extends AntdBaseAction<AntdActionStyle, AntdModalAction> {
   const AntdModalAction(
       {super.key,
       super.style,
@@ -14,8 +14,10 @@ class AntdModalAction extends AntdDialogAction {
       super.title,
       super.bold,
       super.danger,
-      super.primary})
-      : super(bottom: false);
+      this.primary});
+
+  ///主要按钮
+  final bool? primary;
 
   @override
   AntdActionStyle getDefaultStyle(
@@ -53,21 +55,24 @@ class AntdModalAction extends AntdDialogAction {
   }
 
   @override
-  AntdModalAction copyForm(AntdModalAction? action) {
-    return AntdModalAction(
-      key: action?.key ?? key,
-      style: action?.style ?? style,
-      styleBuilder: action?.styleBuilder ?? styleBuilder,
-      description: action?.description ?? description,
-      disabled: action?.disabled ?? disabled,
-      title: action?.title ?? title,
-      onTap: action?.onTap ?? onTap,
-      bold: action?.bold ?? bold,
-      danger: action?.danger ?? danger,
-      primary: action?.primary ?? primary,
-    );
+  AntdModalAction getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  AntdStyleBuilder<AntdActionStyle, AntdModalAction>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.modalActionStyle;
+  }
+
+  @override
+  AntdActionStyle margeStyle(
+      AntdActionStyle defaultStyle, AntdActionStyle? style) {
+    return defaultStyle.copyFrom(style);
   }
 }
+
+enum AntdModalType { alert, confirm, normal }
 
 ///@t 弹窗
 ///@g 反馈
@@ -92,7 +97,11 @@ class AntdModal
       super.builder,
       super.closeIcon,
       super.header,
-      super.title});
+      super.title,
+      this.type = AntdModalType.normal});
+
+  ///modal的类型，一般用作全局主题的动态样式
+  final AntdModalType type;
 
   static Future<T?> show<T>(
       {final Key? key,
@@ -121,6 +130,7 @@ class AntdModal
       closeIcon: modal?.closeIcon,
       header: header ?? modal?.header,
       title: title ?? modal?.header,
+      type: modal?.type ?? AntdModalType.normal,
     ).open<T>();
   }
 
@@ -128,6 +138,7 @@ class AntdModal
       {final Key? key,
       final Widget? header,
       final Widget? title,
+      final AntdActionStyle? style,
       final Widget alert = const Text("我知道了"),
       final AntdActionOnTap? onConfirm,
       final AntdModal? modal}) {
@@ -147,6 +158,7 @@ class AntdModal
           title: alert,
           primary: true,
           onTap: onConfirm,
+          style: style,
         ),
         ...(modal?.actions ?? [])
       ],
@@ -158,6 +170,7 @@ class AntdModal
       closeIcon: modal?.closeIcon,
       header: header ?? modal?.header,
       title: title ?? modal?.header,
+      type: AntdModalType.alert,
     ).open<T>();
   }
 
@@ -165,8 +178,10 @@ class AntdModal
       {final Key? key,
       final Widget? header,
       final Widget? title,
+      final AntdActionStyle? confirmStyle,
       final Widget confirm = const Text("确认"),
       final AntdActionOnTap? onConfirm,
+      final AntdActionStyle? cancelStyle,
       final Widget cancel = const Text("取消"),
       final AntdActionOnTap? onCancel,
       final AntdModal? modal}) {
@@ -186,10 +201,12 @@ class AntdModal
           title: cancel,
           primary: true,
           onTap: onCancel,
+          style: cancelStyle,
         ),
         AntdModalAction(
           title: confirm,
           onTap: onConfirm,
+          style: confirmStyle,
         ),
         ...(modal?.actions ?? [])
       ],
@@ -201,6 +218,7 @@ class AntdModal
       closeIcon: modal?.closeIcon,
       header: header ?? modal?.header,
       title: title ?? modal?.header,
+      type: AntdModalType.confirm,
     ).open<T>();
   }
 
@@ -227,16 +245,31 @@ class AntdModal
 class AntdModalState
     extends AntdInnerDialogState<AntdModalAction, AntdModalState, AntdModal> {
   @override
-  AntdModalAction copyForm(covariant AntdModalAction action) {
-    return action.copyForm(AntdModalAction(
-      onTap: (_) {
-        handlerTap(action);
-      },
-    ));
+  AntdModalState getState() {
+    return this;
   }
 
   @override
-  AntdModalState getState() {
-    return this;
+  List<Widget> buildActions() {
+    if (widget.actions == null) {
+      return [];
+    }
+
+    return [
+      AntdStyleProvider<AntdActionStyle>(
+          style: style.actionStyle,
+          child: AntdColumn(
+              style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+              children: widget.actions!.map((value) {
+                return AntdBox(
+                  options:
+                      const AntdTapOptions(accepter: AntdTapAccepter.listener),
+                  onTap: () {
+                    handlerTap(value);
+                  },
+                  child: value,
+                );
+              }).toList()))
+    ];
   }
 }

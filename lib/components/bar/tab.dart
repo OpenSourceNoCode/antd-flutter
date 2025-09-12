@@ -136,9 +136,9 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
         iconStyle: iconStyle,
-        activeIconStyle: iconStyle.copyWith(color: token.colorPrimary),
+        activeIconStyle: AntdIconStyle(color: token.colorPrimary),
         titleStyle: titleStyle,
-        activeTitleStyle: titleStyle.copyWith(
+        activeTitleStyle: AntdBoxStyle(
             textStyle: titleTextStyle.copyWith(color: token.colorPrimary)));
   }
 
@@ -146,6 +146,16 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
   AntdTabBarStyle margeStyle(
       AntdTabBarStyle defaultStyle, AntdTabBarStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdTabBarStyle getFinalStyle(
+      BuildContext context, AntdTabBarStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdTabBarStyle(
+            activeIconStyle: style.iconStyle.merge(style.activeIconStyle),
+            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
   }
 
   @override
@@ -173,11 +183,9 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
           style: style.itemColumnStyle,
           children: [
             if (item.icon != null)
-              AntdStyleProvider<AntdIconStyle>(
+              AntdIconWrap(
                   style: active ? style.activeIconStyle : style.iconStyle,
-                  child:
-                      (active ? (item.activeIcon ?? item.icon) : item.icon) ??
-                          const AntdBox()),
+                  child: active ? (item.activeIcon ?? item.icon) : item.icon),
             if (item.title != null)
               AntdBox(
                 style: active ? style.activeTitleStyle : style.titleStyle,

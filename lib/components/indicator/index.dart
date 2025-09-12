@@ -105,6 +105,15 @@ class AntdPageIndicator
   }
 
   @override
+  AntdPageIndicatorStyle getFinalStyle(BuildContext context,
+      AntdPageIndicatorStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdPageIndicatorStyle(
+            activeStyle: style.bodyStyle.merge(style.activeStyle)));
+  }
+
+  @override
   AntdPageIndicator getWidget(BuildContext context) {
     return this;
   }

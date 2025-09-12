@@ -10,7 +10,7 @@ class AntdNavBarStyle extends AntdStyle {
   ///主体轴对齐方式
   final AntdFlexStyle? bodyRowStyle;
 
-  ///返回按钮大小
+  ///返回按钮图标样式
   final AntdIconStyle? backIconStyle;
 
   ///返回区域轴对齐方式
@@ -155,12 +155,14 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
       style: style.backRowStyle,
       children: [
         if (backIcon != null)
-          AntdStyleProvider<AntdIconStyle>(
+          AntdBox(
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+            onTap: onBack,
+            child: AntdIconWrap(
               style: style.backIconStyle,
-              child: AntdBox(
-                onTap: onBack,
-                child: backIcon,
-              )),
+              child: backIcon,
+            ),
+          ),
         if (back != null)
           AntdBox(
             onTap: onBack,

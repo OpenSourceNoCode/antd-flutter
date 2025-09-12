@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:antd_flutter_mobile/components/form/rule.dart';
 import 'package:flutter/widgets.dart';
 
@@ -19,101 +17,7 @@ class _Value {
 
   dynamic get value => _value;
 
-  bool get isChanged => !_deepEquals(_value, _beforeValue);
-
-  static bool _deepEquals(dynamic a, dynamic b) {
-    // 快速路径：相同引用或都是null
-    if (identical(a, b)) return true;
-
-    // 其中一个为null
-    if (a == null || b == null) return false;
-
-    // 处理基础类型（性能优化）
-    if (_isBasicType(a) && _isBasicType(b)) {
-      return a == b;
-    }
-
-    // 处理List
-    if (a is List && b is List) {
-      return _listEquals(a, b);
-    }
-
-    // 处理Map
-    if (a is Map && b is Map) {
-      return _mapEquals(a, b);
-    }
-
-    // 处理Set
-    if (a is Set && b is Set) {
-      return _setEquals(a, b);
-    }
-
-    // 处理DateTime
-    if (a is DateTime && b is DateTime) {
-      return a.isAtSameMomentAs(b);
-    }
-
-    // 处理其他引用类型
-    return a == b;
-  }
-
-  // 判断是否为基本类型
-  static bool _isBasicType(dynamic value) {
-    return value is num ||
-        value is bool ||
-        value is String ||
-        value is DateTime;
-  }
-
-  // 列表比较
-  static bool _listEquals(List<dynamic> a, List<dynamic> b) {
-    if (a.length != b.length) return false;
-
-    // 快速检查前几个元素
-    final int quickCheckLength = min(a.length, 5);
-    for (int i = 0; i < quickCheckLength; i++) {
-      if (!_deepEquals(a[i], b[i])) return false;
-    }
-
-    // 如果快速检查通过，进行完整比较
-    for (int i = quickCheckLength; i < a.length; i++) {
-      if (!_deepEquals(a[i], b[i])) return false;
-    }
-
-    return true;
-  }
-
-  // Map比较
-  static bool _mapEquals(Map<dynamic, dynamic> a, Map<dynamic, dynamic> b) {
-    if (a.length != b.length) return false;
-
-    // 先检查key集合是否相同
-    if (!_setEquals(a.keys.toSet(), b.keys.toSet())) return false;
-
-    // 然后检查每个key对应的value
-    for (var key in a.keys) {
-      if (!_deepEquals(a[key], b[key])) return false;
-    }
-
-    return true;
-  }
-
-  // Set比较（优化版本）
-  static bool _setEquals(Set<dynamic> a, Set<dynamic> b) {
-    if (a.length != b.length) return false;
-
-    // 如果Set包含基本类型，使用更快的比较方式
-    if (a.isNotEmpty && _isBasicType(a.first)) {
-      return a.containsAll(b) && b.containsAll(a);
-    }
-
-    // 对于复杂类型的Set，使用原来的深度比较
-    for (var item in a) {
-      if (!b.any((bItem) => _deepEquals(item, bItem))) return false;
-    }
-
-    return true;
-  }
+  bool get isChanged => _beforeValue != _value;
 }
 
 class AntdFormStore extends ChangeNotifier {
@@ -133,6 +37,8 @@ class AntdFormStore extends ChangeNotifier {
   final Map<String, ValueNotifier<bool>> _feedbackRebuildMark = {};
   final Set<String> _isChanged = {};
   final Set<String> _isTouched = {};
+  String? _lastTouchedName;
+  AntdFormItemState? get _lastTouchedItemState => _items[_lastTouchedName];
 
   void addFieldsChangeListener(AntdFormFieldsChange? listener) {
     if (listener == null) {
@@ -181,6 +87,7 @@ class AntdFormStore extends ChangeNotifier {
     _feedbackRebuildMark.clear();
     _isChanged.clear();
     _isTouched.clear();
+    _lastTouchedName = null;
     super.dispose();
   }
 
@@ -222,6 +129,9 @@ class AntdFormStore extends ChangeNotifier {
       return false;
     }
 
+    if (name == _lastTouchedName) {
+      _lastTouchedName = null;
+    }
     _items.remove(name);
     _itemRebuildMark[name]?.dispose();
     _itemRebuildMark.remove(name);
@@ -252,6 +162,7 @@ class AntdFormStore extends ChangeNotifier {
 
   void addTouched(String name) {
     _isTouched.add(name);
+    _lastTouchedName = name;
   }
 
   ValueNotifier<bool> getItemRebuildMark(String name) {
@@ -443,6 +354,7 @@ class AntdFormStore extends ChangeNotifier {
 }
 
 class AntdFormController extends AntdFormStore {
+  FocusNode? get focusNode => _lastTouchedItemState?.focusNode;
   final List<AntdFormFinish> _finishListener = [];
   final List<AntdFormValuesChange> _valuesChangeListener = [];
 

@@ -7,13 +7,13 @@ class AntdRadioStyle extends AntdCheckboxStyle {
   const AntdRadioStyle(
       {super.inherit,
       super.bodyStyle,
-      super.defaultStyle,
-      super.activeStyle,
       super.indeterminateStyle,
       super.extraStyle,
-      super.iconStyle,
+      super.activeIconStyle,
       super.activeIcon,
+      super.defaultIconStyle,
       super.defaultIcon,
+      super.disableIconStyle,
       super.disableIcon,
       super.rowStyle});
 
@@ -21,13 +21,13 @@ class AntdRadioStyle extends AntdCheckboxStyle {
   AntdRadioStyle copyFrom(covariant AntdRadioStyle? style) {
     return AntdRadioStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      defaultStyle: defaultStyle.merge(style?.defaultStyle),
-      activeStyle: activeStyle.merge(style?.activeStyle),
       indeterminateStyle: indeterminateStyle.merge(style?.indeterminateStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
-      iconStyle: iconStyle.merge(style?.iconStyle),
+      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
       activeIcon: style?.activeIcon ?? activeIcon,
+      defaultIconStyle: defaultIconStyle.merge(style?.defaultIconStyle),
       defaultIcon: style?.defaultIcon ?? defaultIcon,
+      disableIconStyle: disableIconStyle.merge(style?.disableIconStyle),
       disableIcon: style?.disableIcon ?? disableIcon,
       rowStyle: rowStyle.merge(style?.rowStyle),
     );
@@ -59,13 +59,13 @@ class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
     var checkBoxStyle = AntdCheckboxStyle.defaultStyle(token);
     return AntdRadioStyle(
       bodyStyle: checkBoxStyle.bodyStyle,
-      defaultStyle: checkBoxStyle.defaultStyle,
-      activeStyle: checkBoxStyle.activeStyle,
       indeterminateStyle: checkBoxStyle.indeterminateStyle,
       extraStyle: checkBoxStyle.extraStyle,
-      iconStyle: checkBoxStyle.iconStyle,
+      activeIconStyle: checkBoxStyle.activeIconStyle,
       activeIcon: checkBoxStyle.activeIcon,
+      defaultIconStyle: checkBoxStyle.defaultIconStyle,
       defaultIcon: checkBoxStyle.defaultIcon,
+      disableIconStyle: checkBoxStyle.disableIconStyle,
       disableIcon: checkBoxStyle.disableIcon,
       rowStyle: checkBoxStyle.rowStyle,
     );

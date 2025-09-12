@@ -234,7 +234,7 @@ class AntdNavBarTitleEllipsisDemo extends StatelessWidget {
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 主体大小 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | bodyRowStyle | 主体轴对齐方式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
-| backIconStyle | 返回按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| backIconStyle | 返回按钮图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | backRowStyle | 返回区域轴对齐方式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | backStyle | 标题样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | titleStyle | 子标题样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |

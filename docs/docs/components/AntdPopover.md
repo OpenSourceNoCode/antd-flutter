@@ -179,30 +179,19 @@ class AntdPopoverActionDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     final actions = [
       AntdPopoverAction(
-          onTap: (close) {
+          onTap: () {
             AntdToast.show("我触摸了扫一扫");
           },
-          builder: (close, ctx) {
-            return const AntdBox(
-                style: AntdBoxStyle(color: Colors.red, size: 20),
-                child: Text("扫一扫"));
-          },
+          child: Text("扫一扫"),
           icon: const AntdIcon(icon: AntdIcons.scanning)),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("付钱/收钱");
-          },
+          child: const Text("付钱/收钱"),
           icon: const AntdIcon(icon: AntdIcons.handPayCircle)),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("乘车码");
-          },
+          child: const Text("乘车码"),
           icon: const AntdIcon(icon: AntdIcons.transportQRcode)),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("智能助理");
-          },
-          icon: const AntdIcon(icon: AntdIcons.ant))
+          child: const Text("智能助理"), icon: const AntdIcon(icon: AntdIcons.ant))
     ];
     return DemoWrapper(child: [
       AntdPopover(
@@ -215,7 +204,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
           child: AntdBox(style: style, child: const Text("暗色"))),
       AntdPopover(
           actions: actions.map((value) {
-            return AntdPopoverAction(builder: value.builder);
+            return AntdPopoverAction(child: value.child);
           }).toList(),
           child: AntdBox(style: style, child: const Text("没有图标")))
     ]);
@@ -344,7 +333,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
 | child | 弹出内容，比actions优先级更高 | Widget | - | - |
-| closeOnAction | 当执行action后关闭 | bool | true | - |
+| dismissOnAction | 当执行action后关闭 | bool | true | - |
 | actions | 菜单 | List&lt;AntdPopoverAction&gt; | - | - |
 | placement | 弹出的位置:`top` \| `topLeft` \| `topRight` \| `bottom` \| `bottomLeft` \| `bottomRight` \| `left` \| `leftTop` \| `leftBottom` \| `right` \| `rightTop` \| `rightBottom` | AntdPlacement | top | - |
 | mode | 设置亮色模式或者黑色模式:`light` \| `dark` | AntdPopoverMode | light | - |
@@ -359,8 +348,8 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 操作项整体容器的样式配置 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| builderStyle | 操作项内容构建区域的样式配置 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| builderRowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| childStyle | 操作项内容构建区域的样式配置 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| childRowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | iconStyle | 操作项图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 
 ## action(AntdPopoverAction) <a id='AntdPopoverAction'></a>
@@ -372,9 +361,8 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdPopoverActionStyle, AntdPopoverAction&gt; | - | - |
 | disabled | 是否禁用该操作项，禁用时不可点击且样式变灰 | bool | - | - |
 | icon | 操作项前显示的图标组件 | Widget | - | - |
-| onTap | 点击操作项时的回调函数，接收一个关闭弹层的方法 | void Function(AntdLayerClose close) | - | - |
-| builder | 构建操作项内容的构建器，用于自定义操作项的显示内容 | AntdMaskBuilder | - | - |
-| last | 是不是最后的选项 | bool | - | - |
+| child | 点击操作项时的回调函数，接收一个关闭弹层的方法 | Widget | - | - |
+| onTap | 点击 | VoidCallback | - | - |
 
 ## 弹出框整体样式配置类（继承自遮罩样式）(AntdPopoverStyle) <a id='AntdPopoverStyle'></a>
 
@@ -384,7 +372,6 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | maskColor | 遮罩层颜色（继承自父类） | Color | - | - |
 | maskOpacity | 遮罩层透明度（继承自父类） | double | - | - |
 | childStyle | child的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| builderStyle | 弹出框内容区域的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | actionStyle | Action的样式 | [AntdPopoverActionStyle](../components/antd-popover-action/#AntdPopoverActionStyle) | - | - |
 | actionColumnStyle | Action的对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | popoverBoxStyle | 弹出层样式 | [AntdPopoverBoxStyle](../components/antd-popover-box/#AntdPopoverBoxStyle) | - | - |

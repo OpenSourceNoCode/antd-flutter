@@ -11,26 +11,18 @@ class AntdTagStyle extends AntdStyle {
   final AntdBoxStyle? bodyStyle;
 
   ///关闭样式
-  final AntdBoxStyle? closeStyle;
-
-  ///关闭样式
   final AntdIconStyle? closeIconStyle;
 
   ///轴对齐
   final AntdFlexStyle? rowStyle;
 
   const AntdTagStyle(
-      {super.inherit,
-      this.bodyStyle,
-      this.closeStyle,
-      this.closeIconStyle,
-      this.rowStyle});
+      {super.inherit, this.bodyStyle, this.closeIconStyle, this.rowStyle});
 
   @override
   AntdTagStyle copyFrom(covariant AntdTagStyle? style) {
     return AntdTagStyle(
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
-        closeStyle: closeStyle.merge(style?.closeStyle),
         closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
         rowStyle: rowStyle.merge(style?.rowStyle));
   }
@@ -84,10 +76,9 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
         if (child != null) child!,
         if (close != null)
           AntdBox(
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
             onTap: onClose,
-            style: style.closeStyle,
-            child: AntdStyleProvider<AntdIconStyle>(
-                style: style.closeIconStyle, child: close!),
+            child: AntdIconWrap(style: style.closeIconStyle, child: close),
           )
       ]),
     );
@@ -127,11 +118,10 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
 
     return AntdTagStyle(
         bodyStyle: bodyStyle,
-        closeStyle: AntdBoxStyle(margin: 2.left),
         closeIconStyle: AntdIconStyle(
-          size: 12,
-          color: token.colorWhite,
-        ),
+            size: 12,
+            color: token.colorWhite,
+            bodyStyle: AntdBoxStyle(margin: 2.left)),
         rowStyle: const AntdFlexStyle(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center));

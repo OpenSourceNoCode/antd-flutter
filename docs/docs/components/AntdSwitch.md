@@ -26,12 +26,8 @@ class AntdSwitchDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSwitch(
-          content: const Text("关闭"),
-          activeContent: const Text("打开"),
-          onChange: (value) {
-            AntdToast.show("当前值:$value");
-          })
+      AntdSwitch(content: const Text("关闭"), activeContent: const Text("打开")),
+      AntdSwitch(content: const Text("关闭"), activeContent: const Text("打开"))
     ]);
   }
 }
@@ -47,14 +43,7 @@ class AntdSwitchCustomDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(child: [
-      AntdSwitch(
-          style: AntdSwitchStyle(
-              trackStyle: AntdBoxStyle(color: token.colorError),
-              activeTrackStyle:
-                  AntdBoxStyle(color: token.colorSuccess, height: 14),
-              thumbStyle: AntdBoxStyle(height: 14, color: token.colorPrimary)))
-    ]);
+    return DemoWrapper(child: []);
   }
 }
 
@@ -68,31 +57,7 @@ class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
   bool open = false;
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(child: [
-      AntdSwitch(
-          value: open,
-          content: const Text("关闭"),
-          activeContent: const Text("打开"),
-          onChange: (value) {
-            AntdToast.show("当前值:$value");
-          }),
-      Row(children: [
-        AntdButton(
-            child: const Text("打开"),
-            onTap: () {
-              setState(() {
-                open = true;
-              });
-            }),
-        AntdButton(
-            child: const Text("关闭"),
-            onTap: () {
-              setState(() {
-                open = false;
-              });
-            })
-      ])
-    ]);
+    return DemoWrapper(child: []);
   }
 }
 
@@ -106,10 +71,7 @@ class AntdSwitchDisabledDemo extends StatelessWidget {
   const AntdSwitchDisabledDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
-      AntdSwitch(disabled: true, content: Text("禁用")),
-      AntdSwitch(readOnly: true, value: true, activeContent: Text("只读"))
-    ]);
+    return const DemoWrapper(child: []);
   }
 }
 

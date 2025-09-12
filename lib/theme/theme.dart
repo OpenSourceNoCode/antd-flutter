@@ -57,6 +57,9 @@ class AntdTheme {
   final AntdStyleBuilder<AntdActionSheetStyle, AntdActionSheet>?
       actionSheetStyle;
 
+  ///[AntdSheetAction]样式
+  final AntdStyleBuilder<AntdActionStyle, AntdSheetAction>? sheetActionStyle;
+
   ///[AntdSelector]样式
   final AntdStyleBuilder<AntdSelectorStyle, AntdSelector>? selectorStyle;
 
@@ -185,8 +188,14 @@ class AntdTheme {
   /// [AntdDialog] 样式
   final AntdStyleBuilder<AntdDialogStyle, AntdDialog>? dialogStyle;
 
+  /// [AntdDialogAction] 样式
+  final AntdStyleBuilder<AntdActionStyle, AntdDialogAction>? dialogActionStyle;
+
   /// [AntdModal] 样式
   final AntdStyleBuilder<AntdDialogStyle, AntdModal>? modalStyle;
+
+  /// [AntdModalAction] 样式
+  final AntdStyleBuilder<AntdActionStyle, AntdModalAction>? modalActionStyle;
 
   /// [AntdTour] 样式
   final AntdStyleBuilder<AntdTourStyle, AntdTour>? tourStyle;
@@ -197,6 +206,7 @@ class AntdTheme {
       this.capsuleTabsStyle,
       this.pullToRefreshStyle,
       this.dialogStyle,
+      this.dialogActionStyle,
       this.tabsStyle,
       this.jumboStyle,
       this.switchStyle,
@@ -207,6 +217,7 @@ class AntdTheme {
       this.sliderStyle,
       this.skeletonStyle,
       this.actionSheetStyle,
+      this.sheetActionStyle,
       this.selectorStyle,
       this.segmentedStyle,
       this.resultStyle,
@@ -248,6 +259,7 @@ class AntdTheme {
       this.avatarStyle,
       this.toastStyle,
       this.modalStyle,
+      this.modalActionStyle,
       this.tourStyle});
 
   static AntdTheme of(BuildContext context) {

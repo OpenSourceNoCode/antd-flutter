@@ -66,15 +66,6 @@ class _AntdAntdProviderState extends State<AntdProvider> {
   @override
   Widget build(BuildContext context) {
     final child = widget.builder(context, theme!);
-    final overlay = Overlay.maybeOf(context);
-
-    Widget wrappedChild = overlay != null
-        ? child
-        : Overlay(
-            initialEntries: [
-              OverlayEntry(builder: (context) => child),
-            ],
-          );
 
     return AntdThemeProvider(
       theme: theme!,
@@ -82,7 +73,7 @@ class _AntdAntdProviderState extends State<AntdProvider> {
         textDirection: TextDirection.ltr,
         child: DefaultTextStyle(
           style: theme!.token.font.default_,
-          child: wrappedChild,
+          child: child,
         ),
       ),
     );

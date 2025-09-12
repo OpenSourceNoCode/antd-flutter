@@ -372,6 +372,15 @@ class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
   }
 
   @override
+  AntdTabsStyle getFinalStyle(
+      BuildContext context, AntdTabsStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdTabsStyle(
+            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
+  }
+
+  @override
   State<StatefulWidget> createState() {
     return AntdTabsState();
   }

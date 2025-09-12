@@ -8,7 +8,6 @@ import 'package:example/widget/demo.dart';
 import 'package:example/widget/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'comment/define.dart';
 
@@ -113,9 +112,9 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       builder: (c, _) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Layout(
             title: "Antd Flutter Mobile",
             menus: menus,

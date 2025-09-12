@@ -325,7 +325,7 @@ class AntdSliderCustomDemo extends StatelessWidget {
 | activeMarkTextStyle | 滑块激活状态下刻度文本的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | trackStyle | 滑块轨道的默认样式（未激活部分） | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | activeTrackStyle | 滑块轨道的激活部分样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| sliderStyle | 滑块手柄（拖动按钮）的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| slider | 滑块图标 | Widget | - | - |
 | sliderIconStyle | 滑块手柄内图标的样式（如果有的话） | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 
 

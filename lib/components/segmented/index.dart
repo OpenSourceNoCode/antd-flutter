@@ -158,6 +158,15 @@ class AntdSegmented
   }
 
   @override
+  AntdSegmentedStyle getFinalStyle(
+      BuildContext context, AntdSegmentedStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSegmentedStyle(
+            activeItemStyle: style.itemStyle.merge(style.activeItemStyle)));
+  }
+
+  @override
   AntdSegmentedStyle margeStyle(
       AntdSegmentedStyle defaultStyle, AntdSegmentedStyle? style) {
     return defaultStyle.copyFrom(style);
@@ -229,7 +238,7 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
                 return Positioned(
                     left: _animation.value,
                     child: AntdStyleProvider<AntdBoxStyle>(
-                        style: style.activeItemStyle?.copyFrom(style.itemStyle),
+                        style: style.activeItemStyle,
                         child: activeItem.copyFrom(AntdSegmentedItem(
                           disable: widget.disabled,
                           child: AntdBox(

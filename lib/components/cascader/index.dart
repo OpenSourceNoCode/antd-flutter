@@ -25,6 +25,7 @@ class AntdCascaderStyle extends AntdPopupStyle {
       super.maskOpacity,
       super.bodyStyle,
       super.closeIconStyle,
+      super.closeIcon,
       this.headerStyle,
       this.titleStyle,
       this.cancelStyle,
@@ -34,6 +35,7 @@ class AntdCascaderStyle extends AntdPopupStyle {
   @override
   AntdCascaderStyle copyFrom(covariant AntdCascaderStyle? style) {
     return AntdCascaderStyle(
+      closeIcon: style?.closeIcon ?? closeIcon,
       maskColor: style?.maskColor ?? maskColor,
       maskOpacity: style?.maskOpacity ?? maskOpacity,
       headerStyle: headerStyle.merge(style?.headerStyle),

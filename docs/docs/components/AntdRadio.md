@@ -55,13 +55,13 @@ class AntdRadioCustomDemo extends StatelessWidget {
           style: AntdRadioStyle(
               defaultIcon: const AntdIcon(icon: AntdIcons.smile),
               activeIcon: AntdIcon(
-                  style: AntdIconStyle(color: token.colorPrimary),
+                  style: AntdIconStyle(size: 22, color: token.colorPrimary),
                   icon: AntdIcons.smileFill),
               disableIcon: AntdIcon(
                   style: AntdIconStyle(color: token.colorPrimary),
                   icon: AntdIcons.delete),
-              defaultStyle: const AntdBoxStyle(size: 16),
-              activeStyle: const AntdBoxStyle(size: 16)),
+              activeIconStyle: AntdIconStyle(
+                  bodyStyle: AntdBoxStyle(color: token.colorWhite))),
           extra: const Text("我是自定义内容"))
     ]);
   }
@@ -227,13 +227,13 @@ class AntdRadioDisabledDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 主体样式，可以开启切换时震动反馈 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| defaultStyle | 复选框未选中时的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| activeStyle | 复选框选中时的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | indeterminateStyle | 复选框半选状态(indeterminate)的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | extraStyle | 复选框文本标签的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| iconStyle | 复选框图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| activeIconStyle | 选中框图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | activeIcon | 选中状态下显示的图标组件 | Widget | - | - |
+| defaultIconStyle | 默认图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | defaultIcon | 默认未选中状态下显示的图标组件 | Widget | - | - |
+| disableIconStyle | 禁用图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | disableIcon | 禁用状态下显示的图标组件 | Widget | - | - |
 | rowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 

@@ -112,17 +112,17 @@ class AntdModalCustomerContentDemo extends StatelessWidget {
       AntdButton(
           child: const Text(" 自定义内容区域"),
           onTap: () {
-            AntdLayer.open(AntdModal(
+            AntdModal.alert(
+                const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("请用手机拍摄手持工牌照，注意保持照片清晰"),
+                      Text("明月松间照，清泉石上流")
+                    ]),
                 header: AntdIcon(
                     icon: AntdIcons.exclamationShield,
                     style: AntdIconStyle(size: 48, color: token.colorWarning)),
-                title: const Text("注意"),
-                builder: (controller, ctx) => const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("请用手机拍摄手持工牌照，注意保持照片清晰"),
-                          Text("明月松间照，清泉石上流")
-                        ])));
+                title: const Text("注意"));
           })
     ]);
   }
@@ -142,18 +142,14 @@ class AntdModalEventDemo extends StatelessWidget {
       AntdButton(
           child: const Text("弹窗事件"),
           onTap: () {
-            AntdLayer.open(AntdModal(
-                onClosed: () {
+            AntdModal.alert(const Center(child: Text("明月松间照，清泉石上流")),
+                modal: AntdModal(onClosed: () {
                   AntdToast.show("关闭了弹窗");
-                },
-                onOpened: () {
+                }, onOpened: () {
                   AntdToast.show("打开了弹窗");
-                },
-                onMaskTap: () {
+                }, onMaskTap: () {
                   AntdToast.show("点击了弹窗");
-                },
-                builder: (controller, ctx) =>
-                    const Center(child: Text("明月松间照，清泉石上流"))));
+                }));
           })
     ]);
   }
@@ -306,6 +302,7 @@ class AntdModalWaitDemo extends StatelessWidget {
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | header | 顶部区域 | Widget | - | - |
 | title | 标题 | Widget | - | - |
+| type | modal的类型，一般用作全局主题的动态样式:`alert` \| `confirm` \| `normal` | AntdModalType | normal | - |
 
 
 ## 弹窗定义(AntdModalAction) <a id='AntdModalAction'></a>
@@ -314,13 +311,13 @@ class AntdModalWaitDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | style | 样式 | AntdActionStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdAction&gt; | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdModalAction&gt; | - | - |
 | description | 描述 | Widget | - | - |
 | disabled | 是否为禁用状态 | bool | - | - |
-| onTap | 点击时触发 | AntdActionOnTap | - | - |
+| onTap | 点击时触发,单独使用无效 | AntdActionOnTap | - | - |
 | title | 标题 | Widget | - | - |
 | bold | 标题是否加粗 | bool | - | - |
 | danger | 是否为危险状态 | bool | - | - |
-| primary | 是否是确认按钮（通常会影响按钮样式） | bool | - | - |
+| primary | 主要按钮 | bool | - | - |
 
 

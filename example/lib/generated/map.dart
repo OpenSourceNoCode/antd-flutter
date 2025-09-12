@@ -258,6 +258,8 @@ key:_resolveValue(atr,'AntdIcon','key','Key',null),
 style:_resolveValue(atr,'AntdIcon','style','AntdIconStyle',null),
 styleBuilder:_resolveValue(atr,'AntdIcon','styleBuilder','AntdStyleBuilder<AntdIconStyle, AntdIcon>',null),
 icon:_resolveValue(atr,'AntdIcon','icon','IconData',null),
+child:_resolveValue(atr,'AntdIcon','child','Widget',null),
+row:_resolveValue(atr,'AntdIcon','row','bool',true),
 onTap:_resolveValue(atr,'AntdIcon','onTap','VoidCallback',null),
 );
 }
@@ -274,7 +276,7 @@ dismissOnMaskTap:_resolveValue(atr,'AntdActionSheet','dismissOnMaskTap','bool',t
 opacity:_resolveValue(atr,'AntdActionSheet','opacity','AntdMaskOpacity',null),
 showMask:_resolveValue(atr,'AntdActionSheet','showMask','bool',true),
 animationDuration:_resolveValue(atr,'AntdActionSheet','animationDuration','Duration',const Duration(milliseconds: 400)),
-actions:_resolveValue(atr,'AntdActionSheet','actions','List<AntdAction>',null),
+actions:_resolveValue(atr,'AntdActionSheet','actions','List<AntdSheetAction>',null),
 cancelText:_resolveValue(atr,'AntdActionSheet','cancelText','Widget',null),
 dismissOnAction:_resolveValue(atr,'AntdActionSheet','dismissOnAction','bool',true),
 extra:_resolveValue(atr,'AntdActionSheet','extra','Widget',null),
@@ -313,6 +315,7 @@ builder:_resolveValue(atr,'AntdDialog','builder','AntdMaskBuilder<AntdDialogStat
 closeIcon:_resolveValue(atr,'AntdDialog','closeIcon','Widget',null),
 header:_resolveValue(atr,'AntdDialog','header','Widget',null),
 title:_resolveValue(atr,'AntdDialog','title','Widget',null),
+type:_resolveValue(atr,'AntdDialog','type','AntdDialogType',AntdDialogType.normal),
 );
 }
 
@@ -567,6 +570,7 @@ builder:_resolveValue(atr,'AntdModal','builder','AntdMaskBuilder<AntdModalState>
 closeIcon:_resolveValue(atr,'AntdModal','closeIcon','Widget',null),
 header:_resolveValue(atr,'AntdModal','header','Widget',null),
 title:_resolveValue(atr,'AntdModal','title','Widget',null),
+type:_resolveValue(atr,'AntdModal','type','AntdModalType',AntdModalType.normal),
 );
 }
 
@@ -600,7 +604,7 @@ dismissOnMaskTap:_resolveValue(atr,'AntdPopover','dismissOnMaskTap','bool',true)
 showMask:_resolveValue(atr,'AntdPopover','showMask','bool',true),
 animationDuration:_resolveValue(atr,'AntdPopover','animationDuration','Duration',const Duration(milliseconds: 200)),
 child:_resolveValue(atr,'AntdPopover','child','Widget',null),
-closeOnAction:_resolveValue(atr,'AntdPopover','closeOnAction','bool',true),
+dismissOnAction:_resolveValue(atr,'AntdPopover','dismissOnAction','bool',true),
 actions:_resolveValue(atr,'AntdPopover','actions','List<AntdPopoverAction>',null),
 placement:_resolveValue(atr,'AntdPopover','placement','AntdPlacement',AntdPlacement.top),
 mode:_resolveValue(atr,'AntdPopover','mode','AntdPopoverMode',AntdPopoverMode.light),
@@ -913,7 +917,7 @@ dismissOnMaskTap:_resolveValue(atr,'AntdToast','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdToast','showMask','bool',false),
 animationDuration:_resolveValue(atr,'AntdToast','animationDuration','Duration',const Duration(milliseconds: 200)),
 duration:_resolveValue(atr,'AntdToast','duration','Duration',const Duration(milliseconds: 2000)),
-icon:_resolveValue(atr,'AntdToast','icon','Widget',null),
+icon:_resolveValue(atr,'AntdToast','icon','AntdIcon',null),
 position:_resolveValue(atr,'AntdToast','position','AntdToastPosition',null),
 dismissOnTap:_resolveValue(atr,'AntdToast','dismissOnTap','bool',true),
 type:_resolveValue(atr,'AntdToast','type','AntdToastType',null),
@@ -1023,6 +1027,8 @@ trigger:_resolveValue(atr,'AntdForm','trigger','AntdFormTrigger',null),
 validateFirst:_resolveValue(atr,'AntdForm','validateFirst','bool',null),
 validateTrigger:_resolveValue(atr,'AntdForm','validateTrigger','AntdFormTrigger',null),
 controller:_resolveValue(atr,'AntdForm','controller','AntdFormController',null),
+header:_resolveValue(atr,'AntdForm','header','Widget',null),
+footer:_resolveValue(atr,'AntdForm','footer','Widget',null),
 initialValues:_resolveValue(atr,'AntdForm','initialValues','Map<String, dynamic>',null),
 builder:_resolveValue(atr,'AntdForm','builder','AntdFormBuilder',null),
 onFieldsChange:_resolveValue(atr,'AntdForm','onFieldsChange','AntdFormFieldsChange',null),
@@ -1616,6 +1622,32 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "child",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('child(Widget)'),
+            Text('和图标在一起的内容')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "row",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('row(bool)'),
+            Text('child和icon按行还是按列布局')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
 ];}
 List<AntdFormItem> _getAntdActionSheetItemList(){return [
 AntdFormItem(
@@ -1871,6 +1903,24 @@ name: "title",
               
 builder: (ctx) {
               return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "type",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('type(AntdDialogType)'),
+            Text('dialog的类型，一般用作全局主题的动态样式')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdDialogType.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('alert'), value: 'alert'),AntdSelectorOption(label: Text('confirm'), value: 'confirm'),AntdSelectorOption(label: Text('normal'), value: 'normal')]);
             
 },
 ),
@@ -3014,6 +3064,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "type",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('type(AntdModalType)'),
+            Text('modal的类型，一般用作全局主题的动态样式')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdModalType.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('alert'), value: 'alert'),AntdSelectorOption(label: Text('confirm'), value: 'confirm'),AntdSelectorOption(label: Text('normal'), value: 'normal')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdImageItemList(){return [
 AntdFormItem(
@@ -3171,9 +3239,9 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "closeOnAction",
+name: "dismissOnAction",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('closeOnAction(bool)'),
+            Text('dismissOnAction(bool)'),
             Text('当执行action后关闭')
           ],),
               
@@ -4683,7 +4751,7 @@ builder: (ctx) {
 AntdFormItem(
 name: "icon",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('icon(Widget)'),
+            Text('icon(AntdIcon)'),
             Text('Toast 图标')
           ],),
               
@@ -4724,7 +4792,7 @@ builder: (ctx) {
                   ctx.onChange(AntdToastType.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('fail'), value: 'fail'),AntdSelectorOption(label: Text('other'), value: 'other')]);
+                options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('fail'), value: 'fail'),AntdSelectorOption(label: Text('normal'), value: 'normal')]);
             
 },
 ),
@@ -5347,6 +5415,30 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
+            
+},
+),
+AntdFormItem(
+name: "header",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('header(Widget)'),
+            Text('头部区域 通常放置标题')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
+name: "footer",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('footer(Widget)'),
+            Text('尾部区域 通常放置提交按钮')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
             
 },
 ),

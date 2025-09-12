@@ -163,6 +163,17 @@ class AntdSteps extends AntdStateComponent<AntdStepsStyle, AntdSteps> {
   }
 
   @override
+  AntdStepsStyle getFinalStyle(
+      BuildContext context, AntdStepsStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdStepsStyle(
+            activeDescStyle: style.descStyle.merge(style.activeDescStyle),
+            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle),
+            activeLineStyle: style.lineStyle.merge(style.activeLineStyle)));
+  }
+
+  @override
   State<StatefulWidget> createState() {
     return _AntdStepsState();
   }

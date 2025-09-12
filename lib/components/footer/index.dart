@@ -167,6 +167,15 @@ class AntdFooter extends AntdComponent<AntdFooterStyle, AntdFooter> {
   }
 
   @override
+  AntdFooterStyle getFinalStyle(
+      BuildContext context, AntdFooterStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdFooterStyle(
+            chipActiveStyle: style.chipStyle.merge(style.chipActiveStyle)));
+  }
+
+  @override
   AntdStyleBuilder<AntdFooterStyle, AntdFooter>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.footerStyle;

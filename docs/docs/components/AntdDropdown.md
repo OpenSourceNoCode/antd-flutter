@@ -284,8 +284,9 @@ class AntdDropdownCloseDemo extends StatelessWidget {
 | childStyle | 用于设置触发按钮或元素的包装容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | itemStyle | 用于设置下拉菜单内部选项列表的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | extraStyle | 用于设置下拉菜单内部选项列表的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| icon | 默认的图标 | Widget | - | - |
-| activeIcon | 激活后的图标 | Widget | - | - |
 | iconStyle | 图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| icon | 默认的图标 | Widget | - | - |
+| activeIconStyle | 图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| activeIcon | 激活后的图标 | Widget | - | - |
 
 

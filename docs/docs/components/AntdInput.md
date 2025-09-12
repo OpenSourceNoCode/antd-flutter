@@ -353,11 +353,13 @@ class AntdInputFocusTextDemo extends StatelessWidget {
 | bodyStyle | 输入框容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | cursorStyle | 光标样式配置 | [AntInputCursorStyle](../components/ant-input-cursor/#AntInputCursorStyle) | - | - |
 | obscuringCharacter | 密码模式替代字符，默认"•" | String | - | - |
-| iconStyle | 图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| clearIconStyle | 图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | selectionStyle | 文本选择样式配置 | [AntdSelectionStyle](../components/antd-selection/#AntdSelectionStyle) | - | - |
 | keyboardStyle | 键盘样式配置 | [AntdKeyboardStyle](../components/antd-keyboard/#AntdKeyboardStyle) | - | - |
 | clearIcon | 清除按钮图标 | Widget | - | - |
+| obscureIconStyle | 密码隐藏状态图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | obscureIcon | 密码隐藏状态图标 | Widget | const AntdIcon(icon: AntdIcons.eyeInvisible) | - |
+| activeObscureIconStyle | 密码显示状态图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | activeObscureIcon | 密码显示状态图标 | Widget | const AntdIcon(icon: AntdIcons.eye) | - |
 | rowStyle | 布局行样式配置 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | autocorrectionColor | 自动修正文本区域颜色 | Color | - | - |

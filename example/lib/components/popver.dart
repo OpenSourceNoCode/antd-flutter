@@ -211,36 +211,25 @@ class AntdPopoverActionDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     final actions = [
       AntdPopoverAction(
-          onTap: (close) {
+          onTap: () {
             AntdToast.show("我触摸了扫一扫");
           },
-          builder: (close, ctx) {
-            return const AntdBox(
-              style: AntdBoxStyle(color: Colors.red, size: 20),
-              child: Text("扫一扫"),
-            );
-          },
+          child: Text("扫一扫"),
           icon: const AntdIcon(
             icon: AntdIcons.scanning,
           )),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("付钱/收钱");
-          },
+          child: const Text("付钱/收钱"),
           icon: const AntdIcon(
             icon: AntdIcons.handPayCircle,
           )),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("乘车码");
-          },
+          child: const Text("乘车码"),
           icon: const AntdIcon(
             icon: AntdIcons.transportQRcode,
           )),
       AntdPopoverAction(
-          builder: (close, ctx) {
-            return const Text("智能助理");
-          },
+          child: const Text("智能助理"),
           icon: const AntdIcon(
             icon: AntdIcons.ant,
           ))
@@ -265,7 +254,9 @@ class AntdPopoverActionDemo extends StatelessWidget {
       ),
       AntdPopover(
         actions: actions.map((value) {
-          return AntdPopoverAction(builder: value.builder);
+          return AntdPopoverAction(
+            child: value.child,
+          );
         }).toList(),
         child: AntdBox(
           style: style,

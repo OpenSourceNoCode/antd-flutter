@@ -115,17 +115,17 @@ class AntdModalCustomerContentDemo extends StatelessWidget {
       AntdButton(
         child: const Text(" 自定义内容区域"),
         onTap: () {
-          AntdLayer.open(AntdModal(
+          AntdModal.alert(
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Text("请用手机拍摄手持工牌照，注意保持照片清晰"), Text("明月松间照，清泉石上流")],
+            ),
             header: AntdIcon(
               icon: AntdIcons.exclamationShield,
               style: AntdIconStyle(size: 48, color: token.colorWarning),
             ),
             title: const Text("注意"),
-            builder: (controller, ctx) => const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text("请用手机拍摄手持工牌照，注意保持照片清晰"), Text("明月松间照，清泉石上流")],
-            ),
-          ));
+          );
         },
       ),
     ]);
@@ -143,19 +143,18 @@ class AntdModalEventDemo extends StatelessWidget {
       AntdButton(
         child: const Text("弹窗事件"),
         onTap: () {
-          AntdLayer.open(AntdModal(
-              onClosed: () {
-                AntdToast.show("关闭了弹窗");
-              },
-              onOpened: () {
-                AntdToast.show("打开了弹窗");
-              },
-              onMaskTap: () {
-                AntdToast.show("点击了弹窗");
-              },
-              builder: (controller, ctx) => const Center(
-                    child: Text("明月松间照，清泉石上流"),
-                  )));
+          AntdModal.alert(
+            const Center(
+              child: Text("明月松间照，清泉石上流"),
+            ),
+            modal: AntdModal(onClosed: () {
+              AntdToast.show("关闭了弹窗");
+            }, onOpened: () {
+              AntdToast.show("打开了弹窗");
+            }, onMaskTap: () {
+              AntdToast.show("点击了弹窗");
+            }),
+          );
         },
       ),
     ]);

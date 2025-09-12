@@ -10,10 +10,10 @@ class AntdPopoverActionStyle extends AntdStyle {
   final AntdBoxStyle? bodyStyle;
 
   /// 操作项内容构建区域的样式配置
-  final AntdBoxStyle? builderStyle;
+  final AntdBoxStyle? childStyle;
 
   /// 对齐样式
-  final AntdFlexStyle? builderRowStyle;
+  final AntdFlexStyle? childRowStyle;
 
   /// 操作项图标的样式配置
   final AntdIconStyle? iconStyle;
@@ -21,16 +21,16 @@ class AntdPopoverActionStyle extends AntdStyle {
   const AntdPopoverActionStyle(
       {super.inherit,
       this.bodyStyle,
-      this.builderStyle,
-      this.builderRowStyle,
+      this.childStyle,
+      this.childRowStyle,
       this.iconStyle});
 
   @override
   AntdPopoverActionStyle copyFrom(covariant AntdPopoverActionStyle? style) {
     return AntdPopoverActionStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      builderStyle: builderStyle.merge(style?.builderStyle),
-      builderRowStyle: builderRowStyle.merge(style?.builderRowStyle),
+      childStyle: childStyle.merge(style?.childStyle),
+      childRowStyle: childRowStyle.merge(style?.childRowStyle),
       iconStyle: iconStyle.merge(style?.iconStyle),
     );
   }
@@ -47,13 +47,10 @@ class AntdPopoverAction
   final Widget? icon;
 
   /// 点击操作项时的回调函数，接收一个关闭弹层的方法
-  final void Function(AntdLayerClose close)? onTap;
+  final Widget? child;
 
-  /// 构建操作项内容的构建器，用于自定义操作项的显示内容
-  final AntdMaskBuilder? builder;
-
-  ///是不是最后的选项
-  final bool? last;
+  ///点击
+  final VoidCallback? onTap;
 
   const AntdPopoverAction(
       {super.key,
@@ -61,27 +58,14 @@ class AntdPopoverAction
       super.styleBuilder,
       this.disabled,
       this.icon,
-      this.onTap,
-      this.builder,
-      this.last});
-
-  AntdPopoverAction copyFrom(AntdPopoverAction? action) {
-    return AntdPopoverAction(
-      style: action?.style ?? style,
-      styleBuilder: action?.styleBuilder ?? styleBuilder,
-      icon: action?.icon ?? icon,
-      disabled: action?.disabled ?? disabled,
-      onTap: action?.onTap ?? onTap,
-      builder: action?.builder ?? builder,
-      last: action?.last ?? last,
-    );
-  }
+      this.child,
+      this.onTap});
 
   @override
   AntdPopoverActionStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return const AntdPopoverActionStyle(
-        builderRowStyle: AntdFlexStyle(
+        childRowStyle: AntdFlexStyle(
       mainAxisSize: MainAxisSize.min,
     ));
   }
@@ -99,26 +83,22 @@ class AntdPopoverAction
 
   @override
   Widget render(BuildContext context, AntdPopoverActionStyle style) {
-    layerClose([dynamic data]) async {}
     return AntdBox(
-      style: style.bodyStyle
-          ?.copyWith(border: last == true ? BorderSide.none.bottom : null),
+      style: style.bodyStyle?.copyWith(
+          border: AntdScrollItemProvider.ofMaybe(context)?.position ==
+                  AntdScrollItemPosition.last
+              ? BorderSide.none.bottom
+              : null),
       disabled: disabled,
-      onTap: onTap != null
-          ? () {
-              onTap?.call(layerClose);
-            }
-          : null,
+      onTap: onTap,
       child: AntdRow(
-        style: style.builderRowStyle,
+        style: style.childRowStyle,
         children: [
-          if (icon != null)
-            AntdStyleProvider<AntdIconStyle>(
-                style: style.iconStyle, child: icon!),
+          if (icon != null) AntdIconWrap(style: style.iconStyle, child: icon),
           Expanded(
               child: AntdBox(
-            style: style.builderStyle,
-            child: builder?.call(layerClose, AntdMaskState()),
+            style: style.childStyle,
+            child: child,
           ))
         ],
       ),
@@ -131,9 +111,6 @@ class AntdPopoverAction
 class AntdPopoverStyle extends AntdMaskStyle {
   /// child的样式
   final AntdBoxStyle? childStyle;
-
-  /// 弹出框内容区域的样式
-  final AntdBoxStyle? builderStyle;
 
   /// Action的样式
   final AntdPopoverActionStyle? actionStyle;
@@ -151,9 +128,6 @@ class AntdPopoverStyle extends AntdMaskStyle {
 
     ///child
     this.childStyle,
-
-    /// 内容区域样式
-    this.builderStyle,
 
     /// 操作区域样式
     this.actionStyle,
@@ -173,7 +147,6 @@ class AntdPopoverStyle extends AntdMaskStyle {
   AntdPopoverStyle copyFrom(covariant AntdPopoverStyle? style) {
     return AntdPopoverStyle(
       childStyle: childStyle.merge(style?.childStyle),
-      builderStyle: builderStyle.merge(style?.builderStyle),
       actionStyle: actionStyle.merge(style?.actionStyle),
       actionColumnStyle: actionColumnStyle.merge(style?.actionColumnStyle),
       popoverBoxStyle: popoverBoxStyle.merge(style?.popoverBoxStyle),
@@ -221,7 +194,7 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
       this.actions,
       this.placement = AntdPlacement.top,
       this.mode = AntdPopoverMode.light,
-      this.closeOnAction = true,
+      this.dismissOnAction = true,
       this.controller,
       this.trigger = AntdPopoverTrigger.tap,
       this.hapticFeedback = AntdHapticFeedback.light});
@@ -230,7 +203,7 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
   final Widget child;
 
   ///当执行action后关闭
-  final bool closeOnAction;
+  final bool dismissOnAction;
 
   ///菜单
   final List<AntdPopoverAction>? actions;
@@ -265,16 +238,8 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
         color:
             mode == AntdPopoverMode.light ? token.colorText : token.colorWhite);
     var action = actions != null && builder == null;
-    var builderStyle = AntdBoxStyle(
-        color: color,
-        textStyle: textStyle,
-        radius: token.radius.default_.radius.all,
-        padding: action
-            ? token.size.lg.left
-            : token.size.default_.vertical.marge(token.size.lg.horizontal));
     var style = AntdPopoverStyle(
         childStyle: const AntdBoxStyle(),
-        builderStyle: builderStyle,
         actionStyle: AntdPopoverActionStyle(
           bodyStyle: AntdBoxStyle(
               textStyle: token.font.md.copyWith(
@@ -287,8 +252,6 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
                           : token.colorBorder)
                   .bottom,
               padding: token.size.lg.vertical.marge(token.size.lg.right)),
-          builderStyle: const AntdBoxStyle(),
-          builderRowStyle: const AntdFlexStyle(),
           iconStyle: AntdIconStyle(
               color: mode == AntdPopoverMode.dark
                   ? token.colorWhite
@@ -302,6 +265,14 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
         ),
         popoverBoxStyle: AntdPopoverBoxStyle(
           bodyStyle: AntdBoxStyle(shadows: token.boxShadow),
+          childStyle: AntdBoxStyle(
+              color: color,
+              textStyle: textStyle,
+              radius: token.radius.default_.radius.all,
+              padding: action
+                  ? token.size.lg.left
+                  : token.size.default_.vertical
+                      .marge(token.size.lg.horizontal)),
           arrowStyle: AntdArrowStyle(
               size: const Size(15, 8), color: color, bluntness: 1),
         ),
@@ -387,22 +358,16 @@ class _AntdPopoverState
             child: AntdColumn(
               style: style.actionColumnStyle,
               children: widget.actions!.map((value) {
-                return value.copyFrom(AntdPopoverAction(
-                  last: widget.actions?.last == value,
-                  onTap: value.onTap != null
-                      ? (_) {
-                          value.onTap!.call(close);
-                          if (widget.closeOnAction) {
-                            close();
-                          }
-                        }
-                      : null,
-                  builder: value.builder != null
-                      ? (close, ctx) {
-                          return value.builder!.call(close, ctx);
-                        }
-                      : null,
-                ));
+                return AntdBox(
+                  options:
+                      const AntdTapOptions(accepter: AntdTapAccepter.listener),
+                  onTap: () async {
+                    if (widget.dismissOnAction) {
+                      await close();
+                    }
+                  },
+                  child: value,
+                );
               }).toList(),
             ),
           ));
@@ -412,10 +377,7 @@ class _AntdPopoverState
         child: AntdPopoverBox(
           target: target,
           placement: widget.placement,
-          child: AntdBox(
-            style: style.builderStyle,
-            child: child,
-          ),
+          child: child ?? const AntdBox(),
         ));
   }
 }
@@ -434,6 +396,9 @@ class AntdPopoverBoxStyle extends AntdStyle {
   /// 弹出层内容区域的样式设置
   final AntdBoxStyle? bodyStyle;
 
+  ///构建出来的内容样式
+  final AntdBoxStyle? childStyle;
+
   /// 弹出层相对于目标元素的偏移量
   final Offset offset;
 
@@ -446,6 +411,7 @@ class AntdPopoverBoxStyle extends AntdStyle {
   const AntdPopoverBoxStyle(
       {super.inherit,
       this.bodyStyle,
+      this.childStyle,
       this.offset = Offset.zero,
       this.arrowOffset = Offset.zero,
       this.arrowStyle});
@@ -454,6 +420,7 @@ class AntdPopoverBoxStyle extends AntdStyle {
   AntdPopoverBoxStyle copyFrom(covariant AntdPopoverBoxStyle? style) {
     return AntdPopoverBoxStyle(
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        childStyle: childStyle.merge(style?.childStyle),
         offset: style?.offset ?? offset,
         arrowOffset: style?.arrowOffset ?? arrowOffset,
         arrowStyle: arrowStyle.merge(style?.arrowStyle));
@@ -525,7 +492,10 @@ class _AntdPopoverBoxState
       childList.add(arrow);
     }
 
-    childList.add(widget.child);
+    childList.add(AntdBox(
+      style: style.childStyle,
+      child: widget.child,
+    ));
 
     if (!widget.placement.before) {
       childList.add(arrow);

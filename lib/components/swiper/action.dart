@@ -8,15 +8,15 @@ class AntdSwipeActionStyle extends AntdStyle {
   final AntdBoxStyle? bodyStyle;
 
   ///action的样式
-  final AntdSwipeItemStyle? actionStyle;
+  final AntdSwipeItemStyle? itemStyle;
 
-  const AntdSwipeActionStyle({super.inherit, this.bodyStyle, this.actionStyle});
+  const AntdSwipeActionStyle({super.inherit, this.bodyStyle, this.itemStyle});
 
   @override
   AntdSwipeActionStyle copyFrom(covariant AntdSwipeActionStyle? style) {
     return AntdSwipeActionStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      actionStyle: actionStyle.merge(style?.actionStyle),
+      itemStyle: itemStyle.merge(style?.itemStyle),
     );
   }
 }
@@ -69,7 +69,7 @@ class AntdSwipeAction
   AntdSwipeActionStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return AntdSwipeActionStyle(
-        actionStyle: AntdSwipeItemStyle(
+        itemStyle: AntdSwipeItemStyle(
             style: AntdBoxStyle(
                 alignment: Alignment.center,
                 color: token.colorWhite,
@@ -163,6 +163,9 @@ class _AntdSwipeActionState<T>
   }
 
   void _close() {
+    if (status == AntdSwipeStatus.close) {
+      return;
+    }
     _springAnimation(0);
     widget.onChange?.call(AntdSwipeStatus.close);
   }
@@ -185,7 +188,7 @@ class _AntdSwipeActionState<T>
   @override
   Widget render(BuildContext context) {
     return AntdStyleProvider<AntdSwipeItemStyle>(
-        style: style.actionStyle,
+        style: style.itemStyle,
         child: Stack(
           children: [
             Positioned.fill(

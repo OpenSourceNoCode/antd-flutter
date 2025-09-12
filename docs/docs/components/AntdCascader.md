@@ -182,6 +182,7 @@ class AntdCascaderDemo extends StatelessWidget {
 | maskOpacity | 透明度 | double | - | - |
 | bodyStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | closeIconStyle | 关闭按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| closeIcon | 关闭图标 | Widget | - | - |
 | headerStyle | 头部容器样式（包含标题和操作按钮的区域） | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | titleStyle | 标题文本样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | cancelStyle | 取消按钮样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |

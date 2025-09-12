@@ -39,8 +39,13 @@ class AntdIconStyle extends AntdStyle {
   final BlendMode? blendMode;
 
   /// 图标容器样式
-  /// @l [AntdBox]
   final AntdBoxStyle? bodyStyle;
+
+  ///布局样式
+  final AntdFlexStyle? flexStyle;
+
+  ///childStyle
+  final AntdBoxStyle? childStyle;
 
   const AntdIconStyle(
       {super.inherit,
@@ -55,53 +60,50 @@ class AntdIconStyle extends AntdStyle {
       this.textDirection,
       this.applyTextScaling,
       this.blendMode,
-      this.bodyStyle});
+      this.bodyStyle,
+      this.flexStyle,
+      this.childStyle});
 
   @override
   AntdIconStyle copyFrom(AntdIconStyle? style) {
-    return copyWith(
-      size: style?.size,
-      color: style?.color,
-      fill: style?.fill,
-      weight: style?.weight,
-      grade: style?.grade,
-      opticalSize: style?.opticalSize,
-      shadows: style?.shadows,
-      semanticLabel: style?.semanticLabel,
-      textDirection: style?.textDirection,
-      applyTextScaling: style?.applyTextScaling,
-      blendMode: style?.blendMode,
+    return AntdIconStyle(
+      size: style?.size ?? size,
+      color: style?.color ?? color,
+      fill: style?.fill ?? fill,
+      weight: style?.weight ?? weight,
+      grade: style?.grade ?? grade,
+      opticalSize: style?.opticalSize ?? opticalSize,
+      shadows: style?.shadows ?? shadows,
+      semanticLabel: style?.semanticLabel ?? semanticLabel,
+      textDirection: style?.textDirection ?? textDirection,
+      applyTextScaling: style?.applyTextScaling ?? applyTextScaling,
+      blendMode: style?.blendMode ?? blendMode,
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
+      flexStyle: flexStyle.merge(style?.flexStyle),
+      childStyle: childStyle.merge(style?.childStyle),
     );
   }
+}
 
-  AntdIconStyle copyWith(
-      {final double? size,
-      final Color? color,
-      final double? fill,
-      final double? weight,
-      final double? grade,
-      final double? opticalSize,
-      final List<Shadow>? shadows,
-      final String? semanticLabel,
-      final TextDirection? textDirection,
-      final bool? applyTextScaling,
-      final BlendMode? blendMode,
-      final AntdBoxStyle? bodyStyle}) {
-    return AntdIconStyle(
-      size: size ?? this.size,
-      color: color ?? this.color,
-      fill: fill ?? this.fill,
-      weight: weight ?? this.weight,
-      grade: grade ?? this.grade,
-      opticalSize: opticalSize ?? this.opticalSize,
-      shadows: shadows ?? this.shadows,
-      semanticLabel: semanticLabel ?? this.semanticLabel,
-      textDirection: textDirection ?? this.textDirection,
-      applyTextScaling: applyTextScaling ?? this.applyTextScaling,
-      blendMode: blendMode ?? this.blendMode,
-      bodyStyle: bodyStyle ?? this.bodyStyle,
-    );
+class AntdIconWrap extends StatelessWidget {
+  const AntdIconWrap({super.key, this.child, this.style});
+
+  final AntdIconStyle? style;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (child == null) {
+      return const AntdBox();
+    }
+
+    return AntdStyleProvider<AntdIconStyle>(
+        style: style,
+        child: child is AntdIcon
+            ? child!
+            : AntdIcon(
+                child: child,
+              ));
   }
 }
 
@@ -114,44 +116,75 @@ class AntdIcon extends AntdComponent<AntdIconStyle, AntdIcon> {
   ///图标
   final IconData? icon;
 
+  /// 和图标在一起的内容
+  final Widget? child;
+
+  ///child和icon按行还是按列布局
+  final bool row;
+
   ///触摸后的回调
   final VoidCallback? onTap;
 
   const AntdIcon(
-      {super.key, super.style, super.styleBuilder, this.icon, this.onTap});
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      this.icon,
+      this.child,
+      this.row = true,
+      this.onTap});
 
   @override
   Widget render(BuildContext context, AntdIconStyle style) {
     return AntdBox(
       style: style.bodyStyle,
       onTap: onTap,
-      child: Icon(
-        icon,
-        size: style.size,
-        color: style.color,
-        fill: style.fill,
-        weight: style.weight,
-        grade: style.grade,
-        opticalSize: style.opticalSize,
-        shadows: style.shadows,
-        semanticLabel: style.semanticLabel,
-        textDirection: style.textDirection,
-        applyTextScaling: style.applyTextScaling,
-        blendMode: style.blendMode,
-      ),
+      child: AntdFlex(
+          direction: row ? Axis.horizontal : Axis.vertical,
+          style: style.flexStyle,
+          children: [
+            if (child != null)
+              AntdBox(
+                style: style.childStyle,
+                child: child,
+              ),
+            if (icon != null)
+              Icon(
+                icon,
+                size: style.size,
+                color: style.color,
+                fill: style.fill,
+                weight: style.weight,
+                grade: style.grade,
+                opticalSize: style.opticalSize,
+                shadows: style.shadows,
+                semanticLabel: style.semanticLabel,
+                textDirection: style.textDirection,
+                applyTextScaling: style.applyTextScaling,
+                blendMode: style.blendMode,
+              )
+          ]),
     );
   }
 
   @override
   AntdIconStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    return theme.iconStyle?.call(context, this, const AntdIconStyle(), token) ??
-        const AntdIconStyle();
+    return AntdIconStyle(
+        size: 24,
+        color: token.colorText,
+        flexStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min));
   }
 
   @override
   AntdIconStyle margeStyle(AntdIconStyle defaultStyle, AntdIconStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdStyleBuilder<AntdIconStyle, AntdIcon>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.iconStyle;
   }
 
   @override

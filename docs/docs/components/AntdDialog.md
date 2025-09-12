@@ -118,7 +118,7 @@ class AntdDialogCustomerContentDemo extends StatelessWidget {
                           Text("请用手机拍摄手持工牌照，注意保持照片清晰"),
                           Text("明月松间照，清泉石上流")
                         ]),
-                actions: [AntdDialogAction(title: Text("我知道了"))]));
+                actions: const [AntdDialogAction(title: Text("我知道了"))]));
           })
     ]);
   }
@@ -138,18 +138,14 @@ class AntdDialogEventDemo extends StatelessWidget {
       AntdButton(
           child: const Text("对话框事件"),
           onTap: () {
-            AntdLayer.open(AntdDialog(
-                onClosed: () {
+            AntdDialog.alert(const Center(child: Text("明月松间照，清泉石上流")),
+                dialog: AntdDialog(onClosed: () {
                   AntdToast.show("关闭了对话框");
-                },
-                onOpened: () {
+                }, onOpened: () {
                   AntdToast.show("打开了对话框");
-                },
-                onMaskTap: () {
+                }, onMaskTap: () {
                   AntdToast.show("点击了对话框");
-                },
-                builder: (controller, ctx) =>
-                    const Center(child: Text("明月松间照，清泉石上流"))));
+                }));
           })
     ]);
   }
@@ -302,6 +298,7 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | header | 顶部区域 | Widget | - | - |
 | title | 标题 | Widget | - | - |
+| type | dialog的类型，一般用作全局主题的动态样式:`alert` \| `confirm` \| `normal` | AntdDialogType | normal | - |
 
 
 ## 对话框样式(AntdDialogStyle) <a id='AntdDialogStyle'></a>
@@ -311,14 +308,13 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | closeIconStyle | 关闭按钮大小 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| closeIcon | 关闭图标 | Widget | - | - |
 | maskColor | 背景色 | Color | - | - |
 | maskOpacity | 透明度 | double | - | - |
 | headerStyle | 对话框头部区域样式（包含标题和关闭按钮） | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | titleStyle | 对话框标题文字样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | contentStyle | 对话框内容区域样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | actionStyle | 对话框操作按钮区域样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |
-| bottomActionStyle | 对话框底部操作按钮区域样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |
-| primaryActionStyle | 对话框确认操作按钮区域样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |
 
 ## 对话框定义(AntdDialogAction) <a id='AntdDialogAction'></a>
 
@@ -326,11 +322,11 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | style | 样式 | AntdActionStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdAction&gt; | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdDialogAction&gt; | - | - |
 | danger | 是否为危险状态 | bool | - | - |
 | description | 描述 | Widget | - | - |
 | disabled | 是否为禁用状态 | bool | - | - |
-| onTap | 点击时触发 | AntdActionOnTap | - | - |
+| onTap | 点击时触发,单独使用无效 | AntdActionOnTap | - | - |
 | title | 标题 | Widget | - | - |
 | bold | 标题是否加粗 | bool | - | - |
 | bottom | 是否固定在底部（为true时会固定在对话框底部） | bool | - | - |

@@ -17,9 +17,9 @@ class AntdActionSheetDemo extends StatelessWidget {
         onTap: () {
           AntdActionSheet.show(
             const [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ],
           );
         },
@@ -29,9 +29,9 @@ class AntdActionSheetDemo extends StatelessWidget {
         onTap: () {
           const AntdActionSheet(
             actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ],
           ).open();
         },
@@ -41,9 +41,9 @@ class AntdActionSheetDemo extends StatelessWidget {
         onTap: () {
           AntdLayer.open(const AntdActionSheet(
             actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ],
           ));
         },
@@ -67,9 +67,9 @@ class AntdActionSheetCancelExtraDemo extends StatelessWidget {
             extra: Text("请选择你要进行的操作"),
             cancelText: Text("取消"),
             actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ],
           ));
         },
@@ -93,9 +93,9 @@ class AntdActionSheetDisableDanderDemo extends StatelessWidget {
             extra: Text("请选择你要进行的操作"),
             cancelText: Text("取消"),
             actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改"), disabled: true),
-              AntdAction(
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改"), disabled: true),
+              AntdSheetAction(
                   title: Text("删除"),
                   description: Text("删除后数据不可恢复"),
                   danger: true,
@@ -132,13 +132,13 @@ class AntdActionSheetEventDemo extends StatelessWidget {
             extra: Text("请选择你要进行的操作"),
             cancelText: Text("取消"),
             actions: [
-              AntdAction(
+              AntdSheetAction(
                   title: Text("辅助"),
                   onTap: (_) {
                     AntdToast.show("点击了辅助按钮");
                   }),
-              AntdAction(title: Text("修改"), disabled: true),
-              AntdAction(
+              AntdSheetAction(title: Text("修改"), disabled: true),
+              AntdSheetAction(
                   title: Text("删除"),
                   description: Text("删除后数据不可恢复"),
                   danger: true,
@@ -166,9 +166,9 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
             extra: Text("请选择你要进行的操作"),
             cancelText: Text("取消"),
             actions: [
-              AntdAction(title: Text("辅助")),
-              AntdAction(title: Text("修改")),
-              AntdAction(title: Text("保存"))
+              AntdSheetAction(title: Text("辅助")),
+              AntdSheetAction(title: Text("修改")),
+              AntdSheetAction(title: Text("保存"))
             ],
           ));
           AntdToast.show(

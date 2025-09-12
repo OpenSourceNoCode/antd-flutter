@@ -236,6 +236,6 @@ class AntdSwipeActionControllerDemo extends StatefulWidget {
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 主体样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| actionStyle | action的样式 | [AntdSwipeItemStyle](../components/antd-swipe-item/#AntdSwipeItemStyle) | - | - |
+| itemStyle | action的样式 | [AntdSwipeItemStyle](../components/antd-swipe-item/#AntdSwipeItemStyle) | - | - |
 
 

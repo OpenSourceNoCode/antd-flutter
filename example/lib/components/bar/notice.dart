@@ -44,9 +44,12 @@ class AntdNoticeBarCloseableDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
+    return DemoWrapper(child: [
       AntdNoticeBar(
         closeable: true,
+        onClose: () {
+          AntdToast.show("点击了关闭", position: AntdToastPosition.top);
+        },
         content: "默认",
       ),
     ]);

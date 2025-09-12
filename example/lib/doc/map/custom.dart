@@ -120,13 +120,13 @@ Map<String, dynamic> customFull = {
           ))),
   "AntdSwiper-items": List.generate(5, (i) => Text("$i")),
   "AntdActionSheet-actions": const [
-    AntdAction(
+    AntdSheetAction(
       title: Text("辅助"),
     ),
-    AntdAction(
+    AntdSheetAction(
       title: Text("修改"),
     ),
-    AntdAction(
+    AntdSheetAction(
       title: Text("保存"),
     )
   ],

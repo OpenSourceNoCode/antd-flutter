@@ -142,12 +142,20 @@ class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
     super.validateFirst,
     super.validateTrigger,
     super.controller,
+    this.header,
+    this.footer,
     this.initialValues,
     required this.builder,
     this.onFieldsChange,
     this.onFinish,
     this.onValuesChange,
   });
+
+  ///头部区域 通常放置标题
+  final Widget? header;
+
+  ///尾部区域 通常放置提交按钮
+  final Widget? footer;
 
   ///表单默认值，只有初始化以及重置时生效
   final Map<String, dynamic>? initialValues;
@@ -221,12 +229,29 @@ class _AntdFormState extends AntdState<AntdFormStyle, AntdForm> {
 
   @override
   Widget render(BuildContext context) {
-    return AntdFormProvider(
-        from: widget,
-        controller: innerController,
-        child: AntdBox(
-          style: style.bodyStyle,
-          child: widget.builder(innerController),
-        ));
+    return AntdBox(
+      style: style.wrapStyle,
+      child: AntdColumn(
+          style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+          children: [
+            if (widget.header != null)
+              AntdBox(
+                style: style.headerStyle,
+                child: widget.header,
+              ),
+            AntdFormProvider(
+                from: widget,
+                controller: innerController,
+                child: AntdBox(
+                  style: style.bodyStyle,
+                  child: widget.builder(innerController),
+                )),
+            if (widget.footer != null)
+              AntdBox(
+                style: style.footerStyle,
+                child: widget.footer,
+              ),
+          ]),
+    );
   }
 }

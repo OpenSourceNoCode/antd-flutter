@@ -210,7 +210,7 @@ class AntdIndexBarBigDataDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
-| bodyStyle | 浮动头的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| bodyStyle | 主体的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | floatHeaderStyle | 浮动头的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | headerStyle | header的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | itemStyle | item的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |

@@ -8,7 +8,7 @@ class AntdNoticeBarStyle extends AntdStyle {
   final AntdIconStyle? iconStyle;
 
   ///关闭区域样式
-  final AntdBoxStyle? closeStyle;
+  final AntdIconStyle? closeIconStyle;
 
   ///内容的样式
   final AntdBoxStyle? bodyStyle;
@@ -19,7 +19,7 @@ class AntdNoticeBarStyle extends AntdStyle {
   AntdNoticeBarStyle(
       {super.inherit,
       this.iconStyle,
-      this.closeStyle,
+      this.closeIconStyle,
       this.bodyStyle,
       this.extraStyle});
 
@@ -28,7 +28,7 @@ class AntdNoticeBarStyle extends AntdStyle {
     return AntdNoticeBarStyle(
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         iconStyle: iconStyle.merge(style?.iconStyle),
-        closeStyle: closeStyle.merge(style?.closeStyle),
+        closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
         extraStyle: extraStyle.merge(style?.extraStyle));
   }
 }
@@ -141,9 +141,19 @@ class AntdNoticeBar
             textStyle: token.font.md.copyWith(color: _getColor(token)),
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         iconStyle: iconStyle,
-        closeStyle: const AntdBoxStyle(
-            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+        closeIconStyle: const AntdIconStyle(
+            bodyStyle: AntdBoxStyle(
+                options: AntdTapOptions(accepter: AntdTapAccepter.listener))),
         extraStyle: AntdBoxStyle(margin: token.size.lg.left));
+  }
+
+  @override
+  AntdNoticeBarStyle getFinalStyle(
+      BuildContext context, AntdNoticeBarStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdNoticeBarStyle(
+            closeIconStyle: style.iconStyle.merge(style.closeIconStyle)));
   }
 
   @override
@@ -164,49 +174,51 @@ class AntdNoticeBar
   }
 }
 
-class _AntdNoticeBarState extends State<AntdNoticeBar> {
+class _AntdNoticeBarState extends AntdState<AntdNoticeBarStyle, AntdNoticeBar> {
   @override
-  Widget build(BuildContext context) {
+  Widget render(BuildContext context) {
     var style = widget.getStyle(context);
 
-    return AntdStyleProvider<AntdIconStyle>(
-        style: style.iconStyle,
-        child: AntdBox(
-          onTap: widget.onClick,
-          style: style.bodyStyle,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.icon != null) widget.icon!,
-              if (widget.content != null)
-                Expanded(
-                    child: widget.wrap == true
-                        ? Text(
-                            widget.content!,
-                            softWrap: true,
-                            overflow: TextOverflow.clip,
-                          )
-                        : _AnimatedText(
-                            text: widget.content!,
-                            style: style.bodyStyle!.textStyle!,
-                            speed: widget.speed,
-                            delay: widget.delay,
-                          )),
-              if (widget.extra != null)
-                AntdBox(
-                  style: style.extraStyle,
-                  child: widget.extra!,
-                ),
-              if (widget.closeable == true && widget.closeIcon != null)
-                AntdBox(
-                  style: style.closeStyle,
-                  onTap: widget.onClose,
-                  child: widget.closeIcon!,
-                )
-            ],
-          ),
-        ));
+    return AntdBox(
+      onTap: widget.onClick,
+      style: style.bodyStyle,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.icon != null)
+            AntdIconWrap(style: style.iconStyle, child: widget.icon),
+          if (widget.content != null)
+            Expanded(
+                child: widget.wrap == true
+                    ? Text(
+                        widget.content!,
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                      )
+                    : _AnimatedText(
+                        text: widget.content!,
+                        style: style.bodyStyle!.textStyle!,
+                        speed: widget.speed,
+                        delay: widget.delay,
+                      )),
+          if (widget.extra != null)
+            AntdBox(
+              style: style.extraStyle,
+              child: widget.extra!,
+            ),
+          if (widget.closeable == true && widget.closeIcon != null)
+            AntdBox(
+              options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+              onTap: widget.onClose,
+              child: AntdIconWrap(
+                style: style.closeIconStyle,
+                child: widget.closeIcon,
+              ),
+            )
+        ],
+      ),
+    );
   }
 }
 

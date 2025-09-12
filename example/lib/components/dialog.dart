@@ -109,7 +109,7 @@ class AntdDialogCustomerContentDemo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [Text("请用手机拍摄手持工牌照，注意保持照片清晰"), Text("明月松间照，清泉石上流")],
             ),
-            actions: [
+            actions: const [
               AntdDialogAction(
                 title: Text("我知道了"),
               )
@@ -132,19 +132,17 @@ class AntdDialogEventDemo extends StatelessWidget {
       AntdButton(
         child: const Text("对话框事件"),
         onTap: () {
-          AntdLayer.open(AntdDialog(
-              onClosed: () {
+          AntdDialog.alert(
+              const Center(
+                child: Text("明月松间照，清泉石上流"),
+              ),
+              dialog: AntdDialog(onClosed: () {
                 AntdToast.show("关闭了对话框");
-              },
-              onOpened: () {
+              }, onOpened: () {
                 AntdToast.show("打开了对话框");
-              },
-              onMaskTap: () {
+              }, onMaskTap: () {
                 AntdToast.show("点击了对话框");
-              },
-              builder: (controller, ctx) => const Center(
-                    child: Text("明月松间照，清泉石上流"),
-                  )));
+              }));
         },
       ),
     ]);

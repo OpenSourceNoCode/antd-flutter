@@ -27,8 +27,8 @@ class AntdSliderStyle extends AntdStyle {
   /// 滑块轨道的激活部分样式
   final AntdBoxStyle? activeTrackStyle;
 
-  /// 滑块手柄（拖动按钮）的样式
-  final AntdBoxStyle? sliderStyle;
+  ///滑块图标
+  final Widget? slider;
 
   /// 滑块手柄内图标的样式（如果有的话）
   final AntdIconStyle? sliderIconStyle;
@@ -42,7 +42,7 @@ class AntdSliderStyle extends AntdStyle {
     this.activeMarkTextStyle,
     this.trackStyle,
     this.activeTrackStyle,
-    this.sliderStyle,
+    this.slider,
     this.sliderIconStyle,
   });
 
@@ -57,7 +57,7 @@ class AntdSliderStyle extends AntdStyle {
           activeMarkTextStyle.merge(style?.activeMarkTextStyle),
       trackStyle: trackStyle.merge(style?.trackStyle),
       activeTrackStyle: activeTrackStyle.merge(style?.activeTrackStyle),
-      sliderStyle: sliderStyle.merge(style?.sliderStyle),
+      slider: style?.slider ?? slider,
       sliderIconStyle: sliderIconStyle.merge(style?.sliderIconStyle),
     );
   }
@@ -161,12 +161,18 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
             : activeTrackStyle,
         trackStyle: trackStyle,
         activeTrackStyle: activeTrackStyle,
-        sliderStyle: AntdBoxStyle(
-            color: token.colorWhite,
-            size: 32,
-            radius: BorderRadius.circular(32),
-            shadows: token.boxShadow),
-        sliderIconStyle: AntdIconStyle(color: token.colorPrimary, size: 18),
+        slider: const AntdIcon(
+          icon: AntdIcons.sliderThumb,
+        ),
+        sliderIconStyle: AntdIconStyle(
+            color: token.colorPrimary,
+            size: 18,
+            bodyStyle: AntdBoxStyle(
+                alignment: Alignment.center,
+                color: token.colorWhite,
+                size: 32,
+                radius: BorderRadius.circular(32),
+                shadows: token.boxShadow)),
         markTextStyle:
             AntdBoxStyle(margin: token.size.md.top, textStyle: token.font.sm));
   }
@@ -186,6 +192,18 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
   @override
   AntdSlider getWidget(BuildContext context) {
     return this;
+  }
+
+  @override
+  AntdSliderStyle getFinalStyle(
+      BuildContext context, AntdSliderStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSliderStyle(
+            activeMarkStyle: style.markStyle.merge(style.activeMarkStyle),
+            activeTrackStyle: style.trackStyle.merge(style.activeTrackStyle),
+            activeMarkTextStyle:
+                style.markTextStyle.merge(style.activeMarkTextStyle)));
   }
 }
 
@@ -293,7 +311,6 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
         _handlerOnChange();
       },
       child: AntdBox(
-        style: style.sliderStyle,
         onLayout: (context) {
           if (sliderSize != context.renderBox.size) {
             setState(() {
@@ -301,11 +318,10 @@ class _AntdSliderState extends AntdState<AntdSliderStyle, AntdSlider> {
             });
           }
         },
-        child: widget.slider ??
-            AntdIcon(
-              icon: AntdIcons.sliderThumb,
-              style: style.sliderIconStyle,
-            ),
+        child: AntdIconWrap(
+          style: style.sliderIconStyle,
+          child: widget.slider ?? style.slider,
+        ),
       ),
     );
     var pointXOffset =

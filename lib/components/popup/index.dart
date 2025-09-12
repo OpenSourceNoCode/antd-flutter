@@ -1,6 +1,5 @@
 import 'package:antd_flutter_mobile/index.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 ///弹出层样式
 ///@l [AntdPopup]
@@ -11,10 +10,14 @@ class AntdPopupStyle extends AntdMaskStyle {
   ///关闭按钮大小
   final AntdIconStyle? closeIconStyle;
 
+  ///关闭图标
+  final Widget? closeIcon;
+
   const AntdPopupStyle(
       {super.inherit,
       this.bodyStyle,
       this.closeIconStyle,
+      this.closeIcon,
       super.maskColor,
       super.maskOpacity});
 
@@ -26,8 +29,15 @@ class AntdPopupStyle extends AntdMaskStyle {
       bodyStyle: AntdBoxStyle(
         color: token.colorWhite,
       ),
+      closeIcon: const AntdIcon(
+        icon: AntdIcons.close,
+      ),
       closeIconStyle: AntdIconStyle(
-          size: token.size.xl.roundToDouble(), color: token.colorTextTertiary),
+          bodyStyle: const AntdBoxStyle(
+            padding: EdgeInsets.all(8),
+          ),
+          size: token.size.xl.roundToDouble(),
+          color: token.colorTextTertiary),
     );
   }
 
@@ -36,6 +46,7 @@ class AntdPopupStyle extends AntdMaskStyle {
     return AntdPopupStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
+      closeIcon: style?.closeIcon ?? closeIcon,
       maskColor: style?.maskColor ?? maskColor,
       maskOpacity: style?.maskOpacity ?? maskOpacity,
     );
@@ -117,18 +128,12 @@ abstract class AntdPopupBaseState<
     }
     if (widget.closeIcon != null) {
       childList.add(getCloseIcon(AntdBox(
-        style: const AntdBoxStyle(
-          padding: EdgeInsets.all(8),
-        ),
+        options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
         onTap: () async {
           await close();
         },
-        child: AntdStyleProvider<AntdIconStyle>(
-            style: style.closeIconStyle,
-            child: widget.closeIcon ??
-                const AntdIcon(
-                  icon: AntdIcons.close,
-                )),
+        child:
+            AntdIconWrap(style: style.closeIconStyle, child: widget.closeIcon),
       )));
     }
 
@@ -256,6 +261,7 @@ abstract class AntdOffsetAnimationPopupState<
         final offsetValue = contentAnimation.value;
         final dx = offsetValue.dx * mediaQuery.size.width;
         final dy = offsetValue.dy * mediaQuery.size.height;
+
         return Transform.translate(
           offset: Offset(dx,
               dy - (widget.avoidKeyboard ? mediaQuery.viewInsets.bottom : 0)),

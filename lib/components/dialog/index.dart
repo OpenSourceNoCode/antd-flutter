@@ -16,24 +16,17 @@ class AntdDialogStyle extends AntdPopupStyle {
   /// 对话框操作按钮区域样式
   final AntdActionStyle? actionStyle;
 
-  /// 对话框底部操作按钮区域样式
-  final AntdActionStyle? bottomActionStyle;
-
-  /// 对话框确认操作按钮区域样式
-  final AntdActionStyle? primaryActionStyle;
-
   const AntdDialogStyle(
       {super.inherit,
       super.bodyStyle,
       super.closeIconStyle,
+      super.closeIcon,
       super.maskColor,
       super.maskOpacity,
       this.headerStyle,
       this.titleStyle,
       this.contentStyle,
-      this.actionStyle,
-      this.bottomActionStyle,
-      this.primaryActionStyle});
+      this.actionStyle});
 
   @override
   AntdDialogStyle copyFrom(covariant AntdDialogStyle? style) {
@@ -46,15 +39,16 @@ class AntdDialogStyle extends AntdPopupStyle {
       titleStyle: titleStyle.merge(style?.titleStyle),
       contentStyle: contentStyle.merge(style?.contentStyle),
       actionStyle: actionStyle.merge(style?.actionStyle),
-      bottomActionStyle: bottomActionStyle.merge(style?.bottomActionStyle),
-      primaryActionStyle: primaryActionStyle.merge(style?.primaryActionStyle),
     );
   }
 }
 
+enum AntdDialogType { alert, confirm, normal }
+
 ///对话框定义
 ///@l [AntdDialog]
-class AntdDialogAction extends AntdAction {
+class AntdDialogAction
+    extends AntdBaseAction<AntdActionStyle, AntdDialogAction> {
   /// 是否固定在底部（为true时会固定在对话框底部）
   final bool? bottom;
 
@@ -76,30 +70,16 @@ class AntdDialogAction extends AntdAction {
   });
 
   @override
-  AntdDialogAction copyForm(AntdDialogAction? action) {
-    return AntdDialogAction(
-      key: action?.key ?? key,
-      style: action?.style ?? style,
-      styleBuilder: action?.styleBuilder ?? styleBuilder,
-      danger: action?.danger ?? danger,
-      description: action?.description ?? description,
-      disabled: action?.disabled ?? disabled,
-      title: action?.title ?? title,
-      onTap: action?.onTap ?? onTap,
-      bold: action?.bold ?? bold,
-      bottom: action?.bottom ?? bottom,
-      primary: action?.primary ?? primary,
-    );
-  }
-
-  @override
   AntdActionStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var superStyle = super.getDefaultStyle(context, theme, token);
+    var superStyle = AntdActionStyle.defaultStyle(token, this);
     return margeStyle(
         superStyle,
         AntdActionStyle(
             bodyStyle: AntdBoxStyle(
+                border: bottom == true
+                    ? token.borderSide.horizontal
+                    : token.borderSide.bottom,
                 padding:
                     token.size.md.vertical.marge(token.size.lg.horizontal)),
             titleStyle: AntdBoxStyle(
@@ -108,10 +88,37 @@ class AntdDialogAction extends AntdAction {
                         ? token.colorPrimary
                         : null))));
   }
+
+  @override
+  AntdActionStyle getFinalStyle(
+      BuildContext context, AntdActionStyle style, AntdAliasToken token) {
+    var position = AntdScrollItemProvider.ofMaybe(context)?.position;
+    return margeStyle(
+        style,
+        style.margeBorder(position == AntdScrollItemPosition.first,
+            position == AntdScrollItemPosition.last));
+  }
+
+  @override
+  AntdDialogAction getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  AntdStyleBuilder<AntdActionStyle, AntdDialogAction>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.dialogActionStyle;
+  }
+
+  @override
+  AntdActionStyle margeStyle(
+      AntdActionStyle defaultStyle, AntdActionStyle? style) {
+    return defaultStyle.copyFrom(style);
+  }
 }
 
 abstract class AntdBaseDialog<
-    T extends AntdDialogAction,
+    T extends AntdBaseAction<AntdActionStyle, T>,
     WidgetType,
     Style extends AntdDialogStyle,
     StateType> extends AntdBasePopup<Style, WidgetType, StateType> {
@@ -149,7 +156,7 @@ abstract class AntdBaseDialog<
 
 abstract class AntdBaseDialogState<
     Style extends AntdDialogStyle,
-    T extends AntdDialogAction,
+    T extends AntdBaseAction<AntdActionStyle, T>,
     Dialog extends AntdBaseDialog<T, Dialog, Style, StateType>,
     StateType> extends AntdCenterAnimationPopupState<Style, Dialog, StateType> {
   List<Widget> buildActions();
@@ -202,7 +209,7 @@ abstract class AntdBaseDialogState<
 }
 
 abstract class AntdInnerDialog<
-    T extends AntdDialogAction,
+    T extends AntdBaseAction<AntdActionStyle, T>,
     Dialog extends AntdInnerDialog<T, Dialog, StateType>,
     StateType> extends AntdBaseDialog<T, Dialog, AntdDialogStyle, StateType> {
   const AntdInnerDialog(
@@ -240,7 +247,10 @@ abstract class AntdInnerDialog<
       ),
       maskColor: token.colorBlack,
       maskOpacity: getOpacity(),
-      closeIconStyle: AntdIconStyle(size: 18, color: token.colorTextTertiary),
+      closeIconStyle: AntdIconStyle(
+          size: 18,
+          color: token.colorTextTertiary,
+          bodyStyle: AntdBoxStyle(padding: token.size.default_.all)),
       titleStyle: AntdBoxStyle(
           padding: token.size.md.horizontal,
           textStyle: token.font.xxl.copyWith(fontWeight: FontWeight.w600)),
@@ -253,10 +263,6 @@ abstract class AntdInnerDialog<
                   .bottom
               : null,
           textStyle: token.font.md),
-      actionStyle: const AntdActionStyle(),
-      bottomActionStyle: AntdActionStyle(
-          bodyStyle: AntdBoxStyle(border: token.borderSide.horizontal)),
-      primaryActionStyle: const AntdActionStyle(),
     );
   }
 
@@ -267,11 +273,13 @@ abstract class AntdInnerDialog<
   }
 }
 
-abstract class AntdInnerDialogState<T extends AntdDialogAction, StateType,
+abstract class AntdInnerDialogState<
+        T extends AntdBaseAction<AntdActionStyle, T>,
+        StateType,
         Dialog extends AntdInnerDialog<T, Dialog, StateType>>
     extends AntdBaseDialogState<AntdDialogStyle, T, Dialog, StateType> {
   @protected
-  handlerTap(AntdAction? action) async {
+  handlerTap(T? action) async {
     if (action?.onTap != null) {
       action?.onTap?.call(close);
     }
@@ -279,53 +287,6 @@ abstract class AntdInnerDialogState<T extends AntdDialogAction, StateType,
     if (widget.dismissOnAction == true) {
       await close();
     }
-  }
-
-  @protected
-  AntdDialogAction copyForm(covariant AntdDialogAction action) {
-    return action.copyForm(AntdDialogAction(
-      onTap: (_) {
-        handlerTap(action);
-      },
-    ));
-  }
-
-  @override
-  @protected
-  List<Widget> buildActions() {
-    if (widget.actions == null) {
-      return [];
-    }
-    var actions = <AntdDialogAction>[];
-    var bottomActions = <AntdDialogAction>[];
-
-    for (var value in widget.actions!) {
-      if (value.bottom == true) {
-        bottomActions.add(copyForm(value));
-      } else {
-        actions.add(copyForm(value));
-      }
-    }
-    var actionWidgets = <Widget>[];
-    actionWidgets.addAll(actions
-        .map((action) => AntdStyleProvider<AntdActionStyle>(
-            style: action.primary == true
-                ? style.primaryActionStyle
-                : style.actionStyle,
-            child: action))
-        .toList());
-    if (bottomActions.isNotEmpty) {
-      actionWidgets.add(AntdRow(
-        children: bottomActions
-            .map((value) => AntdStyleProvider<AntdActionStyle>(
-                style: style.bottomActionStyle?.margeBorder(
-                    value == bottomActions.firstOrNull,
-                    value == bottomActions.lastOrNull),
-                child: Expanded(child: value)))
-            .toList(),
-      ));
-    }
-    return actionWidgets;
   }
 }
 
@@ -352,7 +313,11 @@ class AntdDialog
       super.builder,
       super.closeIcon,
       super.header,
-      super.title});
+      super.title,
+      this.type = AntdDialogType.normal});
+
+  ///dialog的类型，一般用作全局主题的动态样式
+  final AntdDialogType type;
 
   @override
   State<StatefulWidget> createState() {
@@ -400,6 +365,7 @@ class AntdDialog
       closeIcon: dialog?.closeIcon,
       header: header ?? dialog?.header,
       title: title ?? dialog?.header,
+      type: dialog?.type ?? AntdDialogType.normal,
     ).open<T>();
   }
 
@@ -407,6 +373,7 @@ class AntdDialog
       {final Key? key,
       final Widget? header,
       final Widget? title,
+      final AntdActionStyle? style,
       final Widget alert = const Text("我知道了"),
       final AntdActionOnTap? onConfirm,
       final AntdDialog? dialog}) {
@@ -425,6 +392,7 @@ class AntdDialog
         AntdDialogAction(
           title: alert,
           primary: true,
+          style: style,
           onTap: onConfirm,
         ),
         ...(dialog?.actions ?? [])
@@ -437,6 +405,7 @@ class AntdDialog
       closeIcon: dialog?.closeIcon,
       header: header ?? dialog?.header,
       title: title ?? dialog?.header,
+      type: AntdDialogType.alert,
     ).open<T>();
   }
 
@@ -444,8 +413,10 @@ class AntdDialog
       {final Key? key,
       final Widget? header,
       final Widget? title,
+      final AntdActionStyle? confirmStyle,
       final Widget confirm = const Text("确认"),
       final AntdActionOnTap? onConfirm,
+      final AntdActionStyle? cancelStyle,
       final Widget cancel = const Text("取消"),
       final AntdActionOnTap? onCancel,
       final AntdDialog? dialog}) {
@@ -465,6 +436,7 @@ class AntdDialog
           title: cancel,
           bottom: true,
           primary: false,
+          style: cancelStyle,
           onTap: onCancel,
         ),
         AntdDialogAction(
@@ -472,6 +444,7 @@ class AntdDialog
           bottom: true,
           primary: true,
           onTap: onConfirm,
+          style: confirmStyle,
         ),
         ...(dialog?.actions ?? [])
       ],
@@ -483,12 +456,56 @@ class AntdDialog
       closeIcon: dialog?.closeIcon,
       header: header ?? dialog?.header,
       title: title ?? dialog?.header,
+      type: AntdDialogType.confirm,
     ).open<T>();
   }
 }
 
 class AntdDialogState extends AntdInnerDialogState<AntdDialogAction,
     AntdDialogState, AntdDialog> {
+  @protected
+  Widget wrap(AntdDialogAction action) {
+    return AntdBox(
+      options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+      onTap: () {
+        handlerTap(action);
+      },
+      child: action,
+    );
+  }
+
+  @override
+  @protected
+  List<Widget> buildActions() {
+    if (widget.actions == null) {
+      return [];
+    }
+    var actions = <Widget>[];
+    var bottomActions = <Widget>[];
+
+    for (var value in widget.actions!) {
+      if (value.bottom == true) {
+        bottomActions.add(Expanded(child: wrap(value)));
+      } else {
+        actions.add(wrap(value));
+      }
+    }
+    var actionWidgets = <Widget>[];
+    actionWidgets.add(AntdStyleProvider<AntdActionStyle>(
+        style: style.actionStyle,
+        child: AntdColumn(
+            style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+            children: actions)));
+    if (bottomActions.isNotEmpty) {
+      actionWidgets.add(AntdStyleProvider<AntdActionStyle>(
+          style: style.actionStyle,
+          child: AntdRow(
+            children: bottomActions,
+          )));
+    }
+    return actionWidgets;
+  }
+
   @override
   AntdDialogState getState() {
     return this;

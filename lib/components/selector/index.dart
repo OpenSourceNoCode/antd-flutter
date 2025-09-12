@@ -182,15 +182,15 @@ class AntdSelectorOption
         alignment: Alignment.center,
         padding: token.size.default_.vertical.marge(token.size.xl.horizontal),
         textStyle: text,
-        radius: token.radius.default_.radius.all,
         color: token.colorFillContent);
     return AntdSelectorOptionStyle(
       itemStyle: base,
-      activeItemStyle: base.copyWith(
+      activeItemStyle: AntdBoxStyle(
           color: token.colorPrimaryBg,
           textStyle: text.copyWith(color: token.colorPrimary)),
-      bodyStyle: const AntdBoxStyle(
-          options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+      bodyStyle: AntdBoxStyle(
+          radius: token.radius.default_.radius.all,
+          options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
       labelStyle: const AntdBoxStyle(),
       descriptionStyle: AntdBoxStyle(
           textStyle: token.font.sm.copyWith(color: token.colorTextDescription)),
@@ -210,6 +210,17 @@ class AntdSelectorOption
   AntdSelectorOptionStyle margeStyle(
       AntdSelectorOptionStyle defaultStyle, AntdSelectorOptionStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdSelectorOptionStyle getFinalStyle(BuildContext context,
+      AntdSelectorOptionStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdSelectorOptionStyle(
+            activeItemStyle: style.itemStyle.merge(style.activeItemStyle),
+            badge: style.badge,
+            checkIcon: style.checkIcon));
   }
 }
 

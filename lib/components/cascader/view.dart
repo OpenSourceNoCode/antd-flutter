@@ -11,10 +11,16 @@ class AntdCascaderOptionStyle extends AntdStyle {
   final AntdBoxStyle? checkChildStyle;
 
   /// 布局使用的Flex样式
-  final AntdFlexStyle? flexStyle;
+  final AntdFlexStyle? rowStyle;
+
+  /// 选中状态下显示的图标样式
+  final AntdIconStyle? checkIconStyle;
 
   /// 选中状态下显示的图标
   final Widget? checkIcon;
+
+  /// 未选中状态下显示的图标样式
+  final AntdIconStyle? uncheckIconStyle;
 
   /// 未选中状态下显示的图标
   final Widget? uncheckIcon;
@@ -23,8 +29,10 @@ class AntdCascaderOptionStyle extends AntdStyle {
       {super.inherit,
       this.childStyle,
       this.checkChildStyle,
-      this.flexStyle,
+      this.rowStyle,
+      this.checkIconStyle,
       this.checkIcon,
+      this.uncheckIconStyle,
       this.uncheckIcon});
 
   @override
@@ -32,8 +40,10 @@ class AntdCascaderOptionStyle extends AntdStyle {
     return AntdCascaderOptionStyle(
       childStyle: childStyle.merge(style?.childStyle),
       checkChildStyle: checkChildStyle.merge(style?.checkChildStyle),
-      flexStyle: flexStyle.merge(style?.flexStyle),
+      rowStyle: rowStyle.merge(style?.rowStyle),
+      checkIconStyle: checkIconStyle.merge(style?.checkIconStyle),
       checkIcon: style?.checkIcon ?? checkIcon,
+      uncheckIconStyle: uncheckIconStyle.merge(style?.uncheckIconStyle),
       uncheckIcon: style?.uncheckIcon ?? uncheckIcon,
     );
   }
@@ -108,12 +118,16 @@ class AntdCascaderOption
       onTap: onTap,
       disabled: disabled,
       style: check
-          ? (style.checkChildStyle ?? const AntdBoxStyle())
-              .copyFrom(style.childStyle)
+          ? style.childStyle.merge(style.checkChildStyle)
           : style.childStyle,
-      child: AntdRow(style: style.flexStyle, children: [
+      child: AntdRow(style: style.rowStyle, children: [
         if (child != null) child!,
-        (check ? checkIcon : uncheckIcon) ?? const AntdBox()
+        AntdIconWrap(
+          style: check
+              ? style.uncheckIconStyle.merge(style.checkIconStyle)
+              : style.uncheckIconStyle,
+          child: (check ? checkIcon : uncheckIcon),
+        )
       ]),
     );
   }
@@ -133,12 +147,23 @@ class AntdCascaderOption
             options: const AntdTapOptions(
                 accepter: AntdTapAccepter.listener,
                 behavior: HitTestBehavior.opaque)),
-        flexStyle: const AntdFlexStyle(
+        rowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         checkIcon: icon,
         uncheckIcon: AntdBox(
           style: const AntdBoxStyle(visibility: AntdVisibility.visible),
           child: icon,
+        ));
+  }
+
+  @override
+  AntdCascaderOptionStyle getFinalStyle(BuildContext context,
+      AntdCascaderOptionStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdCascaderOptionStyle(
+          checkChildStyle: style.childStyle.merge(style.checkChildStyle),
+          checkIconStyle: style.checkIconStyle.merge(style.uncheckIconStyle),
         ));
   }
 

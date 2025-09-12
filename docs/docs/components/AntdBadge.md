@@ -239,6 +239,7 @@ class AntdBadgePositionColorDemo extends StatelessWidget {
 | dotStyle | 徽标小圆点的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | badgeStyle | 徽标容器的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | bodyStyle | 徽标包裹内容的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| childStyle | child的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | offset | 徽标的位置偏移量 | Offset | - | - |
 
 

@@ -2,6 +2,81 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
+/// @t 填充模式
+/// @l [AntdButton]
+class AntdButtonFillDemo extends StatelessWidget {
+  const AntdButtonFillDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const DemoWrapper(child: [
+      AntdButton(
+        fill: AntdButtonFill.solid,
+        child: Text('solid'),
+      ),
+      AntdButton(
+        fill: AntdButtonFill.outline,
+        child: Text('outline'),
+      ),
+      AntdButton(
+        fill: AntdButtonFill.none,
+        child: Text('none'),
+      ),
+    ]);
+  }
+}
+
+/// @t 块级按钮
+/// @l [AntdButton]
+class AntdButtonBlockDemo extends StatelessWidget {
+  const AntdButtonBlockDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const DemoWrapper(child: [
+      AntdButton(
+        block: true,
+        size: AntdSize.large,
+        child: Text('solid'),
+      ),
+    ]);
+  }
+}
+
+/// @t 不同尺寸
+/// @l [AntdButton]
+class AntdButtonSizeDemo extends StatelessWidget {
+  const AntdButtonSizeDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(
+        child: AntdSize.values.map((size) {
+      return AntdButton(
+        size: size,
+        child: Text(size.name),
+      );
+    }).toList());
+  }
+}
+
+/// @t 语意按钮
+/// @l [AntdButton]
+class AntdButtonColorDemo extends StatelessWidget {
+  const AntdButtonColorDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(
+        child: AntdColor.values.map((color) {
+      return AntdButton(
+        color: color,
+        child: Text(color.name),
+      );
+    }).toList());
+  }
+}
+
 /// @t 自定义图标
 /// @d 前缀可是任意的[Widget]
 /// @l [AntdButton]

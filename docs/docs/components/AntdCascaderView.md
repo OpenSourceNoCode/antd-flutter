@@ -179,8 +179,10 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | childStyle | 子选项的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | checkChildStyle | 选中状态下子选项的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| flexStyle | 布局使用的Flex样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| rowStyle | 布局使用的Flex样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| checkIconStyle | 选中状态下显示的图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | checkIcon | 选中状态下显示的图标 | Widget | - | - |
+| uncheckIconStyle | 未选中状态下显示的图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | uncheckIcon | 未选中状态下显示的图标 | Widget | - | - |
 
 ## 选项(AntdCascaderOption) <a id='AntdCascaderOption'></a>

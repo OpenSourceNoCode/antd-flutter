@@ -125,7 +125,7 @@ class AntdInputStyle extends AntdStyle {
   final String? obscuringCharacter;
 
   /// 图标样式配置
-  final AntdIconStyle? iconStyle;
+  final AntdIconStyle? clearIconStyle;
 
   /// 文本选择样式配置
   final AntdSelectionStyle? selectionStyle;
@@ -136,8 +136,14 @@ class AntdInputStyle extends AntdStyle {
   /// 清除按钮图标
   final Widget? clearIcon;
 
+  /// 密码隐藏状态图标样式配置
+  final AntdIconStyle? obscureIconStyle;
+
   /// 密码隐藏状态图标
   final Widget? obscureIcon;
+
+  /// 密码显示状态图标样式配置
+  final AntdIconStyle? activeObscureIconStyle;
 
   /// 密码显示状态图标
   final Widget? activeObscureIcon;
@@ -156,11 +162,13 @@ class AntdInputStyle extends AntdStyle {
       this.bodyStyle,
       this.cursorStyle,
       this.obscuringCharacter,
-      this.iconStyle,
+      this.clearIconStyle,
       this.selectionStyle,
       this.keyboardStyle,
       this.clearIcon,
+      this.obscureIconStyle,
       this.obscureIcon = const AntdIcon(icon: AntdIcons.eyeInvisible),
+      this.activeObscureIconStyle,
       this.activeObscureIcon = const AntdIcon(icon: AntdIcons.eye),
       this.rowStyle,
       this.autocorrectionColor});
@@ -177,12 +185,15 @@ class AntdInputStyle extends AntdStyle {
             : obscureTextStyle?.merge(style?.obscureTextStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         cursorStyle: cursorStyle.merge(style?.cursorStyle),
-        iconStyle: iconStyle.merge(style?.iconStyle),
+        clearIconStyle: clearIconStyle.merge(style?.clearIconStyle),
         obscuringCharacter: style?.obscuringCharacter ?? obscuringCharacter,
         selectionStyle: selectionStyle.merge(style?.selectionStyle),
         keyboardStyle: keyboardStyle.merge(style?.keyboardStyle),
         clearIcon: style?.clearIcon ?? clearIcon,
+        obscureIconStyle: obscureIconStyle.merge(style?.obscureIconStyle),
         obscureIcon: style?.obscureIcon ?? obscureIcon,
+        activeObscureIconStyle:
+            activeObscureIconStyle.merge(style?.activeObscureIconStyle),
         activeObscureIcon: style?.activeObscureIcon ?? activeObscureIcon,
         autocorrectionColor: style?.autocorrectionColor ?? autocorrectionColor,
         rowStyle: rowStyle.merge(style?.rowStyle));
@@ -369,7 +380,7 @@ abstract class AntdInputBase<WidgetType>
   AntdInputStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdAliasToken token) {
     return AntdInputStyle(
-        iconStyle: AntdIconStyle(
+        clearIconStyle: AntdIconStyle(
             size: 20,
             color: token.colorIcon,
             bodyStyle: AntdBoxStyle(margin: token.size.sm.left)),
@@ -398,6 +409,10 @@ abstract class AntdInputBase<WidgetType>
         ),
         selectionStyle:
             AntdSelectionStyle(color: token.colorPrimaryBg, enable: true),
+        obscureIconStyle: AntdIconStyle(
+          size: 20,
+          color: token.colorIcon,
+        ),
         rowStyle: AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -405,6 +420,16 @@ abstract class AntdInputBase<WidgetType>
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.center),
         ));
+  }
+
+  @override
+  AntdInputStyle getFinalStyle(
+      BuildContext context, AntdInputStyle style, AntdAliasToken token) {
+    return margeStyle(
+        style,
+        AntdInputStyle(
+            activeObscureIconStyle:
+                style.activeObscureIconStyle.merge(style.obscureIconStyle)));
   }
 }
 
@@ -596,9 +621,11 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                     maintainSize: true,
                     maintainAnimation: true,
                     maintainState: true,
-                    child: AntdStyleProvider<AntdIconStyle>(
-                      style: style.iconStyle,
+                    child: AntdIconWrap(
+                      style: style.clearIconStyle,
                       child: AntdBox(
+                        options: const AntdTapOptions(
+                            accepter: AntdTapAccepter.listener),
                         onTap: () async {
                           innerController.clear();
                         },
@@ -610,9 +637,13 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                 return const AntdBox();
               }),
           if (widget.obscureText && widget.obscureIcon)
-            AntdStyleProvider<AntdIconStyle>(
-              style: style.iconStyle,
+            AntdIconWrap(
+              style: _obscureText
+                  ? style.activeObscureIconStyle
+                  : style.obscureIconStyle,
               child: AntdBox(
+                options:
+                    const AntdTapOptions(accepter: AntdTapAccepter.listener),
                 onTap: () async {
                   setState(() {
                     _obscureText = !_obscureText;
