@@ -24,7 +24,7 @@ class AntdFormDemo extends StatelessWidget {
                 builder: (BuildContext context, Widget? child) {
                   return AntdBox(
                     style: AntdBoxStyle(
-                        color: token.colorWhite,
+                        color: token.colorBgContainer,
                         padding: 12.all,
                         width: double.infinity),
                     child: Text(jsonEncode(controller.getFieldsValue())),
@@ -122,7 +122,7 @@ class AntdFormTriggerDemo extends StatelessWidget {
                 builder: (BuildContext context, Widget? child) {
                   return AntdBox(
                     style: AntdBoxStyle(
-                        color: token.colorWhite,
+                        color: token.colorBgContainer,
                         padding: 12.all,
                         width: double.infinity),
                     child: Text(jsonEncode(controller.getFieldsValue())),
@@ -134,7 +134,7 @@ class AntdFormTriggerDemo extends StatelessWidget {
                   style: AntdListStyle(
                       itemStyle: AntdBoxStyle(
                           focusStyle: AntdKitStyle(
-                              border: token.borderSide
+                              border: token.border
                                   .copyWith(color: token.colorPrimary, width: 3)
                                   .all))),
                   items: [
@@ -231,7 +231,7 @@ class AntdFormEventDemo extends StatelessWidget {
                 builder: (BuildContext context, Widget? child) {
                   return AntdBox(
                     style: AntdBoxStyle(
-                        color: token.colorWhite,
+                        color: token.colorBgContainer,
                         padding: 12.all,
                         width: double.infinity),
                     child: Text(jsonEncode(controller.getFieldsValue())),
@@ -312,7 +312,7 @@ class _AntdFormDynamicDemoStateDemo extends State<AntdFormDynamicDemo> {
                 return AntdBox(
                   style: AntdBoxStyle(
                       margin: 10.bottom,
-                      color: token.colorWhite,
+                      color: token.colorBgContainer,
                       padding: 12.all,
                       width: double.infinity),
                   child: Text(jsonEncode(controller.getFieldsValue())),
@@ -405,7 +405,7 @@ class AntdFormCardDemo extends StatelessWidget {
                 builder: (BuildContext context, Widget? child) {
                   return AntdBox(
                     style: AntdBoxStyle(
-                        color: token.colorWhite,
+                        color: token.colorBgContainer,
                         padding: 12.all,
                         width: double.infinity),
                     child: Text(jsonEncode(controller.getFieldsValue())),

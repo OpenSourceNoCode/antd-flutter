@@ -144,13 +144,13 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
 
   @override
   AntdSliderStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var markStyle = AntdBoxStyle(
         margin: 8.vertical,
         size: token.size.ms.roundToDouble(),
         radius: BorderRadius.circular(token.size.ms.roundToDouble()),
-        color: token.colorFillContent);
-    var trackStyle = AntdBoxStyle(color: token.colorFillContent, height: 3);
+        color: token.colorFill.tertiary);
+    var trackStyle = AntdBoxStyle(color: token.colorFill.tertiary, height: 3);
     var activeTrackStyle = trackStyle.copyWith(color: token.colorPrimary);
     return AntdSliderStyle(
         bodyStyle: AntdBoxStyle(
@@ -169,10 +169,10 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
             size: 18,
             bodyStyle: AntdBoxStyle(
                 alignment: Alignment.center,
-                color: token.colorWhite,
+                color: token.colorBgContainer,
                 size: 32,
                 radius: BorderRadius.circular(32),
-                shadows: token.boxShadow)),
+                shadows: token.shadow.primary)),
         markTextStyle:
             AntdBoxStyle(margin: token.size.md.top, textStyle: token.font.sm));
   }
@@ -196,7 +196,7 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
 
   @override
   AntdSliderStyle getFinalStyle(
-      BuildContext context, AntdSliderStyle style, AntdAliasToken token) {
+      BuildContext context, AntdSliderStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSliderStyle(

@@ -63,11 +63,9 @@ class AntdCardCustomStyleDemo extends StatelessWidget {
       AntdCard(
         style: AntdCardStyle(
             titleStyle: AntdBoxStyle(
-                textStyle:
-                    token.font.default_.copyWith(color: token.colorPrimary)),
+                textStyle: token.font.ms.copyWith(color: token.colorPrimary)),
             bodyStyle: AntdBoxStyle(
-                textStyle:
-                    token.font.default_.copyWith(color: token.colorError))),
+                textStyle: token.font.ms.copyWith(color: token.colorError))),
         title: const Text("卡片标题"),
         child: const Text('卡片内容'),
       )

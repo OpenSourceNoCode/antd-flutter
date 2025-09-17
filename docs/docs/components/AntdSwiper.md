@@ -28,10 +28,10 @@ class _AntdSwiperControllerDemoStateDemo
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var colors = [
-      token.colorPrimaryActive,
-      token.colorWarningActive,
-      token.colorSuccessActive,
-      token.colorErrorActive
+      token.colorPrimary.active,
+      token.colorWarning.active,
+      token.colorSuccess.active,
+      token.colorError.active
     ];
     var intdex = 1;
     return DemoWrapper(child: [
@@ -79,10 +79,10 @@ class AntdSwiperStyleDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var colors = [
-      token.colorPrimaryActive,
-      token.colorWarningActive,
-      token.colorSuccessActive,
-      token.colorErrorActive
+      token.colorPrimary.active,
+      token.colorWarning.active,
+      token.colorSuccess.active,
+      token.colorError.active
     ];
     return DemoWrapper(child: [
       SizedBox(
@@ -108,10 +108,10 @@ class AntdSwiperCustomIndicatorDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var colors = [
-      token.colorPrimaryActive,
-      token.colorWarningActive,
-      token.colorSuccessActive,
-      token.colorErrorActive
+      token.colorPrimary.active,
+      token.colorWarning.active,
+      token.colorSuccess.active,
+      token.colorError.active
     ];
     return DemoWrapper(child: [
       SizedBox(
@@ -149,10 +149,10 @@ class AntdSwiperNoneIndicatorDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var colors = [
-      token.colorPrimaryActive,
-      token.colorWarningActive,
-      token.colorSuccessActive,
-      token.colorErrorActive
+      token.colorPrimary.active,
+      token.colorWarning.active,
+      token.colorSuccess.active,
+      token.colorError.active
     ];
     return DemoWrapper(child: [
       SizedBox(
@@ -181,10 +181,10 @@ class AntdSwiperFullPageDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var colors = [
-      token.colorPrimaryActive,
-      token.colorWarningActive,
-      token.colorSuccessActive,
-      token.colorErrorActive
+      token.colorPrimary.active,
+      token.colorWarning.active,
+      token.colorSuccess.active,
+      token.colorError.active
     ];
     return DemoWrapper(child: [
       AntdButton(

@@ -7,7 +7,7 @@ void main() {
     home: AntdTokenBuilder(builder: (context, token) {
       return AntdBox(
         style: AntdBoxStyle(
-            color: token.colorFillTertiary, alignment: Alignment.center),
+            color: token.colorFill.tertiary, alignment: Alignment.center),
         child: AntdButton(
           onTap: () {
             AntdToast.show(

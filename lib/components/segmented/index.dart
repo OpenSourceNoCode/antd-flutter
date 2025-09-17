@@ -34,7 +34,7 @@ class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
 
   @override
   AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdBoxStyle(
         options: AntdTapOptions(accepter: AntdTapAccepter.listener));
   }
@@ -133,17 +133,17 @@ class AntdSegmented
 
   @override
   AntdSegmentedStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdSegmentedStyle(
         bodyStyle: AntdBoxStyle(
             padding: token.size.xxs.all,
-            color: token.colorFillContent,
-            radius: token.radius.default_.radius.all),
+            color: token.colorFill.tertiary,
+            radius: token.radius.all),
         bodyRowStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         itemStyle: AntdBoxStyle(
-          padding: token.size.ms.horizontal.marge(token.size.xxs.vertical),
+          padding: token.size.lg.horizontal.marge(token.size.xs.vertical),
         ),
-        activeItemStyle: AntdBoxStyle(color: token.colorWhite));
+        activeItemStyle: AntdBoxStyle(color: token.colorBgContainer));
   }
 
   @override
@@ -159,7 +159,7 @@ class AntdSegmented
 
   @override
   AntdSegmentedStyle getFinalStyle(
-      BuildContext context, AntdSegmentedStyle style, AntdAliasToken token) {
+      BuildContext context, AntdSegmentedStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSegmentedStyle(

@@ -100,7 +100,7 @@ class _AntdTextAreaState
                   var child = widget.countBuilder?.call(innerController);
                   child ??= DefaultTextStyle(
                       style: token.font.lg
-                          .copyWith(color: token.colorTextSecondary),
+                          .copyWith(color: token.colorText.secondary),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

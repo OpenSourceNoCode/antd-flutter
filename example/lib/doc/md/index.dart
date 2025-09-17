@@ -8,6 +8,64 @@ import '../../comment/define.dart';
 import '../index.dart';
 import 'style.dart';
 
+String generatePropertiesTable(List<PropertiesDefine> properties) {
+  final buffer = StringBuffer();
+
+  buffer.writeln('| 属性名 | 说明 | 类型 | 默认值 | 版本 |');
+  buffer.writeln('| --- | --- | --- | --- | --- |');
+
+  String getEnums(PropertiesDefine properties) {
+    if (properties.enums?.isNotEmpty == true) {
+      var enums = '';
+      if (properties.enums != null && properties.enums!.isNotEmpty) {
+        enums =
+            properties.enums!.map((enumName) => "`$enumName`").join(' \\\| ');
+        return ":$enums";
+      }
+    }
+    return "";
+  }
+
+  String _formatType(PropertiesDefine properties) {
+    // if (properties.name == 'styleBuilder') {
+    //   return "-";
+    // }
+    // if (properties.funcSig?.isNotEmpty == true) {
+    //   return properties.funcSig!;
+    // }
+
+    if (properties.links != null && properties.links?.isNotEmpty == true) {
+      var linkName = properties.links?.first;
+      if (linkName?.isNotEmpty == true) {
+        return '[${properties.type}](../components/${toKebabCase(linkName!)}/#${properties.type})';
+      }
+    }
+
+    var type = properties.type ?? 'dynamic';
+    var str = type.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+    return str;
+  }
+
+  String _padRight(String input, int length) {
+    if (input.length >= length) return input;
+    return input;
+  }
+
+  for (final prop in properties) {
+    buffer.writeln('| ${_padRight(prop.name, 10)} '
+        '| ${_padRight(prop.description != null ? "${prop.description}${getEnums(prop)}" : '-', 23)} '
+        '| ${_padRight(_formatType(
+              prop,
+            ), 8)} '
+        '| ${_padRight(prop.defaultValue?.replaceAll("${prop.type}.", "") ?? '-', 6)} '
+        '| ${_padRight(prop.version ?? '-', 4)} |');
+  }
+
+  var str = buffer.toString();
+
+  return str;
+}
+
 class MdUseComponents implements UseComponents {
   @override
   Future<void> process(
@@ -108,12 +166,9 @@ class MdUseComponents implements UseComponents {
   String generateApiDoc(ComponentDefine component) {
     final buffer = StringBuffer();
 
-    var relateNames =
-        component.relates.map((define) => define.comment.name).toSet();
     if (component.properties?.isNotEmpty ?? false) {
       buffer.writeln('## 属性');
-      buffer.writeln(
-          _generatePropertiesTable(component.properties!, relateNames));
+      buffer.writeln(generatePropertiesTable(component.properties!));
     }
 
     return buffer.toString();
@@ -125,8 +180,6 @@ class MdUseComponents implements UseComponents {
     }
     final buffer = StringBuffer();
 
-    var relateNames =
-        component.relates.map((define) => define.comment.name).toSet();
     for (var value in component.relates) {
       if (value.properties?.isNotEmpty ?? false) {
         buffer.writeln(
@@ -134,75 +187,10 @@ class MdUseComponents implements UseComponents {
         if (value.comment.description != null) {
           buffer.writeln(value.comment.description);
         }
-        buffer
-            .writeln(_generatePropertiesTable(value.properties!, relateNames));
+        buffer.writeln(generatePropertiesTable(value.properties!));
       }
     }
 
     return buffer.toString();
-  }
-
-  String _generatePropertiesTable(
-      List<PropertiesDefine> properties, Set<String> relateNames) {
-    final buffer = StringBuffer();
-
-    buffer.writeln('| 属性名 | 说明 | 类型 | 默认值 | 版本 |');
-    buffer.writeln('| --- | --- | --- | --- | --- |');
-
-    for (final prop in properties) {
-      buffer.writeln('| ${_padRight(prop.name, 10)} '
-          '| ${_padRight(prop.description != null ? "${prop.description}${getEnums(prop)}" : '-', 23)} '
-          '| ${_padRight(_formatType(
-                prop,
-              ), 8)} '
-          '| ${_padRight(prop.defaultValue?.replaceAll("${prop.type}.", "") ?? '-', 6)} '
-          '| ${_padRight(prop.version ?? '-', 4)} |');
-    }
-
-    var str = buffer.toString();
-    // for (var value in relateNames) {
-    //   // 使用正则确保精确匹配
-    //   str = str.replaceAllMapped(RegExp(r'\b' + RegExp.escape(value) + r'\b'),
-    //       (match) => '[$value](#$value)');
-    // }
-
-    return str;
-  }
-
-  String getEnums(PropertiesDefine properties) {
-    if (properties.enums?.isNotEmpty == true) {
-      var enums = '';
-      if (properties.enums != null && properties.enums!.isNotEmpty) {
-        enums =
-            properties.enums!.map((enumName) => "`$enumName`").join(' \\\| ');
-        return ":$enums";
-      }
-    }
-    return "";
-  }
-
-  String _formatType(PropertiesDefine properties) {
-    // if (properties.name == 'styleBuilder') {
-    //   return "-";
-    // }
-    // if (properties.funcSig?.isNotEmpty == true) {
-    //   return properties.funcSig!;
-    // }
-
-    if (properties.links != null && properties.links?.isNotEmpty == true) {
-      var linkName = properties.links?.first;
-      if (linkName?.isNotEmpty == true) {
-        return '[${properties.type}](../components/${toKebabCase(linkName!)}/#${properties.type})';
-      }
-    }
-
-    var type = properties.type ?? 'dynamic';
-    var str = type.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-    return str;
-  }
-
-  String _padRight(String input, int length) {
-    if (input.length >= length) return input;
-    return input;
   }
 }

@@ -98,7 +98,7 @@ class AntdNoticeBar
     return _AntdNoticeBarState();
   }
 
-  Color _getColor(AntdAliasToken token) {
+  Color _getColor(AntdMapToken token) {
     if (color == AntdColor.warning) {
       return token.colorWarning;
     }
@@ -114,7 +114,7 @@ class AntdNoticeBar
     return token.colorWhite;
   }
 
-  Color _getBgColor(AntdAliasToken token) {
+  Color _getBgColor(AntdMapToken token) {
     if (color == AntdColor.danger) {
       return token.colorError;
     }
@@ -124,20 +124,19 @@ class AntdNoticeBar
 
   @override
   AntdNoticeBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var bgColor = _getBgColor(token);
     var border =
-        BorderSide(color: color?.getBorderColor(token) ?? token.colorBorder);
+        BorderSide(color: color?.getBorderColor(token) ?? token.border.color);
     var iconStyle = AntdIconStyle(
         size: token.size.xxl.roundToDouble(),
         color: _getColor(token),
-        bodyStyle: AntdBoxStyle(margin: token.size.default_.right));
+        bodyStyle: AntdBoxStyle(margin: token.size.seed.right));
     return AntdNoticeBarStyle(
         bodyStyle: AntdBoxStyle(
             border: Border(top: border, bottom: border),
             color: bgColor,
-            padding:
-                token.size.default_.vertical.marge(token.size.lg.horizontal),
+            padding: token.size.seed.vertical.marge(token.size.lg.horizontal),
             textStyle: token.font.md.copyWith(color: _getColor(token)),
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         iconStyle: iconStyle,
@@ -149,7 +148,7 @@ class AntdNoticeBar
 
   @override
   AntdNoticeBarStyle getFinalStyle(
-      BuildContext context, AntdNoticeBarStyle style, AntdAliasToken token) {
+      BuildContext context, AntdNoticeBarStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdNoticeBarStyle(

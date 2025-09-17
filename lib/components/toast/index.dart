@@ -91,12 +91,12 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
 
   @override
   AntdToastStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdToastStyle(
         bodyStyle: AntdBoxStyle(
             minWidth: icon?.icon != null ? 130 : null,
             color: token.colorBlack.withValues(alpha: 0.7),
-            radius: token.radius.default_.radius.all,
+            radius: token.radius.all,
             textStyle: token.font.md.copyWith(color: token.colorWhite),
             padding: icon != null
                 ? 40.vertical.marge(token.size.lg.horizontal)
@@ -123,7 +123,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
         iconStyle: AntdIconStyle(
             size: 32,
             color: token.colorWhite,
-            bodyStyle: AntdBoxStyle(margin: token.size.default_.bottom)),
+            bodyStyle: AntdBoxStyle(margin: token.size.seed.bottom)),
         columnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         maskOpacity: getOpacity());
   }

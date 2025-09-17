@@ -12,16 +12,16 @@ class Block extends StatelessWidget {
 
     return AntdBox(
       style: AntdBoxStyle(
-          radius: 4.radius.all,
-          margin: token.size.lg.top,
-          color: token.colorWhite,
-          padding: token.size.lg.all),
+        radius: 4.radius.all,
+        margin: token.size.xxl.top,
+        color: token.colorBgContainer,
+      ),
       child: child,
     );
   }
 }
 
-class Blocks extends StatelessWidget {
+class Blocks extends StatefulWidget {
   final String? title;
 
   final String? description;
@@ -41,12 +41,61 @@ class Blocks extends StatelessWidget {
       required this.axis});
 
   @override
+  State<StatefulWidget> createState() {
+    return _BlocksState();
+  }
+}
+
+class _BlocksState extends State<Blocks> {
+  var activeIndex = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var mode = AntdTheme.ofMode(context);
+    activeIndex = mode == AntdThemeMode.light ? 0 : 1;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var child = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        AntdBox(
+          style: AntdBoxStyle(margin: 8.vertical),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  AntdSegmented(
+                      activeIndex: activeIndex,
+                      onChange: (index) {
+                        setState(() {
+                          activeIndex = index;
+                        });
+                        if (index == 0) {
+                          AntdTheme.configure(context, AntdThemeMode.light);
+                        }
+                        if (index == 1) {
+                          AntdTheme.configure(context, AntdThemeMode.dark);
+                        }
+                      },
+                      items: const [
+                        AntdSegmentedItem(
+                          child: const Text("亮色"),
+                        ),
+                        AntdSegmentedItem(
+                          child: const Text("暗色"),
+                        ),
+                      ]),
+                ],
+              )
+            ],
+          ),
+        ),
         AntdBox(
           style: AntdBoxStyle(
               color: token.colorTransparent,
@@ -55,27 +104,27 @@ class Blocks extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title ?? '',
+                widget.title ?? '',
                 style: token.font.xl.copyWith(color: token.colorPrimary),
               ),
-              if (usage != null || description != null)
+              if (widget.usage != null || widget.description != null)
                 AntdBox(
                   style: AntdBoxStyle(
-                      margin: token.size.default_.top,
-                      padding: token.size.default_.top,
-                      textStyle: token.font.default_
-                          .copyWith(color: token.colorTextTertiary)),
+                      margin: token.size.seed.top,
+                      padding: token.size.seed.top,
+                      textStyle: token.font.ms
+                          .copyWith(color: token.colorText.tertiary)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (description != null)
+                      if (widget.description != null)
                         Text(
-                          description!,
-                          style: token.font.default_
-                              .copyWith(color: token.colorTextTertiary),
+                          widget.description!,
+                          style: token.font.ms
+                              .copyWith(color: token.colorText.tertiary),
                         ),
                       Text(
-                        usage ?? "",
+                        widget.usage ?? "",
                         overflow: TextOverflow.fade,
                       )
                     ],
@@ -84,10 +133,10 @@ class Blocks extends StatelessWidget {
             ],
           ),
         ),
-        ...items
+        ...widget.items
       ],
     );
-    return axis == Axis.horizontal
+    return widget.axis == Axis.horizontal
         ? SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: child,
@@ -129,16 +178,22 @@ class _DemoBlockState extends State<DemoBlock> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DefaultTextStyle(style: token.font.xl, child: widget.title),
-            if (widget.desc != null)
-              Text(
-                widget.desc!,
-                style: token.font.xs.copyWith(color: token.colorTextTertiary),
-              ),
             AntdBox(
-              style: AntdBoxStyle(
-                padding: token.size.md.vertical,
+              style: AntdBoxStyle(padding: 12.horizontal.marge(8.vertical)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DefaultTextStyle(style: token.font.xl, child: widget.title),
+                  if (widget.desc != null)
+                    Text(
+                      widget.desc!,
+                      style: token.font.xs
+                          .copyWith(color: token.colorText.tertiary),
+                    )
+                ],
               ),
+            ),
+            AntdBox(
               child: widget.child,
             ),
             if (widget.demo != null)
@@ -150,7 +205,8 @@ class _DemoBlockState extends State<DemoBlock> {
                       style: AntdBoxStyle(
                           alignment: Alignment.center,
                           width: double.infinity,
-                          textStyle: token.font.default_
+                          padding: token.size.lg.vertical,
+                          textStyle: token.font.ms
                               .copyWith(color: token.colorPrimary)),
                       child: AntdBox(
                         onTap: () {
@@ -167,13 +223,12 @@ class _DemoBlockState extends State<DemoBlock> {
                               return AntdBox(
                                 style: AntdBoxStyle(
                                     width: double.infinity,
-                                    margin: token.size.lg.top,
-                                    padding: token.size.default_.all,
-                                    radius: token.radius.default_.radius.all,
-                                    color: token.colorFillContent),
+                                    padding: token.size.lg.all,
+                                    radius: token.radius.all,
+                                    color: token.colorBgContainer),
                                 child: Text(
                                   widget.demo!,
-                                  style: token.font.default_,
+                                  style: token.font.ms,
                                 ),
                               );
                             }
@@ -194,15 +249,14 @@ class DemoWrapper extends AntdComponent<AntdBoxStyle, DemoWrapper> {
   final bool outline;
 
   const DemoWrapper(
-      {super.key, required this.child, super.style, this.outline = false});
+      {super.key, required this.child, super.style, this.outline = true});
 
   @override
   AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdBoxStyle(
       alignment: Alignment.centerLeft,
       width: double.infinity,
-      color: outline ? token.colorWarning : token.colorWhite,
       padding: outline ? token.size.lg.all : null,
     );
   }
@@ -214,12 +268,16 @@ class DemoWrapper extends AntdComponent<AntdBoxStyle, DemoWrapper> {
 
   @override
   Widget render(BuildContext context, AntdBoxStyle style) {
+    var token = AntdTheme.ofToken(context);
     return AntdBox(
       style: style,
-      child: Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: child,
+      child: AntdBox(
+        style: AntdBoxStyle(margin: token.size.lg.top),
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: child,
+        ),
       ),
     );
   }

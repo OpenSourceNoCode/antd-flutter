@@ -38,7 +38,6 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
-    var token = AntdTheme.ofToken(context);
     // 获取初始路由
     final initialRoute = Uri.base.queryParameters;
     return Navigator(
@@ -49,14 +48,14 @@ class _LayoutState extends State<Layout> {
       onGenerateRoute: (setting) {
         return MaterialPageRoute(
           builder: (context) {
+            var token = AntdTheme.ofToken(context);
             Widget child = const AntdBox();
             if (setting.name != null &&
                 widget.child.containsKey(setting.name)) {
               child = widget.child[setting.name]!;
             }
-
             return AntdBox(
-              style: AntdBoxStyle(color: token.colorFillTertiary),
+              style: AntdBoxStyle(color: token.colorBgLayout),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -64,14 +63,15 @@ class _LayoutState extends State<Layout> {
                     innerSafeArea: AntdPosition.top,
                     style: AntdBoxStyle(
                         padding: token.size.lg.all,
-                        color: token.colorWhite,
-                        border: token.borderSide.bottom),
+                        color: token.colorBgContainer,
+                        border: token.border.bottom),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            Expanded(
+                                child: Row(
                               children: [
                                 AntdBox(
                                   style: AntdBoxStyle(
@@ -84,7 +84,19 @@ class _LayoutState extends State<Layout> {
                                       .copyWith(fontWeight: FontWeight.w700),
                                 )
                               ],
-                            ),
+                            )),
+                            if (setting.name != 'token')
+                              AntdBox(
+                                style: AntdBoxStyle(margin: 4.right),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed("token");
+                                },
+                                child: Text(
+                                  "主题",
+                                  style: token.font.lg
+                                      .copyWith(color: token.colorLink),
+                                ),
+                              ),
                             MenuPopup(
                                 menus: widget.menus,
                                 child: Text(
@@ -131,18 +143,17 @@ class MenuPopup extends StatelessWidget {
       onTap: () async {
         if (menu.path != null) {
           await close();
-          Navigator.pushNamed(context, menu.path!);
+          Navigator.pushNamedAndRemoveUntil(context, menu.path!, (_) => false);
         }
       },
       style: AntdBoxStyle(
-          border: menu.group ? token.borderSide.bottom : null,
+          border: menu.group ? token.border.bottom : null,
           margin: token.size.lg.left,
-          padding:
-              (menu.group ? token.size.default_.vertical : token.size.lg.top)
-                  .marge(token.size.lg.right),
+          padding: (menu.group ? token.size.seed.vertical : token.size.lg.top)
+              .marge(token.size.lg.right),
           textStyle: menu.group
-              ? token.font.xs.copyWith(color: token.colorTextQuaternary)
-              : token.font.default_),
+              ? token.font.xs.copyWith(color: token.colorText.quaternary)
+              : token.font.ms),
       child: Text(menu.title),
     );
   }

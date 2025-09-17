@@ -30,27 +30,62 @@ var darkColorMap = [
 ];
 
 extension ColorExtensions on Color {
-  /// 通过HSL色彩空间降低颜色明度
-  /// [amount] 取值范围 0-100（百分比），表示明度降低的绝对值
-  /// 示例：amount=10 表示明度值直接减少10%（如从0.8→0.7）
-  Color darken([double amount = 10]) {
-    // 参数安全校验
+  String get toHex {
+    if (a == 1.0) {
+      return '#${toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
+    } else {
+      return '#${toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
+    }
+  }
+
+  Color getOriginalColor(double knownAlpha) {
+    final inverseAlpha = 1.0 - knownAlpha;
+
+    final originalR = ((r * 255.0) - inverseAlpha * 255) / knownAlpha;
+    final originalG = ((g * 255.0) - inverseAlpha * 255) / knownAlpha;
+    final originalB = ((b * 255.0) - inverseAlpha * 255) / knownAlpha;
+
+    return Color.fromARGB(
+      (a * 255.0).round(),
+      originalR.round().clamp(0, 255),
+      originalG.round().clamp(0, 255),
+      originalB.round().clamp(0, 255),
+    );
+  }
+
+  Color withAlphas(double alpha, Color color) {
+    if (alpha == 1.0) {
+      return this;
+    }
+
+    int blendColorComponent(
+        double foreground, double background, double alpha) {
+      final result = (foreground * alpha + background * (1 - alpha)) * 255.0;
+      return result.round().clamp(0, 255);
+    }
+
+    final mixedR = blendColorComponent(r, color.r, alpha);
+    final mixedG = blendColorComponent(g, color.g, alpha);
+    final mixedB = blendColorComponent(b, color.b, alpha);
+
+    return Color.fromRGBO(mixedR, mixedG, mixedB, 1.0);
+  }
+
+  Color lightness([double amount = 10, bool dark = true]) {
     final clampedAmount = amount.clamp(0, 100) / 100;
 
-    // 将RGB转换为HSL色彩空间
     final hsl = _rgbToHsl((r * 255.0).round() & 0xff,
         (g * 255.0).round() & 0xff, (b * 255.0).round() & 0xff);
     double h = hsl[0], s = hsl[1], l = hsl[2];
 
-    // 降低明度并限制范围（类似PWM信号占空比调节原理[1](@ref)）
-    l = (l - clampedAmount).clamp(0.0, 1.0);
+    l = dark
+        ? (l + clampedAmount).clamp(0.0, 1.0)
+        : (l - clampedAmount).clamp(0.0, 1.0);
 
-    // 转换回RGB并保留原始透明度
     return _hslToRgb(h, s, l)
         .withValues(alpha: ((a * 255.0).round() & 0xff).toDouble());
   }
 
-  // RGB转HSL算法（符合CIE 1931色彩标准）
   List<double> _rgbToHsl(int r, int g, int b) {
     final double red = r / 255, green = g / 255, blue = b / 255;
     final double max = [red, green, blue].reduce((a, b) => a > b ? a : b);
@@ -72,7 +107,6 @@ extension ColorExtensions on Color {
     return [h, s, l];
   }
 
-  // HSL转RGB算法（支持伽马校正）
   Color _hslToRgb(double h, double s, double l) {
     double r, g, b;
 
@@ -103,51 +137,32 @@ extension ColorExtensions on Color {
     return p;
   }
 
-  Color withDoubleAlpha(double alpha) {
-    // 公式：最终颜色 = 白色背景 × (1 - alpha) + 黑色前景 × alpha
-    final r_ = (255 * (1 - alpha) + ((r * 255.0).round() & 0xff) * alpha)
-        .round(); // 255 * 0.96 = 244.8 → 245
-    final g_ = (255 * (1 - alpha) + ((g * 255.0).round() & 0xff) * alpha)
-        .round(); // 同上
-    final b_ = (255 * (1 - alpha) + ((b * 255.0).round() & 0xff) * alpha)
-        .round(); // 同上
-
-    return Color.fromRGBO(r_, g_, b_, 1);
-  }
-
   bool isStableColor(int color) {
     return color >= 0 && color <= 255;
   }
 
-  /// 计算前景色在背景色上的最终显示颜色
   Color getAlphaColor(Color color) {
     final fR = (r * 255.0).round() & 0xff;
     final fG = (g * 255.0).round() & 0xff;
     final fB = (b * 255.0).round() & 0xff;
-    final originAlpha = ((a * 255.0).round() & 0xff) / 255; // 转换为 0-1 范围
+    final originAlpha = ((a * 255.0).round() & 0xff) / 255;
 
-    // 如果前景色本身有透明度，直接返回原始颜色
     if (originAlpha < 1) {
       return this;
     }
 
-    // 解析背景色
     final bR = (r * 255.0).round() & 0xff;
     final bG = (g * 255.0).round() & 0xff;
     final bB = (b * 255.0).round() & 0xff;
 
-    // 遍历 alpha 值（从 0.01 到 1，步长 0.01）
     for (double fA = 0.01; fA <= 1; fA += 0.01) {
-      // 计算混合后的 RGB 值
       final r = (fR - bR * (1 - fA)).round();
       final g = (fG - bG * (1 - fA)).round();
       final b = (fB - bB * (1 - fA)).round();
 
-      // 检查计算结果是否在有效范围内
       if (isStableColor(r) && isStableColor(g) && isStableColor(b)) {
-        // 返回最终颜色（alpha 保留两位小数）
         return Color.fromARGB(
-          (fA * 255).round(), // alpha 转换为 0-255
+          (fA * 255).round(),
           r,
           g,
           b,
@@ -155,13 +170,11 @@ extension ColorExtensions on Color {
       }
     }
 
-    // 如果没有找到有效颜色，返回前景色的不透明版本
     return Color.fromARGB(255, fR, fG, fB);
   }
 
   double getHue(HSVColor hsv, int i, [bool isLight = false]) {
     double hue;
-    // 根据色相不同，色相转向不同
     if (hsv.hue.round() >= 60 && hsv.hue.round() <= 240) {
       hue = isLight ? hsv.hue - hueStep * i : hsv.hue + hueStep * i;
     } else {
@@ -172,7 +185,6 @@ extension ColorExtensions on Color {
   }
 
   double getSaturation(HSVColor hsv, int i, [bool isLight = false]) {
-    // 灰色不改变饱和度
     if (hsv.hue == 0 && hsv.saturation == 0) {
       return hsv.saturation;
     }
@@ -186,17 +198,15 @@ extension ColorExtensions on Color {
       saturation = hsv.saturation + saturationStep2 * i;
     }
 
-    // 边界值修正
     saturation = saturation.clamp(0.0, 1.0);
 
-    // 第一格的 s 限制在 0.06-0.1 之间
     if (isLight && i == lightColorCount && saturation > 0.1) {
       saturation = 0.1;
     }
     if (saturation < 0.06) {
       saturation = 0.06;
     }
-    return saturation.clamp(0.0, 1.0); // 确保饱和度在 0.0 到 1.0 之间
+    return saturation.clamp(0.0, 1.0);
   }
 
   double getValue(HSVColor hsv, int i, [bool isLight = false]) {
@@ -211,35 +221,31 @@ extension ColorExtensions on Color {
   }
 
   Map<int, Color> generate(
-      [bool dark = false, Color color = const Color(0xff141414)]) {
+      [bool dark = false, Color backgroundColor = const Color(0xFF141414)]) {
     final patterns = <Color>[];
     final hsv = HSVColor.fromColor(this);
 
-    // Generate light colors
     for (var i = lightColorCount; i > 0; i--) {
       patterns.add(HSVColor.fromAHSV(1, getHue(hsv, i, true),
               getSaturation(hsv, i, true), getValue(hsv, i, true))
           .toColor());
     }
 
-    // Add base color
     patterns.add(this);
 
-    // Generate dark colors
     for (var i = 1; i <= darkColorCount; i++) {
       patterns.add(HSVColor.fromAHSV(
               1, getHue(hsv, i), getSaturation(hsv, i), getValue(hsv, i))
           .toColor());
     }
 
-    // Dark theme adjustments
     if (dark) {
       return _toMap(darkColorMap.map((entry) {
-        return Color.lerp(this, patterns[entry.index], entry.amount)!;
+        return Color.lerp(
+            backgroundColor, patterns[entry.index], entry.amount / 100)!;
       }).toList());
     }
 
-    // Default light theme
     return _toMap(patterns);
   }
 

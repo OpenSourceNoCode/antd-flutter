@@ -25,7 +25,8 @@ class AntdFloatingDemo extends StatelessWidget {
   const AntdFloatingDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(outline: false, child: [
       AntdFloatingPanel(
           content: AntdList(
               shrinkWrap: true,
@@ -34,7 +35,10 @@ class AntdFloatingDemo extends StatelessWidget {
               }).toList()),
           child: AntdBox(
               child: Text("我是背景"),
-              style: AntdBoxStyle(width: double.infinity, height: 500),
+              style: AntdBoxStyle(
+                  width: double.infinity,
+                  height: 500,
+                  color: token.colorBgLayout),
               onTap: () {
                 print("111");
               }))
@@ -53,7 +57,7 @@ class AntdFloatingPositionDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdFloatingPanel(
           position: AntdFloatingPanelPosition.top,
           anchors: const [0.3, 0.6, 0.8],
@@ -71,7 +75,10 @@ class AntdFloatingPositionDemo extends StatelessWidget {
                 AntdToast.show("背景点击事件");
               },
               child: Text("我是背景内容，我可以被正常点击"),
-              style: AntdBoxStyle(width: double.infinity, height: 500)))
+              style: AntdBoxStyle(
+                  width: double.infinity,
+                  height: 500,
+                  color: token.colorBgLayout)))
     ]);
   }
 }
@@ -86,7 +93,8 @@ class AntdFloatingAnchorsDemo extends StatelessWidget {
   const AntdFloatingAnchorsDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(outline: false, child: [
       AntdFloatingPanel(
           anchors: const [0.3, 0.6, 0.8],
           child: AntdBox(
@@ -94,7 +102,10 @@ class AntdFloatingAnchorsDemo extends StatelessWidget {
                 AntdToast.show("背景点击事件");
               },
               child: Text("我是背景内容，我可以被正常点击"),
-              style: AntdBoxStyle(width: double.infinity, height: 500)),
+              style: AntdBoxStyle(
+                  width: double.infinity,
+                  height: 500,
+                  color: token.colorBgLayout)),
           content: AntdList(
               shrinkWrap: true,
               items: data.map((value) {
@@ -115,7 +126,7 @@ class AntdFloatingIndicatorDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdFloatingPanel(
           anchors: const [0.3, 0.6, 0.8],
           indicator: AntdBox(
@@ -132,7 +143,10 @@ class AntdFloatingIndicatorDemo extends StatelessWidget {
                 AntdToast.show("背景点击事件");
               },
               child: Text("我是背景内容，我可以被正常点击"),
-              style: AntdBoxStyle(width: double.infinity, height: 500)))
+              style: AntdBoxStyle(
+                  width: double.infinity,
+                  height: 500,
+                  color: token.colorBgLayout)))
     ]);
   }
 }

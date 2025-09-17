@@ -11,7 +11,7 @@ class AntdNavBarIconDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(
-      outline: true,
+      outline: false,
       child: [
         AntdNavBar(
           style: AntdNavBarStyle(
@@ -46,7 +46,7 @@ class AntdNavBarEventDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(
-      outline: true,
+      outline: false,
       child: [
         AntdNavBar(
           onTap: () {
@@ -75,7 +75,7 @@ class AntdNavBarTitleEllipsisDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(
-      outline: true,
+      outline: false,
       child: [
         AntdNavBar(
           title: Text("标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"),

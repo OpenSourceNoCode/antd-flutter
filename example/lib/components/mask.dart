@@ -14,12 +14,7 @@ class AntdMaskDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdButton(
           onTap: () {
-            AntdMask.show(
-                content: Center(
-              child: AntdBox(
-                style: AntdBoxStyle(size: 50, color: token.colorPrimary),
-              ),
-            ));
+            AntdMask.show(content: Center());
           },
           child: const Text("静态方法")),
       AntdButton(

@@ -61,9 +61,10 @@ class AntdDividerVerticalDemo extends StatelessWidget {
   const AntdDividerVerticalDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(child: [
       Row(children: [
-        Text("我在左边"),
+        Text("我在左边", style: token.font.sm),
         AntdDivider(vertical: true),
         Text("我在右边"),
         AntdDivider(vertical: true),
@@ -186,7 +187,7 @@ class AntdDividerVerticalDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdDividerStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDividerStyle, AntdDivider&gt; | - | - |
-| color | 线的颜色:`default_` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
+| color | 线的颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
 | child | 内容 | Widget | - | - |
 | vertical | 垂直还是水平 | bool | false | - |
 | position | 文字位置:`left` \| `center` \| `right` | AntdDividerPosition | - | - |

@@ -104,7 +104,7 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
 
   @override
   AntdImageStyle getFinalStyle(
-      BuildContext context, AntdImageStyle style, AntdAliasToken token) {
+      BuildContext context, AntdImageStyle style, AntdMapToken token) {
     var size = getSize(style);
 
     if (style.errorBuild == null) {
@@ -112,11 +112,12 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
         return AntdIcon(
           icon: AntdIcons.pictureWrong,
           style: AntdIconStyle(
-              color: token.colorTextQuaternary,
+              color: token.colorText.quaternary,
               bodyStyle: style.bodyStyle?.copyFrom(AntdBoxStyle(
+                  alignment: Alignment.center,
                   height: size.height,
                   width: size.width,
-                  color: token.colorFillContent))),
+                  color: token.colorFill.tertiary))),
         );
       });
     }
@@ -144,7 +145,7 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
           style: style.bodyStyle?.copyFrom(AntdBoxStyle(
             height: size.height,
             width: size.width,
-            color: token.colorFillContent,
+            color: token.colorBgLayout,
           )),
           child: Center(
             child: AntdLoading(
@@ -161,7 +162,7 @@ class AntdImage extends AntdComponent<AntdImageStyle, AntdImage> {
 
   @override
   AntdImageStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdImageStyle(
       bodyStyle: AntdBoxStyle(),
     );

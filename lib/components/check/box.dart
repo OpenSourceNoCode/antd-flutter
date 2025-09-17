@@ -64,14 +64,14 @@ class AntdCheckboxStyle extends AntdStyle {
     );
   }
 
-  factory AntdCheckboxStyle.defaultStyle(AntdAliasToken designToken) {
+  factory AntdCheckboxStyle.defaultStyle(AntdMapToken token) {
     final iconStyle = AntdIconStyle(
         size: 16,
-        color: designToken.colorWhite,
+        color: token.colorText,
         bodyStyle: AntdBoxStyle(
           size: 22,
           alignment: Alignment.center,
-          border: designToken.borderSide.all,
+          border: token.border.all,
           radius: BorderRadius.circular(22),
         ));
 
@@ -80,19 +80,19 @@ class AntdCheckboxStyle extends AntdStyle {
             options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
         indeterminateStyle: AntdBoxStyle(
           size: 11,
-          color: designToken.colorPrimary,
+          color: token.colorPrimary,
           radius: BorderRadius.circular(11),
         ),
         extraStyle: AntdBoxStyle(
-          padding: designToken.size.default_.left,
-          textStyle: designToken.font.xl,
+          padding: token.size.seed.left,
+          textStyle: token.font.xl,
         ),
         defaultIconStyle: iconStyle,
         defaultIcon: const AntdBox(),
         disableIconStyle: iconStyle,
         disableIcon: const AntdBox(),
-        activeIconStyle: iconStyle.copyFrom(AntdIconStyle(
-            bodyStyle: AntdBoxStyle(color: designToken.colorPrimary))),
+        activeIconStyle: iconStyle.copyFrom(
+            AntdIconStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary))),
         activeIcon: const AntdIcon(
           icon: AntdIcons.check,
         ),
@@ -209,7 +209,7 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
 
   @override
   AntdCheckboxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdCheckboxStyle.defaultStyle(token);
   }
 
@@ -226,7 +226,7 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
 
   @override
   AntdCheckboxStyle getFinalStyle(
-      BuildContext context, AntdCheckboxStyle style, AntdAliasToken token) {
+      BuildContext context, AntdCheckboxStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdCheckboxStyle(

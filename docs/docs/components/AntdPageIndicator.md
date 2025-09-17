@@ -181,7 +181,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdPageIndicatorStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdPageIndicatorStyle, AntdPageIndicator&gt; | - | - |
-| color | 颜色:`default_` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
+| color | 颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
 | total | 总页数 | int | 0 | - |
 | current | 当前页（从 0 开始计数） | int | 0 | - |
 | vertical | 方向，默认是水平方向 | bool | false | - |

@@ -134,7 +134,7 @@ class AntdCascaderOption
 
   @override
   AntdCascaderOptionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var icon = AntdIcon(
       icon: AntdIcons.check,
       style: AntdIconStyle(color: token.colorPrimary),
@@ -143,7 +143,7 @@ class AntdCascaderOption
         childStyle: AntdBoxStyle(
             padding: token.size.lg.vertical.marge(token.size.lg.right),
             margin: token.size.lg.left,
-            border: token.borderSide.bottom,
+            border: token.border.bottom,
             options: const AntdTapOptions(
                 accepter: AntdTapAccepter.listener,
                 behavior: HitTestBehavior.opaque)),
@@ -157,8 +157,8 @@ class AntdCascaderOption
   }
 
   @override
-  AntdCascaderOptionStyle getFinalStyle(BuildContext context,
-      AntdCascaderOptionStyle style, AntdAliasToken token) {
+  AntdCascaderOptionStyle getFinalStyle(
+      BuildContext context, AntdCascaderOptionStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdCascaderOptionStyle(
@@ -268,12 +268,12 @@ class AntdCascaderView
 
   @override
   AntdCascaderViewStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdCascaderViewStyle(
         bodyStyle: const AntdBoxStyle(),
         tabsStyle: const AntdTabsStyle(),
-        listStyle: AntdListStyle(
-            bodyStyle: AntdBoxStyle(border: token.borderSide.bottom)),
+        listStyle:
+            AntdListStyle(bodyStyle: AntdBoxStyle(border: token.border.bottom)),
         optionStyle: const AntdCascaderOptionStyle());
   }
 

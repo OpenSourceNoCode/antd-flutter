@@ -2,13 +2,14 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
-const _antdBox = AntdBox(
-  style: AntdBoxStyle(
-    height: 30,
-    width: 30,
-    radius: BorderRadius.all(Radius.circular(4)),
-    color: Color(0xffeeeeee),
-  ),
+var _antdBox = AntdBox(
+  styleBuilder: (ctx, box, style, token) {
+    return AntdBoxStyle(
+      size: 30,
+      radius: token.radius.all,
+      color: token.colorFill.tertiary,
+    );
+  },
 );
 
 /// @t 基础用法
@@ -18,10 +19,9 @@ class AntdBadgeDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
-      AntdBadge(badge: Text("5"), child: _antdBox),
-      AntdBadge(badge: Text("新"), child: _antdBox),
-      AntdBadge(badge: Text("5"), dot: true, child: _antdBox),
+    return DemoWrapper(outline: true, child: [
+      AntdBadge(badge: const Text("5"), child: _antdBox),
+      AntdBadge(badge: const Text("5"), dot: true, child: _antdBox),
     ]);
   }
 }
@@ -70,7 +70,7 @@ class AntdBadgePositionColorDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
+    return DemoWrapper(child: [
       AntdBadge(
           dot: true,
           color: AntdColor.primary,

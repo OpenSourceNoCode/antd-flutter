@@ -15,13 +15,33 @@ Antd Flutter 的主题系统继承自 Ant Design 设计体系，并针对移动�
 
 主题系统由三个关键部分组成：
 
-* `AntdTheme` - 主题提供者
-* `AntdBaseToken` - 基础样式变量（主色、警告色、圆角等基础属性）
-* `AntdAliasToken` - 完整样式变量集（由基础Token派生）
+* `AntdProvider` - 主题提供者
+* `AntdTheme` - 主题
+* `AntdSeedToken` - 基础样式变量（主色、警告色、圆角等基础属性）
+* `AntdMapToken` - 完整样式变量集（由基础Token派生）
 
 ```dart
-AntdAliasToken token = generateToken(AntdBaseToken());
-AntdTheme theme = AntdTheme(token: token);
+import 'package:antd_flutter_mobile/index.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(AntdProvider(
+    theme: const AntdTheme(
+      /// 亮色 或者 暗色两个枚举
+      mode: AntdThemeMode.light,
+    ),
+    builder: (context, theme) {
+      return MaterialApp(
+        builder: (context, child) {
+          return const AntdButton(
+            size: AntdSize.large,
+            child: Text("Waining Button"),
+          );
+        },
+      );
+    }));
+}
+
 ```
 
 ## 默认Token配置
@@ -29,22 +49,40 @@ AntdTheme theme = AntdTheme(token: token);
 系统提供开箱即用的默认样式配置：
 
 ```dart
-AntdAliasToken defaultToken = generateToken(const AntdBaseToken(
-  radiusSize: 6,
+///亮色主题
+const defaultLightToken = AntdSeedToken(
+  radius: 4,
   colorError: Color(0xffff3141),
   colorInfo: Color(0xff1677ff),
   colorLink: Color(0xff1677ff),
   colorPrimary: Color(0xff1677ff),
   colorSuccess: Color(0xff00b578),
-  colorTextBase: Color(0xff171717),
+  colorText: Color(0xff333333),
   colorBgBase: Color(0xffffffff),
   colorWarning: Color(0xffff8f1f),
   fontSize: 14,
-  lineType: '',
   lineWidth: 1,
   sizeStep: 4,
   sizeUnit: 2,
-));
+  arrow: Size(16, 8));
+
+///暗色主题
+const defaultDartToken = AntdSeedToken(
+  radius: 4,
+  colorError: Color(0xffff4a58),
+  colorInfo: Color(0xff3086ff),
+  colorLink: Color(0xff3086ff),
+  colorPrimary: Color(0xff3086ff),
+  colorSuccess: Color(0xff34b368),
+  colorText: Color(0xffe6e6e6),
+  colorBgBase: Color(0xff1a1a1a),
+  colorWarning: Color(0xffffa930),
+  fontSize: 14,
+  lineWidth: 1,
+  sizeStep: 4,
+  sizeUnit: 2,
+  opacityDefine: defaultDartOpacity,
+  arrow: Size(16, 8));
 ```
 
 ## 主题定制
@@ -52,19 +90,29 @@ AntdAliasToken defaultToken = generateToken(const AntdBaseToken(
 完全自定义主题
 
 ```dart
-AntdAliasToken token = generateToken(AntdBaseToken(
-  ///传入基础主题配置 比如圆角主色等
-));
-AntdTheme theme = AntdTheme(token: token);
-```
+void main_customer() {
+  runApp(AntdProvider(
+    theme: const AntdTheme(
 
-局部覆盖现有主题
+      /// 亮色 或者 暗色两个枚举
+      mode: AntdThemeMode.light,
 
-```dart
-AntdAliasToken token = generateToken(defaultToken);
-AntdTheme theme = AntdTheme(token: token).copyWith(
-  ///任意Token
-);
+      /// 传入你的Token 比如主色，文字色
+      token: AntdSeedToken(),
+
+      /// 一般不需要你实现算法 使用mode 即可
+      algorithms: []),
+    builder: (context, theme) {
+      return MaterialApp(
+        builder: (context, child) {
+          return const AntdButton(
+            size: AntdSize.large,
+            child: Text("Waining Button"),
+          );
+        },
+      );
+    }));
+}
 ```
 
 ## 主题使用
@@ -73,12 +121,12 @@ AntdTheme theme = AntdTheme(token: token).copyWith(
 
 ```dart
 AntdTheme theme = AntdTheme.of(context);
-AntdAliasToken token = AntdTheme.ofToken(context);
+AntdMapToken token = AntdTheme.ofToken(context);
 ```
 
 局部主题覆盖
 
-使用 `AntdTokenBuilder` 在特定区域覆盖主题：
+使用 `AntdTokenBuilder` 在任何区域使用主题：
 
 ```dart
 AntdTokenBuilder(
@@ -89,3 +137,5 @@ AntdTokenBuilder(
       },
     );
 ```
+
+<embed src="./_theme_table.md"></embed>

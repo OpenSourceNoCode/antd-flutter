@@ -10,7 +10,7 @@ class AntdJumboTabsStyleDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdJumboTabs(
           activeValue: "2",
           style: AntdJumboStyle(

@@ -37,7 +37,7 @@ class AntdBoxDemo extends StatelessWidget {
                   width: 100,
                   color: token.colorPrimary,
                   radius: 40.radius.all,
-                  border: token.borderSide
+                  border: token.border
                       .copyWith(color: token.colorSuccess, width: 10)
                       .all,
                   textStyle: token.font.md.copyWith(color: token.colorWhite)),
@@ -340,7 +340,7 @@ class AntdStyleRenderDemo extends StatelessWidget {
                   color: token.colorPrimary,
                   alignment: Alignment.center)
               .render(Text("Render",
-                  style: token.font.default_.copyWith(color: token.colorWhite)))
+                  style: token.font.ms.copyWith(color: token.colorWhite)))
         ]);
   }
 }
@@ -544,9 +544,8 @@ class AntdFeedbackStyleDemo extends StatelessWidget {
         textStyle: TextStyle(color: token.colorWhite),
         color: token.colorPrimary,
         feedbackStyle: AntdBoxStyle(
-            border: token.borderSide
-                .copyWith(width: 2, color: token.colorPrimary)
-                .all,
+            border:
+                token.border.copyWith(width: 2, color: token.colorPrimary).all,
             color: token.colorSuccess));
     return DemoWrapper(child: [
       AntdBox(style: style, child: const Text("按下时反馈")),
@@ -591,7 +590,7 @@ class AntdStylCustomDemo extends StatelessWidget {
                             textStyle: const TextStyle(color: Colors.white)),
                         styleBuilder: (context, box, style, token) {
                           return AntdBoxStyle(
-                              border: token.borderSide
+                              border: token.border
                                   .copyWith(color: token.colorSuccess, width: 3)
                                   .all);
                         },
@@ -608,7 +607,7 @@ class AntdStylCustomDemo extends StatelessWidget {
                   disabledStyle: AntdBoxStyle(
                       size: 100,
                       color: token.colorError,
-                      border: token.borderSide
+                      border: token.border
                           .copyWith(color: token.colorPrimary, width: 3)
                           .all)),
               child: const Text("禁用样式"))

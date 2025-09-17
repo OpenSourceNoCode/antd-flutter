@@ -179,7 +179,7 @@ class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
 
   @override
   AntdFormStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdFormStyle();
   }
 

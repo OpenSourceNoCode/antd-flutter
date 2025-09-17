@@ -19,41 +19,18 @@ Size getAvailableSize(BuildContext context) {
 
 class AntdProvider extends StatefulWidget {
   final Widget Function(BuildContext context, AntdTheme theme) builder;
-  final AntdTheme? theme;
 
-  const AntdProvider({super.key, required this.builder, this.theme});
+  final AntdTheme theme;
+
+  const AntdProvider(
+      {super.key, required this.builder, this.theme = defaultLightTheme});
 
   @override
   State<AntdProvider> createState() => _AntdAntdProviderState();
 }
 
-final defaultToken = generateToken(const AntdBaseToken(
-  radiusSize: 4,
-  colorError: Color(0xffff3141),
-  colorInfo: Color(0xff1677ff),
-  colorLink: Color(0xff1677ff),
-  colorPrimary: Color(0xff1677ff),
-  colorSuccess: Color(0xff00b578),
-  colorTextBase: Color(0xff171717),
-  colorBgBase: Color(0xffffffff),
-  colorWarning: Color(0xffff8f1f),
-  fontSize: 14,
-  lineType: '',
-  lineWidth: 1,
-  sizeStep: 4,
-  sizeUnit: 2,
-));
-
-final defaultTheme = AntdTheme(token: defaultToken);
-
 class _AntdAntdProviderState extends State<AntdProvider> {
-  AntdTheme? theme;
-
-  @override
-  void initState() {
-    super.initState();
-    theme = widget.theme ?? defaultTheme;
-  }
+  late AntdTheme theme = widget.theme;
 
   @override
   void didUpdateWidget(covariant AntdProvider oldWidget) {
@@ -63,19 +40,59 @@ class _AntdAntdProviderState extends State<AntdProvider> {
     }
   }
 
+  AntdSeedToken _getSeedToken(AntdSeedToken? token, AntdThemeMode mode) {
+    return token ??
+        switch (mode) {
+          AntdThemeMode.light => defaultLightToken,
+          AntdThemeMode.dark => defaultDartToken,
+        };
+  }
+
   @override
   Widget build(BuildContext context) {
-    final child = widget.builder(context, theme!);
+    var algorithms = [
+      switch (theme.mode) {
+        AntdThemeMode.light => light,
+        AntdThemeMode.dark => dark,
+      },
+      ...theme.algorithms
+    ];
+
+    AntdSeedToken seedToken = _getSeedToken(theme.token, theme.mode);
+    AntdMapToken? token;
+    for (var algorithm in algorithms) {
+      token = algorithm(seedToken, token);
+    }
+
+    void configure(
+      AntdThemeMode mode, {
+      List<AntdThemeAlgorithm>? algorithms,
+      AntdSeedToken? seedToken,
+    }) {
+      setState(() {
+        theme = theme.copyWith(
+          mode: mode,
+          token: _getSeedToken(seedToken, mode),
+          algorithms: algorithms ?? theme.algorithms,
+        );
+      });
+      return;
+    }
 
     return AntdThemeProvider(
-      theme: theme!,
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: DefaultTextStyle(
-          style: theme!.token.font.default_,
-          child: child,
-        ),
-      ),
+      theme: theme,
+      configure: configure,
+      child: AntdMapTokenProvider(
+          mapToken: token!,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: DefaultTextStyle(
+              style: token.font.sm,
+              child: Builder(builder: (context) {
+                return widget.builder(context, theme);
+              }),
+            ),
+          )),
     );
   }
 }

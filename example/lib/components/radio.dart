@@ -78,6 +78,7 @@ class _AntdRadioListDemoStateDemo extends State<AntdRadioListDemo> {
   var value = -1;
   @override
   Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
     return DemoWrapper(outline: true, child: [
       AntdList(
         shrinkWrap: true,
@@ -96,12 +97,12 @@ class _AntdRadioListDemoStateDemo extends State<AntdRadioListDemo> {
               },
               style: AntdBoxStyle(
                   feedbackStyle:
-                      AntdBoxStyle(color: defaultToken.colorFillContent)),
+                      AntdBoxStyle(color: token.colorFill.quaternary)),
               child: AntdBox(
                 style: AntdBoxStyle(
                     padding: 12.vertical,
                     margin: 12.left,
-                    border: defaultToken.borderSide.bottom),
+                    border: token.border.bottom),
                 child: AntdCheckbox(
                   value: value == ctx.index,
                   onChange: (check) {

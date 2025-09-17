@@ -25,7 +25,7 @@ class AntdCollapseDemo extends StatelessWidget {
   const AntdCollapseDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdCollapse(
           value: const [1],
           onChange: (index, check) {
@@ -52,7 +52,7 @@ class AntdCollapseStyleDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdCollapse(
           style: AntdCollapseStyle(
               bodyStyle: AntdBoxStyle(
@@ -82,7 +82,7 @@ class _AntdCollapseLoadingDemoStateDemo extends State<AntdCollapseLoadingDemo> {
   var index = 0;
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdCollapse(
           value: [index],
           onChange: (index, check) {

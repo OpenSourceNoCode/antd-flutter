@@ -790,7 +790,7 @@ class AntdMask extends AntdBaseMask<AntdMaskStyle, AntdMask, AntdMaskState> {
       onOpened: mask?.onOpened,
       onMaskTap: mask?.onMaskTap,
       builder: mask?.builder ?? (content != null ? (_, ctx) => content : null),
-      opacity: mask?.opacity,
+      opacity: mask?.opacity ?? AntdMaskOpacity.thin,
       dismissOnMaskTap: mask?.dismissOnMaskTap,
       showMask: mask?.showMask,
       animationDuration: mask?.animationDuration,
@@ -799,7 +799,7 @@ class AntdMask extends AntdBaseMask<AntdMaskStyle, AntdMask, AntdMaskState> {
 
   @override
   AntdMaskStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdMaskStyle(
         maskColor: token.colorBlack, maskOpacity: getOpacity());
   }

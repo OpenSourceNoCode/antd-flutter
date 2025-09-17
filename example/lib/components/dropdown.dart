@@ -86,8 +86,8 @@ class AntdDropdownColumnDemo extends StatelessWidget {
                     AntdBox(
                       child: Text(
                         "配送距离",
-                        style: token.font.default_
-                            .copyWith(color: token.colorTextSecondary),
+                        style: token.font.ms
+                            .copyWith(color: token.colorText.secondary),
                       ),
                     ),
                     const AntdSlider(

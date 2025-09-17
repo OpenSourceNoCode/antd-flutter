@@ -55,7 +55,7 @@ class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
 
   @override
   AntdRadioStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var checkBoxStyle = AntdCheckboxStyle.defaultStyle(token);
     return AntdRadioStyle(
       bodyStyle: checkBoxStyle.bodyStyle,

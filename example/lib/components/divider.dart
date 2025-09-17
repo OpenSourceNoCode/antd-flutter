@@ -67,10 +67,14 @@ class AntdDividerVerticalDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(child: [
       Row(
         children: [
-          Text("我在左边"),
+          Text(
+            "我在左边",
+            style: token.font.sm,
+          ),
           AntdDivider(vertical: true),
           Text("我在右边"),
           AntdDivider(vertical: true),

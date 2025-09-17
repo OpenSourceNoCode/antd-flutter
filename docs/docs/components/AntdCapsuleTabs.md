@@ -27,7 +27,7 @@ class AntdCapsuleTabsStyleDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdCapsuleTabs(
           style: AntdTabsStyle(
               titleStyle: AntdBoxStyle(

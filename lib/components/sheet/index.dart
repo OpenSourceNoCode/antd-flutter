@@ -58,13 +58,13 @@ class AntdActionStyle extends AntdStyle {
   }
 
   factory AntdActionStyle.defaultStyle(
-      AntdAliasToken token, AntdBaseAction action) {
+      AntdMapToken token, AntdBaseAction action) {
     return AntdActionStyle(
         bodyStyle: AntdBoxStyle(
-            color: token.colorWhite,
-            feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
+            color: token.colorBgContainer,
+            feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
             padding: token.size.xl.all,
-            border: token.borderSide.bottom,
+            border: token.border.bottom,
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         titleStyle: AntdBoxStyle(
           alignment: Alignment.center,
@@ -73,7 +73,7 @@ class AntdActionStyle extends AntdStyle {
               fontWeight: action.bold == true ? FontWeight.w600 : null),
         ),
         descriptionStyle: AntdBoxStyle(
-          textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
+          textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
           margin: token.size.xs.top,
         ),
         columnStyle: const AntdFlexStyle());
@@ -161,7 +161,7 @@ class AntdSheetAction extends AntdBaseAction<AntdActionStyle, AntdSheetAction> {
 
   @override
   AntdActionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdActionStyle.defaultStyle(token, this);
   }
 
@@ -297,20 +297,20 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
 
   @override
   AntdActionSheetStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdActionSheetStyle(
         extraStyle: AntdBoxStyle(
           alignment: Alignment.center,
           padding: token.size.xl.vertical.marge(token.size.lg.horizontal),
-          textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
-          border: token.borderSide.bottom,
-          color: token.colorWhite,
+          textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
+          border: token.border.bottom,
+          color: token.colorBgContainer,
         ),
         maskColor: token.colorBlack,
         maskOpacity: getOpacity(),
         bodyStyle: AntdBoxStyle(
-          color: token.colorFillTertiary,
-          radius: token.radius.default_.radius.top,
+          color: token.colorFill.tertiary,
+          radius: token.radius.top,
         ),
         actionStyle: const AntdActionStyle(),
         cancelActionStyle: AntdActionStyle(

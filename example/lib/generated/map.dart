@@ -240,7 +240,7 @@ color:_resolveValue(atr,'AntdButton','color','AntdColor',AntdColor.primary),
 disabled:_resolveValue(atr,'AntdButton','disabled','bool',null),
 fill:_resolveValue(atr,'AntdButton','fill','AntdButtonFill',AntdButtonFill.solid),
 shape:_resolveValue(atr,'AntdButton','shape','AntdButtonShape',null),
-size:_resolveValue(atr,'AntdButton','size','AntdSize',AntdSize.default_),
+size:_resolveValue(atr,'AntdButton','size','AntdSize',AntdSize.middle),
 onTap:_resolveValue(atr,'AntdButton','onTap','GestureTapCallback',null),
 onLoadingTap:_resolveValue(atr,'AntdButton','onLoadingTap','FutureVoidCallback',null),
 icon:_resolveValue(atr,'AntdButton','icon','Widget',null),
@@ -842,7 +842,7 @@ return AntdTag(
 key:_resolveValue(atr,'AntdTag','key','Key',null),
 style:_resolveValue(atr,'AntdTag','style','AntdTagStyle',null),
 styleBuilder:_resolveValue(atr,'AntdTag','styleBuilder','AntdStyleBuilder<AntdTagStyle, AntdTag>',null),
-color:_resolveValue(atr,'AntdTag','color','AntdColor',AntdColor.default_),
+color:_resolveValue(atr,'AntdTag','color','AntdColor',AntdColor.primary),
 fill:_resolveValue(atr,'AntdTag','fill','AntdTagFill',AntdTagFill.solid),
 round:_resolveValue(atr,'AntdTag','round','bool',false),
 close:_resolveValue(atr,'AntdTag','close','Widget',null),
@@ -1462,7 +1462,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -1530,7 +1530,7 @@ builder: (ctx) {
                   ctx.onChange(AntdSize.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('mini'), value: 'mini'),AntdSelectorOption(label: Text('small'), value: 'small'),AntdSelectorOption(label: Text('middle'), value: 'middle'),AntdSelectorOption(label: Text('large'), value: 'large')]);
+                options: [AntdSelectorOption(label: Text('mini'), value: 'mini'),AntdSelectorOption(label: Text('small'), value: 'small'),AntdSelectorOption(label: Text('middle'), value: 'middle'),AntdSelectorOption(label: Text('large'), value: 'large')]);
             
 },
 ),
@@ -1762,7 +1762,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -2262,7 +2262,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3468,7 +3468,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3844,7 +3844,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3924,7 +3924,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -4442,7 +4442,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -6684,7 +6684,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -6792,7 +6792,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('default_'), value: 'default_'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),

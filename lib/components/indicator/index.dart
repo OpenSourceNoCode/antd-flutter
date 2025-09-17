@@ -79,12 +79,15 @@ class AntdPageIndicator
 
   @override
   AntdPageIndicatorStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var activeSize = vertical ? const Size(3, 13) : const Size(13, 3);
     var margin = vertical ? token.size.xxs.bottom : token.size.xxs.left;
     return AntdPageIndicatorStyle(
         bodyStyle: AntdBoxStyle(
-            height: 3, width: 3, margin: margin, color: token.colorFillContent),
+            height: 3,
+            width: 3,
+            margin: margin,
+            color: token.colorFill.quaternary),
         activeStyle: AntdBoxStyle(
             height: activeSize.height,
             width: activeSize.width,
@@ -105,8 +108,8 @@ class AntdPageIndicator
   }
 
   @override
-  AntdPageIndicatorStyle getFinalStyle(BuildContext context,
-      AntdPageIndicatorStyle style, AntdAliasToken token) {
+  AntdPageIndicatorStyle getFinalStyle(
+      BuildContext context, AntdPageIndicatorStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdPageIndicatorStyle(

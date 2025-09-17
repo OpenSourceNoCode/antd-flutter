@@ -125,28 +125,29 @@ class AntdTourStep extends AntdStateComponent<AntdTourStepStyle, AntdTourStep> {
 
   @override
   AntdTourStepStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdTourStepStyle(
         bodyStyle: const AntdBoxStyle(),
-        arrowStyle: AntdArrowStyle(color: token.colorWhite),
+        arrowStyle: AntdArrowStyle(color: token.colorBgContainer),
         skipStyle: AntdBoxStyle(
             textStyle:
-                token.font.sm.copyWith(color: token.colorTextQuaternary)),
+                token.font.sm.copyWith(color: token.colorText.quaternary)),
         nextStyle: AntdBoxStyle(
             textStyle: token.font.sm.copyWith(color: token.colorPrimary),
             padding: token.size.xxl.left),
         titleStyle: const AntdBoxStyle(),
         descriptionStyle: AntdBoxStyle(
             padding: token.size.sm.vertical,
-            textStyle: token.font.sm.copyWith(color: token.colorTextSecondary)),
+            textStyle:
+                token.font.sm.copyWith(color: token.colorText.secondary)),
         titleColumnStyle:
             const AntdFlexStyle(crossAxisAlignment: CrossAxisAlignment.start),
         contentStyle: AntdBoxStyle(
             padding: token.size.md.all,
-            color: token.colorWhite,
-            radius: token.radius.default_.radius.all),
+            color: token.colorBgContainer,
+            radius: token.radius.all),
         holdPadding: token.size.md.all,
-        holdRadius: token.radius.default_.toDouble());
+        holdRadius: token.radius.seed);
   }
 
   @override

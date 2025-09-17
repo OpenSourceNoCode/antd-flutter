@@ -176,24 +176,24 @@ class AntdSelectorOption
 
   @override
   AntdSelectorOptionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var text = token.font.md;
     var base = AntdBoxStyle(
         alignment: Alignment.center,
-        padding: token.size.default_.vertical.marge(token.size.xl.horizontal),
+        padding: token.size.seed.vertical.marge(token.size.xl.horizontal),
         textStyle: text,
-        color: token.colorFillContent);
+        color: token.colorFill.tertiary);
     return AntdSelectorOptionStyle(
       itemStyle: base,
       activeItemStyle: AntdBoxStyle(
-          color: token.colorPrimaryBg,
+          color: token.colorPrimary.bg,
           textStyle: text.copyWith(color: token.colorPrimary)),
       bodyStyle: AntdBoxStyle(
-          radius: token.radius.default_.radius.all,
+          radius: token.radius.all,
           options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
       labelStyle: const AntdBoxStyle(),
       descriptionStyle: AntdBoxStyle(
-          textStyle: token.font.sm.copyWith(color: token.colorTextDescription)),
+          textStyle: token.font.sm.copyWith(color: token.colorText.tertiary)),
       badge: AntdSelectorBadgeStyle(
           size: const Size(20, 16), color: token.colorPrimary),
       checkIcon: AntdSelectorBadgeStyle(
@@ -213,8 +213,8 @@ class AntdSelectorOption
   }
 
   @override
-  AntdSelectorOptionStyle getFinalStyle(BuildContext context,
-      AntdSelectorOptionStyle style, AntdAliasToken token) {
+  AntdSelectorOptionStyle getFinalStyle(
+      BuildContext context, AntdSelectorOptionStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSelectorOptionStyle(
@@ -295,7 +295,7 @@ class AntdSelector extends AntdFormItemComponent<Set<String>, AntdSelectorStyle,
 
   @override
   AntdSelectorStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdSelectorStyle(
         bodyStyle: const AntdBoxStyle(),
         wrapStyle: AntdWrapStyle(

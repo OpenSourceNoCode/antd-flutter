@@ -256,7 +256,7 @@ class AntdScrollable
 
   @override
   AntdEmptyStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdEmptyStyle();
   }
 

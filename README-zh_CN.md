@@ -15,7 +15,7 @@ Antd Flutter Mobile是 Ant Design Mobile 在 Flutter 平台的实现版本。零
 
 ## ✨ 特性
 
-- 零依赖，安装即完成
+- 零依赖，暗黑模式开箱即用,安装即完成
 - 超轻量，包含icon后整包仅218K
 - 创新式的样式系统，不绑定任何特定UI实现，灵活强大，允许你定制看到的每一个元素
 - 自包含解决方案，从弹窗到滚动交互，一个组件库满足所有需求
@@ -82,6 +82,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(AntdProvider(
       theme: AntdTheme(
+          mode: AntdThemeMode.light,
           buttonStyle: (context, button, style, token) {
             if (button.size == AntdSize.large) {
               return AntdButtonStyle(
@@ -89,23 +90,21 @@ void main() {
             }
             return style;
           },
-          token: generateToken(
-            const AntdBaseToken(
-              radiusSize: 6,
-              colorError: Color(0xffff3141),
-              colorInfo: Color(0xff1677ff),
-              colorLink: Color(0xff1677ff),
-              colorPrimary: Color(0xffad05ef),
-              colorSuccess: Color(0xff00b578),
-              colorTextBase: Color(0xff171717),
-              colorBgBase: Color(0xffffffff),
-              colorWarning: Color(0xffff8f1f),
-              fontSize: 14,
-              lineType: '',
-              lineWidth: 2,
-              sizeStep: 4,
-              sizeUnit: 2,
-            ),
+          token: const AntdSeedToken(
+            radius: 6,
+            colorError: Color(0xffff3141),
+            colorInfo: Color(0xff1677ff),
+            colorLink: Color(0xff1677ff),
+            colorPrimary: Color(0xffad05ef),
+            colorSuccess: Color(0xff00b578),
+            colorText: Color(0xff171717),
+            colorBgBase: Color(0xffffffff),
+            colorWarning: Color(0xffff8f1f),
+            fontSize: 14,
+            lineWidth: 2,
+            sizeStep: 4,
+            sizeUnit: 2,
+            arrow: Size(16, 8),
           )),
       builder: (context, theme) {
         return MaterialApp(
@@ -129,7 +128,7 @@ void main() {
 ```
 ## 🔨 样式系统
 
-合并顺序: 4>3>2>1
+优先级: 4>3>2>1
 
 ```dart
 import 'package:antd_flutter_mobile/index.dart';
@@ -159,7 +158,7 @@ void main() {
                   /// 3
                   styleBuilder: (context, box, style, token,) {
                     return AntdBoxStyle(
-                        border: token.borderSide
+                        border: token.border
                             .copyWith(color: token.colorSuccess, width: 3)
                             .all);
                   },

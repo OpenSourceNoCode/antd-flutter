@@ -30,7 +30,7 @@ class AntdListDemo extends StatelessWidget {
   const AntdListDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
           height: 200,
           child: AntdList(
@@ -59,7 +59,7 @@ class AntdListHeaderDemo extends StatelessWidget {
   const AntdListHeaderDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
           height: 200,
           child: AntdList(
@@ -81,7 +81,7 @@ class AntdListHeaderCardDemo extends StatelessWidget {
   const AntdListHeaderCardDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
           height: 200,
           child: AntdList(
@@ -104,7 +104,7 @@ class AntdListOnItemPositionDemo extends StatelessWidget {
   const AntdListOnItemPositionDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
           height: 200,
           child: AntdList(

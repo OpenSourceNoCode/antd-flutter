@@ -133,7 +133,7 @@ class AntdButtonStyleDemo extends StatelessWidget {
           builder: (context, button, style, token) {
             return AntdButtonStyle(
                 buttonStyle: AntdBoxStyle(
-                    border: token.borderSide
+                    border: token.border
                         .copyWith(width: 4, color: token.colorSuccess)
                         .all));
           },
@@ -336,11 +336,11 @@ class AntdButtonThrottleDebounceDemo extends StatelessWidget {
 | style | 样式 | AntdButtonStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdButtonStyle, AntdButton&gt; | - | - |
 | block | 是否充满父容器宽度 | bool | - | - |
-| color | 按钮主题色:`default_` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
+| color | 按钮主题色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
 | disabled | 是否禁用状态 | bool | - | - |
 | fill | 按钮填充模式:`solid` \| `outline` \| `none` | AntdButtonFill | solid | - |
 | shape | 按钮形状样式:`rounded` \| `rectangular` | AntdButtonShape | - | - |
-| size | 按钮尺寸规格:`default_` \| `mini` \| `small` \| `middle` \| `large` | AntdSize | default_ | - |
+| size | 按钮尺寸规格:`mini` \| `small` \| `middle` \| `large` | AntdSize | middle | - |
 | onTap | 点击事件回调 | GestureTapCallback | - | - |
 | onLoadingTap | 支持自动loading状态的异步点击事件 | FutureVoidCallback | - | - |
 | icon | 前缀图标组件 | Widget | - | - |

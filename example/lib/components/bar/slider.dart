@@ -53,8 +53,8 @@ class AntdSliderBarStyleDemo extends StatelessWidget {
                   const Text("选项1"),
                   Text(
                     "(8)",
-                    style: token.font.default_
-                        .copyWith(color: token.colorTextTertiary),
+                    style:
+                        token.font.ms.copyWith(color: token.colorText.tertiary),
                   )
                 ],
               ),
@@ -118,8 +118,8 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
       SizedBox(
         height: 500,
         child: AntdSliderBar(
-            style: const AntdSliderBarStyle(
-                activeCornerRadius: 0, bodyStyle: AntdBoxStyle(width: 150)),
+            style:
+                const AntdSliderBarStyle(bodyStyle: AntdBoxStyle(width: 150)),
             items: [
               AntdSliderBarItem(
                   value: "1",

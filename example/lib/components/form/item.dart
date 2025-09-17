@@ -367,7 +367,7 @@ class AntdFormBuilderDemo extends StatelessWidget {
                 builder: (BuildContext context, Widget? child) {
                   return AntdBox(
                     style: AntdBoxStyle(
-                        color: token.colorWhite,
+                        color: token.colorBgContainer,
                         padding: 12.all,
                         width: double.infinity),
                     child: Text(jsonEncode(controller.getFieldsValue())),

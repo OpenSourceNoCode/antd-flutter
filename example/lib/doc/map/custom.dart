@@ -11,6 +11,20 @@ import '../../components/cascader/view.dart';
 import '../../components/ellipsis.dart';
 
 Map<String, dynamic> customFull = {
+  "AntdBadge-badge": const Text("5"),
+  "AntdBadge-child": AntdBox(
+    styleBuilder: (ctx, box, style, token) {
+      return AntdBoxStyle(
+        size: 30,
+        radius: token.radius.all,
+        color: token.colorFill.tertiary,
+      );
+    },
+  ),
+  "AntdNoticeBar-content": "通知内容",
+  "AntdTextArea-placeholder": const Text("请输入内容"),
+  "AntdFooter-label": const Text("页脚"),
+  "AntdTag-child": const Text("标签"),
   "AntdButton-onTap": () {
     AntdToast.show("触发点击");
   },
@@ -113,11 +127,9 @@ Map<String, dynamic> customFull = {
   "AntdSteps-steps": List.generate(
       3,
       (i) => AntdStep(
-          description: Text("我是步骤$i的描述"),
-          title: Text("我是步骤$i的标题"),
-          icon: AntdBox(
-            child: Text("$i"),
-          ))),
+            description: Text("我是步骤$i的描述"),
+            title: Text("我是步骤$i的标题"),
+          )),
   "AntdSwiper-items": List.generate(5, (i) => Text("$i")),
   "AntdActionSheet-actions": const [
     AntdSheetAction(
@@ -169,8 +181,12 @@ Map<String, dynamic> customFull = {
           listenable: controller,
           builder: (BuildContext context, Widget? child) {
             return AntdBox(
-              style: AntdBoxStyle(
-                  color: Colors.white, padding: 12.all, width: double.infinity),
+              styleBuilder: (ctx, box, style, token) {
+                return AntdBoxStyle(
+                    color: token.colorBgContainer,
+                    padding: 12.all,
+                    width: double.infinity);
+              },
               child: Text(jsonEncode(controller.getFieldsValue())),
             );
           },
@@ -233,7 +249,7 @@ Map<String, dynamic> customFull = {
   "AntdCascaderView-options": cascaderOptions,
   "AntdSwipeAction-child": AntdBox(
     style: AntdBoxStyle(padding: 16.all, width: double.infinity),
-    child: const Text("左右滑动,中间点击复位"),
+    child: const Text("左右滑动"),
   ),
   "AntdCascader-cascaderView": AntdCascaderView(
     options: cascaderOptions,

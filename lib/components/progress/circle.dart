@@ -94,15 +94,15 @@ class AntdProgressCircle
 
   @override
   AntdProgressCircleStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdProgressCircleStyle(
-        color: token.colorFillContent,
+        color: token.colorFill.secondary,
         progressColor:
             color != null ? color!.getColor(token) : token.colorPrimary,
         textStyle: AntdBoxStyle(
             alignment: Alignment.center,
             size: size,
-            padding: token.size.default_.all,
+            padding: token.size.seed.all,
             textStyle: token.font.sm));
   }
 

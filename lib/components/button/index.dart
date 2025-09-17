@@ -51,7 +51,7 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
     this.disabled,
     this.fill = AntdButtonFill.solid,
     this.shape,
-    this.size = AntdSize.default_,
+    this.size = AntdSize.middle,
     this.onLoadingTap,
     this.onTap,
     this.child,
@@ -104,44 +104,33 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
   /// 点击事件命中测试行为
   final HitTestBehavior? behavior;
 
-  double _getVerticalPadding(AntdAliasToken token) {
-    if (size == AntdSize.middle || size == AntdSize.default_) {
-      return token.size.default_.roundToDouble();
-    }
-    if (size == AntdSize.small || size == AntdSize.mini) {
-      return token.size.xs.roundToDouble();
-    }
-    return token.size.lg.roundToDouble();
-  }
-
-  double _getHorizontalPadding(AntdAliasToken token) {
-    if (block == true) {
-      return 0;
-    }
-    return token.size.lg.roundToDouble();
-  }
-
   @override
   AntdButtonStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var setColor = color?.getColor(token);
+    TextStyle textStyle = switch (size) {
+      AntdSize.mini => token.font.sm,
+      AntdSize.small => token.font.md,
+      AntdSize.middle => token.font.xl,
+      AntdSize.large => token.font.xxl,
+    };
+
+    EdgeInsets verticalPadding = switch (size) {
+      AntdSize.mini => token.size.xs.vertical,
+      AntdSize.small => token.size.xs.vertical,
+      AntdSize.middle => token.size.ms.vertical,
+      AntdSize.large => token.size.lg.vertical,
+    };
 
     var style = AntdBoxStyle(
         width: block == true ? double.infinity : null,
-        padding: EdgeInsets.symmetric(
-            horizontal: _getHorizontalPadding(token),
-            vertical: _getVerticalPadding(token)),
-        feedbackStyle: AntdBoxStyle(
-          color: token.colorFill,
-        ),
-        color: token.colorWhite,
-        textStyle:
-            size.text(token).copyWith(color: setColor ?? token.colorText),
-        radius: BorderRadius.circular(shape == AntdButtonShape.rounded
-            ? 9999
-            : token.radiusSize.roundToDouble()),
+        padding: verticalPadding.marge(token.size.lg.horizontal),
+        feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
+        textStyle: textStyle.copyWith(color: setColor ?? token.colorText),
+        radius: BorderRadius.circular(
+            shape == AntdButtonShape.rounded ? 9999 : token.radius.seed),
         border: fill != AntdButtonFill.none
-            ? Border.all(color: setColor ?? token.colorBorder, width: 1)
+            ? Border.all(color: setColor ?? token.border.color, width: 1)
             : null,
         options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
 
@@ -149,7 +138,7 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
       style = style.copyFrom(AntdBoxStyle(
           feedbackStyle: AntdBoxStyle(color: color?.getActiveColor(token)),
           color: setColor,
-          textStyle: size.text(token).copyWith(color: token.colorWhite)));
+          textStyle: textStyle.copyWith(color: token.colorWhite)));
     }
     return AntdButtonStyle(
         buttonStyle: style,
@@ -164,7 +153,7 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
             color: style.textStyle?.color,
             size: token.size.xl.roundToDouble(),
             bodyStyle: AntdBoxStyle(
-                padding: child != null ? token.size.default_.right : 0.all)));
+                padding: child != null ? token.size.seed.right : 0.all)));
   }
 
   @override

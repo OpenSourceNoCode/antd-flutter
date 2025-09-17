@@ -63,7 +63,7 @@ class AntdPopoverAction
 
   @override
   AntdPopoverActionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdPopoverActionStyle(
         childRowStyle: AntdFlexStyle(
       mainAxisSize: MainAxisSize.min,
@@ -230,10 +230,10 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
 
   @override
   AntdPopoverStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var color = mode == AntdPopoverMode.light
-        ? token.colorWhite
-        : token.colorBlack.withValues(alpha: 0.75);
+        ? token.colorBgContainer
+        : token.colorBgSpotlight;
     var textStyle = token.font.md.copyWith(
         color:
             mode == AntdPopoverMode.light ? token.colorText : token.colorWhite);
@@ -245,11 +245,9 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
               textStyle: token.font.md.copyWith(
                   color:
                       mode == AntdPopoverMode.dark ? token.colorWhite : null),
-              border: token.borderSide
-                  .copyWith(
-                      color: mode == AntdPopoverMode.dark
-                          ? token.colorWhite
-                          : token.colorBorder)
+              border: (mode == AntdPopoverMode.dark
+                      ? token.border.copyWith(color: token.colorWhite)
+                      : token.border)
                   .bottom,
               padding: token.size.lg.vertical.marge(token.size.lg.right)),
           iconStyle: AntdIconStyle(
@@ -257,22 +255,21 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
                   ? token.colorWhite
                   : token.colorText,
               size: 20,
-              bodyStyle: AntdBoxStyle(margin: token.size.default_.right)),
+              bodyStyle: AntdBoxStyle(margin: token.size.seed.right)),
         ),
         actionColumnStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
         ),
         popoverBoxStyle: AntdPopoverBoxStyle(
-          bodyStyle: AntdBoxStyle(shadows: token.boxShadow),
+          bodyStyle: AntdBoxStyle(shadows: token.shadow.primary),
           childStyle: AntdBoxStyle(
               color: color,
               textStyle: textStyle,
-              radius: token.radius.default_.radius.all,
+              radius: token.radius.all,
               padding: action
                   ? token.size.lg.left
-                  : token.size.default_.vertical
-                      .marge(token.size.lg.horizontal)),
+                  : token.size.seed.vertical.marge(token.size.lg.horizontal)),
           arrowStyle: AntdArrowStyle(
               size: const Size(15, 8), color: color, bluntness: 1),
         ),
@@ -453,7 +450,7 @@ class AntdPopoverBox
 
   @override
   AntdPopoverBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdPopoverBoxStyle();
   }
 

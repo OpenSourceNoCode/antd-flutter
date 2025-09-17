@@ -378,16 +378,18 @@ abstract class AntdInputBase<WidgetType>
 
   @override
   AntdInputStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdInputStyle(
         clearIconStyle: AntdIconStyle(
             size: 20,
-            color: token.colorIcon,
+            color: token.colorText,
             bodyStyle: AntdBoxStyle(margin: token.size.sm.left)),
         bodyStyle: AntdBoxStyle(color: token.colorTransparent),
         placeholderStyle: AntdBoxStyle(
-            textStyle:
-                token.font.lg.copyWith(color: token.colorTextPlaceholder)),
+            textStyle: token.font.lg.copyWith(
+          color: token.colorText.tertiary,
+          overflow: TextOverflow.clip,
+        )),
         textStyle: token.font.lg,
         obscureTextStyle: token.font.lg,
         keyboardStyle: const AntdKeyboardStyle(appearance: Brightness.light),
@@ -408,10 +410,10 @@ abstract class AntdInputBase<WidgetType>
           icon: AntdIcons.closeCircleFill,
         ),
         selectionStyle:
-            AntdSelectionStyle(color: token.colorPrimaryBg, enable: true),
+            AntdSelectionStyle(color: token.colorPrimary.bg, enable: true),
         obscureIconStyle: AntdIconStyle(
           size: 20,
-          color: token.colorIcon,
+          color: token.colorText,
         ),
         rowStyle: AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
@@ -424,7 +426,7 @@ abstract class AntdInputBase<WidgetType>
 
   @override
   AntdInputStyle getFinalStyle(
-      BuildContext context, AntdInputStyle style, AntdAliasToken token) {
+      BuildContext context, AntdInputStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdInputStyle(
@@ -593,13 +595,9 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                   ValueListenableBuilder(
                     valueListenable: innerController,
                     builder: (context, value, _) {
-                      return DefaultTextStyle(
-                        style: style.placeholderStyle!.textStyle!,
-                        softWrap: false,
-                        overflow: TextOverflow.clip,
-                        child: value.text.isEmpty
-                            ? widget.placeholder!
-                            : const AntdBox(),
+                      return AntdBox(
+                        style: style.placeholderStyle,
+                        child: value.text.isEmpty ? widget.placeholder! : null,
                       );
                     },
                   ),

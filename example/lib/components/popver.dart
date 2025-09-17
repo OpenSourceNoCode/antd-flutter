@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 var style = AntdBoxStyle(
     padding: 12.horizontal.marge(6.vertical),
-    color: defaultToken.colorPrimary,
+    color: Colors.blue,
     radius: 4.radius.all,
     textStyle: TextStyle(color: Colors.white));
 

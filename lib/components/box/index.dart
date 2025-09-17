@@ -85,33 +85,6 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
       this.child,
       this.focusNode});
 
-  AntdBox copyWith(
-      {final AntdBoxStyle? style,
-      final AntdPosition? outerSafeArea,
-      final AntdPosition? innerSafeArea,
-      final AntdOnLayout? onLayout,
-      final ValueChanged<bool>? onFocus,
-      final VoidCallback? onTap,
-      final VoidCallback? onDoubleTap,
-      final VoidCallback? onLongPress,
-      final bool? disabled,
-      final AntdTapOptions? options,
-      final Widget? child}) {
-    return AntdBox(
-      style: style ?? this.style,
-      outerSafeArea: outerSafeArea ?? this.outerSafeArea,
-      innerSafeArea: innerSafeArea ?? this.innerSafeArea,
-      onLayout: onLayout ?? this.onLayout,
-      onFocus: onFocus ?? this.onFocus,
-      onTap: onTap ?? this.onTap,
-      onDoubleTap: onDoubleTap ?? this.onDoubleTap,
-      onLongPress: onLongPress ?? this.onLongPress,
-      disabled: disabled,
-      options: this.options?.copyFrom(options),
-      child: child ?? this.child,
-    );
-  }
-
   @override
   State<StatefulWidget> createState() {
     return AntdBoxState();
@@ -119,7 +92,7 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
 
   @override
   AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdBoxStyle(
         disabledStyle: AntdKitStyle(
       colorFilter: ColorFilter.mode(
@@ -143,6 +116,10 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
   @override
   AntdBox getWidget(BuildContext context) {
     return this;
+  }
+
+  Widget? buildChild(BuildContext context) {
+    return child;
   }
 }
 
@@ -320,7 +297,7 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
       innerStyle = innerStyle.overFrom(style.focusStyle);
     }
 
-    var child = innerStyle.render(widget.child);
+    var child = innerStyle.render(widget.buildChild(context));
     if (_handler.hasHandlers || style.feedbackStyle != null) {
       child = _handler.wrap(child);
     }

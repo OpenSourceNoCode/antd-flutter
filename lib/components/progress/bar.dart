@@ -219,15 +219,15 @@ class AntdProgressBar
 
   @override
   AntdProgressBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdProgressBarStyle(
-        color: token.colorFillContent,
+        color: token.colorFill.secondary,
         progressColor:
             color != null ? color!.getColor(token) : token.colorPrimary,
         textStyle: AntdBoxStyle(
-            margin: token.size.default_.left,
-            textStyle: token.font.sm.copyWith(color: token.colorTextTertiary)),
-        radius: token.radius.default_.roundToDouble());
+            margin: token.size.seed.left,
+            textStyle: token.font.sm.copyWith(color: token.colorText.tertiary)),
+        radius: token.radius.seed);
   }
 
   @override

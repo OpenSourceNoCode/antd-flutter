@@ -134,29 +134,28 @@ class AntdFooter extends AntdComponent<AntdFooterStyle, AntdFooter> {
 
   @override
   AntdFooterStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var chipStyle = AntdBoxStyle(
-        textStyle: token.font.xs.copyWith(color: token.colorTextSecondary),
-        color: token.colorFillContent,
-        radius: token.radius.lg.radius.all,
-        margin: token.size.xxl.right.marge(token.size.default_.vertical),
+        textStyle: token.font.xs.copyWith(color: token.colorText.secondary),
+        color: token.colorFill.tertiary,
+        radius: 9999.radius.all,
+        margin: token.size.xxl.right.marge(token.size.seed.vertical),
         padding: token.size.xs.vertical.marge(token.size.lg.horizontal));
     return AntdFooterStyle(
         labelStyle: AntdBoxStyle(
-            textStyle:
-                token.font.default_.copyWith(color: token.colorTextQuaternary),
+            textStyle: token.font.ms.copyWith(color: token.colorText.tertiary),
             padding: token.size.xl.horizontal,
             margin: token.size.xl.vertical),
         linkStyle: AntdBoxStyle(
             textStyle: token.font.sm.copyWith(color: token.colorLink),
-            padding: token.size.default_.vertical),
+            padding: token.size.ms.vertical),
         contentStyle: AntdBoxStyle(
             alignment: Alignment.center,
-            textStyle: token.font.sm.copyWith(color: token.colorTextQuaternary),
-            margin: token.size.default_.vertical),
+            textStyle: token.font.sm.copyWith(color: token.colorText.tertiary),
+            margin: token.size.ms.vertical),
         chipStyle: chipStyle,
         chipActiveStyle: chipStyle.copyWith(
-            color: token.colorLinkBg,
+            color: token.colorLink.bg,
             textStyle: chipStyle.textStyle?.copyWith(color: token.colorLink)));
   }
 
@@ -168,7 +167,7 @@ class AntdFooter extends AntdComponent<AntdFooterStyle, AntdFooter> {
 
   @override
   AntdFooterStyle getFinalStyle(
-      BuildContext context, AntdFooterStyle style, AntdAliasToken token) {
+      BuildContext context, AntdFooterStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdFooterStyle(

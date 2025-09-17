@@ -30,7 +30,7 @@ class AntdTabPanel extends AntdScrollPositionedBase<Widget, AntdBoxStyle,
 
   @override
   AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdBoxStyle();
   }
 

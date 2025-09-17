@@ -33,9 +33,9 @@ class AntdAvatar extends AntdImage {
 
   @override
   AntdImageStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = super.getDefaultStyle(context, theme, token);
-    var radiusFinal = radius ?? token.radiusSize.roundToDouble();
+    var radiusFinal = radius ?? token.radius.seed;
     style = style.copyWith(
         bodyStyle: style.bodyStyle?.copyWith(radius: radiusFinal.radius.all));
     style =

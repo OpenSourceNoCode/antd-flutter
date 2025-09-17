@@ -25,7 +25,7 @@ typedef AntdStyleBuilder<Style extends AntdStyle, WidgetType> = Style Function(
   BuildContext context,  // 构建上下文
   WidgetType widget,     // 当前组件实例
   Style defaultStyle,    // 已构建的默认样式
-  AntdAliasToken token); // 主题token
+  AntdMapToken token); // 主题token
 ```
 
 ## 全局样式和局部样式
@@ -56,7 +56,6 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return AntdProvider(
       theme: AntdTheme(
-        token: defaultToken,
         buttonStyle: (context, button, style, token) {
           return AntdButtonStyle(
             buttonStyle:
@@ -76,7 +75,7 @@ class _AppState extends State<App> {
 
 ### 局部样式覆盖
 
-使用`AntdStyleProvider`可以在任意节点覆盖子组件的样式：
+使用`AntdStyleProvider`或`AntdStyleBuilderProvider`可以在任意节点覆盖子组件的样式：
 
 ```dart
 import 'package:antd_flutter_mobile/index.dart';
@@ -98,41 +97,42 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    ///style和styleBuilder任选其一即可,当同时存在时，styleBuilder优先级更高
-    return AntdStyleProvider<AntdButtonStyle, AntdButton>(
-        style:
-            const AntdButtonStyle(buttonStyle: AntdBoxStyle(color: Colors.red)),
-        styleBuilder: (context, button, style, token) {
+    ///style和styleBuilder任选其一即可,当同时存在时，style优先级更高
+    return AntdStyleProvider<AntdButtonStyle>(
+      style:
+      const AntdButtonStyle(buttonStyle: AntdBoxStyle(color: Colors.red)),
+      child: AntdStyleBuilderProvider<AntdButtonStyle, AntdButton>(
+        builder: (context, button, style, token) {
           if (button.size == AntdSize.large) {
             return AntdButtonStyle(
-                buttonStyle: AntdBoxStyle(color: token.colorPrimary));
+              buttonStyle: AntdBoxStyle(color: token.colorPrimary));
           }
           return AntdButtonStyle(
-              buttonStyle: AntdBoxStyle(color: token.colorError));
+            buttonStyle: AntdBoxStyle(color: token.colorError));
         },
         child: const AntdButton(
           child: Text("我是一个按钮"),
-        ));
+        )));
   }
 }
 
 ```
 
-> 提示：style和styleBuilder可以单独使用，同时存在时styleBuilder优先级更高。
+> 提示：style和styleBuilder可以单独使用，同时存在时style优先级更高。
 
 ## 样式优先级规则
 
-### Antd样式系统遵循"就近原则"和"动态优先"的优先级规则：
+### Antd样式系统遵循"就近原则"和"静态优先"的优先级规则：
 
-* 动态样式 > 静态样式
-* 组件级样式 > `AntdStyleProvider`样式 > `AntdTheme`全局样式
+* 静态样式 > 动态样式
+* 组件级样式 > `AntdStyleProvider`样式 > `AntdStyleBuilderProvider`样式 > `AntdTheme`全局样式
 
 ### 具体优先级顺序（从高到低）：
 
-* 组件上的`styleBuilder`动态样式
 * 组件上的`style`静态样式
-* `AntdStyleProvider`提供的styleBuilder动态样式
+* 组件上的`styleBuilder`动态样式
 * `AntdStyleProvider`提供的style静态样式
+* `AntdStyleBuilderProvider`提供的builder动态样式
 * `AntdTheme`中定义的全局样式
 
 ## 样式合并机制
@@ -160,38 +160,37 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return AntdProvider(
-        theme: AntdTheme(
-            token: defaultToken,
-            buttonStyle: (context, button, style, token) {
-              /// 1 主题动态构建的样式
+      theme: AntdTheme(buttonStyle: (context, button, style, token) {
+        /// 1 主题动态构建的样式
+        return AntdButtonStyle(
+          buttonStyle: AntdBoxStyle(radius: token.radius.lg.all));
+      }), builder: (context, theme) {
+      return AntdStyleProvider<AntdButtonStyle>(
+
+        /// 2 局部静态样式
+        style: const AntdButtonStyle(
+          buttonStyle: AntdBoxStyle(color: Colors.red)),
+
+        /// 3 局部动态样式
+        child: AntdStyleBuilderProvider<AntdButtonStyle, AntdButton>(
+          builder: (context, button, style, token) {
+            if (button.size == AntdSize.large) {
               return AntdButtonStyle(
-                  buttonStyle:
-                      AntdBoxStyle(radius: token.radius.lg.radius.all));
-            }),
-        builder: (context, theme) {
-          return AntdStyleProvider<AntdButtonStyle, AntdButton>(
-
-              /// 2 局部静态样式
-              style: const AntdButtonStyle(
-                  buttonStyle: AntdBoxStyle(color: Colors.red)),
-
-              /// 3 局部动态样式
-              styleBuilder: (context, button, style, token) {
-                if (button.size == AntdSize.large) {
-                  return AntdButtonStyle(
-                      buttonStyle: AntdBoxStyle(color: token.colorPrimary));
-                }
-                return AntdButtonStyle(
-                    buttonStyle: AntdBoxStyle(color: token.colorError));
-              },
-              child: const AntdButton(
-                /// 4 组件静态样式
-                style: AntdButtonStyle(
-                    buttonStyle:
-                        AntdBoxStyle(textStyle: TextStyle(fontSize: 15)),radius: 15.radius.all),
-                child: Text("我是一个按钮"),
-              ));
-        });
+                buttonStyle: AntdBoxStyle(color: token.colorPrimary));
+            }
+            return AntdButtonStyle(
+              buttonStyle: AntdBoxStyle(color: token.colorError));
+          },
+          child: AntdButton(
+            /// 4 组件静态样式
+            style: AntdButtonStyle(
+              buttonStyle: AntdBoxStyle(
+                textStyle: const TextStyle(fontSize: 15),
+                radius: 15.radius.all),
+            ),
+            child: const Text("我是一个按钮"),
+          )));
+    });
   }
 }
 

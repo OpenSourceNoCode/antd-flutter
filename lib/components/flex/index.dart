@@ -99,7 +99,7 @@ abstract class AbstractAntdFlex<WidgetType>
 
   @override
   AntdFlexStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdFlexStyle();
   }
 
@@ -152,7 +152,7 @@ class AntdColumn extends AbstractAntdFlex<AntdColumn> {
 
   @override
   AntdFlexStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var defaultStyle = super.getDefaultStyle(context, theme, token);
     return defaultStyle
         .copyFrom(const AntdFlexStyle(mainAxisSize: MainAxisSize.min));
@@ -294,7 +294,7 @@ class AntdWrap extends AntdComponent<AntdWrapStyle, AntdWrap> {
 
   @override
   AntdWrapStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdWrapStyle();
   }
 

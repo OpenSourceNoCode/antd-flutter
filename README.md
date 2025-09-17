@@ -14,7 +14,7 @@ English · [中文](https://github.com/OpenSourceNoCode/antd-flutter/blob/main/R
 
 ## ✨ Features
 
-- Zero dependencies, ready to use upon installation
+- Zero dependencies, dark mode works out of the box, setup completes upon installation.
 - Feather-light, The complete package weighs in at just 218KB, icons included.
 - Innovative style system, not bound to any specific UI implementation—flexible and powerful, allowing you to customize every element you see
 - Self-contained solution, meeting all needs from pop-ups to scroll interactions with one component library
@@ -81,6 +81,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(AntdProvider(
       theme: AntdTheme(
+          mode: AntdThemeMode.light,
           buttonStyle: (context, button, style, token) {
             if (button.size == AntdSize.large) {
               return AntdButtonStyle(
@@ -88,23 +89,21 @@ void main() {
             }
             return style;
           },
-          token: generateToken(
-            const AntdBaseToken(
-              radiusSize: 6,
-              colorError: Color(0xffff3141),
-              colorInfo: Color(0xff1677ff),
-              colorLink: Color(0xff1677ff),
-              colorPrimary: Color(0xffad05ef),
-              colorSuccess: Color(0xff00b578),
-              colorTextBase: Color(0xff171717),
-              colorBgBase: Color(0xffffffff),
-              colorWarning: Color(0xffff8f1f),
-              fontSize: 14,
-              lineType: '',
-              lineWidth: 2,
-              sizeStep: 4,
-              sizeUnit: 2,
-            ),
+          token: const AntdSeedToken(
+            radius: 6,
+            colorError: Color(0xffff3141),
+            colorInfo: Color(0xff1677ff),
+            colorLink: Color(0xff1677ff),
+            colorPrimary: Color(0xffad05ef),
+            colorSuccess: Color(0xff00b578),
+            colorText: Color(0xff171717),
+            colorBgBase: Color(0xffffffff),
+            colorWarning: Color(0xffff8f1f),
+            fontSize: 14,
+            lineWidth: 2,
+            sizeStep: 4,
+            sizeUnit: 2,
+            arrow: Size(16, 8),
           )),
       builder: (context, theme) {
         return MaterialApp(
@@ -128,7 +127,7 @@ void main() {
 ```
 ## 🔨 Style System
 
-Merge order: 4>3>2>1
+Priority: 4>3>2>1
 
 ```dart
 import 'package:antd_flutter_mobile/index.dart';
@@ -158,7 +157,7 @@ void main() {
                   /// 3
                   styleBuilder: (context, box, style, token,) {
                     return AntdBoxStyle(
-                        border: token.borderSide
+                        border: token.border
                             .copyWith(color: token.colorSuccess, width: 3)
                             .all);
                   },

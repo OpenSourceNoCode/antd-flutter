@@ -46,3 +46,11 @@
 - Optimized style naming for `AntdPopoverStyle`
 - Added `AntdModalType` for `AntdModal` and `AntdDialogType` for `AntdDialog`, allowing customization of different styles in dynamic styling
 - Fixed an issue where the default state of `AntdSwitch` might be incorrect
+
+## 5.0.4-alpha.1
+
+- Fully adapted for dark mode
+- Removed `DoubleExtensions`
+- Removed default`_` properties from `AntdSize` and `AntdColor`
+- Added dark/light theme switching in Examples
+- Improved API documentation for Theme-related features

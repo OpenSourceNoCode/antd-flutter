@@ -124,10 +124,10 @@ class AntdCheckItem
 
   @override
   AntdCheckItemStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdCheckItemStyle(
         bodyStyle: AntdBoxStyle(
-            color: token.colorWhite,
+            color: token.colorBgContainer,
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         itemStyle: AntdBoxStyle(
             padding: token.size.lg.vertical.marge(token.size.lg.right),
@@ -135,7 +135,7 @@ class AntdCheckItem
             border: AntdScrollItemProvider.ofMaybe(context)?.position ==
                     AntdScrollItemPosition.last
                 ? null
-                : token.borderSide.bottom),
+                : token.border.bottom),
         itemRowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         iconStyle: AntdIconStyle(

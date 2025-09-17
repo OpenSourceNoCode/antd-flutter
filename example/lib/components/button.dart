@@ -126,7 +126,7 @@ class AntdButtonStyleDemo extends StatelessWidget {
         builder: (context, button, style, token) {
           return AntdButtonStyle(
               buttonStyle: AntdBoxStyle(
-                  border: token.borderSide
+                  border: token.border
                       .copyWith(width: 4, color: token.colorSuccess)
                       .all));
         },

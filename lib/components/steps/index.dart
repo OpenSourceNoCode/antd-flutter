@@ -59,7 +59,7 @@ enum AntdStepStatus {
   finish,
   error;
 
-  Color getColor(AntdAliasToken token) {
+  Color getColor(AntdMapToken token) {
     switch (this) {
       case wait:
         return token.colorFill;
@@ -116,33 +116,33 @@ class AntdSteps extends AntdStateComponent<AntdStepsStyle, AntdSteps> {
 
   @override
   AntdStepsStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var titleTextStyle = token.font.sm;
     var titleStyle = AntdBoxStyle(
         textStyle: titleTextStyle,
         padding: vertical
             ? null
-            : token.size.xxs.top.marge(token.size.default_.horizontal));
+            : token.size.xxs.top.marge(token.size.seed.horizontal));
     var descTextStyle = AntdBoxStyle(
         margin: vertical
             ? token.size.xs.top.marge(token.size.xl.bottom)
             : token.size.xs.top,
-        textStyle: token.font.xs.copyWith(color: token.colorTextTertiary));
+        textStyle: token.font.xs.copyWith(color: token.colorText.tertiary));
     return AntdStepsStyle(
         titleStyle: titleStyle,
         activeTitleStyle: titleStyle.copyWith(
             textStyle: titleTextStyle.copyWith(color: token.colorPrimary)),
         descStyle: descTextStyle,
         activeDescStyle: descTextStyle,
-        lineStyle: AntdBoxStyle(color: token.colorFillContent),
+        lineStyle: AntdBoxStyle(color: token.colorFill.quaternary),
         activeLineStyle: AntdBoxStyle(color: token.colorPrimary),
         stepStyle: AntdBoxStyle(
-            color: token.colorFillContent,
+            color: token.colorFill.quaternary,
             radius: const Radius.circular(8).all,
             size: 8,
             margin: vertical
-                ? token.size.default_.horizontal
-                : token.size.default_.vertical),
+                ? token.size.seed.horizontal
+                : token.size.seed.vertical),
         stepColumnStyle: AntdFlexStyle(
           crossAxisAlignment:
               vertical ? CrossAxisAlignment.start : CrossAxisAlignment.center,
@@ -164,7 +164,7 @@ class AntdSteps extends AntdStateComponent<AntdStepsStyle, AntdSteps> {
 
   @override
   AntdStepsStyle getFinalStyle(
-      BuildContext context, AntdStepsStyle style, AntdAliasToken token) {
+      BuildContext context, AntdStepsStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdStepsStyle(

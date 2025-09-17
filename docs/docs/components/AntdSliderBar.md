@@ -67,8 +67,8 @@ class AntdSliderBarStyleDemo extends StatelessWidget {
                 content: Row(children: [
                   const Text("选项1"),
                   Text("(8)",
-                      style: token.font.default_
-                          .copyWith(color: token.colorTextTertiary))
+                      style: token.font.ms
+                          .copyWith(color: token.colorText.tertiary))
                 ]),
                 title: const Text("我是标题1")),
             const AntdSliderBarItem(
@@ -100,8 +100,8 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
       SizedBox(
           height: 500,
           child: AntdSliderBar(
-              style: const AntdSliderBarStyle(
-                  activeCornerRadius: 0, bodyStyle: AntdBoxStyle(width: 150)),
+              style:
+                  const AntdSliderBarStyle(bodyStyle: AntdBoxStyle(width: 150)),
               items: [
                 AntdSliderBarItem(
                     value: "1",
@@ -268,7 +268,7 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
 | activeTitleStyle | 选中状态的标题样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | indicatorStyle | 未选中状态的指示器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | activeIndicatorStyle | 选中状态的指示器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| activeCornerRadius | 选中项的圆角半径（单位：像素） | int | - | - |
+| activeCornerRadius | 选中项的圆角半径（单位：像素） | Radius | - | - |
 
 ## 滑动选择器(SliderBar)的单个选项定义(AntdSliderBarItem) <a id='AntdSliderBarItem'></a>
 

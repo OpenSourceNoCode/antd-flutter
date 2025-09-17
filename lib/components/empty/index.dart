@@ -60,18 +60,16 @@ class AntdEmpty extends AntdComponent<AntdEmptyStyle, AntdEmpty> {
 
   @override
   AntdEmptyStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdEmptyStyle(
         descriptionStyle: AntdBoxStyle(
-            margin: token.size.default_.top,
+            margin: token.size.seed.top,
             textStyle:
-                token.font.default_.copyWith(color: token.colorTextSecondary)),
+                token.font.ms.copyWith(color: token.colorText.secondary)),
         bodyStyle: AntdBoxStyle(
           alignment: Alignment.center,
-          color: token.colorWhite,
           padding: token.size.md.all,
-          textStyle:
-              TextStyle(fontSize: token.fontSize, color: token.colorText),
+          textStyle: token.font.ms,
         ),
         bodyColumnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         imageStyle: const AntdImageStyle(

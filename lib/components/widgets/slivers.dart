@@ -37,7 +37,7 @@ class AntdPositionList<T> extends AntdScrollPositionedBase<T, AntdStyle,
 
   @override
   AntdStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdStyle();
   }
 

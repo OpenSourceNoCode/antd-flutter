@@ -67,7 +67,7 @@ class AntdSwipeActionDemo extends StatelessWidget {
               style: AntdBoxStyle(
                   padding: 16.all,
                   width: double.infinity,
-                  color: token.colorTransparent),
+                  color: token.colorFill.tertiary),
               child: const Text("左右滑动")))
     ]);
   }

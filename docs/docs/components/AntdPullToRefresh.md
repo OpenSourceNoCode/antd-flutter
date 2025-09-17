@@ -101,14 +101,14 @@ class _AntdPullToRefreshMixDemoStateDemo
                     alignment: Alignment.center,
                     color: token.colorWhite,
                     padding: token.size.md.all,
-                    border: token.borderSide.bottom),
+                    border: token.border.bottom),
                 child: const Text("我是内容1")),
             AntdBox(
                 style: AntdBoxStyle(
                     alignment: Alignment.center,
                     color: token.colorWhite,
                     padding: token.size.md.all,
-                    border: token.borderSide.bottom),
+                    border: token.border.bottom),
                 child: const Text("我是内容2")),
             AntdTabs(tabs: [
               AntdTab(

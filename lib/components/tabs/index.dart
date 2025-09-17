@@ -265,10 +265,8 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
             onTap: () {
               scrollController.switchTo(index);
             },
-            style: (active
-                    ? style.titleStyle?.copyFrom(style.activeTitleStyle)
-                    : style.titleStyle)
-                ?.copyWith(
+            style:
+                (active ? style.activeTitleStyle : style.titleStyle)?.copyWith(
               alignment: Alignment.center,
             ),
             child: buildHeader(tab, index, active),
@@ -339,29 +337,25 @@ class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
 
   @override
   AntdTabsStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var titleTextStyle = token.font.lg;
-    var titleStyle = AntdBoxStyle(
-        padding: token.size.default_.top
-            .marge(token.size.md.bottom)
-            .marge(token.size.lg.horizontal),
-        textStyle: titleTextStyle,
-        options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdTabsStyle(
         tabStyle: AntdBoxStyle(
-          color: token.colorWhite,
-          border: token.borderSide.bottom,
+          border: token.border.bottom,
         ),
         panelStyle: AntdBoxStyle(
-          color: token.colorWhite,
           padding: token.size.lg.all,
         ),
-        activeTitleStyle: titleStyle.copyWith(
-            textStyle: titleTextStyle.copyWith(color: token.colorPrimary)),
-        titleStyle: titleStyle,
+        activeTitleStyle: AntdBoxStyle(
+            textStyle: TextStyle(color: token.colorPrimary.textActive)),
+        titleStyle: AntdBoxStyle(
+            padding: token.size.ms.top
+                .marge(token.size.md.bottom)
+                .marge(token.size.lg.horizontal),
+            textStyle: token.font.lg,
+            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         indicatorStyle: AntdBoxStyle(
           color: token.colorPrimary,
-          height: token.lineWidthBold.roundToDouble(),
+          height: token.lineWidth + 1,
         ));
     return style;
   }
@@ -373,7 +367,7 @@ class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
 
   @override
   AntdTabsStyle getFinalStyle(
-      BuildContext context, AntdTabsStyle style, AntdAliasToken token) {
+      BuildContext context, AntdTabsStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdTabsStyle(

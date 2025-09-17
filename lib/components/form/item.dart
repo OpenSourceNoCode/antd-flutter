@@ -261,20 +261,20 @@ class AntdFormItem extends AntdFormBase<AntdFormItemStyle, AntdFormItem> {
 
   @override
   AntdFormItemStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var form = AntdFormProvider.ofMaybe(context)?.from;
     var finalLayout = layout ?? form?.layout;
     return AntdFormItemStyle(
         helpIconStyle: AntdIconStyle(
             size: 17,
-            color: token.colorTextLabel,
+            color: token.colorText.tertiary,
             bodyStyle: AntdBoxStyle(margin: token.size.xxs.left)),
         extraIconStyle: AntdIconStyle(
           size: 17,
-          color: token.colorTextLabel,
+          color: token.colorText.tertiary,
         ),
         feedbackStyle: AntdBoxStyle(
-            textStyle: token.font.sm.copyWith(color: token.colorErrorText)),
+            textStyle: token.font.sm.copyWith(color: token.colorError.text)),
         bodyStyle: const AntdBoxStyle(
           options: AntdTapOptions(
               behavior: HitTestBehavior.translucent,
@@ -293,8 +293,9 @@ class AntdFormItem extends AntdFormBase<AntdFormItemStyle, AntdFormItem> {
         labelStyle: AntdBoxStyle(
             margin: finalLayout == AntdFormLayout.vertical
                 ? token.size.xs.bottom
-                : token.size.default_.right,
-            textStyle: token.font.xxl.copyWith(color: token.colorTextLabel)),
+                : token.size.seed.right,
+            textStyle:
+                token.font.xxl.copyWith(color: token.colorText.tertiary)),
         labelRowStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
         ),

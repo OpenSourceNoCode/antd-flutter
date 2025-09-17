@@ -2,7 +2,7 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.2-alpha.1
+tag: 5.0.4-alpha.1
 ---
 
 ## 5.0.0-alpha.1
@@ -45,3 +45,13 @@ tag: 5.0.2-alpha.1
 - 优化了`AntdPopoverStyle`的样式命名
 - 为`AntdModal`新增了`AntdModalType`,`AntdDialog`新增`AntdDialogType`,这样就可以在动态样式中制定不同样式
 - 修复了`AntdSwitch`默认状态可能回不正确的问题
+
+## 5.0.4-alpha.1
+
+`2025-09-17`
+
+- 全面适配暗黑模式
+- 移除了DoubleExtensions扩展
+- 移除了AntdSize和AntdColor的default_属性
+- Example中添加暗黑和高亮切换
+- Theme相关的文档的Api完善

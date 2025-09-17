@@ -104,41 +104,41 @@ class AntdIndexBar<T extends AntdSectionProvider>
   ///索引变更事件
   final AntdIndexBarOnIndexChange? onIndexChange;
 
-  AntdBoxStyle getHeaderStyle(AntdAliasToken token) {
-    var borderSide = BorderSide(color: token.colorBorder, width: 0.5);
+  AntdBoxStyle getHeaderStyle(AntdMapToken token) {
+    var border = token.border.copyWith(width: 0.5);
     return AntdBoxStyle(
         padding: EdgeInsets.symmetric(
             vertical: token.size.xs.roundToDouble(),
             horizontal: token.size.sm.roundToDouble()),
-        color: token.colorFillContent,
-        textStyle: token.font.sm.copyWith(color: token.colorTextSecondary),
-        border: Border(top: borderSide, bottom: borderSide));
+        color: token.colorBgLayout,
+        textStyle: token.font.sm.copyWith(color: token.colorText.secondary),
+        border: Border(top: border, bottom: border));
   }
 
-  AntdBoxStyle getItemStyle(AntdAliasToken token) {
-    var borderSide = BorderSide(color: token.colorBorder, width: 0.5);
+  AntdBoxStyle getItemStyle(AntdMapToken token) {
+    var border = token.border.copyWith(width: 0.5);
     return AntdBoxStyle(
         margin: EdgeInsets.only(left: token.size.sm.roundToDouble()),
         padding: EdgeInsets.symmetric(vertical: token.size.sm.roundToDouble()),
-        color: token.colorWhite,
-        textStyle: TextStyle(fontSize: token.fontSize, color: token.colorText),
-        border: Border(bottom: borderSide));
+        color: token.colorBgContainer,
+        textStyle: token.font.ms,
+        border: Border(bottom: border));
   }
 
   @override
   AntdIndexBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var headerStyle = AntdBoxStyle(
         width: double.infinity,
-        padding: token.size.lg.horizontal.marge(token.size.default_.vertical),
-        color: token.colorFillTertiary,
-        textStyle: token.font.sm.copyWith(color: token.colorTextTertiary),
-        border: token.borderSide.vertical);
+        padding: token.size.lg.horizontal.marge(token.size.seed.vertical),
+        color: token.colorBgLayout,
+        textStyle: token.font.sm.copyWith(color: token.colorText.tertiary),
+        border: token.border.vertical);
     var indexStyle = AntdBoxStyle(
       size: token.size.xl.roundToDouble(),
       radius: BorderRadius.circular(token.size.xl.roundToDouble()),
       margin: token.size.lg.horizontal,
-      textStyle: token.font.xs.copyWith(color: token.colorTextTertiary),
+      textStyle: token.font.xs.copyWith(color: token.colorText.tertiary),
       alignment: Alignment.center,
     );
     return AntdIndexBarStyle(
@@ -146,9 +146,9 @@ class AntdIndexBar<T extends AntdSectionProvider>
         floatHeaderStyle: headerStyle,
         headerStyle: headerStyle,
         itemStyle: AntdBoxStyle(
-            color: token.colorWhite,
+            color: token.colorBgContainer,
             width: double.infinity,
-            border: token.borderSide.bottom,
+            border: token.border.bottom,
             textStyle: token.font.xl,
             padding: token.size.lg.right.marge(token.size.lg.vertical)),
         indexStyle: indexStyle,
@@ -159,7 +159,7 @@ class AntdIndexBar<T extends AntdSectionProvider>
 
   @override
   AntdIndexBarStyle getFinalStyle(
-      BuildContext context, AntdIndexBarStyle style, AntdAliasToken token) {
+      BuildContext context, AntdIndexBarStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdIndexBarStyle(

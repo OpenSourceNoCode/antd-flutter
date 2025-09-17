@@ -71,20 +71,19 @@ class AntdDivider extends AntdComponent<AntdDividerStyle, AntdDivider> {
 
   @override
   AntdDividerStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdDividerStyle(
       width: token.lineWidth,
       verticalHeight: 16,
-      color: color != null ? color!.getColor(token) : token.colorBorder,
-      margin: token.size.default_.roundToDouble(),
+      color: color != null ? color!.getColor(token) : token.border.color,
+      margin: token.size.seed.roundToDouble(),
       childStyle: AntdBoxStyle(
-          textStyle:
-              token.font.default_.copyWith(color: token.colorTextTertiary),
-          margin: token.size.default_.horizontal),
+          textStyle: token.font.ms.copyWith(color: token.colorText.tertiary),
+          margin: token.size.seed.horizontal),
     );
   }
 
-  AntdBoxStyle getBodyStyle(AntdDividerStyle style, AntdAliasToken token) {
+  AntdBoxStyle getBodyStyle(AntdDividerStyle style, AntdMapToken token) {
     return AntdBoxStyle(
         height: vertical ? style.verticalHeight : style.width,
         width: vertical ? style.width : double.infinity,
@@ -107,7 +106,6 @@ class AntdDivider extends AntdComponent<AntdDividerStyle, AntdDivider> {
   @override
   Widget render(BuildContext context, AntdDividerStyle style) {
     var token = AntdTheme.ofToken(context);
-    var style = getStyle(context);
     var line = AntdBox(
       style: getBodyStyle(style, token),
     );

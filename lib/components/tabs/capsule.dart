@@ -22,29 +22,25 @@ class AntdCapsuleTabs extends AntdTabs {
 
   @override
   AntdTabsStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var baseText = token.font.md;
-    var titleStyle = AntdBoxStyle(
-      radius: BorderRadius.circular(20),
-      color: token.colorFillContent,
-      margin: token.size.sm.horizontal,
-      padding: token.size.default_.vertical.marge(token.size.xl.horizontal),
-      textStyle: baseText,
-    );
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdTabsStyle(
       tabStyle: AntdBoxStyle(
         padding: token.size.lg.vertical,
-        color: token.colorWhite,
-        border: token.borderSide.bottom,
+        border: token.border.bottom,
       ),
       panelStyle: AntdBoxStyle(
-        color: token.colorWhite,
         padding: token.size.lg.all,
       ),
-      activeTitleStyle: titleStyle.copyWith(
+      activeTitleStyle: AntdBoxStyle(
           color: token.colorPrimary,
-          textStyle: baseText.copyWith(color: token.colorWhite)),
-      titleStyle: titleStyle,
+          textStyle: TextStyle(color: token.colorWhite)),
+      titleStyle: AntdBoxStyle(
+        radius: BorderRadius.circular(20),
+        color: token.colorFill.tertiary,
+        margin: token.size.sm.horizontal,
+        padding: token.size.ms.vertical.marge(token.size.xxl.horizontal),
+        textStyle: token.font.md,
+      ),
     );
     return margeStyle(
         style, theme.capsuleTabsStyle?.call(context, this, style, token));

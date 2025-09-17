@@ -140,7 +140,7 @@ class AntdResult extends AntdComponent<AntdResultStyle, AntdResult> {
     );
   }
 
-  Color getColor(AntdAliasToken token) {
+  Color getColor(AntdMapToken token) {
     switch (status) {
       case AntdResultStatus.success:
         return token.colorPrimary;
@@ -159,10 +159,9 @@ class AntdResult extends AntdComponent<AntdResultStyle, AntdResult> {
 
   @override
   AntdResultStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdResultStyle(
         bodyStyle: AntdBoxStyle(
-          color: token.colorWhite,
           width: double.infinity,
           padding: token.size.xxl.vertical.marge(token.size.md.horizontal),
         ),
@@ -176,8 +175,8 @@ class AntdResult extends AntdComponent<AntdResultStyle, AntdResult> {
         ),
         descStyle: AntdBoxStyle(
             alignment: Alignment.center,
-            margin: token.size.default_.top,
-            textStyle: token.font.sm.copyWith(color: token.colorTextTertiary)),
+            margin: token.size.seed.top,
+            textStyle: token.font.sm.copyWith(color: token.colorText.tertiary)),
         columnStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
         ));

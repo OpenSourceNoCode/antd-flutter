@@ -75,7 +75,7 @@ class AntdLoading extends AntdComponent<AntdLoadingStyle, AntdLoading> {
 
   @override
   AntdLoadingStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var relaColor = color == null ? token.colorFill : color?.getColor(token);
     return AntdLoadingStyle(
         color: relaColor,
@@ -85,7 +85,7 @@ class AntdLoading extends AntdComponent<AntdLoadingStyle, AntdLoading> {
             : const Duration(milliseconds: 1000),
         textStyle: AntdBoxStyle(
             padding: token.size.md.left,
-            textStyle: TextStyle(color: relaColor, fontSize: token.fontSize)));
+            textStyle: token.font.ms.copyWith(color: relaColor)));
   }
 
   @override

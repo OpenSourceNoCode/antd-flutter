@@ -77,15 +77,15 @@ class AntdFloatingPanel
 
   @override
   AntdFloatingPanelStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdFloatingPanelStyle(
-        bodyStyle: AntdBoxStyle(radius: token.radius.default_.radius.all),
+        bodyStyle: AntdBoxStyle(radius: token.radius.all),
         headerStyle: AntdBoxStyle(
             alignment: Alignment.center,
-            color: token.colorWhite,
+            color: token.colorBgContainer,
             padding: token.size.lg.vertical),
         indicatorStyle: AntdBoxStyle(
-            radius: token.radius.default_.radius.all,
+            radius: token.radius.all,
             height: 4,
             width: 20,
             color: token.colorFill));

@@ -68,19 +68,22 @@ class AntdSkeleton extends AntdStateComponent<AntdSkeletonStyle, AntdSkeleton> {
 
   @override
   AntdSkeletonStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var rowStyle = AntdBoxStyle(
-        radius: token.radius.ms.radius.all,
-        color: token.colorFillSecondary,
+        radius: token.radius.sm.all,
+        color: token.colorFill.quaternary,
         margin: token.size.md.top,
-        padding: token.size.default_.vertical,
+        padding: token.size.seed.vertical,
         width: 1,
         layoutModes: [AntdBoxLayoutMode.factorWidth]);
     return AntdSkeletonStyle(
+        //color: token.colorBgContainer,
         bodyStyle: AntdBoxStyle(
             padding: token.size.xl.top.marge(token.size.md.bottom)),
-        titleStyle: rowStyle.copyFrom(
-            AntdBoxStyle(padding: token.size.xl.vertical, width: 0.7)),
+        titleStyle: rowStyle.copyFrom(AntdBoxStyle(
+          padding: token.size.xl.vertical,
+          width: 0.7,
+        )),
         rowStyle: rowStyle,
         lastRowStyle: rowStyle.copyWith(width: 0.6));
   }
@@ -146,9 +149,9 @@ class _AntdSkeletonState extends AntdState<AntdSkeletonStyle, AntdSkeleton>
           end: Alignment.centerRight,
           stops: const [0.1, 0.5, 0.9],
           colors: [
-            style?.color ?? token.colorFillQuaternary,
+            style?.color ?? token.colorFill.quaternary,
             this.style.color,
-            style?.color ?? token.colorFillQuaternary,
+            style?.color ?? token.colorFill.quaternary,
           ],
         ),
       ).copyFrom(style),

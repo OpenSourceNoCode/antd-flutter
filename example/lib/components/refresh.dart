@@ -15,9 +15,7 @@ class AntdPullToRefreshDemo extends StatefulWidget {
 }
 
 var style = AntdBoxStyle(
-    alignment: Alignment.center,
-    width: double.infinity,
-    color: defaultToken.colorPrimary);
+    alignment: Alignment.center, width: double.infinity, color: Colors.blue);
 
 final random = Random();
 int min = 40;
@@ -131,7 +129,7 @@ class _AntdPullToRefreshMixDemoStateDemo
                   alignment: Alignment.center,
                   color: token.colorWhite,
                   padding: token.size.md.all,
-                  border: token.borderSide.bottom),
+                  border: token.border.bottom),
               child: const Text("我是内容1"),
             ),
             AntdBox(
@@ -139,7 +137,7 @@ class _AntdPullToRefreshMixDemoStateDemo
                   alignment: Alignment.center,
                   color: token.colorWhite,
                   padding: token.size.md.all,
-                  border: token.borderSide.bottom),
+                  border: token.border.bottom),
               child: const Text("我是内容2"),
             ),
             AntdTabs(tabs: [

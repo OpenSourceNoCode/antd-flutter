@@ -125,7 +125,7 @@ class AntdSwiper extends AntdScrollPositionedBase<Widget, AntdSwiperStyle,
 
   @override
   AntdSwiperStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdSwiperStyle();
   }
 

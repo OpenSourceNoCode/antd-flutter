@@ -71,38 +71,29 @@ class AntdJumboTabs
 
   @override
   AntdJumboStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var titleTextStyle = token.font.xl;
-    var titleStyle = AntdBoxStyle(
-        color: token.colorWhite,
-        textStyle: titleTextStyle,
-        margin: token.size.xs.horizontal);
-
-    var descTextStyle = token.font.sm;
-    var descStyle = AntdBoxStyle(
-      radius: token.radius.lg.radius.all,
-      margin: token.size.xxs.top,
-      padding: token.size.default_.horizontal,
-      color: token.colorFillTertiary,
-      textStyle: descTextStyle.copyWith(color: token.colorTextSecondary),
-    );
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdJumboStyle(
       tabStyle: AntdBoxStyle(
         padding: token.size.lg.vertical,
-        color: token.colorWhite,
-        border: token.borderSide.bottom,
+        border: token.border.bottom,
       ),
       panelStyle: AntdBoxStyle(
-        color: token.colorWhite,
         padding: token.size.lg.all,
       ),
-      titleStyle: titleStyle,
-      activeTitleStyle: titleStyle.copyWith(
-          textStyle: titleTextStyle.copyWith(color: token.colorPrimary)),
-      descStyle: descStyle,
-      activeDescTextStyle: descStyle.copyWith(
+      titleStyle: AntdBoxStyle(
+          textStyle: token.font.xl, padding: token.size.xs.horizontal),
+      activeTitleStyle:
+          AntdBoxStyle(textStyle: TextStyle(color: token.colorPrimary)),
+      descStyle: AntdBoxStyle(
+        radius: token.radius.lg.all,
+        margin: token.size.xxs.top,
+        padding: token.size.ms.horizontal,
+        color: token.colorFill.tertiary,
+        textStyle: token.font.sm.copyWith(color: token.colorText.tertiary),
+      ),
+      activeDescTextStyle: AntdBoxStyle(
           color: token.colorPrimary,
-          textStyle: descTextStyle.copyWith(color: token.colorWhite)),
+          textStyle: TextStyle(color: token.colorWhite)),
     );
     return margeStyle(
         style, theme.jumboStyle?.call(context, this, style, token));
@@ -121,7 +112,7 @@ class AntdJumboTabs
 
   @override
   AntdJumboStyle getFinalStyle(
-      BuildContext context, AntdJumboStyle style, AntdAliasToken token) {
+      BuildContext context, AntdJumboStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdJumboStyle(

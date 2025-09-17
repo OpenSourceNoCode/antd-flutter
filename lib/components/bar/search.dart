@@ -149,12 +149,12 @@ class AntdSearchBar
 
   @override
   AntdSearchBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var bodyStyle = AntdBoxStyle(
-        border: token.borderSide.all,
-        padding: token.size.default_.horizontal.marge(token.size.xs.vertical),
-        color: token.colorWhite,
-        radius: token.radius.default_.radius.all,
+        border: token.border.all,
+        padding: token.size.ms.horizontal.marge(token.size.xs.vertical),
+        color: token.colorBgContainer,
+        radius: token.radius.all,
         options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
     return AntdSearchBarStyle(
         bodyStyle: bodyStyle,
@@ -163,9 +163,9 @@ class AntdSearchBar
             textStyle: token.font.md,
             placeholderStyle: AntdBoxStyle(
                 textStyle:
-                    token.font.md.copyWith(color: token.colorTextPlaceholder))),
-        activeBodyStyle: bodyStyle.copyWith(
-            border: token.borderSide.copyWith(color: token.colorPrimary).all),
+                    token.font.md.copyWith(color: token.colorText.tertiary))),
+        activeBodyStyle: AntdBoxStyle(
+            border: token.border.copyWith(color: token.colorPrimary).all),
         iconStyle: AntdIconStyle(
             size: 18,
             bodyStyle: AntdBoxStyle(
@@ -189,7 +189,7 @@ class AntdSearchBar
 
   @override
   AntdSearchBarStyle getFinalStyle(
-      BuildContext context, AntdSearchBarStyle style, AntdAliasToken token) {
+      BuildContext context, AntdSearchBarStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSearchBarStyle(

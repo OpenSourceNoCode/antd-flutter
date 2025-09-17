@@ -98,17 +98,16 @@ class AntdErrorBlock
 
   @override
   AntdErrorBlockStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdErrorBlockStyle(
         bodyStyle: AntdBoxStyle(
             alignment: Alignment.center,
-            color: token.colorWhite,
-            textStyle: token.font.md.copyWith(color: token.colorTextTertiary)),
+            textStyle: token.font.md.copyWith(color: token.colorText.tertiary)),
         bodyColumnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
-        titleStyle: AntdBoxStyle(margin: token.size.default_.top),
+        titleStyle: AntdBoxStyle(margin: token.size.ms.top),
         descStyle: AntdBoxStyle(
-            textStyle: token.font.xs.copyWith(color: token.colorTextTertiary)),
-        extraStyle: AntdBoxStyle(margin: token.size.default_.top),
+            textStyle: token.font.xs.copyWith(color: token.colorText.tertiary)),
+        extraStyle: AntdBoxStyle(margin: token.size.ms.top),
         imageStyle: const AntdImageStyle(
             bodyStyle: AntdBoxStyle(height: 100, width: 100)));
   }

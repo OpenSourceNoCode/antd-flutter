@@ -82,9 +82,9 @@ class AntdBadge extends AntdStateComponent<AntdBadgeStyle, AntdBadge> {
 
   @override
   AntdBadgeStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var setColor = color?.getColor(token);
-    var fontSize = (token.size.default_ + 1).roundToDouble();
+    var fontSize = (token.size.seed + 1).roundToDouble();
     var textStyle =
         TextStyle(fontSize: fontSize, color: token.colorWhite, height: 1.4);
     var badgeStyle = AntdBoxStyle(

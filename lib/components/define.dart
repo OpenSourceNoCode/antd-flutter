@@ -7,7 +7,6 @@ const packageName = "antd_flutter_mobile";
 typedef FutureVoidCallback = Future<void> Function();
 
 enum AntdColor {
-  default_,
   primary,
   success,
   warning,
@@ -15,10 +14,8 @@ enum AntdColor {
   info,
   link;
 
-  Color getColor(AntdAliasToken token) {
+  Color getColor(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.colorFill;
       case primary:
         return token.colorPrimary;
       case success:
@@ -34,75 +31,66 @@ enum AntdColor {
     }
   }
 
-  Color getActiveColor(AntdAliasToken token) {
+  Color getActiveColor(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.colorFill;
       case primary:
-        return token.colorPrimaryActive;
+        return token.colorPrimary.active;
       case success:
-        return token.colorSuccessActive;
+        return token.colorSuccess.active;
       case warning:
-        return token.colorWarningActive;
+        return token.colorWarning.active;
       case danger:
-        return token.colorErrorActive;
+        return token.colorError.active;
       case info:
-        return token.colorInfoActive;
+        return token.colorInfo.active;
       case link:
-        return token.colorLinkActive;
+        return token.colorLink.active;
     }
   }
 
-  Color getBgColor(AntdAliasToken token) {
+  Color getBgColor(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.colorFill;
       case primary:
-        return token.colorPrimaryBg;
+        return token.colorPrimary.bg;
       case success:
-        return token.colorSuccessBg;
+        return token.colorSuccess.bg;
       case warning:
-        return token.colorWarningBg;
+        return token.colorWarning.bg;
       case danger:
-        return token.colorErrorBg;
+        return token.colorError.bg;
       case info:
-        return token.colorInfoBg;
+        return token.colorInfo.bg;
       case link:
-        return token.colorLinkBg;
+        return token.colorLink.bg;
     }
   }
 
-  Color getBorderColor(AntdAliasToken token) {
+  Color getBorderColor(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.colorFill;
       case primary:
-        return token.colorPrimaryBorder;
+        return token.colorPrimary.border;
       case success:
-        return token.colorSuccessBorder;
+        return token.colorSuccess.border;
       case warning:
-        return token.colorWarningBorder;
+        return token.colorWarning.border;
       case danger:
-        return token.colorErrorBorder;
+        return token.colorError.border;
       case info:
-        return token.colorInfoBorder;
+        return token.colorInfo.border;
       case link:
-        return token.colorLinkBorder;
+        return token.colorLink.border;
     }
   }
 }
 
 enum AntdSize {
-  default_,
   mini,
   small,
   middle,
   large;
 
-  int size(AntdAliasToken token) {
+  int size(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.size.default_;
       case mini:
         return token.size.xs;
       case small:
@@ -114,25 +102,8 @@ enum AntdSize {
     }
   }
 
-  TextStyle text(AntdAliasToken token) {
+  int padding(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.font.xl;
-      case mini:
-        return token.font.sm;
-      case small:
-        return token.font.md;
-      case middle:
-        return token.font.xl;
-      case large:
-        return token.font.xxl;
-    }
-  }
-
-  int padding(AntdAliasToken token) {
-    switch (this) {
-      case default_:
-        return token.size.default_;
       case mini:
         return token.size.xxs;
       case small:
@@ -144,10 +115,8 @@ enum AntdSize {
     }
   }
 
-  int margin(AntdAliasToken token) {
+  int margin(AntdMapToken token) {
     switch (this) {
-      case default_:
-        return token.size.default_;
       case mini:
         return token.size.xxs;
       case small:
@@ -254,7 +223,7 @@ abstract class AntdState<Style extends AntdStyle,
   @protected
   late AntdTheme theme;
   @protected
-  late AntdAliasToken token;
+  late AntdMapToken token;
 
   @override
   @protected
@@ -278,7 +247,7 @@ abstract class AntdState<Style extends AntdStyle,
   void updateDependentValues(covariant S? oldWidget) {
     style = widget.getStyle(context);
     theme = AntdTheme.of(context);
-    token = theme.token;
+    token = AntdTheme.ofToken(context);
   }
 
   @override
@@ -295,7 +264,7 @@ abstract class AntdState<Style extends AntdStyle,
 class AntdTokenBuilder extends StatelessWidget {
   const AntdTokenBuilder({super.key, required this.builder});
 
-  final Widget Function(BuildContext context, AntdAliasToken token) builder;
+  final Widget Function(BuildContext context, AntdMapToken token) builder;
 
   @override
   Widget build(BuildContext context) {

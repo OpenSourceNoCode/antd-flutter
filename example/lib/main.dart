@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:collection/collection.dart';
+import 'package:example/components/token.dart';
 import 'package:example/generated/map.dart';
 import 'package:example/generated/storage.dart';
 import 'package:example/widget/demo.dart';
@@ -20,11 +21,7 @@ class DemoInfo {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(AntdProvider(
-    builder: (context, theme) {
-      return const App();
-    },
-  ));
+  runApp(App());
 }
 
 /// 读取指定目录下的所有JSON文件
@@ -54,6 +51,7 @@ class _AppState extends State<App> {
   var docs = <Map<String, dynamic>>[];
   var menus = <Menu>[];
   var panels = <String, Widget>{};
+  var activeIndex = 0;
 
   @override
   void initState() {
@@ -91,7 +89,26 @@ class _AppState extends State<App> {
   Blocks buildDemoBlocks(List<CommentDefine>? maps, CommentDefine comment) {
     return Blocks(
       items: [
-        AutoPropertiesDemo(name: comment.name),
+        if (![
+          'AntdCascader',
+          'AntdToast',
+          'AntdIndexBar',
+          "AntdSwipeAction",
+          "AntdPopup",
+          "AntdMask",
+          "AntdPopover",
+          "AntdDialog",
+          "AntdModal",
+          "AntdErrorBlock",
+          "AntdEmpty",
+          "AntdActionSheet",
+          "AntdSwiper",
+          "AntdPageIndicator"
+        ].contains(comment.name))
+          AntdBox(
+            style: AntdBoxStyle(margin: 12.top),
+            child: AutoPropertiesDemo(name: comment.name),
+          ),
         ...(maps?.map((value) {
               return DemoBlock(
                 title: Text(value.title ?? ""),
@@ -115,10 +132,15 @@ class _AppState extends State<App> {
       builder: (c, _) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: Layout(
-            title: "Antd Flutter Mobile",
-            menus: menus,
-            child: panels,
+          body: AntdProvider(
+            theme: const AntdTheme(mode: AntdThemeMode.light),
+            builder: (context, theme) {
+              return Layout(
+                title: "Antd Flutter Mobile",
+                menus: menus,
+                child: {...panels, "token": const AntdToken()},
+              );
+            },
           ),
         );
       },
@@ -145,74 +167,83 @@ class _AutoPropertiesDemoState extends State<AutoPropertiesDemo> {
     var token = AntdTheme.ofToken(context);
     return AntdBox(
       style: AntdBoxStyle(
-        padding: 12.all,
-        color: token.colorWhite,
+        color: token.colorBgContainer,
         textStyle: token.font.lg,
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "动态展示",
-              ),
-              AntdBox(
-                onTap: () async {
-                  var result = await AntdLayer.open(AntdPopup(
-                    position: AntdPosition.right,
-                    builder: (close, ctx) {
-                      return AntdBox(
-                        style: AntdBoxStyle(
-                            color: token.colorWhite,
-                            height: double.infinity,
-                            width: 0.85,
-                            layoutModes: [AntdBoxLayoutMode.factorWidth]),
-                        child: AntdForm(
-                          initialValues: properties,
-                          builder: (controller) {
-                            return AntdList(
-                                style: AntdListStyle(
-                                    itemStyle: AntdBoxStyle(
-                                        feedbackStyle: AntdBoxStyle(
-                                            color: token.colorTransparent))),
-                                items: [
-                                  AntdBox(
-                                    outerSafeArea: AntdPosition.top,
-                                    child: AntdButton(
-                                      color: AntdColor.primary,
-                                      block: true,
-                                      onTap: () {
-                                        close(controller.getFieldsValue());
-                                      },
-                                      child: Text("确定"),
-                                    ),
-                                  ),
-                                  ...getFormItem(widget.name),
-                                ]);
-                          },
-                        ),
-                      );
-                    },
-                  ));
-
-                  setState(() {
-                    properties = result ?? {};
-                  });
-                },
-                child: Text(
-                  "属性配置",
-                  style: TextStyle(color: token.colorLink),
+          AntdBox(
+            style: AntdBoxStyle(padding: 12.horizontal.marge(8.top)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "动态展示",
                 ),
-              )
-            ],
+                AntdBox(
+                  onTap: () async {
+                    var result = await AntdLayer.open(AntdPopup(
+                      position: AntdPosition.right,
+                      builder: (close, ctx) {
+                        return AntdBox(
+                          style: AntdBoxStyle(
+                              color: token.colorFill.tertiary,
+                              height: double.infinity,
+                              width: 0.85,
+                              layoutModes: [
+                                AntdBoxLayoutMode.fixedHeight,
+                                AntdBoxLayoutMode.factorWidth
+                              ]),
+                          child: SingleChildScrollView(
+                            child: AntdForm(
+                              initialValues: properties,
+                              builder: (controller) {
+                                return AntdList(
+                                    shrinkWrap: true,
+                                    style: AntdListStyle(
+                                        itemStyle: AntdBoxStyle(
+                                            color: token.colorTransparent,
+                                            feedbackStyle: AntdBoxStyle(
+                                                color:
+                                                    token.colorTransparent))),
+                                    items: [
+                                      AntdBox(
+                                        outerSafeArea: AntdPosition.top,
+                                        child: AntdButton(
+                                          color: AntdColor.primary,
+                                          block: true,
+                                          onTap: () {
+                                            close(controller.getFieldsValue());
+                                          },
+                                          child: const Text("确定"),
+                                        ),
+                                      ),
+                                      ...getFormItem(widget.name),
+                                    ]);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ));
+
+                    setState(() {
+                      properties = result ?? {};
+                    });
+                  },
+                  child: Text(
+                    "属性配置",
+                    style: TextStyle(color: token.colorLink),
+                  ),
+                )
+              ],
+            ),
           ),
           AntdBox(
             style: AntdBoxStyle(
-                margin: 8.top,
+                padding: 8.all,
                 alignment: Alignment.center,
-                padding: 12.all,
-                color: token.colorWarning,
+                color: token.colorBgContainer,
                 width: double.infinity),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 300),

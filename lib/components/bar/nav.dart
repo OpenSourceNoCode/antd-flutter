@@ -107,11 +107,10 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
 
   @override
   AntdNavBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdNavBarStyle(
         bodyStyle: AntdBoxStyle(
             padding: token.size.lg.horizontal.marge(token.size.xs.vertical),
-            color: token.colorWhite,
             textStyle: token.font.md,
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         bodyRowStyle: const AntdFlexStyle(
@@ -120,7 +119,7 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
         backIconStyle: AntdIconStyle(
-            size: token.size.xxl.iconSize,
+            size: token.size.xxl.roundToDouble(),
             color: token.colorText,
             bodyStyle: AntdBoxStyle(
                 margin: token.size.xs.right,
@@ -134,7 +133,9 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             expanded: true),
-        titleStyle: AntdBoxStyle(textStyle: token.font.xxl),
+        titleStyle: AntdBoxStyle(
+            textStyle:
+                token.font.xxl.copyWith(fontWeight: token.fontWeightStrong)),
         titleColumnStyle: const AntdFlexStyle(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

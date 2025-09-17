@@ -69,13 +69,13 @@ class AntdImageViewer extends AntdBaseMask<AntdImageViewerStyle,
 
   @override
   AntdImageViewerStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdImageViewerStyle(
         maskColor: token.colorBlack,
         maskOpacity: getOpacity(),
         titleStyle: AntdBoxStyle(
             alignment: Alignment.center,
-            textStyle: token.font.default_.copyWith(color: token.colorBorder)));
+            textStyle: token.font.ms.copyWith(color: token.colorText)));
   }
 
   @override

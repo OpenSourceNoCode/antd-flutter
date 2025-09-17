@@ -23,7 +23,7 @@ class AntdSliderBarStyle extends AntdStyle {
   final AntdBoxStyle? activeIndicatorStyle;
 
   /// 选中项的圆角半径（单位：像素）
-  final int? activeCornerRadius;
+  final Radius? activeCornerRadius;
 
   const AntdSliderBarStyle({
     super.inherit,
@@ -137,25 +137,24 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
 
   @override
   AntdSliderBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var titleStyle = AntdBoxStyle(
-        color: token.colorFillContent,
-        padding: token.size.lg.vertical.marge(token.size.md.horizontal),
+        padding: token.size.xl.vertical.marge(token.size.lg.horizontal),
+        color: token.colorFill.tertiary,
         textStyle: token.font.sm);
     var indicatorStyle = AntdBoxStyle(
         width: token.size.xxs.roundToDouble(),
         height: token.size.lg.roundToDouble(),
         color: token.colorTransparent);
     return AntdSliderBarStyle(
-        activeCornerRadius: token.radius.md,
-        bodyStyle: AntdBoxStyle(color: token.colorFillContent, width: 100),
-        contentStyle: AntdBoxStyle(color: token.colorWhite),
+        activeCornerRadius: token.radius.lg,
+        bodyStyle: AntdBoxStyle(color: token.colorFill.tertiary, width: 100),
         indicatorStyle: indicatorStyle,
         activeIndicatorStyle: AntdBoxStyle(color: token.colorPrimary),
         titleStyle: titleStyle,
         activeTitleStyle: AntdBoxStyle(
             radius: BorderRadius.circular(0),
-            color: token.colorWhite,
+            color: token.colorBgLayout,
             textStyle: token.font.sm.copyWith(color: token.colorPrimary)));
   }
 
@@ -167,7 +166,7 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
 
   @override
   AntdSliderBarStyle getFinalStyle(
-      BuildContext context, AntdSliderBarStyle style, AntdAliasToken token) {
+      BuildContext context, AntdSliderBarStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSliderBarStyle(
@@ -237,8 +236,7 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
           entity) {
     var index = entity.index;
     var item = entity.data;
-    late Radius radius =
-        Radius.circular((style.activeCornerRadius ?? 0).roundToDouble());
+    late Radius radius = style.activeCornerRadius ?? const Radius.circular(0);
     return ValueListenableBuilder(
         valueListenable: scrollController._currentIndex,
         builder: (context, value, _) {
@@ -248,9 +246,6 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
 
           return AntdBox(
             disabled: item.disabled,
-            style: AntdBoxStyle(
-              color: style.activeTitleStyle?.color,
-            ),
             onTap: () {
               scrollController.toIndex(entity.index, config: _config);
             },
@@ -265,9 +260,7 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
                 ),
                 Expanded(
                     child: AntdBox(
-                  style: (active
-                          ? style.titleStyle?.copyFrom(style.activeTitleStyle)
-                          : style.titleStyle)
+                  style: (active ? style.activeTitleStyle : style.titleStyle)
                       ?.copyWith(
                           radius: BorderRadius.only(
                               bottomRight: before ? radius : Radius.zero,

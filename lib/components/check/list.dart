@@ -74,9 +74,9 @@ class AntdCheckList extends AntdScrollPositionedBase<AntdCheckItem,
 
   @override
   AntdCheckListStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdCheckListStyle(
-        bodyStyle: AntdBoxStyle(border: token.borderSide.vertical),
+        bodyStyle: AntdBoxStyle(border: token.border.vertical),
         checkItemStyle: const AntdCheckItemStyle());
   }
 

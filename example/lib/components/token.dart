@@ -1,827 +1,352 @@
-// import 'package:antd_flutter_mobile/components/widgets/box/index.dart';import 'package:antd_flutter_mobile/components/widgets/box/style.dart';
-// import 'package:antd_flutter_mobile/index.dart';
-// import 'package:example/block.dart';
-// import 'package:flutter/material.dart';
-//
-// class _ColorBox extends StatelessWidget {
-//   final Color color;
-//   final String text;
-//
-//   const _ColorBox({super.key, required this.color, required this.text});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Text(text),
-//         AntdBox(
-//           alignment: Alignment.center,
-//           style: AntdBoxStyle(
-//             height: 80,
-//             width: 80,
-//             textStyle: const TextStyle(color: Colors.white),
-//             color: color,
-//           ),
-//           child: Text(color.value.toRadixString(16)),
-//         )
-//       ],
-//     );
-//   }
-// }
-//
-// class TokenDemo extends StatelessWidget {
-//   const TokenDemo({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var token = AntdTheme.ofToken(context);
-//     return DemoPage(title: "Token", demos: [
-//       Block(title: "主色", child: [
-//         _ColorBox(
-//           color: token.colorPrimary,
-//           text: "品牌色",
-//         ),
-//         _ColorBox(
-//           color: token.colorSuccess,
-//           text: "成功色",
-//         ),
-//         _ColorBox(
-//           color: token.colorError,
-//           text: "错误色",
-//         ),
-//         _ColorBox(
-//           color: token.colorInfo,
-//           text: "信息色",
-//         ),
-//         _ColorBox(
-//           color: token.colorLink,
-//           text: "链接色",
-//         ),
-//         _ColorBox(
-//           color: token.colorWarning,
-//           text: "警告色",
-//         ),
-//         _ColorBox(
-//           color: token.colorText,
-//           text: "字体色",
-//         ),
-//       ]),
-//       Block(
-//         title: "主色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorPrimaryActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBgActive,
-//             text: "激活背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBgFilledHover,
-//             text: "背景填充悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBgHover,
-//             text: "背景悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryBorderHover,
-//             text: "边框悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryHover,
-//             text: "悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryText,
-//             text: "文本色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryTextActive,
-//             text: "文本激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorPrimaryTextHover,
-//             text: "文本悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(
-//         title: "错误色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorErrorActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorBgActive,
-//             text: "激活背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorBgFilledHover,
-//             text: "背景填充悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorBgHover,
-//             text: "背景悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBorderHover,
-//             text: "边框悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorHover,
-//             text: "悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorText,
-//             text: "文本色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorTextActive,
-//             text: "文本激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorErrorTextHover,
-//             text: "文本悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(
-//         title: "信息色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorInfoActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBgActive,
-//             text: "激活背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBgFilledHover,
-//             text: "背景填充悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBgHover,
-//             text: "背景悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoBorderHover,
-//             text: "边框悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoHover,
-//             text: "悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoText,
-//             text: "文本色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoTextActive,
-//             text: "文本激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorInfoTextHover,
-//             text: "文本悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(
-//         title: "警告色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorWarningActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBgActive,
-//             text: "激活背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBgFilledHover,
-//             text: "背景填充悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBgHover,
-//             text: "背景悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningBorderHover,
-//             text: "边框悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningHover,
-//             text: "悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningText,
-//             text: "文本色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningTextActive,
-//             text: "文本激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorWarningTextHover,
-//             text: "文本悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(
-//         title: "链接色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorLinkActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorLinkBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorLinkBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorLinkHover,
-//             text: "悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(
-//         title: "成功色色盘",
-//         child: [
-//           _ColorBox(
-//             color: token.colorSuccessActive,
-//             text: "激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBg,
-//             text: "背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBgActive,
-//             text: "激活背景色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBgFilledHover,
-//             text: "背景填充悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBgHover,
-//             text: "背景悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBorder,
-//             text: "边框色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessBorderHover,
-//             text: "边框悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessHover,
-//             text: "悬浮色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessText,
-//             text: "文本色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessTextActive,
-//             text: "文本激活色",
-//           ),
-//           _ColorBox(
-//             color: token.colorSuccessTextHover,
-//             text: "文本悬浮色",
-//           ),
-//         ],
-//       ),
-//       Block(title: "排版", column: true, child: [
-//         Text(
-//           "特大号字体:${token.fontSizeXXL},${token.lineHeightXXL}",
-//           style: token.font.xxl,
-//         ),
-//         Text(
-//           "超大号字体:${token.fontSizeXL},${token.lineHeightXL}",
-//           style: token.xlTextStyle,
-//         ),
-//         Text(
-//           "大号字体:${token.fontSizeLG},${token.lineHeightLG}",
-//           style: token.lgTextStyle,
-//         ),
-//         Text(
-//           "中等字体:${token.fontSizeMD},${token.lineHeightMD}",
-//           style: token.font.md,
-//         ),
-//         Text(
-//           "正常字体:${token.fontSize},${token.lineHeight}",
-//           style: token.textStyle,
-//         ),
-//         Text(
-//           "小号字体:${token.fontsize.sm},${token.lineHeightSM}",
-//           style: token.font.sm,
-//         ),
-//         Text(
-//           "超小号字体:${token.fontSizeXS},${token.lineHeightXS}",
-//           style: token.font.xs,
-//         ),
-//         Text(
-//           "特小号字体:${token.fontSizeXXS},${token.lineHeightXXS}",
-//           style: token.xxsTextStyle,
-//         )
-//       ]),
-//       Block(title: "尺寸", child: [
-//         Column(
-//           children: [
-//             Text("XXS:${token.size.xxs.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xxs.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XS:${token.sizeXS.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.sizeXS.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("SM:${token.size.sm.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.sm.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("MS:${token.size.ms.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.ms.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("size:${token.size.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("MD:${token.sizeMD.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.sizeMD.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("LG:${token.sizeLG.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.sizeLG.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XL:${token.sizeXL.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.sizeXL.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XXL:${token.size.xxl.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xxl.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//       ]),
-//       Block(title: "内边距", child: [
-//         Column(
-//           children: [
-//             Text("XXS:${token.paddingXXS.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.paddingXXS.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XS:${token.size.xs.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xs.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("SM:${token.size.sm.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.sm.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("padding:${token.padding.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.padding.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("MD:${token.size.md.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.md.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("LG:${token.size.lg.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.lg.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XL:${token.paddingXL.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.paddingXL.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//       ]),
-//       Block(title: "外边距", child: [
-//         Column(
-//           children: [
-//             Text("XXS:${token.marginXXS.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.marginXXS.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XS:${token.size.xs.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xs.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("SM:${token.marginSM.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.marginSM.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("margin:${token.margin.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.margin.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("MD:${token.marginMD.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.marginMD.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("LG:${token.size.lg.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.lg.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XL:${token.size.xl.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xl.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("XXL:${token.marginXXL.roundToDouble().toString()}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: token.size.xxl.roundToDouble(),
-//                   color: token.colorPrimary),
-//             )
-//           ],
-//         ),
-//       ]),
-//       Block(title: '圆角', child: [
-//         Column(
-//           children: [
-//             Text("XS圆角:${token.borderRadiusXS}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: 30,
-//                   color: token.colorPrimary,
-//                   radius: BorderRadius.circular(
-//                       token.borderRadiusXS.roundToDouble())),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("SM圆角:${token.borderRadiusSM}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: 30,
-//                   color: token.colorPrimary,
-//                   radius: BorderRadius.circular(
-//                       token.borderRadiusSM.roundToDouble())),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("基础圆角:${token.borderRadius}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: 30,
-//                   color: token.colorPrimary,
-//                   radius: BorderRadius.circular(
-//                       token.borderRadius.roundToDouble())),
-//             )
-//           ],
-//         ),
-//         Column(
-//           children: [
-//             Text("LG圆角:${token.borderRadiusLG}"),
-//             AntdBox(
-//               style: AntdBoxStyle(
-//                   size: 30,
-//                   color: token.colorPrimary,
-//                   radius: BorderRadius.circular(
-//                       token.borderRadiusLG.roundToDouble())),
-//             )
-//           ],
-//         ),
-//       ]),
-//       Block(title: "背景色", child: [
-//         _ColorBox(
-//           color: token.colorBgBlur,
-//           text: "毛玻璃背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgContainer,
-//           text: "容器背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgElevated,
-//           text: "浮层容器背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgLayout,
-//           text: "布局背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgMask,
-//           text: "蒙层背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgSolid,
-//           text: "实心背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgSolidActive,
-//           text: "实心激活背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgSolidHover,
-//           text: "实心悬浮背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgSpotlight,
-//           text: "反差背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgContainerDisabled,
-//           text: "禁用状态背景色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBorderBg,
-//           text: "边框背景色",
-//         ),
-//       ]),
-//       Block(title: "字体颜色", child: [
-//         _ColorBox(
-//           color: token.colorText,
-//           text: "文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextSecondary,
-//           text: "二级文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextTertiary,
-//           text: "三级文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextQuaternary,
-//           text: "四级文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextDescription,
-//           text: "描述文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextDisabled,
-//           text: "禁用文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextHeading,
-//           text: "标题文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextLabel,
-//           text: "标签文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextPlaceholder,
-//           text: "占位文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorTextLightSolid,
-//           text: "背景文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgTextActive,
-//           text: "激活文本色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBgTextHover,
-//           text: "悬停文本色",
-//         ),
-//       ]),
-//       Block(title: "填充颜色", child: [
-//         _ColorBox(
-//           color: token.colorFill,
-//           text: "填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillQuaternary,
-//           text: "一级填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillSecondary,
-//           text: "二级填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillTertiary,
-//           text: "三级填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillAlter,
-//           text: "替代填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillContent,
-//           text: "内容填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorFillContentHover,
-//           text: "内容悬停填充色",
-//         ),
-//         _ColorBox(
-//           color: token.colorBorder,
-//           text: "边框色",
-//         ),
-//       ]),
-//       Block(title: "图标颜色", child: [
-//         _ColorBox(
-//           color: token.colorIcon,
-//           text: "图标颜色",
-//         ),
-//         _ColorBox(
-//           color: token.colorIconHover,
-//           text: "图标悬浮颜色",
-//         ),
-//       ]),
-//       Block(title: "阴影", child: [
-//         AntdBox(
-//           style: AntdBoxStyle(
-//               size: 80,
-//               shadows: token.boxShadow,
-//               color: Colors.white),
-//         ),
-//         AntdBox(
-//           style: AntdBoxStyle(
-//               size: 80,
-//               shadows: token.boxShadowSecondary,
-//               color: Colors.red),
-//         ),
-//         AntdBox(
-//           style: AntdBoxStyle(
-//               size: 60,
-//               shadows: token.boxShadowTertiary,
-//               color: Colors.white),
-//         )
-//       ])
-//     ]);
-//   }
-// }
+import 'dart:math';
+
+import 'package:antd_flutter_mobile/index.dart';
+import 'package:example/widget/demo.dart';
+import 'package:flutter/material.dart';
+
+extension ColorContrastExtensions on Color {
+  /// 计算颜色的相对亮度（WCAG 2.0 标准）
+  double get _luminance {
+    final r = red / 255.0;
+    final g = green / 255.0;
+    final b = blue / 255.0;
+
+    final rs = r <= 0.03928 ? r / 12.92 : pow((r + 0.055) / 1.055, 2.4);
+    final gs = g <= 0.03928 ? g / 12.92 : pow((g + 0.055) / 1.055, 2.4);
+    final bs = b <= 0.03928 ? b / 12.92 : pow((b + 0.055) / 1.055, 2.4);
+
+    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+  }
+
+  /// 计算两个颜色的对比度
+  double contrastRatioWith(Color other) {
+    final luminance1 = _luminance;
+    final luminance2 = other._luminance;
+
+    final lighter = max(luminance1, luminance2);
+    final darker = min(luminance1, luminance2);
+
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// 返回对比度最强的颜色（从候选颜色中选择）
+  Color getMaxContrastColor(
+      [List<Color> candidateColors = const [Colors.black, Colors.white]]) {
+    Color bestColor = candidateColors.first;
+    double maxContrast = 0;
+
+    for (final candidate in candidateColors) {
+      final contrast = contrastRatioWith(candidate);
+      if (contrast > maxContrast) {
+        maxContrast = contrast;
+        bestColor = candidate;
+      }
+    }
+
+    return bestColor;
+  }
+}
+
+class AntdToken extends StatefulWidget {
+  const AntdToken({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdTokenState();
+  }
+}
+
+String convertToOpaqueHex(Color inputColor, Color backgroundColor) {
+  final hasTransparency = inputColor.a < 1.0;
+
+  if (!hasTransparency) {
+    // 无透明度：直接转换 RGB
+    final r = (inputColor.r * 255.0).round().clamp(0, 255);
+    final g = (inputColor.g * 255.0).round().clamp(0, 255);
+    final b = (inputColor.b * 255.0).round().clamp(0, 255);
+
+    return '#${r.toRadixString(16).padLeft(2, '0')}'
+            '${g.toRadixString(16).padLeft(2, '0')}'
+            '${b.toRadixString(16).padLeft(2, '0')}'
+        .toUpperCase();
+  }
+
+  // 有透明度：进行混合计算
+  final alpha = inputColor.a;
+
+  // 使用clamp确保值在0-255范围内
+  final r =
+      ((backgroundColor.r * 255.0 * (1 - alpha) + inputColor.r * 255.0 * alpha)
+              .round())
+          .clamp(0, 255);
+  final g =
+      ((backgroundColor.g * 255.0 * (1 - alpha) + inputColor.g * 255.0 * alpha)
+              .round())
+          .clamp(0, 255);
+  final b =
+      ((backgroundColor.b * 255.0 * (1 - alpha) + inputColor.b * 255.0 * alpha)
+              .round())
+          .clamp(0, 255);
+
+  return '#${r.toRadixString(16).padLeft(2, '0')}'
+          '${g.toRadixString(16).padLeft(2, '0')}'
+          '${b.toRadixString(16).padLeft(2, '0')}'
+      .toUpperCase();
+}
+
+Widget buildColorBox(
+    Color color, Color? backgroundColor, String desc, String title) {
+  return AntdBox(
+    style: AntdBoxStyle(
+        textStyle: TextStyle(color: color.getMaxContrastColor(), height: 1),
+        padding: 8.vertical.marge(12.horizontal),
+        width: double.infinity,
+        color: color),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$title$desc '),
+        Text(convertToOpaqueHex(color, backgroundColor ?? Colors.white))
+      ],
+    ),
+  );
+}
+
+Widget buildSizeBox(int size, String desc, AntdMapToken token) {
+  return AntdBox(
+    style: AntdBoxStyle(
+      padding: 8.vertical.marge(12.horizontal),
+    ),
+    child: AntdRow(children: [
+      AntdBox(
+        style: AntdBoxStyle(
+            size: size.roundToDouble(),
+            color: token.colorPrimary,
+            margin: token.size.xs.right),
+      ),
+      Text('$desc $size')
+    ]),
+  );
+}
+
+Widget buildRadiusBox(Radius radius, String desc, AntdMapToken token) {
+  return AntdBox(
+    style: AntdBoxStyle(
+        padding: 4.vertical.marge(12.horizontal),
+        radius: radius.all,
+        color: token.colorPrimary,
+        width: double.infinity,
+        textStyle: token.font.ms.copyWith(color: token.colorWhite)),
+    child: Text("$desc ${radius.y}"),
+  );
+}
+
+Widget buildFontBox(TextStyle style, String desc, AntdMapToken token) {
+  return AntdBox(
+    style: AntdBoxStyle(
+        padding: 4.vertical.marge(12.horizontal),
+        color: token.colorPrimary,
+        width: double.infinity,
+        textStyle: style.copyWith(color: token.colorWhite)),
+    child: Text(
+        "$desc 字号:${style.fontSize} 行高:${style.height?.toStringAsFixed(2)}"),
+  );
+}
+
+Widget buildShadowBox(
+    List<BoxShadow> shadows, String desc, AntdMapToken token) {
+  return AntdBox(
+    style: AntdBoxStyle(
+        padding: 4.vertical.marge(12.horizontal),
+        shadows: shadows,
+        color: token.colorPrimary,
+        width: double.infinity,
+        textStyle: token.font.ms.copyWith(color: token.colorWhite)),
+    child: Text("$desc "),
+  );
+}
+
+class _ColorBox extends StatelessWidget {
+  final String title;
+  final AntdColorDefine define;
+
+  const _ColorBox({super.key, required this.title, required this.define});
+
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.of(context).token;
+    return Column(
+      children: [
+        buildColorBox(define.color, token?.colorBgBase, "", title),
+        buildColorBox(define.active, token?.colorBgBase, "激活色", title),
+        buildColorBox(define.bg, token?.colorBgBase, "背景色", title),
+        buildColorBox(define.bgActive, token?.colorBgBase, "背景激活色", title),
+        buildColorBox(
+            define.bgFilledActive, token?.colorBgBase, "填充背景激活色", title),
+        buildColorBox(define.border, token?.colorBgBase, "边框色", title),
+        buildColorBox(define.borderActive, token?.colorBgBase, "边框激活色", title),
+        buildColorBox(define.text, token?.colorBgBase, "文本色", title),
+        buildColorBox(define.textActive, token?.colorBgBase, "文本激活色", title),
+      ],
+    );
+  }
+}
+
+class _AntdTokenState extends State<AntdToken> {
+  @override
+  Widget build(BuildContext context) {
+    var seedToken = AntdTheme.of(context).token;
+    var token = AntdTheme.ofToken(context);
+
+    return Blocks(
+      items: [
+        DemoBlock(
+            title: const Text("主色"),
+            child: _ColorBox(title: "主色", define: token.colorPrimary)),
+        DemoBlock(
+            title: const Text("成功色"),
+            child: _ColorBox(title: "成功色", define: token.colorSuccess)),
+        DemoBlock(
+            title: const Text("警告色"),
+            child: _ColorBox(title: "警告色", define: token.colorWarning)),
+        DemoBlock(
+            title: const Text("错误色"),
+            child: _ColorBox(title: "错误色", define: token.colorError)),
+        DemoBlock(
+            title: const Text("信息色"),
+            child: _ColorBox(title: "信息色", define: token.colorInfo)),
+        DemoBlock(
+            title: const Text("链接色"),
+            child: _ColorBox(title: "链接色", define: token.colorLink)),
+        DemoBlock(
+            title: const Text("文本色"),
+            child: Column(
+              children: [
+                buildColorBox(
+                    token.colorText, seedToken?.colorBgBase, "主文本色", ""),
+                buildColorBox(token.colorText.secondary, seedToken?.colorBgBase,
+                    "二级文本色", ""),
+                buildColorBox(token.colorText.tertiary, seedToken?.colorBgBase,
+                    "三级文本色", ""),
+                buildColorBox(token.colorText.quaternary,
+                    seedToken?.colorBgBase, "四级文本色", "")
+              ],
+            )),
+        DemoBlock(
+            title: const Text("填充色"),
+            child: Column(
+              children: [
+                buildColorBox(
+                    token.colorFill, seedToken?.colorBgBase, "填充色", ""),
+                buildColorBox(token.colorFill.secondary, seedToken?.colorBgBase,
+                    "二级填充色", ""),
+                buildColorBox(token.colorFill.tertiary, seedToken?.colorBgBase,
+                    "三级填充色", ""),
+                buildColorBox(token.colorFill.quaternary,
+                    seedToken?.colorBgBase, "四级填充色", "")
+              ],
+            )),
+        DemoBlock(
+            title: const Text("背景色"),
+            child: Column(
+              children: [
+                buildColorBox(
+                    token.colorBgBlur, seedToken?.colorBgBase, "毛玻璃背景色", ""),
+                buildColorBox(token.colorBgContainer, seedToken?.colorBgBase,
+                    "容器背景色", ""),
+                buildColorBox(token.colorBgElevated, seedToken?.colorBgBase,
+                    "浮层容器背景色", ""),
+                buildColorBox(
+                    token.colorBgLayout, seedToken?.colorBgBase, "布局背景色", ""),
+                buildColorBox(
+                    token.colorBgMask, seedToken?.colorBgBase, "背景蒙层颜色", ""),
+                buildColorBox(
+                    token.colorBgSolid, seedToken?.colorBgBase, "实心的背景颜色", ""),
+                buildColorBox(token.colorBgSolidActive, seedToken?.colorBgBase,
+                    "实心的背景激活颜色", ""),
+                buildColorBox(token.colorBgSpotlight, seedToken?.colorBgBase,
+                    "反差背景色", ""),
+              ],
+            )),
+        DemoBlock(
+            title: const Text("边框色"),
+            child: Column(
+              children: [
+                buildColorBox(
+                    token.border.color, seedToken?.colorBgBase, "边框色", ""),
+                buildColorBox(token.borderSecondary.color,
+                    seedToken?.colorBgBase, "二级边框色", ""),
+              ],
+            )),
+        DemoBlock(
+            title: const Text("工具色"),
+            child: Column(
+              children: [
+                buildColorBox(
+                    token.colorWhite, seedToken?.colorBgBase, "白色", ""),
+                buildColorBox(
+                    token.colorTransparent, seedToken?.colorBgBase, "透明", ""),
+                buildColorBox(
+                    token.colorBlack, seedToken?.colorBgBase, "黑色", ""),
+              ],
+            )),
+        DemoBlock(
+            title: const Text("大小"),
+            child: Column(
+              children: [
+                buildSizeBox(token.size.xxs, "最小尺寸 ", token),
+                buildSizeBox(token.size.xs, "超小尺寸 ", token),
+                buildSizeBox(token.size.ms, "默认尺寸 ", token),
+                buildSizeBox(token.size.md, "中等尺寸 ", token),
+                buildSizeBox(token.size.lg, "大等尺寸 ", token),
+                buildSizeBox(token.size.xl, "超大尺寸 ", token),
+                buildSizeBox(token.size.xl, "超大尺寸 ", token),
+                buildSizeBox(token.size.xxl, "特大尺寸 ", token),
+              ],
+            )),
+        DemoBlock(
+            title: const Text("圆角"),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Wrap(
+                  runSpacing: 10,
+                  spacing: 10,
+                  children: [
+                    buildRadiusBox(token.radius, "默认圆角 ", token),
+                    buildRadiusBox(token.radius.xs, "小号圆角 ", token),
+                    buildRadiusBox(token.radius.sm, "中号圆角 ", token),
+                    buildRadiusBox(token.radius.lg, "大号圆角 ", token),
+                    buildRadiusBox(token.radius.outer, "外部圆角 ", token),
+                  ],
+                ))
+              ],
+            )),
+        DemoBlock(
+            title: const Text("字体"),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Wrap(
+                  runSpacing: 10,
+                  spacing: 10,
+                  children: [
+                    buildFontBox(token.font.xxs, "最小尺寸 ", token),
+                    buildFontBox(token.font.xs, "超小尺寸 ", token),
+                    buildFontBox(token.font.ms, "默认尺寸 ", token),
+                    buildFontBox(token.font.md, "中等尺寸 ", token),
+                    buildFontBox(token.font.lg, "大等尺寸 ", token),
+                    buildFontBox(token.font.xl, "超大尺寸 ", token),
+                    buildFontBox(token.font.xl, "超大尺寸 ", token),
+                    buildFontBox(token.font.xxl, "特大尺寸 ", token),
+                  ],
+                ))
+              ],
+            )),
+      ],
+      axis: Axis.horizontal,
+      title: "AntdMapToken",
+      description: "所有的Token展示,来自Antd Design 5.0并针对移动端进行了优化和剔除",
+    );
+  }
+}

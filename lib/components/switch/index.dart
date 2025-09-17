@@ -98,16 +98,16 @@ class AntdSwitch
 
   @override
   AntdSwitchStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var trackStyle = AntdBoxStyle(
-        border: token.borderSide.all,
-        color: token.colorWhite,
+        border: token.border.all,
+        color: token.colorBgContainer,
         radius: 28.radius.all,
         padding: 4.all);
     var thumbStyle = AntdBoxStyle(
-        color: token.colorWhite,
+        color: token.colorBgContainer,
         size: 24,
-        border: token.borderSide.all,
+        border: token.border.all,
         radius: 24.radius.all);
 
     var style = AntdSwitchStyle(
@@ -120,7 +120,7 @@ class AntdSwitch
       thumbStyle: thumbStyle,
       activeThumbStyle: thumbStyle,
       contentStyle: AntdBoxStyle(
-        textStyle: token.font.md.copyWith(color: token.colorBlack),
+        textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
       ),
       activeContentStyle: AntdBoxStyle(
         textStyle: token.font.md.copyWith(
@@ -145,7 +145,7 @@ class AntdSwitch
 
   @override
   AntdSwitchStyle getFinalStyle(
-      BuildContext context, AntdSwitchStyle style, AntdAliasToken token) {
+      BuildContext context, AntdSwitchStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdSwitchStyle(

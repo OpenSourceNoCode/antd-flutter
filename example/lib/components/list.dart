@@ -10,7 +10,7 @@ class AntdListDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 200,
         child: AntdList(
@@ -41,7 +41,7 @@ class AntdListHeaderDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 200,
         child: AntdList(
@@ -61,7 +61,7 @@ class AntdListHeaderCardDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 200,
         child: AntdList(
@@ -82,7 +82,7 @@ class AntdListOnItemPositionDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 200,
         child: AntdList(
@@ -115,7 +115,7 @@ class _AntdListIndexDemoStateDemo extends State<AntdListIndexDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       Row(
         children: [
           AntdButton(

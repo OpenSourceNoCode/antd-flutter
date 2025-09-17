@@ -114,22 +114,18 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
 
   @override
   AntdTabBarStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var titleTextStyle =
-        token.font.xxs.copyWith(color: token.colorTextSecondary);
+        token.font.xxs.copyWith(color: token.colorText.secondary);
     var iconStyle = AntdIconStyle(
-        size: token.size.xxl.iconSize,
-        color: token.colorTextSecondary,
+        size: token.size.xxl.roundToDouble(),
+        color: token.colorText.secondary,
         weight: 800);
     var titleStyle =
         AntdBoxStyle(textStyle: titleTextStyle, margin: token.size.xxs.top);
     return AntdTabBarStyle(
-        bodyStyle: AntdBoxStyle(
-          color: token.colorWhite,
-        ),
         itemStyle: AntdBoxStyle(
-            padding:
-                token.size.xs.vertical.marge(token.size.default_.horizontal)),
+            padding: token.size.xs.vertical.marge(token.size.ms.horizontal)),
         itemColumnStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +146,7 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
 
   @override
   AntdTabBarStyle getFinalStyle(
-      BuildContext context, AntdTabBarStyle style, AntdAliasToken token) {
+      BuildContext context, AntdTabBarStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdTabBarStyle(

@@ -18,7 +18,7 @@ typedef AntdStyleBuilder<Style extends AntdStyle, WidgetType> = Style Function(
     BuildContext context,
     WidgetType widget,
     Style defaultStyle,
-    AntdAliasToken token);
+    AntdMapToken token);
 
 class AntdStyleProvider<Style extends AntdStyle> extends InheritedWidget {
   final Style? style;
@@ -72,7 +72,7 @@ class AntdStyleUse<Style extends AntdStyle> extends InheritedWidget {
 abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
   Style getStyle(BuildContext context) {
     final theme = AntdTheme.of(context);
-    final token = theme.token;
+    final token = AntdTheme.ofToken(context);
 
     final widget = getWidget(context);
     Style style = getDefaultStyle(context, theme, token);
@@ -140,9 +140,9 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
   }
 
   Style getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token);
+      BuildContext context, AntdTheme theme, AntdMapToken token);
 
-  Style getFinalStyle(BuildContext context, Style style, AntdAliasToken token) {
+  Style getFinalStyle(BuildContext context, Style style, AntdMapToken token) {
     return style;
   }
 

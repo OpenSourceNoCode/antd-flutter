@@ -22,12 +22,12 @@ class AntdPopupStyle extends AntdMaskStyle {
       super.maskOpacity});
 
   factory AntdPopupStyle.defaultStyle(
-      AntdAliasToken token, double maskOpacity, AntdPosition position) {
+      AntdMapToken token, double maskOpacity, AntdPosition position) {
     return AntdPopupStyle(
       maskColor: token.colorBlack,
       maskOpacity: maskOpacity,
       bodyStyle: AntdBoxStyle(
-        color: token.colorWhite,
+        color: token.colorBgContainer,
       ),
       closeIcon: const AntdIcon(
         icon: AntdIcons.close,
@@ -37,7 +37,7 @@ class AntdPopupStyle extends AntdMaskStyle {
             padding: EdgeInsets.all(8),
           ),
           size: token.size.xl.roundToDouble(),
-          color: token.colorTextTertiary),
+          color: token.colorText.tertiary),
     );
   }
 
@@ -185,7 +185,7 @@ abstract class AntdPopupInner<WidgetType, StateType>
 
   @override
   AntdPopupStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdPopupStyle.defaultStyle(token, getOpacity(), position);
     return margeStyle(
         style, theme.popupStyle?.call(context, this, style, token));

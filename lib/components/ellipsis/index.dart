@@ -85,8 +85,8 @@ class AntdEllipsis extends AntdStateComponent<AntdEllipsisStyle, AntdEllipsis> {
 
   @override
   AntdEllipsisStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var textStyle = token.font.default_;
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    var textStyle = token.font.ms;
     return AntdEllipsisStyle(
         textStyle: textStyle,
         expandStyle: textStyle.copyWith(color: token.colorPrimary),

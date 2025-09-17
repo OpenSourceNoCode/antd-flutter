@@ -128,10 +128,10 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
 
   @override
   AntdDropdownStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdDropdownStyle(
         bodyStyle: AntdBoxStyle(
-            color: token.colorWhite, border: token.borderSide.bottom),
+            color: token.colorBgContainer, border: token.border.bottom),
         childStyle: AntdBoxStyle(
             padding: token.size.md.all,
             alignment: Alignment.center,
@@ -139,10 +139,10 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
         itemStyle: AntdBoxStyle(
             width: double.infinity,
             padding: token.size.md.all,
-            color: token.colorWhite),
+            color: token.colorBgContainer),
         extraStyle: AntdBoxStyle(
             width: double.infinity,
-            color: token.colorWhite,
+            color: token.colorBgContainer,
             padding: token.size.md.horizontal.marge(token.size.xs.vertical)),
         icon: const AntdIcon(
           icon: AntdIcons.downFill,
@@ -150,12 +150,12 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
         activeIcon: const AntdIcon(
           icon: AntdIcons.upFill,
         ),
-        iconStyle: AntdIconStyle(size: 16, color: token.colorTextSecondary));
+        iconStyle: AntdIconStyle(size: 16, color: token.colorText.secondary));
   }
 
   @override
   AntdDropdownStyle getFinalStyle(
-      BuildContext context, AntdDropdownStyle style, AntdAliasToken token) {
+      BuildContext context, AntdDropdownStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdDropdownStyle(

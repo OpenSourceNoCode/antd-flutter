@@ -26,7 +26,7 @@ class AntdTabsNoChildDemo extends StatelessWidget {
   const AntdTabsNoChildDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: false, child: [
       AntdTabs(tabs: [
         AntdTab(title: Text("水果"), value: "1"),
         AntdTab(title: Text("蔬菜"), value: "2"),
@@ -47,7 +47,7 @@ class AntdTabsTabAlignmentDemo extends StatelessWidget {
   const AntdTabsTabAlignmentDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: false, child: [
       AntdTabs(tabAlignment: AntdTabAlignment.left, tabs: [
         AntdTab(title: Text("水果"), value: "1"),
         AntdTab(title: Text("蔬菜"), value: "2"),
@@ -75,7 +75,7 @@ class AntdTabsTabPhysicsDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AntdTabController tabController = AntdTabController();
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdTabs(
           controller: tabController,
           tabs: List.generate(
@@ -115,7 +115,7 @@ class AntdTabsTabOnChangeDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AntdTabController tabController = AntdTabController();
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdTabs(
           onChange: (value, index) {
             AntdToast.show("当前index:$index");
@@ -151,7 +151,7 @@ class AntdTabsBadgeDemo extends StatelessWidget {
   const AntdTabsBadgeDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: false, child: [
       AntdTabs(
           leftExtra: AntdIcon(icon: AntdIcons.left),
           rightExtra: AntdIcon(icon: AntdIcons.rightright),
@@ -182,7 +182,7 @@ class AntdTabsStyleDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       AntdTabs(
           style: AntdTabsStyle(
               titleStyle: AntdBoxStyle(
@@ -211,7 +211,7 @@ class AntdTabsIndicatorStyleDemo extends StatelessWidget {
   const AntdTabsIndicatorStyleDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: false, child: [
       AntdTabs(
           style: AntdTabsStyle(
               indicatorStyle:
@@ -241,7 +241,7 @@ class _AntdTabsPanelDemoStateDemo extends State<AntdTabsPanelDemo> {
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       Column(children: [
         AntdTabs(controller: controller, tabs: const [
           AntdTab(title: Text("Espresso"), value: "1"),
@@ -254,8 +254,7 @@ class _AntdTabsPanelDemoStateDemo extends State<AntdTabsPanelDemo> {
         AntdBox(
             style: AntdBoxStyle(
                 color: token.colorPrimary,
-                textStyle:
-                    token.font.default_.copyWith(color: token.colorWhite)),
+                textStyle: token.font.ms.copyWith(color: token.colorWhite)),
             child: const Text("我是其他内容,我上边是独立的tab,下边是独立的panel")),
         AntdBox(
             style: const AntdBoxStyle(height: 400),
@@ -288,7 +287,7 @@ class _AntdTabsLoadingDemoStateDemo extends State<AntdTabsLoadingDemo> {
   final _loadinged = <int>[];
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       Column(children: [
         AntdTabs(
             onChange: (_, index) {

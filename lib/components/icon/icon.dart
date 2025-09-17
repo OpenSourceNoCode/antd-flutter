@@ -169,7 +169,7 @@ class AntdIcon extends AntdComponent<AntdIconStyle, AntdIcon> {
 
   @override
   AntdIconStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdIconStyle(
         size: 24,
         color: token.colorText,

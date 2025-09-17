@@ -21,18 +21,18 @@ class AntdModalAction extends AntdBaseAction<AntdActionStyle, AntdModalAction> {
 
   @override
   AntdActionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var textColor = danger == true
         ? token.colorError
         : (primary == true ? token.colorWhite : token.colorPrimary);
     return AntdActionStyle(
       bodyStyle: AntdBoxStyle(
           feedbackStyle: primary == true
-              ? AntdBoxStyle(color: token.colorPrimaryBgActive)
+              ? AntdBoxStyle(color: token.colorPrimary.bgActive)
               : null,
           color: primary == true ? token.colorPrimary : token.colorTransparent,
           width: double.infinity,
-          radius: token.radius.default_.radius.all,
+          radius: token.radius.all,
           margin: primary == true
               ? token.size.ms.vertical.marge(token.size.lg.horizontal)
               : null,
@@ -48,7 +48,7 @@ class AntdModalAction extends AntdBaseAction<AntdActionStyle, AntdModalAction> {
                   textStyle:
                       TextStyle(color: textColor.withValues(alpha: 0.3)))),
       descriptionStyle: AntdBoxStyle(
-        textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
+        textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
         margin: token.size.xs.top,
       ),
     );

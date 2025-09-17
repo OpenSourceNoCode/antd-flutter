@@ -38,7 +38,7 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
       {super.key,
       super.style,
       super.styleBuilder,
-      this.color = AntdColor.default_,
+      this.color = AntdColor.primary,
       this.fill = AntdTagFill.solid,
       this.round = false,
       this.close,
@@ -84,17 +84,10 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
     );
   }
 
-  Color getColor(AntdAliasToken token) {
-    if (color == AntdColor.default_) {
-      return token.colorTextSecondary;
-    }
-    return color.getColor(token);
-  }
-
   @override
   AntdTagStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
-    var color = getColor(token);
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    var color = this.color.getColor(token);
     AntdBoxStyle? bodyStyle;
     if (fill == AntdTagFill.solid) {
       bodyStyle = AntdBoxStyle(
@@ -113,7 +106,7 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
     }
     bodyStyle = bodyStyle.copyWith(
       padding: token.size.xxs.vertical.marge(token.size.xs.horizontal),
-      border: Border.all(color: color, width: token.lineWidth.roundToDouble()),
+      border: Border.all(color: color, width: token.lineWidth),
     );
 
     return AntdTagStyle(

@@ -128,16 +128,16 @@ class AntdCard extends AntdComponent<AntdCardStyle, AntdCard> {
 
   @override
   AntdCardStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdCardStyle(
         bodyStyle: AntdBoxStyle(
-            radius: token.radius.default_.radius.all,
+            radius: token.radius.all,
             textStyle: token.font.sm,
-            color: token.colorWhite,
+            color: token.colorBgContainer,
             padding: token.size.lg.horizontal),
         bodyColumnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
         headerStyle: AntdBoxStyle(
-            border: token.borderSide.bottom,
+            border: token.border.bottom,
             textStyle: token.font.md,
             padding: token.size.lg.vertical),
         headerRowStyle: const AntdFlexStyle(
@@ -149,7 +149,7 @@ class AntdCard extends AntdComponent<AntdCardStyle, AntdCard> {
         ),
         contentStyle: AntdBoxStyle(padding: token.size.lg.vertical),
         footerStyle: AntdBoxStyle(
-            border: token.borderSide.top, padding: token.size.lg.vertical));
+            border: token.border.top, padding: token.size.lg.vertical));
   }
 
   @override

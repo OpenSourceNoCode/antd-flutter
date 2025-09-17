@@ -179,7 +179,7 @@ class AntdTour extends AntdMaskProxy<AntdTourStyle, AntdTour> {
 
   @override
   AntdTourStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdTourStyle(maskOpacity: getOpacity());
   }
 

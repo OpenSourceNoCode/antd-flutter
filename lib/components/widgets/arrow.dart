@@ -39,7 +39,7 @@ class AntdArrow extends AntdComponent<AntdArrowStyle, AntdArrow> {
 
   @override
   AntdArrowStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const AntdArrowStyle();
   }
 

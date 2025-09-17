@@ -163,7 +163,7 @@ class AntdPopupStyleDemo extends StatelessWidget {
         onTap: () {
           AntdLayer.open(AntdPopup(
             style: AntdPopupStyle(
-                bodyStyle: AntdBoxStyle(radius: token.radius.lg.radius.top)),
+                bodyStyle: AntdBoxStyle(radius: token.radius.lg.top)),
             closeIcon: const AntdIcon(
               icon: AntdIcons.close,
             ),
@@ -290,8 +290,8 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
                       style: AntdInputStyle(
                           bodyStyle: AntdBoxStyle(
                               margin: token.size.md.all,
-                              color: token.colorFillContent,
-                              radius: token.radius.md.radius.all,
+                              color: token.colorFill.tertiary,
+                              radius: token.radius.sm.all,
                               padding: token.size.md.all)),
                     ),
                     getBox(true)

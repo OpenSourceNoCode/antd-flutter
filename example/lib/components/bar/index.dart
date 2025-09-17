@@ -60,7 +60,7 @@ class AntdIndexBarDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 500,
         child: AntdIndexBar<AntdIndexBarDemoData>(
@@ -90,7 +90,7 @@ class AntdIndexBarBigDataDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return DemoWrapper(outline: false, child: [
       SizedBox(
         height: 500,
         child: AntdIndexBar<AntdIndexBarDemoData>(

@@ -184,7 +184,7 @@ class AntdTagCustomDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdTagStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdTagStyle, AntdTag&gt; | - | - |
-| color | 标签色:`default_` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | default_ | - |
+| color | 标签色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
 | fill | 填充模式:`solid` \| `outline` | AntdTagFill | solid | - |
 | round | 是否圆角 | bool | false | - |
 | close | 关闭区域 | Widget | - | - |

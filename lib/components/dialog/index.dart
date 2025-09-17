@@ -71,15 +71,15 @@ class AntdDialogAction
 
   @override
   AntdActionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var superStyle = AntdActionStyle.defaultStyle(token, this);
     return margeStyle(
         superStyle,
         AntdActionStyle(
             bodyStyle: AntdBoxStyle(
                 border: bottom == true
-                    ? token.borderSide.horizontal
-                    : token.borderSide.bottom,
+                    ? token.border.horizontal
+                    : token.border.bottom,
                 padding:
                     token.size.md.vertical.marge(token.size.lg.horizontal)),
             titleStyle: AntdBoxStyle(
@@ -91,7 +91,7 @@ class AntdDialogAction
 
   @override
   AntdActionStyle getFinalStyle(
-      BuildContext context, AntdActionStyle style, AntdAliasToken token) {
+      BuildContext context, AntdActionStyle style, AntdMapToken token) {
     var position = AntdScrollItemProvider.ofMaybe(context)?.position;
     return margeStyle(
         style,
@@ -232,12 +232,12 @@ abstract class AntdInnerDialog<
 
   @override
   AntdDialogStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdDialogStyle(
       bodyStyle: AntdBoxStyle(
         padding: header != null || title != null ? token.size.xl.top : null,
-        color: token.colorWhite,
-        radius: token.radius.default_.radius.all,
+        color: token.colorBgContainer,
+        radius: token.radius.all,
         width: 0.7,
         layoutModes: [AntdBoxLayoutMode.factorWidth],
       ),
@@ -249,19 +249,16 @@ abstract class AntdInnerDialog<
       maskOpacity: getOpacity(),
       closeIconStyle: AntdIconStyle(
           size: 18,
-          color: token.colorTextTertiary,
-          bodyStyle: AntdBoxStyle(padding: token.size.default_.all)),
+          color: token.colorText.tertiary,
+          bodyStyle: AntdBoxStyle(padding: token.size.seed.all)),
       titleStyle: AntdBoxStyle(
           padding: token.size.md.horizontal,
           textStyle: token.font.xxl.copyWith(fontWeight: FontWeight.w600)),
       contentStyle: AntdBoxStyle(
           alignment: Alignment.center,
           padding: token.size.xl.all,
-          border: actions?.isNotEmpty == true
-              ? token.borderSide
-                  .copyWith(color: token.colorBorderSecondary)
-                  .bottom
-              : null,
+          border:
+              actions?.isNotEmpty == true ? token.borderSecondary.bottom : null,
           textStyle: token.font.md),
     );
   }

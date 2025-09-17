@@ -74,12 +74,11 @@ class AntdPullToRefresh
 
   @override
   AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdBoxStyle(
         alignment: Alignment.bottomCenter,
-        textStyle: TextStyle(
-            fontSize: token.fontSize, color: token.colorTextSecondary),
-        padding: token.size.default_.vertical);
+        textStyle: token.font.sm.copyWith(color: token.colorText.secondary),
+        padding: token.size.seed.vertical);
     return margeStyle(
         style, theme.pullToRefreshStyle?.call(context, this, style, token));
   }

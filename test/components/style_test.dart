@@ -59,7 +59,7 @@ class TestStyleMixin with AntdStyleMixin<TestStyle, TestWidget> {
 
   @override
   TestStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     return const TestStyle(color: Colors.red, size: 16.0);
   }
 
@@ -72,21 +72,22 @@ class TestStyleMixin with AntdStyleMixin<TestStyle, TestWidget> {
 
 AntdTheme createTestTheme() {
   return AntdTheme(
-    token: generateToken(const AntdBaseToken(
-        radiusSize: 6,
+    algorithms: [light],
+    token: const AntdSeedToken(
+        radius: 6,
         colorPrimary: Colors.blue,
-        colorTextBase: Colors.black,
+        colorText: Colors.black,
         colorSuccess: Colors.green,
         colorWarning: Colors.orange,
         colorInfo: Colors.blue,
         colorLink: Colors.blue,
         colorBgBase: Colors.white,
-        lineType: "",
         lineWidth: 1,
         fontSize: 14,
         sizeStep: 4,
         sizeUnit: 2,
-        colorError: Colors.red)),
+        colorError: Colors.red,
+        arrow: Size(16, 8)),
   );
 }
 
@@ -197,7 +198,7 @@ void main() {
     testWidgets('AntdStyleBuilderProvider should provide builder to children',
         (WidgetTester tester) async {
       TestStyle builder(BuildContext context, TestWidget widget,
-          TestStyle defaultStyle, AntdAliasToken token) {
+          TestStyle defaultStyle, AntdMapToken token) {
         return TestStyle(color: Colors.purple, size: defaultStyle.size! + 4.0);
       }
 
@@ -268,7 +269,7 @@ void main() {
       late TestStyle resultStyle;
 
       TestStyle styleBuilder(BuildContext context, TestWidget widget,
-          TestStyle defaultStyle, AntdAliasToken token) {
+          TestStyle defaultStyle, AntdMapToken token) {
         return const TestStyle(
             color: Colors.purple, size: 50.0, inherit: false);
       }
@@ -310,7 +311,7 @@ void main() {
 
       const inputStyle = TestStyle(color: Colors.green);
       TestStyle styleBuilder(BuildContext context, TestWidget widget,
-          TestStyle defaultStyle, AntdAliasToken token) {
+          TestStyle defaultStyle, AntdMapToken token) {
         return const TestStyle(size: 24.0);
       }
 

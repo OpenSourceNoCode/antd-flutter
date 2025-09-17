@@ -107,7 +107,7 @@ class AntdCascader
 
   @override
   AntdCascaderStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var popupStyle = AntdPopupStyle.defaultStyle(token, getOpacity(), position);
     return AntdCascaderStyle(
         bodyStyle: popupStyle.bodyStyle,
@@ -120,8 +120,7 @@ class AntdCascader
             options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
         confirmStyle: const AntdBoxStyle(),
         headerStyle: AntdBoxStyle(
-            padding:
-                token.size.sm.vertical.marge(token.size.default_.horizontal),
+            padding: token.size.sm.vertical.marge(token.size.seed.horizontal),
             textStyle: token.font.md.copyWith(color: token.colorPrimary)),
         titleStyle: AntdBoxStyle(textStyle: token.font.md));
   }

@@ -705,19 +705,20 @@ String? _parseDefaultValue(VariableDeclaration variable) {
   return null;
 }
 
-Future<List<ComponentDefine>> getComponents(
-    List<String> targetDirs, Directory parent) async {
+Future<List<File>> getFiles(List<String> targetDirs, Directory parent) async {
   final allDartFiles = <File>[];
   for (final dir in targetDirs) {
     final files = await _findDartFiles('${parent.path}/$dir');
     allDartFiles.addAll(files);
     print('在目录 $dir 中找到 ${files.length} 个Dart文件');
   }
+  return allDartFiles;
+}
 
-  final visitor = await ClassCollector.collectAllClasses(allDartFiles);
-
+Future<List<ComponentDefine>> getComponents(
+    List<File> files, ClassDeclarationVisitor visitor) async {
   final allComponents = <ComponentDefine>[];
-  for (final file in allDartFiles) {
+  for (final file in files) {
     allComponents.addAll(await _parseFile(file, visitor));
   }
 
@@ -917,5 +918,27 @@ String innFormatDartCode(String sourceCode) {
     return formatter.format(sourceCode);
   } catch (e) {
     throw Exception('格式化失败: $e');
+  }
+}
+
+Map<String, List<PropertiesDefine>> getStyleComment(
+  File file,
+  ClassDeclarationVisitor visitor_,
+) {
+  try {
+    final content = file.readAsStringSync();
+    final parseResult = parseString(
+      content: content,
+      path: file.path,
+      throwIfDiagnostics: false,
+    );
+
+    final visitor = TokenVisitor(file.path, visitor_);
+    parseResult.unit.accept(visitor);
+
+    return visitor.commentMap;
+  } catch (e) {
+    print('解析文件 ${file.path} 时出错: $e');
+    return {};
   }
 }

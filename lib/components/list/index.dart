@@ -30,25 +30,25 @@ class AntdListStyle extends AntdStyle {
       this.childStyle});
 
   /// 获取默认列表样式 [token]设计令牌 [card]是否卡片模式
-  factory AntdListStyle.defaultStyle(AntdAliasToken token, bool card) {
+  factory AntdListStyle.defaultStyle(AntdMapToken token, bool card) {
     var headerStyle = AntdBoxStyle(
         alignment: Alignment.centerLeft,
-        padding: token.size.default_.vertical.marge(token.size.lg.horizontal));
+        padding: token.size.seed.vertical.marge(token.size.lg.horizontal));
     return AntdListStyle(
         bodyStyle: AntdBoxStyle(
-            color: token.colorWhite,
-            border: card ? null : token.borderSide.vertical,
-            textStyle: token.font.md.copyWith(color: token.colorTextTertiary),
-            radius: card ? token.radius.default_.radius.all : null),
+            color: token.colorBgContainer,
+            border: card ? null : token.border.vertical,
+            textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
+            radius: card ? token.radius.all : null),
         headerStyle: headerStyle,
         footerStyle: headerStyle,
         itemStyle: AntdBoxStyle(
-          feedbackStyle: AntdBoxStyle(color: token.colorFillContent),
+          feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
         ),
         childStyle: AntdBoxStyle(
           padding: 12.vertical.marge(12.right),
           margin: 12.left,
-          border: token.borderSide.bottom,
+          border: token.border.bottom,
         ));
   }
 
@@ -121,7 +121,7 @@ class AntdList<T> extends AntdScrollPositionedBase<T, AntdListStyle,
 
   @override
   AntdListStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     if (!vertical) {
       return const AntdListStyle(
         bodyStyle: AntdBoxStyle(),

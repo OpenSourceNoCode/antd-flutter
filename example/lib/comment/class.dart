@@ -255,3 +255,18 @@ class ComponentVisitor extends RecursiveAstVisitor<void> {
     super.visitClassDeclaration(node);
   }
 }
+
+class TokenVisitor extends RecursiveAstVisitor<void> {
+  final String filePath;
+  final ClassDeclarationVisitor visitor;
+  final Map<String, List<PropertiesDefine>> commentMap = {};
+  TokenVisitor(this.filePath, this.visitor);
+
+  @override
+  void visitClassDeclaration(ClassDeclaration node) {
+    if (node.documentationComment?.tokens.first.lexeme == "/// theme") {
+      commentMap[node.name.lexeme] = parseProperties(node, filePath, visitor);
+    }
+    super.visitClassDeclaration(node);
+  }
+}

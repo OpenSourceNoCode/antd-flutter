@@ -139,7 +139,7 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
 
   @override
   AntdCollapseStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdAliasToken token) {
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
     var style = AntdListStyle.defaultStyle(token, false);
     return AntdCollapseStyle(
         itemStyle: style.itemStyle,
@@ -147,7 +147,7 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
             options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
         bodyStyle: style.bodyStyle,
         titleStyle: AntdBoxStyle(textStyle: token.font.lg),
-        iconStyle: AntdIconStyle(size: 20, color: token.colorTextQuaternary),
+        iconStyle: AntdIconStyle(size: 20, color: token.colorText.quaternary),
         contentStyle: AntdBoxStyle(padding: token.size.md.all),
         icon: const AntdIcon(
           icon: AntdIcons.up,
@@ -159,7 +159,7 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
 
   @override
   AntdCollapseStyle getFinalStyle(
-      BuildContext context, AntdCollapseStyle style, AntdAliasToken token) {
+      BuildContext context, AntdCollapseStyle style, AntdMapToken token) {
     return margeStyle(
         style,
         AntdCollapseStyle(
