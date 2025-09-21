@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:collection/collection.dart';
-import 'package:example/components/token.dart';
 import 'package:example/generated/map.dart';
 import 'package:example/generated/storage.dart';
 import 'package:example/widget/demo.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'comment/define.dart';
+import 'components/token.dart';
 
 class DemoInfo {
   final String title;

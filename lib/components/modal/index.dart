@@ -74,13 +74,56 @@ class AntdModalAction extends AntdBaseAction<AntdActionStyle, AntdModalAction> {
 
 enum AntdModalType { alert, confirm, normal }
 
+class AntdModalAnimation extends AntdMaskAnimation<AntdModal, AntdModalState> {
+  const AntdModalAnimation(
+      {required super.duration,
+      super.maskAnimated =
+          const AntdMaskDefaultAnimated<AntdModal, AntdModalState>(),
+      super.contentAnimated = const AntdPopupScaleFadeAnimation<AntdModalStyle,
+          AntdModal, AntdModalState>()});
+}
+
+class AntdModalStyle extends AntdDialogBaseStyle {
+  const AntdModalStyle({
+    super.inherit,
+    super.bodyStyle,
+    super.closeIconStyle,
+    super.closeIcon,
+    super.maskColor,
+    super.maskOpacity,
+    super.headerStyle,
+    super.titleStyle,
+    super.contentStyle,
+    super.actionStyle,
+    this.animation,
+  });
+
+  ///弹出层动画
+  final AntdModalAnimation? animation;
+
+  @override
+  AntdModalStyle copyFrom(covariant AntdModalStyle? style) {
+    return AntdModalStyle(
+      bodyStyle: bodyStyle.merge(style?.bodyStyle),
+      closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
+      maskColor: style?.maskColor ?? maskColor,
+      maskOpacity: style?.maskOpacity ?? maskOpacity,
+      headerStyle: headerStyle.merge(style?.headerStyle),
+      titleStyle: titleStyle.merge(style?.titleStyle),
+      contentStyle: contentStyle.merge(style?.contentStyle),
+      actionStyle: actionStyle.merge(style?.actionStyle),
+      animation: animation.merge(style?.animation),
+    );
+  }
+}
+
 ///@t 弹窗
 ///@g 反馈
 ///@o 89
 ///@d 用于重要信息的告知或操作的反馈，并附带少量的选项供用户进行操作。
 ///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。
-class AntdModal
-    extends AntdInnerDialog<AntdModalAction, AntdModal, AntdModalState> {
+class AntdModal extends AntdBaseDialog<AntdModalAction, AntdModal,
+    AntdModalStyle, AntdModalState> {
   const AntdModal(
       {super.key,
       super.style,
@@ -91,7 +134,7 @@ class AntdModal
       super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 400),
+      super.animation,
       super.actions,
       super.dismissOnAction,
       super.builder,
@@ -120,7 +163,7 @@ class AntdModal
       opacity: modal?.opacity,
       dismissOnMaskTap: modal?.dismissOnMaskTap != false,
       showMask: modal?.showMask != false,
-      animationDuration: modal?.animationDuration,
+      animation: modal?.animation,
       actions: actions,
       dismissOnAction: modal?.dismissOnAction != false,
       builder: modal?.builder ??
@@ -152,7 +195,7 @@ class AntdModal
       opacity: modal?.opacity,
       dismissOnMaskTap: modal?.dismissOnMaskTap != false,
       showMask: modal?.showMask != false,
-      animationDuration: modal?.animationDuration,
+      animation: modal?.animation,
       actions: [
         AntdModalAction(
           title: alert,
@@ -195,7 +238,7 @@ class AntdModal
       opacity: modal?.opacity,
       dismissOnMaskTap: modal?.dismissOnMaskTap != false,
       showMask: modal?.showMask != false,
-      animationDuration: modal?.animationDuration,
+      animation: modal?.animation,
       actions: [
         AntdModalAction(
           title: cancel,
@@ -228,7 +271,47 @@ class AntdModal
   }
 
   @override
-  AntdStyleBuilder<AntdDialogStyle, AntdModal>? getThemeStyle(
+  AntdModalStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return AntdModalStyle(
+        bodyStyle: AntdBoxStyle(
+          padding: header != null || title != null ? token.size.xl.top : null,
+          color: token.colorBgContainer,
+          radius: token.radius.all,
+          width: 0.7,
+          layoutModes: [AntdBoxLayoutMode.factorWidth],
+        ),
+        headerStyle: AntdBoxStyle(
+          padding: token.size.md.horizontal.marge(token.size.xl.bottom),
+          textStyle: token.font.lg.copyWith(fontWeight: FontWeight.w600),
+        ),
+        maskColor: token.colorBlack,
+        closeIconStyle: AntdIconStyle(
+            size: 18,
+            color: token.colorText.tertiary,
+            bodyStyle: AntdBoxStyle(padding: token.size.seed.all)),
+        titleStyle: AntdBoxStyle(
+            padding: token.size.md.horizontal,
+            textStyle: token.font.xxl.copyWith(fontWeight: FontWeight.w600)),
+        contentStyle: AntdBoxStyle(
+            alignment: Alignment.center,
+            padding: token.size.xl.all,
+            border: actions?.isNotEmpty == true
+                ? token.borderSecondary.bottom
+                : null,
+            textStyle: token.font.md),
+        animation:
+            const AntdModalAnimation(duration: Duration(milliseconds: 400)));
+  }
+
+  @override
+  AntdModalStyle margeStyle(
+      AntdModalStyle defaultStyle, AntdModalStyle? style) {
+    return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  AntdStyleBuilder<AntdModalStyle, AntdModal>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.modalStyle;
   }
@@ -242,8 +325,8 @@ class AntdModal
   String get layerType => "modal";
 }
 
-class AntdModalState
-    extends AntdInnerDialogState<AntdModalAction, AntdModalState, AntdModal> {
+class AntdModalState extends AntdBaseDialogState<AntdModalStyle,
+    AntdModalAction, AntdModal, AntdModalState> {
   @override
   AntdModalState getState() {
     return this;
@@ -271,5 +354,10 @@ class AntdModalState
                 );
               }).toList()))
     ];
+  }
+
+  @override
+  AntdMaskAnimation<AntdModal, AntdModalState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

@@ -17,6 +17,9 @@ class AntdAlertDialogDemo extends StatelessWidget {
           AntdDialog(
               title: const Text("我是标题"),
               header: const Text("我是Header"),
+              closeIcon: const AntdIcon(
+                icon: AntdIcons.close,
+              ),
               actions: const [
                 AntdDialogAction(
                   title: AntdBox(

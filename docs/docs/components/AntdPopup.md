@@ -402,13 +402,13 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdPopupState&gt; | - | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | position | 弹出位置:`top` \| `bottom` \| `left` \| `right` \| `horizontal` \| `vertical` \| `all` | AntdPosition | bottom | - |
 | avoidKeyboard | 当底部弹出式 避免键盘遮挡 | bool | true | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdPopup, AntdPopupState&gt; | - | - |
 
 
-## 弹出层样式(AntdPopupStyle) <a id='AntdPopupStyle'></a>
+## 弹出层样式(AntdPopupBaseStyle) <a id='AntdPopupBaseStyle'></a>
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

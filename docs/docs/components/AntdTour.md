@@ -195,12 +195,11 @@ class _AntdTourControllerDemoStateDemo extends State<AntdTourControllerDemo> {
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
-| builder | 内容 | AntdMaskBuilder&lt;AntdMaskState&gt; | - | - |
+| builder | 内容 | AntdMaskBuilder&lt;AntdTourState&gt; | - | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | thin | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
-| holeAnimationDuration | 镂空内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdTour, AntdTourState&gt; | - | - |
 | child | 需要被引导的高亮目标组件 | Widget | - | - |
 | controller | 引导流程的控制器，用于手动控制步骤切换 | AntdTourController | - | - |
 
@@ -213,6 +212,7 @@ class _AntdTourControllerDemoStateDemo extends State<AntdTourControllerDemo> {
 | maskColor | 背景色 | Color | - | - |
 | maskOpacity | 透明度 | double | - | - |
 | stepStyle | 步骤条样式 | [AntdTourStepStyle](../components/antd-tour-step/#AntdTourStepStyle) | - | - |
+| animation | 动画 | AntdTourAnimation | - | - |
 
 ## 提示的步骤样式(AntdTourStepStyle) <a id='AntdTourStepStyle'></a>
 

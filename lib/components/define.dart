@@ -217,13 +217,14 @@ abstract class AntdStateComponent<Style extends AntdStyle, WidgetType>
 }
 
 abstract class AntdState<Style extends AntdStyle,
-    S extends AntdStateComponent<Style, S>> extends State<S> {
+        WidgetType extends AntdStateComponent<Style, WidgetType>>
+    extends State<WidgetType> {
   @protected
-  late Style style;
+  late Style style = widget.getStyle(context);
   @protected
-  late AntdTheme theme;
+  late AntdTheme theme = AntdTheme.of(context);
   @protected
-  late AntdMapToken token;
+  late AntdMapToken token = AntdTheme.ofToken(context);
 
   @override
   @protected
@@ -236,7 +237,7 @@ abstract class AntdState<Style extends AntdStyle,
   @override
   @protected
   @mustCallSuper
-  void didUpdateWidget(covariant S oldWidget) {
+  void didUpdateWidget(covariant WidgetType oldWidget) {
     super.didUpdateWidget(oldWidget);
     updateDependentValues(oldWidget);
   }
@@ -244,7 +245,7 @@ abstract class AntdState<Style extends AntdStyle,
   @protected
   @protected
   @mustCallSuper
-  void updateDependentValues(covariant S? oldWidget) {
+  void updateDependentValues(covariant WidgetType? oldWidget) {
     style = widget.getStyle(context);
     theme = AntdTheme.of(context);
     token = AntdTheme.ofToken(context);
@@ -269,6 +270,75 @@ class AntdTokenBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return builder(context, AntdTheme.ofToken(context));
+  }
+}
+
+class AntdAnimatedContext<WidgetType, StateType> {
+  final BuildContext context;
+  final WidgetType widget;
+  final StateType state;
+
+  const AntdAnimatedContext(
+      {required this.context, required this.widget, required this.state});
+}
+
+abstract class AntdAnimated<WidgetType, StateType> {
+  const AntdAnimated();
+
+  Widget build(AnimationController controller, Widget? child,
+      AntdAnimatedContext<WidgetType, StateType> context);
+}
+
+class AntdAnimation extends AntdStyle {
+  final bool disable;
+  final Duration duration;
+  const AntdAnimation(
+      {super.inherit,
+      this.disable = false,
+      this.duration = const Duration(milliseconds: 400)});
+}
+
+abstract class AntdAnimationState<Style extends AntdStyle, StateType,
+        WidgetType extends AntdStateComponent<Style, WidgetType>>
+    extends AntdState<Style, WidgetType> with TickerProviderStateMixin {
+  final List<AnimationController> _animationControllers = [];
+
+  @protected
+  late final AntdAnimatedContext<WidgetType, StateType> animatorContext =
+      AntdAnimatedContext(widget: widget, state: getState(), context: context);
+
+  @protected
+  StateType getState();
+
+  @protected
+  AnimationController? createAnimationController(AntdAnimation? animation) {
+    if (animation == null || animation.disable == true) {
+      return null;
+    }
+
+    var controller =
+        AnimationController(duration: animation.duration, vsync: this);
+
+    _animationControllers.add(controller);
+    return controller;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (var value in _animationControllers) {
+      value.dispose();
+    }
+    _animationControllers.clear();
+  }
+
+  @protected
+  Widget buildAnimated(AnimationController? controller, Widget child,
+      AntdAnimated<WidgetType, StateType>? animated) {
+    if (controller == null || animated == null) {
+      return child;
+    }
+    return animated.build(controller, child, animatorContext);
   }
 }
 

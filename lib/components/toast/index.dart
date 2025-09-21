@@ -3,9 +3,28 @@ import 'dart:async';
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
+class AntdToastAnimation extends AntdMaskAnimation<AntdToast, AntdToastState> {
+  const AntdToastAnimation(
+      {super.disable,
+      super.duration,
+      super.maskAnimated = const AntdMaskDefaultAnimated(),
+      super.contentAnimated = const AntdMaskContentDefaultAnimated<
+          AntdToastStyle, AntdToast, AntdToastState>()});
+
+  @override
+  AntdToastAnimation copyFrom(covariant AntdToastAnimation? style) {
+    return AntdToastAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
+}
+
 ///轻提示样式
 ///@l [AntdToast]
-class AntdToastStyle extends AntdMaskStyle {
+class AntdToastStyle extends AntdMaskBaseStyle {
   ///主体样式
   final AntdBoxStyle? bodyStyle;
 
@@ -18,25 +37,29 @@ class AntdToastStyle extends AntdMaskStyle {
   ///图标
   final Widget? icon;
 
+  ///动画
+  final AntdToastAnimation? animation;
+
   const AntdToastStyle(
       {super.inherit,
+      super.maskColor,
+      super.maskOpacity,
       this.bodyStyle,
       this.iconStyle,
       this.columnStyle,
       this.icon,
-      super.maskColor,
-      super.maskOpacity});
+      this.animation});
 
   @override
   AntdToastStyle copyFrom(covariant AntdToastStyle? style) {
     return AntdToastStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      iconStyle: iconStyle.merge(style?.iconStyle),
-      columnStyle: columnStyle.merge(style?.columnStyle),
-      icon: style?.icon ?? icon,
-      maskOpacity: style?.maskOpacity ?? maskOpacity,
-      maskColor: style?.maskColor ?? maskColor,
-    );
+        maskOpacity: style?.maskOpacity ?? maskOpacity,
+        maskColor: style?.maskColor ?? maskColor,
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        iconStyle: iconStyle.merge(style?.iconStyle),
+        columnStyle: columnStyle.merge(style?.columnStyle),
+        icon: style?.icon ?? icon,
+        animation: animation.merge(style?.animation));
   }
 }
 
@@ -62,7 +85,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
       super.opacity = AntdMaskOpacity.transparent,
       super.dismissOnMaskTap = true,
       super.showMask = false,
-      super.animationDuration = const Duration(milliseconds: 200),
+      super.animation,
       this.duration = const Duration(milliseconds: 2000),
       this.icon,
       this.position,
@@ -95,7 +118,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
     return AntdToastStyle(
         bodyStyle: AntdBoxStyle(
             minWidth: icon?.icon != null ? 130 : null,
-            color: token.colorBlack.withValues(alpha: 0.7),
+            color: token.colorBgSpotlight,
             radius: token.radius.all,
             textStyle: token.font.md.copyWith(color: token.colorWhite),
             padding: icon != null
@@ -125,7 +148,8 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
             color: token.colorWhite,
             bodyStyle: AntdBoxStyle(margin: token.size.seed.bottom)),
         columnStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
-        maskOpacity: getOpacity());
+        animation:
+            const AntdToastAnimation(duration: Duration(milliseconds: 200)));
   }
 
   @override
@@ -166,18 +190,18 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
       opacity: toast?.opacity,
       dismissOnMaskTap: toast?.dismissOnMaskTap != false,
       showMask: toast?.showMask,
-      animationDuration: toast?.animationDuration,
       duration: duration ?? toast?.duration,
       icon: icon ?? toast?.icon,
       position: position ?? toast?.position,
       dismissOnTap: toast?.dismissOnTap != false,
       type: toast?.type,
+      animation: toast?.animation,
     ).open();
   }
 }
 
-class AntdToastState extends AntdMaskBaseState<AntdToastStyle, AntdToast,
-    double, AntdToastState> {
+class AntdToastState
+    extends AntdMaskBaseState<AntdToastStyle, AntdToast, AntdToastState> {
   @protected
   Timer? timer;
 
@@ -188,25 +212,26 @@ class AntdToastState extends AntdMaskBaseState<AntdToastStyle, AntdToast,
 
   @override
   @protected
-  void initState() {
-    super.initState();
-
-    if (isDuration()) {
-      final totalMs = widget.duration!.inMilliseconds;
-      final startTime = DateTime.now().millisecondsSinceEpoch;
-
-      timer = Timer.periodic(const Duration(milliseconds: 16), (timer) async {
-        if (!mounted) return;
-
-        final elapsed = DateTime.now().millisecondsSinceEpoch - startTime;
-        final remaining = totalMs - elapsed;
-
-        if (remaining <= 0) {
-          timer.cancel();
-          await close();
-        }
-      });
+  onOpened() {
+    super.onOpened();
+    if (!isDuration()) {
+      return;
     }
+
+    final totalMs = widget.duration!.inMilliseconds;
+    final startTime = DateTime.now().millisecondsSinceEpoch;
+
+    timer = Timer.periodic(const Duration(milliseconds: 16), (timer) async {
+      if (!mounted) return;
+
+      final elapsed = DateTime.now().millisecondsSinceEpoch - startTime;
+      final remaining = totalMs - elapsed;
+
+      if (remaining <= 0) {
+        timer.cancel();
+        await close();
+      }
+    });
   }
 
   @override
@@ -238,27 +263,27 @@ class AntdToastState extends AntdMaskBaseState<AntdToastStyle, AntdToast,
       if (child != null) child
     ];
 
-    return FadeTransition(
-      opacity: contentAnimation,
-      child: Align(
-        alignment: getAlignment(),
-        child: AntdBox(
-          onTap: widget.dismissOnTap
-              ? () async {
-                  await close();
+    return Align(
+      alignment: getAlignment(),
+      child: AntdBox(
+        onTap: widget.dismissOnTap
+            ? () async {
+                if (!mounted) {
+                  return;
                 }
-              : null,
-          outerSafeArea: switch (widget.position) {
-            AntdToastPosition.top => AntdPosition.top,
-            AntdToastPosition.center => null,
-            AntdToastPosition.bottom => AntdPosition.bottom,
-            null => null,
-          },
-          style: style.bodyStyle,
-          child: AntdColumn(
-            style: style.columnStyle,
-            children: columns,
-          ),
+                await close();
+              }
+            : null,
+        outerSafeArea: switch (widget.position) {
+          AntdToastPosition.top => AntdPosition.top,
+          AntdToastPosition.center => null,
+          AntdToastPosition.bottom => AntdPosition.bottom,
+          null => null,
+        },
+        style: style.bodyStyle,
+        child: AntdColumn(
+          style: style.columnStyle,
+          children: columns,
         ),
       ),
     );
@@ -266,13 +291,12 @@ class AntdToastState extends AntdMaskBaseState<AntdToastStyle, AntdToast,
 
   @override
   @protected
-  Tween<double> buildTween() {
-    return Tween(begin: 0.0, end: 1.0);
+  AntdToastState getState() {
+    return this;
   }
 
   @override
-  @protected
-  AntdToastState getState() {
-    return this;
+  AntdMaskAnimation<AntdToast, AntdToastState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

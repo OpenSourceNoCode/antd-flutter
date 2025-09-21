@@ -183,9 +183,19 @@ class AntdSheetAction extends AntdBaseAction<AntdActionStyle, AntdSheetAction> {
   }
 }
 
+class AntdActionSheetAnimation
+    extends AntdMaskAnimation<AntdActionSheet, AntdActionSheetState> {
+  const AntdActionSheetAnimation(
+      {required super.duration,
+      super.maskAnimated = const AntdMaskDefaultAnimated<AntdActionSheet,
+          AntdActionSheetState>(),
+      super.contentAnimated = const AntdPopupOffsetAnimation<
+          AntdActionSheetStyle, AntdActionSheet, AntdActionSheetState>()});
+}
+
 ///动作面板样式
 ///@l [AntdActionSheet]
-class AntdActionSheetStyle extends AntdPopupStyle {
+class AntdActionSheetStyle extends AntdPopupBaseStyle {
   ///样式
   final AntdActionStyle? actionStyle;
 
@@ -195,14 +205,19 @@ class AntdActionSheetStyle extends AntdPopupStyle {
   ///标题样式
   final AntdBoxStyle? extraStyle;
 
-  const AntdActionSheetStyle(
-      {super.inherit,
-      super.bodyStyle,
-      super.maskColor,
-      super.maskOpacity,
-      this.actionStyle,
-      this.cancelActionStyle,
-      this.extraStyle});
+  ///动作面板动画
+  final AntdActionSheetAnimation? animation;
+
+  const AntdActionSheetStyle({
+    super.inherit,
+    super.bodyStyle,
+    super.maskColor,
+    super.maskOpacity,
+    this.actionStyle,
+    this.cancelActionStyle,
+    this.extraStyle,
+    this.animation,
+  });
 
   @override
   AntdActionSheetStyle copyFrom(covariant AntdActionSheetStyle? style) {
@@ -213,6 +228,7 @@ class AntdActionSheetStyle extends AntdPopupStyle {
       actionStyle: actionStyle.merge(style?.actionStyle),
       cancelActionStyle: cancelActionStyle.merge(style?.cancelActionStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
+      animation: animation.merge(style?.animation),
     );
   }
 }
@@ -236,7 +252,7 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
       super.dismissOnMaskTap = true,
       super.opacity,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 400),
+      super.animation,
       required this.actions,
       this.cancelText,
       this.dismissOnAction = true,
@@ -280,7 +296,7 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
       opacity: sheet?.opacity,
       dismissOnMaskTap: sheet?.dismissOnMaskTap != false,
       showMask: sheet?.showMask != false,
-      animationDuration: sheet?.animationDuration,
+      animation: sheet?.animation,
       actions: actions,
       cancelText: cancelText ?? sheet?.cancelText,
       dismissOnAction: dismissOnAction ?? sheet?.dismissOnAction,
@@ -299,22 +315,24 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
   AntdActionSheetStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdActionSheetStyle(
-        extraStyle: AntdBoxStyle(
-          alignment: Alignment.center,
-          padding: token.size.xl.vertical.marge(token.size.lg.horizontal),
-          textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
-          border: token.border.bottom,
-          color: token.colorBgContainer,
-        ),
-        maskColor: token.colorBlack,
-        maskOpacity: getOpacity(),
-        bodyStyle: AntdBoxStyle(
-          color: token.colorFill.tertiary,
-          radius: token.radius.top,
-        ),
-        actionStyle: const AntdActionStyle(),
-        cancelActionStyle: AntdActionStyle(
-            bodyStyle: AntdBoxStyle(margin: token.size.md.top)));
+      extraStyle: AntdBoxStyle(
+        alignment: Alignment.center,
+        padding: token.size.xl.vertical.marge(token.size.lg.horizontal),
+        textStyle: token.font.md.copyWith(color: token.colorText.tertiary),
+        border: token.border.bottom,
+        color: token.colorBgContainer,
+      ),
+      maskColor: token.colorBlack,
+      bodyStyle: AntdBoxStyle(
+        color: token.colorFill.tertiary,
+        radius: token.radius.top,
+      ),
+      animation:
+          const AntdActionSheetAnimation(duration: Duration(milliseconds: 400)),
+      actionStyle: const AntdActionStyle(),
+      cancelActionStyle:
+          AntdActionStyle(bodyStyle: AntdBoxStyle(margin: token.size.md.top)),
+    );
   }
 
   @override
@@ -338,8 +356,8 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
   String get layerType => "sheet";
 }
 
-class AntdActionSheetState extends AntdOffsetAnimationPopupState<
-    AntdActionSheetStyle, AntdActionSheet, AntdActionSheetState> {
+class AntdActionSheetState extends AntdPopupBaseState<AntdActionSheetStyle,
+    AntdActionSheet, AntdActionSheetState> {
   _handlerTap(AntdSheetAction action, bool cancel) async {
     if (widget.onAction != null) {
       widget.onAction!(action.key, cancel);
@@ -406,5 +424,11 @@ class AntdActionSheetState extends AntdOffsetAnimationPopupState<
   @override
   AntdActionSheetState getState() {
     return this;
+  }
+
+  @override
+  AntdMaskAnimation<AntdActionSheet, AntdActionSheetState>?
+      buildStyleAnimation() {
+    return style.animation;
   }
 }

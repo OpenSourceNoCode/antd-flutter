@@ -11,6 +11,7 @@ class AntdSwitchDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSwitch(
+        value: true,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
         onChange: (value) {
@@ -41,7 +42,7 @@ class AntdSwitchCustomDemo extends StatelessWidget {
         style: AntdSwitchStyle(
             trackStyle: AntdBoxStyle(color: token.colorError),
             activeTrackStyle:
-                AntdBoxStyle(color: token.colorSuccess, height: 14),
+                AntdBoxStyle(color: token.colorSuccess, padding: 10.all),
             thumbStyle: AntdBoxStyle(height: 14, color: token.colorPrimary)),
       ),
     ]);

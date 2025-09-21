@@ -67,7 +67,7 @@ class AntdCheckboxStyle extends AntdStyle {
   factory AntdCheckboxStyle.defaultStyle(AntdMapToken token) {
     final iconStyle = AntdIconStyle(
         size: 16,
-        color: token.colorText,
+        color: token.colorWhite,
         bodyStyle: AntdBoxStyle(
           size: 22,
           alignment: Alignment.center,

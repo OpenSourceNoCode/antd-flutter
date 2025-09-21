@@ -2,7 +2,7 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.4-alpha.1
+tag: 5.0.5-alpha.1
 ---
 
 ## 5.0.0-alpha.1
@@ -51,7 +51,16 @@ tag: 5.0.4-alpha.1
 `2025-09-17`
 
 - 全面适配暗黑模式
-- 移除了DoubleExtensions扩展
-- 移除了AntdSize和AntdColor的default_属性
+- 移除了`DoubleExtensions`扩展
+- 移除了`AntdSize`和`AntdColor`的`default_`属性
 - Example中添加暗黑和高亮切换
 - Theme相关的文档的Api完善
+
+## 5.0.5-alpha.1
+
+`2025-09-21`
+
+- `AntdPopover`,`AntdDropdown`,`AntdToast`,`AntdTour`,`AntdMask`,`AntdPopup`,`AntdCascader`,`AntdActionSheet`,`AntdModal`,`AntdDialog`支持通过`animation`属性定制动画
+- `AntdMaskHole`支持使用`AntdMaskHoleClipper`裁剪
+- 修复了`AntdSwitch`动画性能问题
+- 为`AntdDropdown`更新了动画

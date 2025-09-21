@@ -205,8 +205,10 @@ class _AntdSwitchState
     }
   }
 
-  void _handlerAnimation() {
-    _controller.reset();
+  void _handlerAnimation(bool init) {
+    if (init) {
+      _controller.reset();
+    }
     _startAnimation();
   }
 
@@ -244,15 +246,6 @@ class _AntdSwitchState
   @override
   Widget render(BuildContext context) {
     var open = value == true;
-    var thumb = AntdBox(
-      onLayout: (context) {
-        if (context.hasSizeChange) {
-          thumbWidth = context.size.width;
-          _handlerAnimation();
-        }
-      },
-      style: _get(open, style.activeThumbStyle, style.thumbStyle),
-    );
 
     return AntdBox(
       style: style.bodyStyle,
@@ -276,10 +269,11 @@ class _AntdSwitchState
             style: _get(open, style.activeTrackStyle, style.trackStyle),
             onLayout: (context) {
               if (context.hasSizeChange) {
+                var init = trackWidth == 0;
                 trackWidth = context.removeInsetsSize.width;
                 trackPadding = context.padding;
                 _handlerContentTrackWidth();
-                _handlerAnimation();
+                _handlerAnimation(init);
               }
             },
             child: Row(
@@ -304,7 +298,16 @@ class _AntdSwitchState
                 ),
                 Transform.translate(
                   offset: Offset(thumbOffset, 0),
-                  child: thumb,
+                  child: AntdBox(
+                    onLayout: (context) {
+                      if (context.hasSizeChange) {
+                        var init = trackWidth == 0;
+                        thumbWidth = context.size.width;
+                        _handlerAnimation(init);
+                      }
+                    },
+                    style: _get(open, style.activeThumbStyle, style.thumbStyle),
+                  ),
                 ),
               ],
             ),

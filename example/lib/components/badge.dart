@@ -20,7 +20,7 @@ class AntdBadgeDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
-      AntdBadge(badge: const Text("5"), child: _antdBox),
+      AntdBadge(badge: const Text("6"), child: _antdBox),
       AntdBadge(badge: const Text("5"), dot: true, child: _antdBox),
     ]);
   }

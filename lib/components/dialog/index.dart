@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 ///对话框样式
 ///@l [AntdDialog]
-class AntdDialogStyle extends AntdPopupStyle {
+class AntdDialogBaseStyle extends AntdPopupBaseStyle {
   /// 对话框头部区域样式（包含标题和关闭按钮）
   final AntdBoxStyle? headerStyle;
 
@@ -16,7 +16,7 @@ class AntdDialogStyle extends AntdPopupStyle {
   /// 对话框操作按钮区域样式
   final AntdActionStyle? actionStyle;
 
-  const AntdDialogStyle(
+  const AntdDialogBaseStyle(
       {super.inherit,
       super.bodyStyle,
       super.closeIconStyle,
@@ -27,20 +27,6 @@ class AntdDialogStyle extends AntdPopupStyle {
       this.titleStyle,
       this.contentStyle,
       this.actionStyle});
-
-  @override
-  AntdDialogStyle copyFrom(covariant AntdDialogStyle? style) {
-    return AntdDialogStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
-      maskColor: style?.maskColor ?? maskColor,
-      maskOpacity: style?.maskOpacity ?? maskOpacity,
-      headerStyle: headerStyle.merge(style?.headerStyle),
-      titleStyle: titleStyle.merge(style?.titleStyle),
-      contentStyle: contentStyle.merge(style?.contentStyle),
-      actionStyle: actionStyle.merge(style?.actionStyle),
-    );
-  }
 }
 
 enum AntdDialogType { alert, confirm, normal }
@@ -120,7 +106,7 @@ class AntdDialogAction
 abstract class AntdBaseDialog<
     T extends AntdBaseAction<AntdActionStyle, T>,
     WidgetType,
-    Style extends AntdDialogStyle,
+    Style extends AntdDialogBaseStyle,
     StateType> extends AntdBasePopup<Style, WidgetType, StateType> {
   const AntdBaseDialog(
       {super.key,
@@ -132,9 +118,9 @@ abstract class AntdBaseDialog<
       super.opacity,
       super.dismissOnMaskTap,
       super.showMask,
-      super.animationDuration,
       super.builder,
       super.closeIcon,
+      super.animation,
       this.actions,
       this.dismissOnAction = true,
       this.header,
@@ -155,10 +141,21 @@ abstract class AntdBaseDialog<
 }
 
 abstract class AntdBaseDialogState<
-    Style extends AntdDialogStyle,
+    Style extends AntdDialogBaseStyle,
     T extends AntdBaseAction<AntdActionStyle, T>,
     Dialog extends AntdBaseDialog<T, Dialog, Style, StateType>,
-    StateType> extends AntdCenterAnimationPopupState<Style, Dialog, StateType> {
+    StateType> extends AntdPopupBaseState<Style, Dialog, StateType> {
+  @protected
+  handlerTap(T? action) async {
+    if (action?.onTap != null) {
+      action?.onTap?.call(close);
+    }
+
+    if (widget.dismissOnAction == true) {
+      await close();
+    }
+  }
+
   List<Widget> buildActions();
 
   @override
@@ -208,82 +205,47 @@ abstract class AntdBaseDialogState<
   }
 }
 
-abstract class AntdInnerDialog<
-    T extends AntdBaseAction<AntdActionStyle, T>,
-    Dialog extends AntdInnerDialog<T, Dialog, StateType>,
-    StateType> extends AntdBaseDialog<T, Dialog, AntdDialogStyle, StateType> {
-  const AntdInnerDialog(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.opacity,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 400),
-      super.actions,
-      super.dismissOnAction,
-      super.builder,
-      super.closeIcon,
-      super.header,
-      super.title});
-
-  @override
-  AntdDialogStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return AntdDialogStyle(
-      bodyStyle: AntdBoxStyle(
-        padding: header != null || title != null ? token.size.xl.top : null,
-        color: token.colorBgContainer,
-        radius: token.radius.all,
-        width: 0.7,
-        layoutModes: [AntdBoxLayoutMode.factorWidth],
-      ),
-      headerStyle: AntdBoxStyle(
-        padding: token.size.md.horizontal.marge(token.size.xl.bottom),
-        textStyle: token.font.lg.copyWith(fontWeight: FontWeight.w600),
-      ),
-      maskColor: token.colorBlack,
-      maskOpacity: getOpacity(),
-      closeIconStyle: AntdIconStyle(
-          size: 18,
-          color: token.colorText.tertiary,
-          bodyStyle: AntdBoxStyle(padding: token.size.seed.all)),
-      titleStyle: AntdBoxStyle(
-          padding: token.size.md.horizontal,
-          textStyle: token.font.xxl.copyWith(fontWeight: FontWeight.w600)),
-      contentStyle: AntdBoxStyle(
-          alignment: Alignment.center,
-          padding: token.size.xl.all,
-          border:
-              actions?.isNotEmpty == true ? token.borderSecondary.bottom : null,
-          textStyle: token.font.md),
-    );
-  }
-
-  @override
-  AntdDialogStyle margeStyle(
-      AntdDialogStyle defaultStyle, AntdDialogStyle? style) {
-    return defaultStyle.copyFrom(style);
-  }
+class AntdDialogAnimation
+    extends AntdMaskAnimation<AntdDialog, AntdDialogState> {
+  const AntdDialogAnimation(
+      {required super.duration,
+      super.maskAnimated =
+          const AntdMaskDefaultAnimated<AntdDialog, AntdDialogState>(),
+      super.contentAnimated = const AntdPopupScaleFadeAnimation<AntdDialogStyle,
+          AntdDialog, AntdDialogState>()});
 }
 
-abstract class AntdInnerDialogState<
-        T extends AntdBaseAction<AntdActionStyle, T>,
-        StateType,
-        Dialog extends AntdInnerDialog<T, Dialog, StateType>>
-    extends AntdBaseDialogState<AntdDialogStyle, T, Dialog, StateType> {
-  @protected
-  handlerTap(T? action) async {
-    if (action?.onTap != null) {
-      action?.onTap?.call(close);
-    }
+class AntdDialogStyle extends AntdDialogBaseStyle {
+  const AntdDialogStyle({
+    super.inherit,
+    super.bodyStyle,
+    super.closeIconStyle,
+    super.closeIcon,
+    super.maskColor,
+    super.maskOpacity,
+    super.headerStyle,
+    super.titleStyle,
+    super.contentStyle,
+    super.actionStyle,
+    this.animation,
+  });
 
-    if (widget.dismissOnAction == true) {
-      await close();
-    }
+  ///弹出层动画
+  final AntdDialogAnimation? animation;
+
+  @override
+  AntdDialogStyle copyFrom(covariant AntdDialogStyle? style) {
+    return AntdDialogStyle(
+      bodyStyle: bodyStyle.merge(style?.bodyStyle),
+      closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
+      maskColor: style?.maskColor ?? maskColor,
+      maskOpacity: style?.maskOpacity ?? maskOpacity,
+      headerStyle: headerStyle.merge(style?.headerStyle),
+      titleStyle: titleStyle.merge(style?.titleStyle),
+      contentStyle: contentStyle.merge(style?.contentStyle),
+      actionStyle: actionStyle.merge(style?.actionStyle),
+      animation: animation.merge(style?.animation),
+    );
   }
 }
 
@@ -292,8 +254,8 @@ abstract class AntdInnerDialogState<
 ///@o 97
 ///@d 用于重要信息的告知或操作的反馈，并附带少量的选项供用户进行操作。
 ///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Dialog 在当前页面正中打开一个浮层，承载相应的操作。
-class AntdDialog
-    extends AntdInnerDialog<AntdDialogAction, AntdDialog, AntdDialogState> {
+class AntdDialog extends AntdBaseDialog<AntdDialogAction, AntdDialog,
+    AntdDialogStyle, AntdDialogState> {
   const AntdDialog(
       {super.key,
       super.style,
@@ -304,11 +266,11 @@ class AntdDialog
       super.opacity,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 400),
       super.actions,
       super.dismissOnAction,
       super.builder,
       super.closeIcon,
+      super.animation,
       super.header,
       super.title,
       this.type = AntdDialogType.normal});
@@ -319,6 +281,46 @@ class AntdDialog
   @override
   State<StatefulWidget> createState() {
     return AntdDialogState();
+  }
+
+  @override
+  AntdDialogStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return AntdDialogStyle(
+        bodyStyle: AntdBoxStyle(
+          padding: header != null || title != null ? token.size.xl.top : null,
+          color: token.colorBgContainer,
+          radius: token.radius.all,
+          width: 0.7,
+          layoutModes: [AntdBoxLayoutMode.factorWidth],
+        ),
+        headerStyle: AntdBoxStyle(
+          padding: token.size.md.horizontal.marge(token.size.xl.bottom),
+          textStyle: token.font.lg.copyWith(fontWeight: FontWeight.w600),
+        ),
+        maskColor: token.colorBlack,
+        closeIconStyle: AntdIconStyle(
+            size: 18,
+            color: token.colorText.tertiary,
+            bodyStyle: AntdBoxStyle(padding: token.size.seed.all)),
+        titleStyle: AntdBoxStyle(
+            padding: token.size.md.horizontal,
+            textStyle: token.font.xxl.copyWith(fontWeight: FontWeight.w600)),
+        contentStyle: AntdBoxStyle(
+            alignment: Alignment.center,
+            padding: token.size.xl.all,
+            border: actions?.isNotEmpty == true
+                ? token.borderSecondary.bottom
+                : null,
+            textStyle: token.font.md),
+        animation:
+            const AntdDialogAnimation(duration: Duration(milliseconds: 400)));
+  }
+
+  @override
+  AntdDialogStyle margeStyle(
+      AntdDialogStyle defaultStyle, AntdDialogStyle? style) {
+    return defaultStyle.copyFrom(style);
   }
 
   @override
@@ -352,7 +354,7 @@ class AntdDialog
       opacity: dialog?.opacity,
       dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
       showMask: dialog?.showMask != false,
-      animationDuration: dialog?.animationDuration,
+      animation: dialog?.animation,
       actions: actions,
       dismissOnAction: dialog?.dismissOnAction != false,
       builder: dialog?.builder ??
@@ -384,7 +386,7 @@ class AntdDialog
       opacity: dialog?.opacity,
       dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
       showMask: dialog?.showMask != false,
-      animationDuration: dialog?.animationDuration,
+      animation: dialog?.animation,
       actions: [
         AntdDialogAction(
           title: alert,
@@ -427,7 +429,7 @@ class AntdDialog
       opacity: dialog?.opacity,
       dismissOnMaskTap: dialog?.dismissOnMaskTap != false,
       showMask: dialog?.showMask != false,
-      animationDuration: dialog?.animationDuration,
+      animation: dialog?.animation,
       actions: [
         AntdDialogAction(
           title: cancel,
@@ -458,8 +460,8 @@ class AntdDialog
   }
 }
 
-class AntdDialogState extends AntdInnerDialogState<AntdDialogAction,
-    AntdDialogState, AntdDialog> {
+class AntdDialogState extends AntdBaseDialogState<AntdDialogStyle,
+    AntdDialogAction, AntdDialog, AntdDialogState> {
   @protected
   Widget wrap(AntdDialogAction action) {
     return AntdBox(
@@ -504,7 +506,14 @@ class AntdDialogState extends AntdInnerDialogState<AntdDialogAction,
   }
 
   @override
+  @protected
   AntdDialogState getState() {
     return this;
+  }
+
+  @override
+  @protected
+  AntdMaskAnimation<AntdDialog, AntdDialogState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

@@ -24,7 +24,7 @@
 | radioStyle | [AntdRadio]样式 | AntdStyleBuilder&lt;AntdRadioStyle, AntdRadio&gt; | - | - |
 | progressCircleStyle | [AntdProgressCircle]样式 | AntdStyleBuilder&lt;AntdProgressCircleStyle, AntdProgressCircle&gt; | - | - |
 | progressBarStyle | [AntdProgressBar]样式 | AntdStyleBuilder&lt;AntdProgressBarStyle, AntdProgressBar&gt; | - | - |
-| popupStyle | [AntdPopup]样式 | AntdStyleBuilder&lt;AntdPopupStyle, AntdPopupInner&gt; | - | - |
+| popupStyle | [AntdPopup]样式 | AntdStyleBuilder&lt;AntdPopupStyle, AntdPopup&gt; | - | - |
 | popoverStyle | [AntdPopover]样式 | AntdStyleBuilder&lt;AntdPopoverStyle, AntdPopover&gt; | - | - |
 | maskStyle | [AntdMask]样式 | AntdStyleBuilder&lt;AntdMaskStyle, AntdMask&gt; | - | - |
 | loadingStyle | [AntdLoading] 样式 | AntdStyleBuilder&lt;AntdLoadingStyle, AntdLoading&gt; | - | - |
@@ -60,7 +60,7 @@
 | toastStyle | [AntdToast] 样式 | AntdStyleBuilder&lt;AntdToastStyle, AntdToast&gt; | - | - |
 | dialogStyle | [AntdDialog] 样式 | AntdStyleBuilder&lt;AntdDialogStyle, AntdDialog&gt; | - | - |
 | dialogActionStyle | [AntdDialogAction] 样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdDialogAction&gt; | - | - |
-| modalStyle | [AntdModal] 样式 | AntdStyleBuilder&lt;AntdDialogStyle, AntdModal&gt; | - | - |
+| modalStyle | [AntdModal] 样式 | AntdStyleBuilder&lt;AntdModalStyle, AntdModal&gt; | - | - |
 | modalActionStyle | [AntdModalAction] 样式 | AntdStyleBuilder&lt;AntdActionStyle, AntdModalAction&gt; | - | - |
 | tourStyle | [AntdTour] 样式 | AntdStyleBuilder&lt;AntdTourStyle, AntdTour&gt; | - | - |
 

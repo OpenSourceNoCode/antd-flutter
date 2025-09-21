@@ -2,12 +2,6 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
-var style = AntdBoxStyle(
-    padding: 12.horizontal.marge(6.vertical),
-    color: Colors.blue,
-    radius: 4.radius.all,
-    textStyle: TextStyle(color: Colors.white));
-
 /// @t 基础用法
 /// @l [AntdPopover]
 class AntdPopoverDemo extends StatelessWidget {
@@ -24,9 +18,8 @@ class AntdPopoverDemo extends StatelessWidget {
             child: Text("Hello World"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("亮色"),
+        child: const AntdButton(
+          child: Text("亮色"),
         ),
       ),
       AntdPopover(
@@ -36,9 +29,8 @@ class AntdPopoverDemo extends StatelessWidget {
             child: Text("Hello World"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("暗色"),
+        child: const AntdButton(
+          child: Text("暗色"),
         ),
       ),
       AntdPopover(
@@ -49,9 +41,8 @@ class AntdPopoverDemo extends StatelessWidget {
             child: Text("我是长按打开的内容"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("长按打开"),
+        child: const AntdButton(
+          child: Text("长按打开"),
         ),
       )
     ]);
@@ -83,9 +74,8 @@ class AntdPopoverEventDemo extends StatelessWidget {
             child: Text("Hello World"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("事件"),
+        child: const AntdButton(
+          child: Text("事件"),
         ),
       ),
     ]);
@@ -114,8 +104,7 @@ class AntdPopoverWaitDemo extends StatelessWidget {
           child: Text('我上边有气泡'),
         ),
       ),
-      AntdBox(
-        style: style,
+      AntdButton(
         child: const Text("点我打开"),
         onTap: () {
           controller.open();
@@ -155,8 +144,7 @@ class AntdPlacementDemo extends StatelessWidget {
             ],
           );
         },
-        child: AntdBox(
-          style: style,
+        child: AntdButton(
           child: Text(value.name),
         ),
       );
@@ -180,9 +168,8 @@ class AntdPopoverTriggerDemo extends StatelessWidget {
             child: Text("Hello World1"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("点击"),
+        child: const AntdButton(
+          child: Text("点击"),
         ),
       ),
       AntdPopover(
@@ -193,9 +180,8 @@ class AntdPopoverTriggerDemo extends StatelessWidget {
             child: Text("Hello World1"),
           );
         },
-        child: AntdBox(
-          style: style,
-          child: const Text("长按"),
+        child: const AntdButton(
+          child: Text("长按"),
         ),
       )
     ]);
@@ -239,17 +225,15 @@ class AntdPopoverActionDemo extends StatelessWidget {
       AntdPopover(
         placement: AntdPlacement.topLeft,
         actions: actions,
-        child: AntdBox(
-          style: style,
-          child: const Text("亮色"),
+        child: const AntdButton(
+          child: Text("亮色"),
         ),
       ),
       AntdPopover(
         mode: AntdPopoverMode.dark,
         actions: actions,
-        child: AntdBox(
-          style: style,
-          child: const Text("暗色"),
+        child: const AntdButton(
+          child: Text("暗色"),
         ),
       ),
       AntdPopover(
@@ -258,9 +242,8 @@ class AntdPopoverActionDemo extends StatelessWidget {
             child: value.child,
           );
         }).toList(),
-        child: AntdBox(
-          style: style,
-          child: const Text("没有图标"),
+        child: const AntdButton(
+          child: Text("没有图标"),
         ),
       )
     ]);

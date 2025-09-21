@@ -1,9 +1,19 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
+class AntdCascaderAnimation
+    extends AntdMaskAnimation<AntdCascader, AntdCascaderState> {
+  const AntdCascaderAnimation(
+      {required super.duration,
+      super.maskAnimated =
+          const AntdMaskDefaultAnimated<AntdCascader, AntdCascaderState>(),
+      super.contentAnimated = const AntdPopupOffsetAnimation<AntdCascaderStyle,
+          AntdCascader, AntdCascaderState>()});
+}
+
 /// 级联选择器样式
 /// @l [AntdCascader]
-class AntdCascaderStyle extends AntdPopupStyle {
+class AntdCascaderStyle extends AntdPopupBaseStyle {
   /// 头部容器样式（包含标题和操作按钮的区域）
   final AntdBoxStyle? headerStyle;
 
@@ -19,33 +29,38 @@ class AntdCascaderStyle extends AntdPopupStyle {
   /// 头部弹性布局样式（控制标题和按钮的排列方式）
   final AntdFlexStyle? headerFlexStyle;
 
-  const AntdCascaderStyle(
-      {super.inherit,
-      super.maskColor,
-      super.maskOpacity,
-      super.bodyStyle,
-      super.closeIconStyle,
-      super.closeIcon,
-      this.headerStyle,
-      this.titleStyle,
-      this.cancelStyle,
-      this.confirmStyle,
-      this.headerFlexStyle});
+  ///弹出层动画
+  final AntdCascaderAnimation? animation;
+
+  const AntdCascaderStyle({
+    super.inherit,
+    super.maskColor,
+    super.maskOpacity,
+    super.bodyStyle,
+    super.closeIconStyle,
+    super.closeIcon,
+    this.headerStyle,
+    this.titleStyle,
+    this.cancelStyle,
+    this.confirmStyle,
+    this.headerFlexStyle,
+    this.animation,
+  });
 
   @override
   AntdCascaderStyle copyFrom(covariant AntdCascaderStyle? style) {
     return AntdCascaderStyle(
-      closeIcon: style?.closeIcon ?? closeIcon,
-      maskColor: style?.maskColor ?? maskColor,
-      maskOpacity: style?.maskOpacity ?? maskOpacity,
-      headerStyle: headerStyle.merge(style?.headerStyle),
-      headerFlexStyle: headerFlexStyle.merge(style?.headerFlexStyle),
-      titleStyle: titleStyle.merge(style?.titleStyle),
-      cancelStyle: cancelStyle.merge(style?.cancelStyle),
-      confirmStyle: confirmStyle.merge(style?.confirmStyle),
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
-    );
+        closeIcon: style?.closeIcon ?? closeIcon,
+        maskColor: style?.maskColor ?? maskColor,
+        maskOpacity: style?.maskOpacity ?? maskOpacity,
+        headerStyle: headerStyle.merge(style?.headerStyle),
+        headerFlexStyle: headerFlexStyle.merge(style?.headerFlexStyle),
+        titleStyle: titleStyle.merge(style?.titleStyle),
+        cancelStyle: cancelStyle.merge(style?.cancelStyle),
+        confirmStyle: confirmStyle.merge(style?.confirmStyle),
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
+        animation: animation.merge(style?.animation));
   }
 }
 
@@ -65,7 +80,7 @@ class AntdCascader
       super.onMaskTap,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 400),
+      super.animation,
       super.closeIcon,
       super.position = AntdPosition.bottom,
       super.avoidKeyboard = true,
@@ -95,11 +110,6 @@ class AntdCascader
   final AntdCascaderView cascaderView;
 
   @override
-  State<StatefulWidget> createState() {
-    return AntdCascaderState();
-  }
-
-  @override
   AntdCascaderStyle margeStyle(
       AntdCascaderStyle defaultStyle, AntdCascaderStyle? style) {
     return defaultStyle.copyFrom(style);
@@ -108,7 +118,7 @@ class AntdCascader
   @override
   AntdCascaderStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
-    var popupStyle = AntdPopupStyle.defaultStyle(token, getOpacity(), position);
+    var popupStyle = AntdPopupStyle.defaultStyle(token);
     return AntdCascaderStyle(
         bodyStyle: popupStyle.bodyStyle,
         closeIconStyle: popupStyle.closeIconStyle,
@@ -122,7 +132,9 @@ class AntdCascader
         headerStyle: AntdBoxStyle(
             padding: token.size.sm.vertical.marge(token.size.seed.horizontal),
             textStyle: token.font.md.copyWith(color: token.colorPrimary)),
-        titleStyle: AntdBoxStyle(textStyle: token.font.md));
+        titleStyle: AntdBoxStyle(textStyle: token.font.md),
+        animation:
+            const AntdCascaderAnimation(duration: Duration(milliseconds: 400)));
   }
 
   @override
@@ -135,11 +147,17 @@ class AntdCascader
       BuildContext context, AntdTheme theme) {
     return theme.cascaderStyle;
   }
+
+  @override
+  State<StatefulWidget> createState() {
+    return AntdCascaderState();
+  }
 }
 
-class AntdCascaderState extends AntdOffsetAnimationPopupState<AntdCascaderStyle,
+class AntdCascaderState extends AntdPopupBaseState<AntdCascaderStyle,
     AntdCascader, AntdCascaderState> {
   var values = <String>[];
+
   @override
   Widget? buildPopup() {
     return Column(
@@ -187,5 +205,10 @@ class AntdCascaderState extends AntdOffsetAnimationPopupState<AntdCascaderStyle,
   @override
   AntdCascaderState getState() {
     return this;
+  }
+
+  @override
+  AntdMaskAnimation<AntdCascader, AntdCascaderState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

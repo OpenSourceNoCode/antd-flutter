@@ -155,7 +155,7 @@ class AntdTheme {
       progressBarStyle;
 
   ///[AntdPopup]样式
-  final AntdStyleBuilder<AntdPopupStyle, AntdPopupInner>? popupStyle;
+  final AntdStyleBuilder<AntdPopupStyle, AntdPopup>? popupStyle;
 
   ///[AntdPopover]样式
   final AntdStyleBuilder<AntdPopoverStyle, AntdPopover>? popoverStyle;
@@ -266,7 +266,7 @@ class AntdTheme {
   final AntdStyleBuilder<AntdActionStyle, AntdDialogAction>? dialogActionStyle;
 
   /// [AntdModal] 样式
-  final AntdStyleBuilder<AntdDialogStyle, AntdModal>? modalStyle;
+  final AntdStyleBuilder<AntdModalStyle, AntdModal>? modalStyle;
 
   /// [AntdModalAction] 样式
   final AntdStyleBuilder<AntdActionStyle, AntdModalAction>? modalActionStyle;
@@ -363,7 +363,7 @@ class AntdTheme {
     AntdStyleBuilder<AntdProgressCircleStyle, AntdProgressCircle>?
         progressCircleStyle,
     AntdStyleBuilder<AntdProgressBarStyle, AntdProgressBar>? progressBarStyle,
-    AntdStyleBuilder<AntdPopupStyle, AntdPopupInner>? popupStyle,
+    AntdStyleBuilder<AntdPopupStyle, AntdPopup>? popupStyle,
     AntdStyleBuilder<AntdPopoverStyle, AntdPopover>? popoverStyle,
     AntdStyleBuilder<AntdMaskStyle, AntdMask>? maskStyle,
     AntdStyleBuilder<AntdLoadingStyle, AntdLoading>? loadingStyle,
@@ -402,7 +402,7 @@ class AntdTheme {
     AntdStyleBuilder<AntdToastStyle, AntdToast>? toastStyle,
     AntdStyleBuilder<AntdDialogStyle, AntdDialog>? dialogStyle,
     AntdStyleBuilder<AntdActionStyle, AntdDialogAction>? dialogActionStyle,
-    AntdStyleBuilder<AntdDialogStyle, AntdModal>? modalStyle,
+    AntdStyleBuilder<AntdModalStyle, AntdModal>? modalStyle,
     AntdStyleBuilder<AntdActionStyle, AntdModalAction>? modalActionStyle,
     AntdStyleBuilder<AntdTourStyle, AntdTour>? tourStyle,
   }) {

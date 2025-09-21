@@ -54,3 +54,9 @@
 - Removed default`_` properties from `AntdSize` and `AntdColor`
 - Added dark/light theme switching in Examples
 - Improved API documentation for Theme-related features
+
+## 5.0.5-alpha.1
+- `AntdPopover`, `AntdDropdown`, `AntdToast`, `AntdTour`, `AntdMask`, `AntdPopup`, `AntdCascader`, `AntdActionSheet`, `AntdModal`, and `AntdDialog` now support custom `animations` via the animation property.
+- `AntdMaskHole` now supports clipping using `AntdMaskHoleClipper`.
+- Fixed animation performance issues with `AntdSwitch`.
+- Updated animations for `AntdDropdown`.

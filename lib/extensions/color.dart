@@ -82,8 +82,7 @@ extension ColorExtensions on Color {
         ? (l + clampedAmount).clamp(0.0, 1.0)
         : (l - clampedAmount).clamp(0.0, 1.0);
 
-    return _hslToRgb(h, s, l)
-        .withValues(alpha: ((a * 255.0).round() & 0xff).toDouble());
+    return _hslToRgb(h, s, l).withValues(alpha: a.toDouble());
   }
 
   List<double> _rgbToHsl(int r, int g, int b) {

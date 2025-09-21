@@ -1,25 +1,39 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
+class AntdTourAnimation extends AntdMaskAnimation<AntdTour, AntdTourState> {
+  const AntdTourAnimation(
+      {super.disable,
+      super.duration,
+      super.holeAnimated = const AntdHoleDefaultAnimated(),
+      super.contentAnimated = const AntdMaskContentDefaultAnimated<
+          AntdTourStyle, AntdTour, AntdTourState>()});
+}
+
 /// 提示样式
 /// @l [AntdTour]
-class AntdTourStyle extends AntdMaskStyle {
-  const AntdTourStyle({
-    super.inherit,
-    super.maskColor,
-    super.maskOpacity,
-    this.stepStyle,
-  });
+class AntdTourStyle extends AntdMaskBaseStyle {
+  const AntdTourStyle(
+      {super.inherit,
+      super.maskColor,
+      super.maskOpacity,
+      this.stepStyle,
+      this.animation});
 
   ///步骤条样式
   final AntdTourStepStyle? stepStyle;
 
+  ///动画
+  final AntdTourAnimation? animation;
+
   @override
   AntdTourStyle copyFrom(covariant AntdTourStyle? style) {
     return AntdTourStyle(
-        maskColor: style?.maskColor ?? maskColor,
-        maskOpacity: style?.maskOpacity ?? maskOpacity,
-        stepStyle: stepStyle.merge(style?.stepStyle));
+      maskColor: style?.maskColor ?? maskColor,
+      maskOpacity: style?.maskOpacity ?? maskOpacity,
+      stepStyle: stepStyle.merge(style?.stepStyle),
+      animation: animation.merge(style?.animation),
+    );
   }
 }
 
@@ -33,8 +47,7 @@ class AntdTourController extends ChangeNotifier {
   bool get isLast => _currentIndex == _stepIndexList.length - 1;
   int? get totalStep => _stepIndexList.length;
 
-  AntdMaskState? _maskState;
-  _AntdTourState? _tourState;
+  AntdTourState? _tourState;
 
   void registerStep(AntdTourStepState? step) {
     if (step == null) {
@@ -101,7 +114,7 @@ class AntdTourController extends ChangeNotifier {
     }
     var hole = _getHole();
     if (hole != null) {
-      _maskState?.setHole(hole);
+      _tourState?.setHole(hole);
     }
     notifyListeners();
   }
@@ -114,21 +127,19 @@ class AntdTourController extends ChangeNotifier {
 
     var hole = _getHole();
     if (hole != null) {
-      _maskState?.setHole(hole);
+      _tourState?.setHole(hole);
     }
     notifyListeners();
   }
 
   void finish() {
-    _maskState?.close();
-    _currentIndex = 0;
+    _tourState?.close();
   }
 
   @override
   void dispose() {
     _steps.clear();
     _stepRenderBox.clear();
-    _maskState = null;
     _tourState = null;
     super.dispose();
   }
@@ -149,7 +160,7 @@ class AntdTourProvider extends InheritedWidget {
 ///@g 信息展示
 ///@o 101
 ///@u 提示用户操作和交互
-class AntdTour extends AntdMaskProxy<AntdTourStyle, AntdTour> {
+class AntdTour extends AntdBaseMask<AntdTourStyle, AntdTour, AntdTourState> {
   const AntdTour(
       {super.key,
       super.style,
@@ -161,8 +172,7 @@ class AntdTour extends AntdMaskProxy<AntdTourStyle, AntdTour> {
       super.opacity = AntdMaskOpacity.thin,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 200),
-      super.holeAnimationDuration = const Duration(milliseconds: 400),
+      super.animation,
       required this.child,
       this.controller});
 
@@ -174,13 +184,14 @@ class AntdTour extends AntdMaskProxy<AntdTourStyle, AntdTour> {
 
   @override
   State<StatefulWidget> createState() {
-    return _AntdTourState();
+    return AntdTourState();
   }
 
   @override
   AntdTourStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return AntdTourStyle(maskOpacity: getOpacity());
+    return const AntdTourStyle(
+        animation: AntdTourAnimation(duration: Duration(milliseconds: 400)));
   }
 
   @override
@@ -200,7 +211,8 @@ class AntdTour extends AntdMaskProxy<AntdTourStyle, AntdTour> {
   }
 }
 
-class _AntdTourState extends AntdMaskProxyState<AntdTourStyle, AntdTour> {
+class AntdTourState
+    extends AntdMaskProxyState<AntdTourStyle, AntdTour, AntdTourState> {
   late final AntdTourController _controller =
       widget.controller ?? AntdTourController();
 
@@ -219,17 +231,7 @@ class _AntdTourState extends AntdMaskProxyState<AntdTourStyle, AntdTour> {
   }
 
   @override
-  void dispose() {
-    if (_controller != widget.controller) {
-      _controller.dispose();
-    }
-    super.dispose();
-  }
-
-  @override
-  Widget buildBuilder(
-      Widget? child, AntdLayerClose close, AntdMaskState state) {
-    _controller._maskState = state;
+  Widget? buildBuilder() {
     var target = _controller._getHole();
     AntdTourStepState? step = _controller._getStep();
     if (target == null || step == null) {
@@ -240,5 +242,23 @@ class _AntdTourState extends AntdMaskProxyState<AntdTourStyle, AntdTour> {
         style: step.style,
         placement: step.widget.placement,
         child: step.renderStep(context));
+  }
+
+  @override
+  void dispose() {
+    if (_controller != widget.controller) {
+      _controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  AntdTourState getState() {
+    return this;
+  }
+
+  @override
+  AntdMaskAnimation<AntdTour, AntdTourState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

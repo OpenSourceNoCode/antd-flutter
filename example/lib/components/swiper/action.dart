@@ -66,7 +66,7 @@ class AntdSwipeActionDemo extends StatelessWidget {
           style: AntdBoxStyle(
               padding: 16.all,
               width: double.infinity,
-              color: token.colorFill.tertiary),
+              color: token.colorWarning),
           child: const Text("左右滑动"),
         ),
       ),
@@ -211,7 +211,7 @@ class _AntdSwipeActionControllerDemoStateDemo
             style: AntdBoxStyle(
                 padding: 16.all,
                 width: double.infinity,
-                color: token.colorFill.tertiary),
+                color: token.colorWarning),
             child: const Text("左右滑动"),
           ),
         );

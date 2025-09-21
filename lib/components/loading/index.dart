@@ -169,6 +169,9 @@ class _WaveBouncingBallsState extends State<_WaveBouncingBalls>
     )..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           Future.delayed(const Duration(milliseconds: 500), () {
+            if (!mounted) {
+              return;
+            }
             _controller.reset();
             _controller.forward();
           });

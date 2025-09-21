@@ -161,7 +161,7 @@ class AntdCascaderDemo extends StatelessWidget {
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdCascader, AntdCascaderState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | position | 弹出位置:`top` \| `bottom` \| `left` \| `right` \| `horizontal` \| `vertical` \| `all` | AntdPosition | bottom | - |
 | avoidKeyboard | 当底部弹出式 避免键盘遮挡 | bool | true | - |
@@ -188,5 +188,6 @@ class AntdCascaderDemo extends StatelessWidget {
 | cancelStyle | 取消按钮样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | confirmStyle | 确认按钮样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | headerFlexStyle | 头部弹性布局样式（控制标题和按钮的排列方式） | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+| animation | 弹出层动画 | AntdCascaderAnimation | - | - |
 
 

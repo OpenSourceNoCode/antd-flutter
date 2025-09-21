@@ -131,15 +131,16 @@ mixin AntdLayerMixin on Widget {
   String get layerType;
 }
 
-abstract class AntdLayerState<Style extends AntdStyle,
-    S extends AntdStateComponent<Style, S>> extends AntdState<Style, S> {
+abstract class AntdLayerState<Style extends AntdStyle, StateType,
+        WidgetType extends AntdStateComponent<Style, WidgetType>>
+    extends AntdAnimationState<Style, StateType, WidgetType> {
   @override
   @protected
   BuildContext get context => super.context;
 
   @override
   @protected
-  S get widget => super.widget;
+  WidgetType get widget => super.widget;
 
   @override
   @protected

@@ -1,5 +1,56 @@
 import 'package:antd_flutter_mobile/index.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+class AntdDropdownAnimation
+    extends AntdMaskAnimation<AntdDropdown, AntdDropdownState> {
+  const AntdDropdownAnimation(
+      {required super.duration,
+      super.maskAnimated = const AntdMaskDefaultAnimated(),
+      super.contentAnimated = const AntdDropdownContentDefaultAnimated()});
+}
+
+class AntdDropdownContentDefaultAnimated
+    extends AntdAnimated<AntdDropdown, AntdDropdownState> {
+  const AntdDropdownContentDefaultAnimated();
+  @override
+  Widget build(AnimationController controller, Widget? child,
+      AntdAnimatedContext<AntdDropdown, AntdDropdownState> context) {
+    var state = context.state;
+    var renderBox = state.contentRenderBox;
+    if (renderBox == null) {
+      return AntdBox(
+        style: const AntdBoxStyle(visibility: AntdVisibility.visible),
+        child: child,
+      );
+    }
+    var offsetY = state.getOffsetY();
+    var tween =
+        Tween(begin: offsetY - renderBox.size.height, end: offsetY).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0, 1, curve: Curves.easeOutCubic),
+      ),
+    );
+    var animatedChild = AnimatedBuilder(
+        animation: tween,
+        builder: (ctx, _) {
+          return Stack(
+            fit: StackFit.loose,
+            children: [
+              Positioned(
+                  top: tween.value,
+                  left: 0,
+                  right: 0,
+                  child: child ?? const AntdBox())
+            ],
+          );
+        });
+    return ClipPath(
+      clipper: AntdMaskHoleClipper(hole: state.targetHole),
+      child: animatedChild,
+    );
+  }
+}
 
 /// 下拉框内容
 /// @l [AntdDropdown]
@@ -13,14 +64,14 @@ class AntdDropdownItem {
   /// [close] 用于关闭下拉层的回调函数
   /// [state] 当前遮罩层的状态信息
   /// 返回一个Widget作为下拉菜单的内容
-  final AntdMaskBuilder<AntdMaskState> item;
+  final AntdMaskBuilder<AntdDropdownState> item;
 
   const AntdDropdownItem({required this.child, required this.item});
 }
 
 ///样式
 ///@l [AntdDropdown]
-class AntdDropdownStyle extends AntdMaskStyle {
+class AntdDropdownStyle extends AntdMaskBaseStyle {
   /// 下拉菜单主体容器的样式配置
   /// 用于设置下拉菜单整体的背景色、边框、圆角、阴影等样式
   final AntdBoxStyle? bodyStyle;
@@ -53,36 +104,39 @@ class AntdDropdownStyle extends AntdMaskStyle {
   ///激活后的图标
   final Widget? activeIcon;
 
-  const AntdDropdownStyle({
-    super.inherit,
-    super.maskColor,
-    super.maskOpacity,
-    this.bodyStyle,
-    this.childRowStyle,
-    this.childStyle,
-    this.itemStyle,
-    this.extraStyle,
-    this.iconStyle,
-    this.icon,
-    this.activeIconStyle,
-    this.activeIcon,
-  });
+  ///动画
+  final AntdDropdownAnimation? animation;
+
+  const AntdDropdownStyle(
+      {super.inherit,
+      super.maskColor,
+      super.maskOpacity,
+      this.bodyStyle,
+      this.childRowStyle,
+      this.childStyle,
+      this.itemStyle,
+      this.extraStyle,
+      this.iconStyle,
+      this.icon,
+      this.activeIconStyle,
+      this.activeIcon,
+      this.animation});
 
   @override
   AntdDropdownStyle copyFrom(covariant AntdDropdownStyle? style) {
     return AntdDropdownStyle(
-      maskColor: style?.maskColor ?? maskColor,
-      maskOpacity: style?.maskOpacity ?? maskOpacity,
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      childRowStyle: childRowStyle.merge(style?.childRowStyle),
-      childStyle: childStyle.merge(style?.childStyle),
-      itemStyle: itemStyle.merge(style?.itemStyle),
-      extraStyle: extraStyle.merge(style?.extraStyle),
-      iconStyle: iconStyle.merge(style?.iconStyle),
-      icon: style?.icon ?? icon,
-      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
-      activeIcon: style?.activeIcon ?? activeIcon,
-    );
+        maskColor: style?.maskColor ?? maskColor,
+        maskOpacity: style?.maskOpacity ?? maskOpacity,
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        childRowStyle: childRowStyle.merge(style?.childRowStyle),
+        childStyle: childStyle.merge(style?.childStyle),
+        itemStyle: itemStyle.merge(style?.itemStyle),
+        extraStyle: extraStyle.merge(style?.extraStyle),
+        iconStyle: iconStyle.merge(style?.iconStyle),
+        icon: style?.icon ?? icon,
+        activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+        activeIcon: style?.activeIcon ?? activeIcon,
+        animation: animation.merge(style?.animation));
   }
 }
 
@@ -91,23 +145,25 @@ class AntdDropdownStyle extends AntdMaskStyle {
 ///@o 78
 ///@d 向下弹出的菜单面板。
 ///@u 适用于筛选、排序并更改当前页面内容展示范围或顺序。
-class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
-  const AntdDropdown(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.builder,
-      super.opacity = AntdMaskOpacity.thin,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 200),
-      required this.items,
-      this.icon,
-      this.activeIcon,
-      this.extra});
+class AntdDropdown
+    extends AntdBaseMask<AntdDropdownStyle, AntdDropdown, AntdDropdownState> {
+  const AntdDropdown({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.builder,
+    super.opacity = AntdMaskOpacity.thin,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    super.animation,
+    required this.items,
+    this.icon,
+    this.activeIcon,
+    this.extra,
+  });
 
   ///内容
   final List<AntdDropdownItem> items;
@@ -119,11 +175,11 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
   final Widget? activeIcon;
 
   ///额外区域,始终位于菜单下方
-  final AntdMaskBuilder<AntdMaskState>? extra;
+  final AntdMaskBuilder<AntdDropdownState>? extra;
 
   @override
   State<StatefulWidget> createState() {
-    return _AntdDropdownState();
+    return AntdDropdownState();
   }
 
   @override
@@ -150,7 +206,9 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
         activeIcon: const AntdIcon(
           icon: AntdIcons.upFill,
         ),
-        iconStyle: AntdIconStyle(size: 16, color: token.colorText.secondary));
+        iconStyle: AntdIconStyle(size: 16, color: token.colorText.secondary),
+        animation:
+            const AntdDropdownAnimation(duration: Duration(milliseconds: 400)));
   }
 
   @override
@@ -174,10 +232,10 @@ class AntdDropdown extends AntdMaskProxy<AntdDropdownStyle, AntdDropdown> {
   }
 }
 
-class _AntdDropdownState
-    extends AntdMaskProxyState<AntdDropdownStyle, AntdDropdown> {
+class AntdDropdownState extends AntdMaskProxyState<AntdDropdownStyle,
+    AntdDropdown, AntdDropdownState> {
   RenderBox? renderBox;
-  AntdMaskState? maskState;
+  RenderBox? contentRenderBox;
   late int currentIndex = -1;
 
   double getOffsetY() {
@@ -190,47 +248,8 @@ class _AntdDropdownState
   }
 
   @override
-  buildOnClosed() {
-    setState(() {
-      currentIndex = -1;
-    });
-  }
-
-  @override
-  Widget buildBuilder(
-      Widget? child, AntdLayerClose close, AntdMaskState state) {
-    maskState = state;
-    var item = widget.items[currentIndex];
-
-    return Stack(
-      children: [
-        Positioned(
-            top: getOffsetY(),
-            left: 0,
-            right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AntdBox(
-                  style: style.itemStyle,
-                  child: item.item(close, state),
-                ),
-                if (widget.extra != null)
-                  AntdBox(
-                    style: style.extraStyle,
-                    child: widget.extra?.call(close, state),
-                  )
-              ],
-            )),
-      ],
-    );
-  }
-
-  @override
   void dispose() {
     renderBox = null;
-    maskState = null;
-    currentIndex = -1;
     super.dispose();
   }
 
@@ -257,13 +276,13 @@ class _AntdDropdownState
                 setState(() {
                   currentIndex = index;
                 });
-                if (maskState == null || maskState?.mounted != true) {
-                  open(AntdMaskHole(
-                      hitTest: true,
-                      offset: Offset.zero,
-                      size: Size(double.infinity, getOffsetY())));
-                } else {
-                  maskState?.setState(() => {});
+                if (!opened) {
+                  open(
+                      AntdMaskHole(
+                          hitTest: true,
+                          offset: Offset.zero,
+                          size: Size(double.infinity, getOffsetY())),
+                      false);
                 }
               },
               child: Row(
@@ -280,5 +299,60 @@ class _AntdDropdownState
             ));
           }).toList()),
     );
+  }
+
+  @override
+  onClosed() {
+    super.onClosed();
+    contentRenderBox = null;
+    setState(() {
+      currentIndex = -1;
+    });
+  }
+
+  @override
+  Widget? buildBuilder() {
+    if (currentIndex < 0) {
+      return null;
+    }
+
+    var item = widget.items[currentIndex];
+
+    return AntdBox(
+      onLayout: (ctx) {
+        bool isOpen = contentRenderBox != null;
+        if (contentRenderBox == null || ctx.hasSizeChange) {
+          contentRenderBox = ctx.renderBox;
+          if (!isOpen) {
+            openAnimation();
+            setState(() {});
+          }
+        }
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AntdBox(
+            style: style.itemStyle,
+            child: item.item(close, this),
+          ),
+          if (widget.extra != null)
+            AntdBox(
+              style: style.extraStyle,
+              child: widget.extra?.call(close, this),
+            )
+        ],
+      ),
+    );
+  }
+
+  @override
+  AntdDropdownState getState() {
+    return this;
+  }
+
+  @override
+  AntdMaskAnimation<AntdDropdown, AntdDropdownState>? buildStyleAnimation() {
+    return style.animation;
   }
 }

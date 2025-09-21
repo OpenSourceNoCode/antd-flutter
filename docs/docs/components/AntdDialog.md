@@ -284,24 +284,24 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | style | 样式 | AntdDialogStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDialogStyle, Dialog&gt; | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDialogStyle, AntdDialog&gt; | - | - |
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
 | actions | 面板选项列表 | List&lt;AntdDialogAction&gt; | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | - | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdDialogState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdDialog, AntdDialogState&gt; | - | - |
 | header | 顶部区域 | Widget | - | - |
 | title | 标题 | Widget | - | - |
 | type | dialog的类型，一般用作全局主题的动态样式:`alert` \| `confirm` \| `normal` | AntdDialogType | normal | - |
 
 
-## 对话框样式(AntdDialogStyle) <a id='AntdDialogStyle'></a>
+## 对话框样式(AntdDialogBaseStyle) <a id='AntdDialogBaseStyle'></a>
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

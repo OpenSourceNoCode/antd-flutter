@@ -106,9 +106,20 @@ class AntdPopoverAction
   }
 }
 
+class AntdPopoverAnimation
+    extends AntdMaskAnimation<AntdPopover, AntdPopoverState> {
+  const AntdPopoverAnimation(
+      {super.disable,
+      super.duration,
+      super.maskAnimated =
+          const AntdMaskDefaultAnimated<AntdPopover, AntdPopoverState>(),
+      super.contentAnimated = const AntdMaskContentDefaultAnimated<
+          AntdPopoverStyle, AntdPopover, AntdPopoverState>()});
+}
+
 /// 弹出框整体样式配置类（继承自遮罩样式）
 /// @l [AntdPopover]
-class AntdPopoverStyle extends AntdMaskStyle {
+class AntdPopoverStyle extends AntdMaskBaseStyle {
   /// child的样式
   final AntdBoxStyle? childStyle;
 
@@ -121,38 +132,31 @@ class AntdPopoverStyle extends AntdMaskStyle {
   ///弹出层样式
   final AntdPopoverBoxStyle? popoverBoxStyle;
 
+  ///popover内容动画
+  final AntdPopoverAnimation? animation;
+
   /// 创建弹出框样式配置
   const AntdPopoverStyle({
-    /// 是否通过控制器控制显示/隐藏（继承自父类）
     super.inherit,
-
-    ///child
+    super.maskColor,
+    super.maskOpacity,
     this.childStyle,
-
-    /// 操作区域样式
     this.actionStyle,
     this.actionColumnStyle,
-
-    /// 外层容器样式
     this.popoverBoxStyle,
-
-    /// 遮罩层颜色（继承自父类）
-    super.maskColor,
-
-    /// 遮罩层透明度（继承自父类）
-    super.maskOpacity,
+    this.animation,
   });
 
   @override
   AntdPopoverStyle copyFrom(covariant AntdPopoverStyle? style) {
     return AntdPopoverStyle(
-      childStyle: childStyle.merge(style?.childStyle),
-      actionStyle: actionStyle.merge(style?.actionStyle),
-      actionColumnStyle: actionColumnStyle.merge(style?.actionColumnStyle),
-      popoverBoxStyle: popoverBoxStyle.merge(style?.popoverBoxStyle),
-      maskColor: style?.maskColor ?? maskColor,
-      maskOpacity: style?.maskOpacity ?? maskOpacity,
-    );
+        childStyle: childStyle.merge(style?.childStyle),
+        actionStyle: actionStyle.merge(style?.actionStyle),
+        actionColumnStyle: actionColumnStyle.merge(style?.actionColumnStyle),
+        popoverBoxStyle: popoverBoxStyle.merge(style?.popoverBoxStyle),
+        maskColor: style?.maskColor ?? maskColor,
+        maskOpacity: style?.maskOpacity ?? maskOpacity,
+        animation: animation.merge(style?.animation));
   }
 }
 
@@ -161,7 +165,7 @@ enum AntdPopoverTrigger { tap, longPress, show }
 enum AntdPopoverMode { light, dark }
 
 class AntdPopoverController {
-  _AntdPopoverState? _state;
+  AntdPopoverState? _state;
 
   Future<T?> open<T>() async {
     return await _state?.open();
@@ -177,7 +181,8 @@ class AntdPopoverController {
 ///@o 88
 ///@d 点击元素，弹出气泡式的菜单。
 ///@u 适用于功能的导航，只可由导航栏上图标唤起，通常用于收纳低频使用的功能。
-class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
+class AntdPopover
+    extends AntdBaseMask<AntdPopoverStyle, AntdPopover, AntdPopoverState> {
   const AntdPopover(
       {super.key,
       super.style,
@@ -189,7 +194,6 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
       super.opacity = AntdMaskOpacity.transparent,
       super.dismissOnMaskTap = true,
       super.showMask = true,
-      super.animationDuration = const Duration(milliseconds: 200),
       required this.child,
       this.actions,
       this.placement = AntdPlacement.top,
@@ -197,7 +201,8 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
       this.dismissOnAction = true,
       this.controller,
       this.trigger = AntdPopoverTrigger.tap,
-      this.hapticFeedback = AntdHapticFeedback.light});
+      this.hapticFeedback = AntdHapticFeedback.light,
+      this.animation});
 
   ///弹出内容，比actions优先级更高
   final Widget child;
@@ -223,9 +228,12 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
   ///开启反馈
   final AntdHapticFeedback? hapticFeedback;
 
+  ///popover内容动画
+  final AntdPopoverAnimation? animation;
+
   @override
   State<StatefulWidget> createState() {
-    return _AntdPopoverState();
+    return AntdPopoverState();
   }
 
   @override
@@ -273,7 +281,8 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
           arrowStyle: AntdArrowStyle(
               size: const Size(15, 8), color: color, bluntness: 1),
         ),
-        maskOpacity: getOpacity());
+        animation:
+            const AntdPopoverAnimation(duration: Duration(milliseconds: 400)));
     return margeStyle(
         style, theme.popoverStyle?.call(context, this, style, token));
   }
@@ -294,10 +303,13 @@ class AntdPopover extends AntdMaskProxy<AntdPopoverStyle, AntdPopover> {
   AntdPopover getWidget(BuildContext context) {
     return this;
   }
+
+  @override
+  String get layerType => "popover";
 }
 
-class _AntdPopoverState
-    extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover> {
+class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
+    AntdPopoverState> {
   RenderBox? renderBox;
 
   @override
@@ -340,14 +352,14 @@ class _AntdPopoverState
   }
 
   @override
-  Widget buildBuilder(
-      Widget? child, AntdLayerClose close, AntdMaskState state) {
+  Widget? buildBuilder() {
     if (renderBox == null) {
       return const AntdBox();
     }
     var target = AntdPopoverTarget(
         offset: renderBox!.localToGlobal(Offset.zero), size: renderBox!.size);
 
+    Widget child = widget.builder?.call(close, getState()) ?? const AntdBox();
     if (widget.actions != null) {
       child = AntdStyleProvider<AntdPopoverActionStyle>(
           style: style.actionStyle,
@@ -369,13 +381,24 @@ class _AntdPopoverState
             ),
           ));
     }
+
     return AntdStyleProvider<AntdPopoverBoxStyle>(
         style: style.popoverBoxStyle,
         child: AntdPopoverBox(
           target: target,
           placement: widget.placement,
-          child: child ?? const AntdBox(),
+          child: child,
         ));
+  }
+
+  @override
+  AntdPopoverState getState() {
+    return this;
+  }
+
+  @override
+  AntdMaskAnimation<AntdPopover, AntdPopoverState>? buildStyleAnimation() {
+    return style.animation;
   }
 }
 

@@ -251,15 +251,15 @@ class AntdDropdownCloseDemo extends StatelessWidget {
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
-| builder | 内容 | AntdMaskBuilder&lt;AntdMaskState&gt; | - | - |
+| builder | 内容 | AntdMaskBuilder&lt;AntdDropdownState&gt; | - | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | thin | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdDropdown, AntdDropdownState&gt; | - | - |
 | items | 内容 | List&lt;AntdDropdownItem&gt; | - | - |
 | icon | 默认的图标 | Widget | - | - |
 | activeIcon | 激活后的图标 | Widget | - | - |
-| extra | 额外区域,始终位于菜单下方 | AntdMaskBuilder&lt;AntdMaskState&gt; | - | - |
+| extra | 额外区域,始终位于菜单下方 | AntdMaskBuilder&lt;AntdDropdownState&gt; | - | - |
 
 
 ## 下拉框内容(AntdDropdownItem) <a id='AntdDropdownItem'></a>
@@ -270,7 +270,7 @@ class AntdDropdownCloseDemo extends StatelessWidget {
 返回一个Widget作为触发下拉的按钮或元素 | Widget Function(bool open) | - | - |
 | item | [close](/close) 用于关闭下拉层的回调函数
 [state](/state) 当前遮罩层的状态信息
-返回一个Widget作为下拉菜单的内容 | AntdMaskBuilder&lt;AntdMaskState&gt; | - | - |
+返回一个Widget作为下拉菜单的内容 | AntdMaskBuilder&lt;AntdDropdownState&gt; | - | - |
 
 ## 样式(AntdDropdownStyle) <a id='AntdDropdownStyle'></a>
 
@@ -288,5 +288,6 @@ class AntdDropdownCloseDemo extends StatelessWidget {
 | icon | 默认的图标 | Widget | - | - |
 | activeIconStyle | 图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | activeIcon | 激活后的图标 | Widget | - | - |
+| animation | 动画 | AntdDropdownAnimation | - | - |
 
 

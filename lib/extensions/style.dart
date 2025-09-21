@@ -1,4 +1,4 @@
-import 'package:antd_flutter_mobile/components/style.dart';
+import 'package:antd_flutter_mobile/index.dart';
 
 extension StyleExtensions<T extends AntdStyle> on T? {
   T? merge(T? other) {

@@ -32,20 +32,20 @@ class AntdPopoverDemo extends StatelessWidget {
           builder: (close, ctx) {
             return const AntdBox(child: Text("Hello World"));
           },
-          child: AntdBox(style: style, child: const Text("亮色"))),
+          child: const AntdButton(child: Text("亮色"))),
       AntdPopover(
           mode: AntdPopoverMode.dark,
           builder: (close, ctx) {
             return const AntdBox(child: Text("Hello World"));
           },
-          child: AntdBox(style: style, child: const Text("暗色"))),
+          child: const AntdButton(child: Text("暗色"))),
       AntdPopover(
           trigger: AntdPopoverTrigger.longPress,
           mode: AntdPopoverMode.dark,
           builder: (close, ctx) {
             return const AntdBox(child: Text("我是长按打开的内容"));
           },
-          child: AntdBox(style: style, child: const Text("长按打开")))
+          child: const AntdButton(child: Text("长按打开")))
     ]);
   }
 }
@@ -76,7 +76,7 @@ class AntdPopoverEventDemo extends StatelessWidget {
           builder: (close, ctx) {
             return const AntdBox(child: Text("Hello World"));
           },
-          child: AntdBox(style: style, child: const Text("事件")))
+          child: const AntdButton(child: Text("事件")))
     ]);
   }
 }
@@ -101,8 +101,7 @@ class AntdPopoverWaitDemo extends StatelessWidget {
             return const AntdBox(child: Text("Hello World"));
           },
           child: const AntdButton(child: Text('我上边有气泡'))),
-      AntdBox(
-          style: style,
+      AntdButton(
           child: const Text("点我打开"),
           onTap: () {
             controller.open();
@@ -133,7 +132,7 @@ class AntdPlacementDemo extends StatelessWidget {
               AntdBox(child: Text("Hello World4"))
             ]);
           },
-          child: AntdBox(style: style, child: Text(value.name)));
+          child: AntdButton(child: Text(value.name)));
     }).toList());
   }
 }
@@ -155,14 +154,14 @@ class AntdPopoverTriggerDemo extends StatelessWidget {
           builder: (close, ctx) {
             return const AntdBox(child: Text("Hello World1"));
           },
-          child: AntdBox(style: style, child: const Text("点击"))),
+          child: const AntdButton(child: Text("点击"))),
       AntdPopover(
           placement: AntdPlacement.top,
           trigger: AntdPopoverTrigger.longPress,
           builder: (close, ctx) {
             return const AntdBox(child: Text("Hello World1"));
           },
-          child: AntdBox(style: style, child: const Text("长按")))
+          child: const AntdButton(child: Text("长按")))
     ]);
   }
 }
@@ -197,16 +196,16 @@ class AntdPopoverActionDemo extends StatelessWidget {
       AntdPopover(
           placement: AntdPlacement.topLeft,
           actions: actions,
-          child: AntdBox(style: style, child: const Text("亮色"))),
+          child: const AntdButton(child: Text("亮色"))),
       AntdPopover(
           mode: AntdPopoverMode.dark,
           actions: actions,
-          child: AntdBox(style: style, child: const Text("暗色"))),
+          child: const AntdButton(child: Text("暗色"))),
       AntdPopover(
           actions: actions.map((value) {
             return AntdPopoverAction(child: value.child);
           }).toList(),
-          child: AntdBox(style: style, child: const Text("没有图标")))
+          child: const AntdButton(child: Text("没有图标")))
     ]);
   }
 }
@@ -327,11 +326,10 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | onClosed | 完全关闭后触发 | VoidCallback | - | - |
 | onOpened | 完全展示后触发 | VoidCallback | - | - |
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
-| builder | 内容 | AntdMaskBuilder&lt;AntdMaskState&gt; | - | - |
+| builder | 内容 | AntdMaskBuilder&lt;AntdPopoverState&gt; | - | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | transparent | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 200) | - |
 | child | 弹出内容，比actions优先级更高 | Widget | - | - |
 | dismissOnAction | 当执行action后关闭 | bool | true | - |
 | actions | 菜单 | List&lt;AntdPopoverAction&gt; | - | - |
@@ -340,6 +338,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | controller | 控制器,如果使用了控制器必须要手动打开，内部的点击会失效 | AntdPopoverController | - | - |
 | trigger | 如何触发气泡:`tap` \| `longPress` \| `show` | AntdPopoverTrigger | tap | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
+| animation | popover内容动画 | AntdPopoverAnimation | - | - |
 
 
 ## 样式(AntdPopoverActionStyle) <a id='AntdPopoverActionStyle'></a>
@@ -368,12 +367,13 @@ class AntdPopoverActionDemo extends StatelessWidget {
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| inherit | 是否通过控制器控制显示/隐藏（继承自父类） | bool | - | - |
-| maskColor | 遮罩层颜色（继承自父类） | Color | - | - |
-| maskOpacity | 遮罩层透明度（继承自父类） | double | - | - |
+| inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
+| maskColor | 背景色 | Color | - | - |
+| maskOpacity | 透明度 | double | - | - |
 | childStyle | child的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | actionStyle | Action的样式 | [AntdPopoverActionStyle](../components/antd-popover-action/#AntdPopoverActionStyle) | - | - |
 | actionColumnStyle | Action的对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | popoverBoxStyle | 弹出层样式 | [AntdPopoverBoxStyle](../components/antd-popover-box/#AntdPopoverBoxStyle) | - | - |
+| animation | popover内容动画 | AntdPopoverAnimation | - | - |
 
 

@@ -307,7 +307,7 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animationDuration | 内容动画时长 | Duration | const Duration(milliseconds: 400) | - |
+| animation | mask内容动画 | AntdMaskAnimation&lt;AntdActionSheet, AntdActionSheetState&gt; | - | - |
 | actions | 面板选项列表 | List&lt;AntdSheetAction&gt; | - | - |
 | cancelText | 取消按钮文字，如果设置为空则不显示取消按钮 | Widget | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | true | - |
@@ -342,5 +342,6 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | actionStyle | 样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |
 | cancelActionStyle | 取消样式 | [AntdActionStyle](../components/antd-action/#AntdActionStyle) | - | - |
 | extraStyle | 标题样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| animation | 动作面板动画 | AntdActionSheetAnimation | - | - |
 
 
