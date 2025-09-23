@@ -264,6 +264,8 @@ class AntdListIndexDemo extends StatefulWidget {
 | alignment | 根据方向自动优化视图边界:`start` \| `center` \| `end` | AntdEdge | - | - |
 | onItemPosition | item变更事件 | AntdItemPositionListener&lt;T&gt; | - | - |
 | throttle | 滚动事件节流时长 | Duration | - | - |
+| headers | 头部的sliver | List&lt;Widget&gt; | - | - |
+| footers | 尾部的sliver | List&lt;Widget&gt; | - | - |
 | header | 标题内容 | Widget | - | - |
 | footer | 标题内容 | Widget | - | - |
 | card | 卡片式列表 | bool | - | - |

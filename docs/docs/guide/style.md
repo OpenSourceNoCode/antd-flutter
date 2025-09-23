@@ -97,7 +97,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    ///style和styleBuilder任选其一即可,当同时存在时，style优先级更高
+    ///style和styleBuilder任选其一即可,当同时存在时，styleBuilder优先级更高 因为它更灵活
     return AntdStyleProvider<AntdButtonStyle>(
       style:
       const AntdButtonStyle(buttonStyle: AntdBoxStyle(color: Colors.red)),
@@ -118,22 +118,23 @@ class _AppState extends State<App> {
 
 ```
 
-> 提示：style和styleBuilder可以单独使用，同时存在时style优先级更高。
+> 提示：style和styleBuilder可以单独使用，同时存在时styleBuilder优先级更高。
 
 ## 样式优先级规则
 
-### Antd样式系统遵循"就近原则"和"静态优先"的优先级规则：
+### Antd样式系统遵循"就近原则"和"动态优先"的优先级规则：
 
-* 静态样式 > 动态样式
-* 组件级样式 > `AntdStyleProvider`样式 > `AntdStyleBuilderProvider`样式 > `AntdTheme`全局样式
+* 动态样式 > 静态样式
+* 组件级样式 > `AntdStyleBuilderProvider`样式 > `AntdStyleProvider`样式 > `AntdTheme`全局样式
 
 ### 具体优先级顺序（从高到低）：
 
-* 组件上的`style`静态样式
-* 组件上的`styleBuilder`动态样式
-* `AntdStyleProvider`提供的style静态样式
-* `AntdStyleBuilderProvider`提供的builder动态样式
+* 组件上的`styleBuilder`静态样式
+* 组件上的`style`动态样式
+* `AntdStyleBuilderProvider`提供的style静态样式
+* `AntdStyleProvider`提供的builder动态样式
 * `AntdTheme`中定义的全局样式
+* 组件中定义的默认样式
 
 ## 样式合并机制
 

@@ -59,7 +59,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
       AntdPageIndicator(
           total: 4,
           style: AntdPageIndicatorStyle(
-              bodyStyle:
+              style:
                   AntdBoxStyle(color: token.colorWarning, height: 4, width: 4),
               activeStyle: AntdBoxStyle(
                   color: token.colorPrimary, height: 6, width: 16)),
@@ -181,7 +181,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdPageIndicatorStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdPageIndicatorStyle, AntdPageIndicator&gt; | - | - |
-| color | 颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
+| color | 颜色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
 | total | 总页数 | int | 0 | - |
 | current | 当前页（从 0 开始计数） | int | 0 | - |
 | vertical | 方向，默认是水平方向 | bool | false | - |
@@ -192,7 +192,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
-| bodyStyle | 默认的分页符样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| style | 默认的分页符样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | activeStyle | 被激活的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 
 

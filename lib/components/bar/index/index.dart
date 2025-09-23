@@ -26,6 +26,9 @@ class AntdIndexBarStyle extends AntdStyle {
   ///索引的样式
   final AntdBoxStyle? indexMask;
 
+  ///索引变更时震动反馈
+  final AntdHapticFeedback? hapticFeedback;
+
   const AntdIndexBarStyle(
       {super.inherit,
       this.bodyStyle,
@@ -34,19 +37,22 @@ class AntdIndexBarStyle extends AntdStyle {
       this.itemStyle,
       this.indexStyle,
       this.activeIndexStyle,
-      this.indexMask});
+      this.indexMask,
+      this.hapticFeedback});
 
   @override
   AntdIndexBarStyle copyFrom(covariant AntdIndexBarStyle? style) {
     return AntdIndexBarStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      floatHeaderStyle: floatHeaderStyle.merge(style?.floatHeaderStyle),
-      headerStyle: headerStyle.merge(style?.headerStyle),
-      itemStyle: itemStyle.merge(style?.itemStyle),
-      indexStyle: indexStyle.merge(style?.indexStyle),
-      activeIndexStyle: activeIndexStyle.merge(style?.activeIndexStyle),
-      indexMask: indexMask.merge(style?.indexMask),
-    );
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        floatHeaderStyle: floatHeaderStyle.mergeActive(
+            headerStyle, style?.headerStyle, style?.floatHeaderStyle),
+        headerStyle: headerStyle.merge(style?.headerStyle),
+        itemStyle: itemStyle.merge(style?.itemStyle),
+        indexStyle: indexStyle.merge(style?.indexStyle),
+        activeIndexStyle: activeIndexStyle.mergeActive(
+            indexStyle, style?.indexStyle, style?.activeIndexStyle),
+        indexMask: indexMask.merge(style?.indexMask),
+        hapticFeedback: style?.hapticFeedback ?? hapticFeedback);
   }
 }
 
@@ -89,7 +95,8 @@ class AntdIndexBar<T extends AntdSectionProvider>
       this.headerBuilder,
       this.indexBuilder,
       this.headerFloatBuilder,
-      this.onIndexChange})
+      this.onIndexChange,
+      this.hapticFeedback})
       : super(fit: AntdScrollItemFit.child);
 
   ///列表内头部构建
@@ -103,6 +110,9 @@ class AntdIndexBar<T extends AntdSectionProvider>
 
   ///索引变更事件
   final AntdIndexBarOnIndexChange? onIndexChange;
+
+  ///索引变更时震动反馈
+  final AntdHapticFeedback? hapticFeedback;
 
   AntdBoxStyle getHeaderStyle(AntdMapToken token) {
     var border = token.border.copyWith(width: 0.5);
@@ -155,16 +165,6 @@ class AntdIndexBar<T extends AntdSectionProvider>
         activeIndexStyle: indexStyle.copyWith(
             textStyle: token.font.xs.copyWith(color: token.colorWhite),
             color: token.colorPrimary));
-  }
-
-  @override
-  AntdIndexBarStyle getFinalStyle(
-      BuildContext context, AntdIndexBarStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdIndexBarStyle(
-            floatHeaderStyle: style.headerStyle.merge(style.floatHeaderStyle),
-            activeIndexStyle: style.indexStyle.merge(style.activeIndexStyle)));
   }
 
   @override
@@ -223,6 +223,7 @@ class AntdIndexBarState<T extends AntdSectionProvider>
           var beforeIndex = scrollController.activeSectionIndex.value;
           scrollController.activeSectionIndex.value = index;
           scrollController.activeIndexBarIndex.value = index;
+          handleHapticFeedback(widget.hapticFeedback ?? style.hapticFeedback);
           widget.onIndexChange?.call(
             this.context,
             context.data.section,

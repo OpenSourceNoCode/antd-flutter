@@ -69,16 +69,13 @@ class AntdSwipeAction
   AntdSwipeActionStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdSwipeActionStyle(
-        itemStyle: AntdSwipeItemStyle(
-            style: AntdBoxStyle(
-                alignment: Alignment.center,
-                color: token.colorWhite,
-                padding:
-                    token.size.seed.vertical.marge(token.size.xl.horizontal),
-                textStyle: token.font.xl)),
-        bodyStyle: AntdBoxStyle(
-          color: token.colorWhite,
-        ));
+      itemStyle: AntdSwipeItemStyle(
+          style: AntdBoxStyle(
+              alignment: Alignment.center,
+              color: token.colorWhite,
+              padding: token.size.seed.vertical.marge(token.size.xl.horizontal),
+              textStyle: token.font.xl)),
+    );
   }
 
   @override

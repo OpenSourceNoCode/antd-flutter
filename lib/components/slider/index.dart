@@ -51,12 +51,14 @@ class AntdSliderStyle extends AntdStyle {
     return AntdSliderStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       markStyle: markStyle.merge(style?.markStyle),
-      activeMarkStyle: activeMarkStyle.merge(style?.activeMarkStyle),
+      activeMarkStyle: activeMarkStyle.mergeActive(
+          markStyle, style?.markStyle, style?.activeMarkStyle),
       markTextStyle: markTextStyle.merge(style?.markTextStyle),
-      activeMarkTextStyle:
-          activeMarkTextStyle.merge(style?.activeMarkTextStyle),
+      activeMarkTextStyle: activeMarkTextStyle.mergeActive(
+          markTextStyle, style?.markTextStyle, style?.activeMarkTextStyle),
       trackStyle: trackStyle.merge(style?.trackStyle),
-      activeTrackStyle: activeTrackStyle.merge(style?.activeTrackStyle),
+      activeTrackStyle: activeTrackStyle.mergeActive(
+          trackStyle, style?.trackStyle, style?.activeTrackStyle),
       slider: style?.slider ?? slider,
       sliderIconStyle: sliderIconStyle.merge(style?.sliderIconStyle),
     );
@@ -192,18 +194,6 @@ class AntdSlider extends AntdStateComponent<AntdSliderStyle, AntdSlider> {
   @override
   AntdSlider getWidget(BuildContext context) {
     return this;
-  }
-
-  @override
-  AntdSliderStyle getFinalStyle(
-      BuildContext context, AntdSliderStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSliderStyle(
-            activeMarkStyle: style.markStyle.merge(style.activeMarkStyle),
-            activeTrackStyle: style.trackStyle.merge(style.activeTrackStyle),
-            activeMarkTextStyle:
-                style.markTextStyle.merge(style.activeMarkTextStyle)));
   }
 }
 

@@ -193,7 +193,7 @@ class AntdLoadingChildDemo extends StatelessWidget {
 | style | 样式 | AntdLoadingStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdLoadingStyle, AntdLoading&gt; | - | - |
 | size | 加载指示器尺寸 | double | - | - |
-| color | 加点的颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
+| color | 加点的颜色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
 | text | 加载中文案 | Widget | - | - |
 | circular | 圆形加载中 | bool | false | - |
 | child | 被包裹的widget | Widget | - | - |

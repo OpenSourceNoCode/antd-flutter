@@ -241,7 +241,7 @@ class AntdNoticeBarCustomDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdNoticeBarStyle, AntdNoticeBar&gt; | - | - |
 | closeable | 是否可关闭 | bool | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | const AntdIcon(icon: AntdIcons.close) | - |
-| color | 通告栏的类型:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
+| color | 通告栏的类型:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
 | content | 公告内容 | String | - | - |
 | delay | 开始滚动的延迟，单位 ms | Duration | const Duration(milliseconds: 1000) | - |
 | speed | 滚动的速度 | double | 50.0 | - |

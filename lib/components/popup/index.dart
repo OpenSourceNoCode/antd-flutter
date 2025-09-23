@@ -247,6 +247,12 @@ class AntdPopup
       AntdPopupStyle defaultStyle, AntdPopupStyle? style) {
     return defaultStyle.copyFrom(style);
   }
+
+  @override
+  AntdStyleBuilder<AntdPopupStyle, AntdPopup>? getThemeStyle(
+      BuildContext context, AntdTheme theme) {
+    return theme.popupStyle;
+  }
 }
 
 class AntdPopupState

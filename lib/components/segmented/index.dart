@@ -88,7 +88,8 @@ class AntdSegmentedStyle extends AntdStyle {
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       bodyRowStyle: bodyRowStyle.merge(style?.bodyRowStyle),
       itemStyle: itemStyle.merge(style?.itemStyle),
-      activeItemStyle: activeItemStyle.merge(style?.activeItemStyle),
+      activeItemStyle: activeItemStyle.mergeActive(
+          itemStyle, style?.itemStyle, style?.activeItemStyle),
     );
   }
 }
@@ -155,15 +156,6 @@ class AntdSegmented
   AntdStyleBuilder<AntdSegmentedStyle, AntdSegmented>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.segmentedStyle;
-  }
-
-  @override
-  AntdSegmentedStyle getFinalStyle(
-      BuildContext context, AntdSegmentedStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSegmentedStyle(
-            activeItemStyle: style.itemStyle.merge(style.activeItemStyle)));
   }
 
   @override

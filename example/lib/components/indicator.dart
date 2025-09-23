@@ -50,7 +50,7 @@ class _AntdPageIndicatorWhiteDemoStateDemo
       AntdPageIndicator(
         total: 4,
         style: AntdPageIndicatorStyle(
-            bodyStyle: AntdBoxStyle(color: getRandomColor())),
+            style: AntdBoxStyle(color: getRandomColor())),
         current: index,
       )
     ]);
@@ -86,8 +86,7 @@ class AntdPageIndicatorStyleDemo extends StatelessWidget {
       AntdPageIndicator(
         total: 4,
         style: AntdPageIndicatorStyle(
-            bodyStyle:
-                AntdBoxStyle(color: token.colorWarning, height: 4, width: 4),
+            style: AntdBoxStyle(color: token.colorWarning, height: 4, width: 4),
             activeStyle:
                 AntdBoxStyle(color: token.colorPrimary, height: 6, width: 16)),
         current: 0,

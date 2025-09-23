@@ -43,11 +43,14 @@ class AntdStepsStyle extends AntdStyle {
   AntdStepsStyle copyFrom(covariant AntdStepsStyle? style) {
     return AntdStepsStyle(
         titleStyle: titleStyle.merge(style?.titleStyle),
-        activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle),
+        activeTitleStyle: activeTitleStyle.mergeActive(
+            titleStyle, style?.titleStyle, style?.activeTitleStyle),
         descStyle: descStyle.merge(style?.descStyle),
-        activeDescStyle: activeDescStyle.merge(style?.activeDescStyle),
+        activeDescStyle: activeDescStyle.mergeActive(
+            descStyle, style?.descStyle, style?.activeDescStyle),
         lineStyle: lineStyle.merge(style?.lineStyle),
-        activeLineStyle: activeLineStyle.merge(style?.activeLineStyle),
+        activeLineStyle: activeLineStyle.mergeActive(
+            lineStyle, style?.lineStyle, style?.activeLineStyle),
         stepStyle: stepStyle.merge(style?.stepStyle),
         stepColumnStyle: stepColumnStyle.merge(style?.stepColumnStyle));
   }
@@ -160,17 +163,6 @@ class AntdSteps extends AntdStateComponent<AntdStepsStyle, AntdSteps> {
   AntdStyleBuilder<AntdStepsStyle, AntdSteps>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.stepsStyle;
-  }
-
-  @override
-  AntdStepsStyle getFinalStyle(
-      BuildContext context, AntdStepsStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdStepsStyle(
-            activeDescStyle: style.descStyle.merge(style.activeDescStyle),
-            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle),
-            activeLineStyle: style.lineStyle.merge(style.activeLineStyle)));
   }
 
   @override

@@ -26,7 +26,7 @@ class AntdBadgeDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
-      AntdBadge(badge: const Text("5"), child: _antdBox),
+      AntdBadge(badge: const Text("6"), child: _antdBox),
       AntdBadge(badge: const Text("5"), dot: true, child: _antdBox)
     ]);
   }
@@ -222,7 +222,7 @@ class AntdBadgePositionColorDemo extends StatelessWidget {
 | style | 样式 | AntdBadgeStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdBadgeStyle, AntdBadge&gt; | - | - |
 | bordered | 是否显示边框（默认false） | bool | - | - |
-| color | 徽标背景色/小圆点颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | danger | - |
+| color | 徽标背景色/小圆点颜色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | danger | - |
 | badge | 徽标显示内容（数字/文字等） | Widget | - | - |
 | dot | 是否显示为小红点而非内容（默认false） | bool | - | - |
 | position | 徽标相对于子组件的位置:`topLeft` \| `topRight` \| `bottomLeft` \| `bottomRight` | AntdBadgePosition | topRight | - |

@@ -28,7 +28,8 @@ class AntdNoticeBarStyle extends AntdStyle {
     return AntdNoticeBarStyle(
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         iconStyle: iconStyle.merge(style?.iconStyle),
-        closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
+        closeIconStyle: closeIconStyle.mergeActive(
+            iconStyle, style?.iconStyle, style?.closeIconStyle),
         extraStyle: extraStyle.merge(style?.extraStyle));
   }
 }
@@ -144,15 +145,6 @@ class AntdNoticeBar
             bodyStyle: AntdBoxStyle(
                 options: AntdTapOptions(accepter: AntdTapAccepter.listener))),
         extraStyle: AntdBoxStyle(margin: token.size.lg.left));
-  }
-
-  @override
-  AntdNoticeBarStyle getFinalStyle(
-      BuildContext context, AntdNoticeBarStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdNoticeBarStyle(
-            closeIconStyle: style.iconStyle.merge(style.closeIconStyle)));
   }
 
   @override

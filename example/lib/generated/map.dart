@@ -374,6 +374,7 @@ headerBuilder:_resolveValue(atr,'AntdIndexBar','headerBuilder','AntdIndexBarInde
 indexBuilder:_resolveValue(atr,'AntdIndexBar','indexBuilder','AntdIndexBarIndexBuilder',null),
 headerFloatBuilder:_resolveValue(atr,'AntdIndexBar','headerFloatBuilder','AntdIndexBarIndexBuilder',null),
 onIndexChange:_resolveValue(atr,'AntdIndexBar','onIndexChange','AntdIndexBarOnIndexChange',null),
+hapticFeedback:_resolveValue(atr,'AntdIndexBar','hapticFeedback','AntdHapticFeedback',null),
 );
 }
 
@@ -662,6 +663,8 @@ itemBuilder:_resolveValue(atr,'AntdList','itemBuilder','AntdScrollItemBuilder<T,
 alignment:_resolveValue(atr,'AntdList','alignment','AntdEdge',null),
 onItemPosition:_resolveValue(atr,'AntdList','onItemPosition','AntdItemPositionListener<T>',null),
 throttle:_resolveValue(atr,'AntdList','throttle','Duration',null),
+headers:_resolveValue(atr,'AntdList','headers','List<Widget>',null),
+footers:_resolveValue(atr,'AntdList','footers','List<Widget>',null),
 header:_resolveValue(atr,'AntdList','header','Widget',null),
 footer:_resolveValue(atr,'AntdList','footer','Widget',null),
 card:_resolveValue(atr,'AntdList','card','bool',null),
@@ -890,12 +893,12 @@ builder:_resolveValue(atr,'AntdToast','builder','AntdMaskBuilder<AntdToastState>
 opacity:_resolveValue(atr,'AntdToast','opacity','AntdMaskOpacity',AntdMaskOpacity.transparent),
 dismissOnMaskTap:_resolveValue(atr,'AntdToast','dismissOnMaskTap','bool',true),
 showMask:_resolveValue(atr,'AntdToast','showMask','bool',false),
+animation:_resolveValue(atr,'AntdToast','animation','AntdMaskAnimation<AntdToast, AntdToastState>',null),
 duration:_resolveValue(atr,'AntdToast','duration','Duration',const Duration(milliseconds: 2000)),
 icon:_resolveValue(atr,'AntdToast','icon','AntdIcon',null),
 position:_resolveValue(atr,'AntdToast','position','AntdToastPosition',null),
 dismissOnTap:_resolveValue(atr,'AntdToast','dismissOnTap','bool',true),
 type:_resolveValue(atr,'AntdToast','type','AntdToastType',null),
-animation:_resolveValue(atr,'AntdToast','animation','AntdToastAnimation',null),
 );
 }
 
@@ -990,8 +993,8 @@ shouUpdate:_resolveValue(atr,'AntdFormItem','shouUpdate','AntdFormItemShouUpdate
 Widget _AntdFormFormMap(Map<String,dynamic> atr){
 return AntdForm(
 key:_resolveValue(atr,'AntdForm','key','Key',null),
-style:_resolveValue(atr,'AntdForm','style','AntdFormStyle',null),
-styleBuilder:_resolveValue(atr,'AntdForm','styleBuilder','AntdStyleBuilder<AntdFormStyle, AntdForm>',null),
+style:_resolveValue(atr,'AntdForm','style','AntdBoxStyle',null),
+styleBuilder:_resolveValue(atr,'AntdForm','styleBuilder','AntdStyleBuilder<AntdBoxStyle, AntdForm>',null),
 readOnly:_resolveValue(atr,'AntdForm','readOnly','bool',null),
 disabled:_resolveValue(atr,'AntdForm','disabled','bool',null),
 hasFeedback:_resolveValue(atr,'AntdForm','hasFeedback','bool',null),
@@ -1002,8 +1005,6 @@ trigger:_resolveValue(atr,'AntdForm','trigger','AntdFormTrigger',null),
 validateFirst:_resolveValue(atr,'AntdForm','validateFirst','bool',null),
 validateTrigger:_resolveValue(atr,'AntdForm','validateTrigger','AntdFormTrigger',null),
 controller:_resolveValue(atr,'AntdForm','controller','AntdFormController',null),
-header:_resolveValue(atr,'AntdForm','header','Widget',null),
-footer:_resolveValue(atr,'AntdForm','footer','Widget',null),
 initialValues:_resolveValue(atr,'AntdForm','initialValues','Map<String, dynamic>',null),
 builder:_resolveValue(atr,'AntdForm','builder','AntdFormBuilder',null),
 onFieldsChange:_resolveValue(atr,'AntdForm','onFieldsChange','AntdFormFieldsChange',null),
@@ -1425,7 +1426,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -1725,7 +1726,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -2123,6 +2124,24 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "hapticFeedback",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('hapticFeedback(AntdHapticFeedback)'),
+            Text('索引变更时震动反馈')
+          ],),
+              
+builder: (ctx) {
+              return AntdSelector(
+              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+                onChange: (values) {
+                  ctx.onChange(AntdHapticFeedback.values
+                      .firstWhere((value) => value.name == values?.lastOrNull));
+                },
+                options: [AntdSelectorOption(label: Text('light'), value: 'light'),AntdSelectorOption(label: Text('medium'), value: 'medium'),AntdSelectorOption(label: Text('heavy'), value: 'heavy')]);
+            
+},
+),
 ];}
 List<AntdFormItem> _getAntdJumboTabsItemList(){return [
 AntdFormItem(
@@ -2225,7 +2244,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3361,7 +3380,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3737,7 +3756,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -3805,7 +3824,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -4335,7 +4354,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -4618,6 +4637,18 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
+name: "animation",
+                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('animation(AntdMaskAnimation<AntdToast, AntdToastState>)'),
+            Text('mask内容动画')
+          ],),
+              
+builder: (ctx) {
+              return  AntdInput();
+            
+},
+),
+AntdFormItem(
 name: "duration",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('duration(Duration)'),
@@ -4674,18 +4705,6 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('fail'), value: 'fail'),AntdSelectorOption(label: Text('normal'), value: 'normal')]);
-            
-},
-),
-AntdFormItem(
-name: "animation",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('animation(AntdToastAnimation)'),
-            Text('动画')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
             
 },
 ),
@@ -5308,30 +5327,6 @@ builder: (ctx) {
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
                 options: [AntdSelectorOption(label: Text('onChange'), value: 'onChange'),AntdSelectorOption(label: Text('onFocus'), value: 'onFocus'),AntdSelectorOption(label: Text('any'), value: 'any')]);
-            
-},
-),
-AntdFormItem(
-name: "header",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('header(Widget)'),
-            Text('头部区域 通常放置标题')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
-name: "footer",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('footer(Widget)'),
-            Text('尾部区域 通常放置提交按钮')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
             
 },
 ),
@@ -6565,7 +6560,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),
@@ -6679,7 +6674,7 @@ builder: (ctx) {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
+                options: [AntdSelectorOption(label: Text('fill'), value: 'fill'),AntdSelectorOption(label: Text('primary'), value: 'primary'),AntdSelectorOption(label: Text('success'), value: 'success'),AntdSelectorOption(label: Text('warning'), value: 'warning'),AntdSelectorOption(label: Text('danger'), value: 'danger'),AntdSelectorOption(label: Text('info'), value: 'info'),AntdSelectorOption(label: Text('link'), value: 'link')]);
             
 },
 ),

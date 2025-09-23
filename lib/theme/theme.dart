@@ -116,7 +116,7 @@ class AntdTheme {
       swipeActionStyle;
 
   ///[AntdForm]样式
-  final AntdStyleBuilder<AntdFormStyle, AntdForm>? formStyle;
+  final AntdStyleBuilder<AntdBoxStyle, AntdForm>? formStyle;
 
   ///[AntdSteps]样式
   final AntdStyleBuilder<AntdStepsStyle, AntdSteps>? stepsStyle;
@@ -350,7 +350,7 @@ class AntdTheme {
     AntdStyleBuilder<AntdSwitchStyle, AntdSwitch>? switchStyle,
     AntdStyleBuilder<AntdSwiperStyle, AntdSwiper>? swiperStyle,
     AntdStyleBuilder<AntdSwipeActionStyle, AntdSwipeAction>? swipeActionStyle,
-    AntdStyleBuilder<AntdFormStyle, AntdForm>? formStyle,
+    AntdStyleBuilder<AntdBoxStyle, AntdForm>? formStyle,
     AntdStyleBuilder<AntdStepsStyle, AntdSteps>? stepsStyle,
     AntdStyleBuilder<AntdSliderStyle, AntdSlider>? sliderStyle,
     AntdStyleBuilder<AntdSkeletonStyle, AntdSkeleton>? skeletonStyle,

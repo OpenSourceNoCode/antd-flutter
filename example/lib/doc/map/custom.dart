@@ -11,6 +11,7 @@ import '../../components/cascader/view.dart';
 import '../../components/ellipsis.dart';
 
 Map<String, dynamic> customFull = {
+  "AntdButton-child": const Text("button"),
   "AntdBadge-badge": const Text("5"),
   "AntdBadge-child": AntdBox(
     styleBuilder: (ctx, box, style, token) {

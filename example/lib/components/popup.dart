@@ -3,19 +3,21 @@ import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
 Widget getBox(bool top) {
-  return AntdBox(
-    style: AntdBoxStyle(
-        height: top ? 300 : double.infinity,
-        width: top ? double.infinity : 300,
-        alignment: Alignment.center,
-        color: Colors.white),
-    child: AntdButton(
-      child: const Text("点我关闭所有"),
-      onTap: () {
-        AntdLayer.closeAll();
-      },
-    ),
-  );
+  return AntdTokenBuilder(builder: (c, token) {
+    return AntdBox(
+      style: AntdBoxStyle(
+          height: top ? 300 : double.infinity,
+          width: top ? double.infinity : 300,
+          alignment: Alignment.center,
+          color: token.colorBgContainer),
+      child: AntdButton(
+        child: const Text("点我关闭所有"),
+        onTap: () {
+          AntdLayer.closeAll();
+        },
+      ),
+    );
+  });
 }
 
 /// @t 基础用法
@@ -29,7 +31,9 @@ class AntdPopupDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdButton(
           onTap: () {
-            AntdPopup.show(content: getBox(true));
+            AntdPopup.show(
+              content: getBox(true),
+            );
           },
           child: const Text("静态方法")),
       AntdButton(

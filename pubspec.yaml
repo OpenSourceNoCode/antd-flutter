@@ -1,14 +1,14 @@
 name: antd_flutter_mobile
 description: "Antd Flutter implementation, zero dependencies, ultra-lightweight (only 200kB), 50+ components, complete Antd Token system implementation."
-version: 5.0.5-alpha.1
+version: 5.0.6-alpha.1
 homepage: https://antd-flutter.vercel.app/
 repository: https://github.com/OpenSourceNoCode/antd-flutter
 topics:
   - antd
   - design-system
-  - dark-theme
+  - ui-components
   - form
-  - ui
+  - lightweight
 
 environment:
   sdk: ^3.5.4

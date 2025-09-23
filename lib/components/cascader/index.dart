@@ -57,7 +57,8 @@ class AntdCascaderStyle extends AntdPopupBaseStyle {
         headerFlexStyle: headerFlexStyle.merge(style?.headerFlexStyle),
         titleStyle: titleStyle.merge(style?.titleStyle),
         cancelStyle: cancelStyle.merge(style?.cancelStyle),
-        confirmStyle: confirmStyle.merge(style?.confirmStyle),
+        confirmStyle: confirmStyle.mergeActive(
+            cancelStyle, style?.cancelStyle, style?.confirmStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         closeIconStyle: closeIconStyle.merge(style?.closeIconStyle),
         animation: animation.merge(style?.animation));

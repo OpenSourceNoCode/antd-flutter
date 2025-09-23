@@ -261,7 +261,7 @@ class AntdProgressBarBgColorDemo extends StatelessWidget {
 | style | 样式 | AntdProgressBarStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdProgressBarStyle, W&gt; | - | - |
 | child | 子组件 | Widget | - | - |
-| color | 颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
+| color | 颜色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
 | percent | 百分比 | double | 0.0 | - |
 | stroke | 线的宽度 | double | 8.0 | - |
 | duration | 周期 | Duration | const Duration(milliseconds: 1000) | - |

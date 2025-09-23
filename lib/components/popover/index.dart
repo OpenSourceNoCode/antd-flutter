@@ -247,7 +247,8 @@ class AntdPopover
             mode == AntdPopoverMode.light ? token.colorText : token.colorWhite);
     var action = actions != null && builder == null;
     var style = AntdPopoverStyle(
-        childStyle: const AntdBoxStyle(),
+        childStyle: const AntdBoxStyle(
+            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
         actionStyle: AntdPopoverActionStyle(
           bodyStyle: AntdBoxStyle(
               textStyle: token.font.md.copyWith(
@@ -328,6 +329,7 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
 
   @override
   Widget render(BuildContext context) {
+    super.render(context);
     return AntdBox(
       style: style.childStyle,
       onTap:

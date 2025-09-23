@@ -54,9 +54,11 @@ class AntdTabBarStyle extends AntdTabBarBaseStyle {
         itemStyle: itemStyle.merge(style?.itemStyle),
         itemColumnStyle: itemColumnStyle.merge(style?.itemColumnStyle),
         iconStyle: iconStyle.merge(style?.iconStyle),
-        activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+        activeIconStyle: activeIconStyle.mergeActive(
+            iconStyle, style?.iconStyle, style?.activeIconStyle),
         titleStyle: titleStyle.merge(style?.titleStyle),
-        activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle));
+        activeTitleStyle: activeTitleStyle.mergeActive(
+            titleStyle, style?.titleStyle, style?.activeTitleStyle));
   }
 }
 
@@ -142,16 +144,6 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
   AntdTabBarStyle margeStyle(
       AntdTabBarStyle defaultStyle, AntdTabBarStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdTabBarStyle getFinalStyle(
-      BuildContext context, AntdTabBarStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdTabBarStyle(
-            activeIconStyle: style.iconStyle.merge(style.activeIconStyle),
-            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
   }
 
   @override

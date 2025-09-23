@@ -102,6 +102,19 @@ class AntdEllipsis extends AntdStateComponent<AntdEllipsisStyle, AntdEllipsis> {
   }
 
   @override
+  AntdEllipsisStyle getFinalStyle(
+      BuildContext context, AntdEllipsisStyle style, AntdMapToken token) {
+    return AntdEllipsisStyle(
+        textStyle: style.textStyle,
+        expandStyle: style.expandStyle != null && style.textStyle != null
+            ? style.textStyle?.merge(style.expandStyle)
+            : style.expandStyle,
+        collapseStyle: style.collapseStyle != null && style.textStyle != null
+            ? style.textStyle?.merge(style.collapseStyle)
+            : style.collapseStyle);
+  }
+
+  @override
   AntdStyleBuilder<AntdEllipsisStyle, AntdEllipsis>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.ellipsisStyle;
@@ -148,7 +161,8 @@ class _AntdEllipsisState extends AntdState<AntdEllipsisStyle, AntdEllipsis> {
     )..layout();
 
     final collapseButton = TextPainter(
-      text: TextSpan(text: widget.collapseText, style: style.expandStyle),
+      text:
+          TextSpan(text: "...${widget.collapseText}", style: style.expandStyle),
       textDirection: _textDirection,
       maxLines: 1,
     )..layout();

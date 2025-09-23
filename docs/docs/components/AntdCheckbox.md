@@ -121,7 +121,7 @@ class AntdCheckboxCustomDemo extends StatelessWidget {
       AntdCheckbox(
           value: true,
           style: AntdCheckboxStyle(
-              defaultIcon: const AntdIcon(icon: AntdIcons.smile),
+              icon: const AntdIcon(icon: AntdIcons.smile),
               activeIcon: AntdIcon(
                   style: AntdIconStyle(size: 22, color: token.colorPrimary),
                   icon: AntdIcons.smileFill),
@@ -313,8 +313,8 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
 | extraStyle | 复选框文本标签的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | activeIconStyle | 选中框图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | activeIcon | 选中状态下显示的图标组件 | Widget | - | - |
-| defaultIconStyle | 默认图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| defaultIcon | 默认未选中状态下显示的图标组件 | Widget | - | - |
+| iconStyle | 默认图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| icon | 默认未选中状态下显示的图标组件 | Widget | - | - |
 | disableIconStyle | 禁用图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | disableIcon | 禁用状态下显示的图标组件 | Widget | - | - |
 | rowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |

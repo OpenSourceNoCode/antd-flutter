@@ -224,6 +224,7 @@ class AntdTourState
 
   @override
   Widget render(BuildContext context) {
+    super.render(context);
     return AntdTourProvider(
         controller: _controller,
         child: AntdStyleProvider<AntdTourStepStyle>(

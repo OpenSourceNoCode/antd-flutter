@@ -517,8 +517,8 @@ class AntdFormCardDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
-| style | 样式 | AntdFormStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdFormStyle, AntdForm&gt; | - | - |
+| style | 样式 | AntdBoxStyle | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdBoxStyle, AntdForm&gt; | - | - |
 | readOnly | 只读 | bool | - | - |
 | disabled | 禁用 | bool | - | - |
 | hasFeedback | 是否展示错误反馈 | bool | - | - |
@@ -529,24 +529,12 @@ class AntdFormCardDemo extends StatelessWidget {
 | validateFirst | 当某一规则校验不通过时，是否停止剩下的规则的校验。设置 parallel 时会并行校验 | bool | - | - |
 | validateTrigger | 设置字段校验的时机:`onChange` \| `onFocus` \| `any` | AntdFormTrigger | - | - |
 | controller | 控制器 | AntdFormController | - | - |
-| header | 头部区域 通常放置标题 | Widget | - | - |
-| footer | 尾部区域 通常放置提交按钮 | Widget | - | - |
 | initialValues | 表单默认值，只有初始化以及重置时生效 | Map&lt;String, dynamic&gt; | - | - |
 | builder | 子项 | AntdFormBuilder | - | - |
 | onFieldsChange | 字段更新时触发 | AntdFormFieldsChange | - | - |
 | onFinish | 提交表单且数据验证成功后触发 | AntdFormFinish | - | - |
 | onValuesChange | 字段值更新时触发 | AntdFormValuesChange | - | - |
 
-
-## 表单样式(AntdFormStyle) <a id='AntdFormStyle'></a>
-
-| 属性名 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
-| wrapStyle | 用于包裹整个表单组件，通常设置外边距、背景色等 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| headerStyle | 用于表单标题、操作按钮等头部内容的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| bodyStyle | 用于表单字段项的主体内容容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| footerStyle | 用于提交按钮、底部说明等底部内容的容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 
 ## 表单项布局跨度配置(AntdFormItemSpan) <a id='AntdFormItemSpan'></a>
 

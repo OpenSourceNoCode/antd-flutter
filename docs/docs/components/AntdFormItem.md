@@ -336,26 +336,31 @@ class AntdFormBuilderDemo extends StatelessWidget {
                     label: const Text("姓名"),
                     name: "tags",
                     builder: (ctx) {
-                      var values = ctx.value == null ? [] : ctx.value as List;
+                      var values =
+                          ctx.value == null ? [] : [...ctx.value as List];
                       return Row(
                           children: List.generate(5, (i) {
                         return AntdBox(
                             style: AntdBoxStyle(margin: 4.horizontal),
-                            child: AntdTag(
+                            child: AntdStyleProvider<AntdTagStyle>(
                                 style: AntdTagStyle(
-                                    bodyStyle: values.contains(i)
-                                        ? AntdBoxStyle(
-                                            color: token.colorPrimary)
-                                        : null),
-                                onTap: () {
-                                  if (values.contains(i)) {
-                                    values.remove(i);
-                                  } else {
-                                    values.add(i);
-                                  }
-                                  ctx.onChange(values);
-                                },
-                                child: Text("Tag $i")));
+                                    bodyStyle: AntdBoxStyle(padding: 4.all)),
+                                child: AntdTag(
+                                    style: AntdTagStyle(
+                                        bodyStyle: values.contains(i)
+                                            ? AntdBoxStyle(
+                                                color: token.colorPrimary)
+                                            : AntdBoxStyle(
+                                                color: token.colorFill)),
+                                    onTap: () {
+                                      if (values.contains(i)) {
+                                        values.remove(i);
+                                      } else {
+                                        values.add(i);
+                                      }
+                                      ctx.onChange(values);
+                                    },
+                                    child: Text("Tag $i"))));
                       }));
                     },
                     rules: [

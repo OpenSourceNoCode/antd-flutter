@@ -20,10 +20,10 @@ class AntdCascaderOptionStyle extends AntdStyle {
   final Widget? checkIcon;
 
   /// 未选中状态下显示的图标样式
-  final AntdIconStyle? uncheckIconStyle;
+  final AntdIconStyle? iconStyle;
 
   /// 未选中状态下显示的图标
-  final Widget? uncheckIcon;
+  final Widget? icon;
 
   const AntdCascaderOptionStyle(
       {super.inherit,
@@ -32,19 +32,21 @@ class AntdCascaderOptionStyle extends AntdStyle {
       this.rowStyle,
       this.checkIconStyle,
       this.checkIcon,
-      this.uncheckIconStyle,
-      this.uncheckIcon});
+      this.iconStyle,
+      this.icon});
 
   @override
   AntdCascaderOptionStyle copyFrom(AntdCascaderOptionStyle? style) {
     return AntdCascaderOptionStyle(
       childStyle: childStyle.merge(style?.childStyle),
-      checkChildStyle: checkChildStyle.merge(style?.checkChildStyle),
+      checkChildStyle: checkChildStyle.mergeActive(
+          childStyle, style?.childStyle, style?.checkChildStyle),
       rowStyle: rowStyle.merge(style?.rowStyle),
-      checkIconStyle: checkIconStyle.merge(style?.checkIconStyle),
+      checkIconStyle: checkIconStyle.mergeActive(
+          iconStyle, style?.iconStyle, style?.checkIconStyle),
       checkIcon: style?.checkIcon ?? checkIcon,
-      uncheckIconStyle: uncheckIconStyle.merge(style?.uncheckIconStyle),
-      uncheckIcon: style?.uncheckIcon ?? uncheckIcon,
+      iconStyle: iconStyle.merge(style?.iconStyle),
+      icon: style?.icon ?? icon,
     );
   }
 }
@@ -69,7 +71,7 @@ class AntdCascaderOption
   final Widget? checkIcon;
 
   /// 未选中状态下显示的图标
-  final Widget? uncheckIcon;
+  final Widget? icon;
 
   /// 是否选中该选项
   final bool check;
@@ -89,7 +91,7 @@ class AntdCascaderOption
       this.title,
       this.child,
       this.checkIcon,
-      this.uncheckIcon,
+      this.icon,
       this.check = false,
       this.disabled = false,
       this.onTap});
@@ -104,7 +106,7 @@ class AntdCascaderOption
       check: other.check,
       disabled: other.disabled,
       checkIcon: other.checkIcon ?? checkIcon,
-      uncheckIcon: other.uncheckIcon ?? uncheckIcon,
+      icon: other.icon ?? icon,
       onTap: other.onTap ?? onTap,
       child: other.child ?? child,
     );
@@ -112,7 +114,7 @@ class AntdCascaderOption
 
   @override
   Widget render(BuildContext context, AntdCascaderOptionStyle style) {
-    var uncheckIcon = this.uncheckIcon ?? style.uncheckIcon;
+    var uncheckIcon = icon ?? style.icon;
     var checkIcon = this.checkIcon ?? style.checkIcon;
     return AntdBox(
       onTap: onTap,
@@ -123,9 +125,7 @@ class AntdCascaderOption
       child: AntdRow(style: style.rowStyle, children: [
         if (child != null) child!,
         AntdIconWrap(
-          style: check
-              ? style.uncheckIconStyle.merge(style.checkIconStyle)
-              : style.uncheckIconStyle,
+          style: check ? style.checkIconStyle : style.iconStyle,
           child: (check ? checkIcon : uncheckIcon),
         )
       ]),
@@ -150,20 +150,9 @@ class AntdCascaderOption
         rowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         checkIcon: icon,
-        uncheckIcon: AntdBox(
+        icon: AntdBox(
           style: const AntdBoxStyle(visibility: AntdVisibility.visible),
           child: icon,
-        ));
-  }
-
-  @override
-  AntdCascaderOptionStyle getFinalStyle(
-      BuildContext context, AntdCascaderOptionStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdCascaderOptionStyle(
-          checkChildStyle: style.childStyle.merge(style.checkChildStyle),
-          checkIconStyle: style.checkIconStyle.merge(style.uncheckIconStyle),
         ));
   }
 

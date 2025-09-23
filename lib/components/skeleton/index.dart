@@ -31,9 +31,11 @@ class AntdSkeletonStyle extends AntdStyle {
   AntdSkeletonStyle copyFrom(covariant AntdSkeletonStyle? style) {
     return AntdSkeletonStyle(
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
-        titleStyle: titleStyle.merge(style?.titleStyle),
+        titleStyle:
+            rowStyle.mergeActive(rowStyle, style?.rowStyle, style?.titleStyle),
         rowStyle: rowStyle.merge(style?.rowStyle),
-        lastRowStyle: lastRowStyle.merge(style?.lastRowStyle),
+        lastRowStyle: lastRowStyle.mergeActive(
+            titleStyle, style?.rowStyle, style?.lastRowStyle),
         color: style?.color ?? color);
   }
 }

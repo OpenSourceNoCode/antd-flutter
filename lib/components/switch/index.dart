@@ -50,11 +50,14 @@ class AntdSwitchStyle extends AntdStyle {
     return AntdSwitchStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       trackStyle: trackStyle.merge(style?.trackStyle),
-      activeTrackStyle: activeTrackStyle.merge(style?.activeTrackStyle),
+      activeTrackStyle: activeTrackStyle.mergeActive(
+          trackStyle, style?.trackStyle, style?.activeTrackStyle),
       thumbStyle: thumbStyle.merge(style?.thumbStyle),
-      activeThumbStyle: activeThumbStyle.merge(style?.activeThumbStyle),
+      activeThumbStyle: activeThumbStyle.mergeActive(
+          thumbStyle, style?.thumbStyle, style?.activeThumbStyle),
       contentStyle: contentStyle.merge(style?.contentStyle),
-      activeContentStyle: activeContentStyle.merge(style?.activeContentStyle),
+      activeContentStyle: activeContentStyle.mergeActive(
+          contentStyle, style?.contentStyle, style?.activeContentStyle),
       content: style?.content ?? content,
       activeContent: style?.activeContent ?? activeContent,
     );
@@ -112,7 +115,6 @@ class AntdSwitch
 
     var style = AntdSwitchStyle(
       bodyStyle: const AntdBoxStyle(
-          minWidth: 56,
           width: 70,
           options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
       trackStyle: trackStyle,
@@ -141,18 +143,6 @@ class AntdSwitch
   AntdStyleBuilder<AntdSwitchStyle, AntdSwitch>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.switchStyle;
-  }
-
-  @override
-  AntdSwitchStyle getFinalStyle(
-      BuildContext context, AntdSwitchStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSwitchStyle(
-            activeContentStyle:
-                style.contentStyle.merge(style.activeContentStyle),
-            activeTrackStyle: style.trackStyle.merge(style.activeTrackStyle),
-            activeThumbStyle: style.thumbStyle.merge(style.activeThumbStyle)));
   }
 
   @override

@@ -20,10 +20,10 @@ class AntdCheckboxStyle extends AntdStyle {
   final Widget? activeIcon;
 
   /// 默认图标的样式配置
-  final AntdIconStyle? defaultIconStyle;
+  final AntdIconStyle? iconStyle;
 
   /// 默认未选中状态下显示的图标组件
-  final Widget? defaultIcon;
+  final Widget? icon;
 
   /// 禁用图标的样式配置
   final AntdIconStyle? disableIconStyle;
@@ -42,8 +42,8 @@ class AntdCheckboxStyle extends AntdStyle {
       this.extraStyle,
       this.activeIconStyle,
       this.activeIcon,
-      this.defaultIconStyle,
-      this.defaultIcon,
+      this.iconStyle,
+      this.icon,
       this.disableIconStyle,
       this.disableIcon,
       this.rowStyle});
@@ -54,27 +54,19 @@ class AntdCheckboxStyle extends AntdStyle {
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       indeterminateStyle: indeterminateStyle.merge(style?.indeterminateStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
-      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+      activeIconStyle: activeIconStyle.mergeActive(
+          iconStyle, style?.iconStyle, style?.activeIconStyle),
       activeIcon: style?.activeIcon ?? activeIcon,
-      defaultIconStyle: defaultIconStyle.merge(style?.defaultIconStyle),
-      defaultIcon: style?.defaultIcon ?? defaultIcon,
-      disableIconStyle: disableIconStyle.merge(style?.disableIconStyle),
+      iconStyle: iconStyle.merge(style?.iconStyle),
+      icon: style?.icon ?? icon,
+      disableIconStyle: disableIconStyle.mergeActive(
+          iconStyle, style?.iconStyle, style?.disableIconStyle),
       disableIcon: style?.disableIcon ?? disableIcon,
       rowStyle: rowStyle.merge(style?.rowStyle),
     );
   }
 
   factory AntdCheckboxStyle.defaultStyle(AntdMapToken token) {
-    final iconStyle = AntdIconStyle(
-        size: 16,
-        color: token.colorWhite,
-        bodyStyle: AntdBoxStyle(
-          size: 22,
-          alignment: Alignment.center,
-          border: token.border.all,
-          radius: BorderRadius.circular(22),
-        ));
-
     return AntdCheckboxStyle(
         bodyStyle: const AntdBoxStyle(
             options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
@@ -87,12 +79,19 @@ class AntdCheckboxStyle extends AntdStyle {
           padding: token.size.seed.left,
           textStyle: token.font.xl,
         ),
-        defaultIconStyle: iconStyle,
-        defaultIcon: const AntdBox(),
-        disableIconStyle: iconStyle,
+        iconStyle: AntdIconStyle(
+            size: 16,
+            color: token.colorWhite,
+            bodyStyle: AntdBoxStyle(
+              size: 22,
+              alignment: Alignment.center,
+              border: token.border.all,
+              radius: BorderRadius.circular(22),
+            )),
+        icon: const AntdBox(),
         disableIcon: const AntdBox(),
-        activeIconStyle: iconStyle.copyFrom(
-            AntdIconStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary))),
+        activeIconStyle:
+            AntdIconStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary)),
         activeIcon: const AntdIcon(
           icon: AntdIcons.check,
         ),
@@ -138,8 +137,8 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
   @override
   Widget render(BuildContext context) {
     var defaultIcon = AntdIconWrap(
-      style: style.defaultIconStyle,
-      child: style.defaultIcon,
+      style: style.iconStyle,
+      child: style.icon,
     );
     var activeIcon = AntdIconWrap(
       style: style.activeIconStyle,
@@ -156,7 +155,7 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
       if (value == true) {
         if (widget.indeterminate == true) {
           return AntdIconWrap(
-            style: style.defaultIconStyle,
+            style: style.iconStyle,
             child: AntdBox(
               style: style.indeterminateStyle,
             ),
@@ -222,18 +221,6 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
   @override
   AntdCheckbox getWidget(BuildContext context) {
     return this;
-  }
-
-  @override
-  AntdCheckboxStyle getFinalStyle(
-      BuildContext context, AntdCheckboxStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdCheckboxStyle(
-            defaultIconStyle:
-                style.defaultIconStyle.merge(style.disableIconStyle),
-            activeIconStyle:
-                style.defaultIconStyle.merge(style.activeIconStyle)));
   }
 
   @override

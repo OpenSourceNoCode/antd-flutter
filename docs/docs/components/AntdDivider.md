@@ -187,7 +187,7 @@ class AntdDividerVerticalDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdDividerStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdDividerStyle, AntdDivider&gt; | - | - |
-| color | 线的颜色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
+| color | 线的颜色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | - | - |
 | child | 内容 | Widget | - | - |
 | vertical | 垂直还是水平 | bool | false | - |
 | position | 文字位置:`left` \| `center` \| `right` | AntdDividerPosition | - | - |

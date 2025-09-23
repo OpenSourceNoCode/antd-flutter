@@ -41,10 +41,11 @@ class AntdJumboStyle extends AntdTabsStyle {
       tabStyle: tabStyle.merge(style?.tabStyle),
       panelStyle: panelStyle.merge(style?.panelStyle),
       titleStyle: titleStyle.merge(style?.titleStyle),
-      activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle),
+      activeTitleStyle: activeTitleStyle.mergeActive(
+          titleStyle, style?.titleStyle, style?.activeTitleStyle),
       descStyle: descStyle.merge(style?.descStyle),
-      activeDescTextStyle:
-          activeDescTextStyle.merge(style?.activeDescTextStyle),
+      activeDescTextStyle: activeDescTextStyle.mergeActive(
+          descStyle, style?.descStyle, style?.activeDescTextStyle),
     );
   }
 }
@@ -108,17 +109,6 @@ class AntdJumboTabs
   AntdJumboStyle margeStyle(
       AntdJumboStyle defaultStyle, AntdJumboStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdJumboStyle getFinalStyle(
-      BuildContext context, AntdJumboStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdJumboStyle(
-            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle),
-            activeDescTextStyle:
-                style.descStyle.merge(style.activeDescTextStyle)));
   }
 
   @override

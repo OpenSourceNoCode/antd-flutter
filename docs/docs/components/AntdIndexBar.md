@@ -203,6 +203,7 @@ class AntdIndexBarBigDataDemo extends StatelessWidget {
 | indexBuilder | 索引构建 | AntdIndexBarIndexBuilder | - | - |
 | headerFloatBuilder | 列表内头部构建 | AntdIndexBarIndexBuilder | - | - |
 | onIndexChange | 索引变更事件 | AntdIndexBarOnIndexChange | - | - |
+| hapticFeedback | 索引变更时震动反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
 
 
 ## 样式(AntdIndexBarStyle) <a id='AntdIndexBarStyle'></a>
@@ -217,5 +218,6 @@ class AntdIndexBarBigDataDemo extends StatelessWidget {
 | indexStyle | 索引的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | activeIndexStyle | 索引的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | indexMask | 索引的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| hapticFeedback | 索引变更时震动反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
 
 

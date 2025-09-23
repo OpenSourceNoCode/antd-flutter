@@ -5,44 +5,6 @@ enum AntdFormLayout { vertical, horizontal }
 
 enum AntdFormTrigger { onChange, onFocus, any }
 
-/// 表单样式
-/// @l [AntdForm]
-class AntdFormStyle extends AntdStyle {
-  /// 表单外层容器的样式配置
-  /// 用于包裹整个表单组件，通常设置外边距、背景色等
-  final AntdBoxStyle? wrapStyle;
-
-  /// 表单头部区域的样式配置
-  /// 用于表单标题、操作按钮等头部内容的容器样式
-  final AntdBoxStyle? headerStyle;
-
-  /// 表单主体区域的样式配置
-  /// 用于表单字段项的主体内容容器样式
-  final AntdBoxStyle? bodyStyle;
-
-  /// 表单底部区域的样式配置
-  /// 用于提交按钮、底部说明等底部内容的容器样式
-  final AntdBoxStyle? footerStyle;
-
-  const AntdFormStyle({
-    super.inherit,
-    this.wrapStyle,
-    this.headerStyle,
-    this.bodyStyle,
-    this.footerStyle,
-  });
-
-  @override
-  AntdFormStyle copyFrom(covariant AntdFormStyle? style) {
-    return AntdFormStyle(
-      wrapStyle: wrapStyle.merge(style?.wrapStyle),
-      headerStyle: headerStyle.merge(style?.headerStyle),
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      footerStyle: footerStyle.merge(style?.footerStyle),
-    );
-  }
-}
-
 abstract class AntdFormBase<Style extends AntdStyle, WidgetType>
     extends AntdStateComponent<Style, WidgetType> {
   ///只读
@@ -127,7 +89,7 @@ typedef AntdFormBuilder = Widget Function(AntdFormController contoller);
 ///@o 59
 ///@d 高性能表单控件，自带数据域管理。包含数据录入、校验以及对应样式。
 ///@u 适用于创建一个实体或收集信息。需要对输入的数据类型进行校验时。
-class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
+class AntdForm extends AntdFormBase<AntdBoxStyle, AntdForm> {
   const AntdForm({
     super.key,
     super.style,
@@ -142,20 +104,12 @@ class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
     super.validateFirst,
     super.validateTrigger,
     super.controller,
-    this.header,
-    this.footer,
     this.initialValues,
     required this.builder,
     this.onFieldsChange,
     this.onFinish,
     this.onValuesChange,
   });
-
-  ///头部区域 通常放置标题
-  final Widget? header;
-
-  ///尾部区域 通常放置提交按钮
-  final Widget? footer;
 
   ///表单默认值，只有初始化以及重置时生效
   final Map<String, dynamic>? initialValues;
@@ -178,19 +132,19 @@ class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
   }
 
   @override
-  AntdFormStyle getDefaultStyle(
+  AntdBoxStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return const AntdFormStyle();
+    return const AntdBoxStyle();
   }
 
   @override
-  AntdStyleBuilder<AntdFormStyle, AntdForm>? getThemeStyle(
+  AntdStyleBuilder<AntdBoxStyle, AntdForm>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.formStyle;
   }
 
   @override
-  AntdFormStyle margeStyle(AntdFormStyle defaultStyle, AntdFormStyle? style) {
+  AntdBoxStyle margeStyle(AntdBoxStyle defaultStyle, AntdBoxStyle? style) {
     return defaultStyle.copyFrom(style);
   }
 
@@ -200,7 +154,7 @@ class AntdForm extends AntdFormBase<AntdFormStyle, AntdForm> {
   }
 }
 
-class _AntdFormState extends AntdState<AntdFormStyle, AntdForm> {
+class _AntdFormState extends AntdState<AntdBoxStyle, AntdForm> {
   late final AntdFormController innerController =
       widget.controller ?? AntdFormController();
 
@@ -230,28 +184,11 @@ class _AntdFormState extends AntdState<AntdFormStyle, AntdForm> {
   @override
   Widget render(BuildContext context) {
     return AntdBox(
-      style: style.wrapStyle,
-      child: AntdColumn(
-          style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
-          children: [
-            if (widget.header != null)
-              AntdBox(
-                style: style.headerStyle,
-                child: widget.header,
-              ),
-            AntdFormProvider(
-                from: widget,
-                controller: innerController,
-                child: AntdBox(
-                  style: style.bodyStyle,
-                  child: widget.builder(innerController),
-                )),
-            if (widget.footer != null)
-              AntdBox(
-                style: style.footerStyle,
-                child: widget.footer,
-              ),
-          ]),
+      style: style,
+      child: AntdFormProvider(
+          from: widget,
+          controller: innerController,
+          child: widget.builder(innerController)),
     );
   }
 }

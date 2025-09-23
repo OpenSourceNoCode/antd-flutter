@@ -36,7 +36,8 @@ class AntdFooterStyle extends AntdStyle {
       linkStyle: linkStyle.merge(style?.linkStyle),
       contentStyle: contentStyle.merge(style?.contentStyle),
       chipStyle: chipStyle.merge(style?.chipStyle),
-      chipActiveStyle: chipActiveStyle.merge(style?.chipActiveStyle),
+      chipActiveStyle: chipActiveStyle.mergeActive(
+          chipStyle, style?.chipStyle, style?.chipActiveStyle),
     );
   }
 }
@@ -163,15 +164,6 @@ class AntdFooter extends AntdComponent<AntdFooterStyle, AntdFooter> {
   AntdFooterStyle margeStyle(
       AntdFooterStyle defaultStyle, AntdFooterStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdFooterStyle getFinalStyle(
-      BuildContext context, AntdFooterStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdFooterStyle(
-            chipActiveStyle: style.chipStyle.merge(style.chipActiveStyle)));
   }
 
   @override

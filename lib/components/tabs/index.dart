@@ -85,7 +85,8 @@ class AntdTabsStyle extends AntdStyle {
         tabStyle: tabStyle.merge(style?.tabStyle),
         panelStyle: panelStyle.merge(style?.panelStyle),
         titleStyle: titleStyle.merge(style?.titleStyle),
-        activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle),
+        activeTitleStyle: activeTitleStyle.mergeActive(
+            titleStyle, style?.titleStyle, style?.activeTitleStyle),
         indicatorStyle: indicatorStyle.merge(style?.indicatorStyle));
   }
 }
@@ -363,15 +364,6 @@ class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
   @override
   AntdTabsStyle margeStyle(AntdTabsStyle defaultStyle, AntdTabsStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdTabsStyle getFinalStyle(
-      BuildContext context, AntdTabsStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdTabsStyle(
-            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
   }
 
   @override

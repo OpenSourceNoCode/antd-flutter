@@ -127,7 +127,7 @@ void main() {
 ```
 ## 🔨 Style System
 
-Priority: 4>3>2>1
+Priority: 3>4>1>2
 
 ```dart
 import 'package:antd_flutter_mobile/index.dart';

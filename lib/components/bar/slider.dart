@@ -42,10 +42,11 @@ class AntdSliderBarStyle extends AntdStyle {
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         contentStyle: contentStyle.merge(style?.contentStyle),
         titleStyle: titleStyle.merge(style?.titleStyle),
-        activeTitleStyle: activeTitleStyle.merge(style?.activeTitleStyle),
+        activeTitleStyle: activeTitleStyle.mergeActive(
+            titleStyle, style?.titleStyle, style?.activeTitleStyle),
         indicatorStyle: indicatorStyle.merge(style?.indicatorStyle),
-        activeIndicatorStyle:
-            activeIndicatorStyle.merge(style?.activeIndicatorStyle),
+        activeIndicatorStyle: activeIndicatorStyle.mergeActive(
+            indicatorStyle, style?.indicatorStyle, style?.activeIndicatorStyle),
         activeCornerRadius: style?.activeCornerRadius ?? activeCornerRadius);
   }
 }
@@ -162,17 +163,6 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
   AntdSliderBarStyle margeStyle(
       AntdSliderBarStyle defaultStyle, AntdSliderBarStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdSliderBarStyle getFinalStyle(
-      BuildContext context, AntdSliderBarStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSliderBarStyle(
-            activeIndicatorStyle:
-                style.indicatorStyle.merge(style.activeIndicatorStyle),
-            activeTitleStyle: style.titleStyle.merge(style.activeTitleStyle)));
   }
 
   @override

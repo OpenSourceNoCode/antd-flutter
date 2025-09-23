@@ -167,22 +167,24 @@ class AntdInputStyle extends AntdStyle {
       this.keyboardStyle,
       this.clearIcon,
       this.obscureIconStyle,
-      this.obscureIcon = const AntdIcon(icon: AntdIcons.eyeInvisible),
+      this.obscureIcon,
       this.activeObscureIconStyle,
-      this.activeObscureIcon = const AntdIcon(icon: AntdIcons.eye),
+      this.activeObscureIcon,
       this.rowStyle,
       this.autocorrectionColor});
 
   @override
   AntdInputStyle copyFrom(AntdInputStyle? style) {
+    var textStyle_ = textStyle == null
+        ? style?.textStyle
+        : textStyle?.merge(style?.textStyle);
+    var mergeObscureTextStyle = textStyle_?.merge(style?.obscureTextStyle);
     return AntdInputStyle(
         placeholderStyle: placeholderStyle.merge(style?.placeholderStyle),
-        textStyle: textStyle == null
-            ? style?.textStyle
-            : textStyle?.merge(style?.textStyle),
+        textStyle: textStyle_,
         obscureTextStyle: obscureTextStyle == null
-            ? style?.obscureTextStyle
-            : obscureTextStyle?.merge(style?.obscureTextStyle),
+            ? mergeObscureTextStyle
+            : obscureTextStyle?.merge(mergeObscureTextStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
         cursorStyle: cursorStyle.merge(style?.cursorStyle),
         clearIconStyle: clearIconStyle.merge(style?.clearIconStyle),
@@ -192,8 +194,10 @@ class AntdInputStyle extends AntdStyle {
         clearIcon: style?.clearIcon ?? clearIcon,
         obscureIconStyle: obscureIconStyle.merge(style?.obscureIconStyle),
         obscureIcon: style?.obscureIcon ?? obscureIcon,
-        activeObscureIconStyle:
-            activeObscureIconStyle.merge(style?.activeObscureIconStyle),
+        activeObscureIconStyle: activeObscureIconStyle.mergeActive(
+            obscureIconStyle,
+            style?.obscureIconStyle,
+            style?.activeObscureIconStyle),
         activeObscureIcon: style?.activeObscureIcon ?? activeObscureIcon,
         autocorrectionColor: style?.autocorrectionColor ?? autocorrectionColor,
         rowStyle: rowStyle.merge(style?.rowStyle));
@@ -411,6 +415,8 @@ abstract class AntdInputBase<WidgetType>
         ),
         selectionStyle:
             AntdSelectionStyle(color: token.colorPrimary.bg, enable: true),
+        obscureIcon: const AntdIcon(icon: AntdIcons.eyeInvisible),
+        activeObscureIcon: const AntdIcon(icon: AntdIcons.eye),
         obscureIconStyle: AntdIconStyle(
           size: 20,
           color: token.colorText,
@@ -422,16 +428,6 @@ abstract class AntdInputBase<WidgetType>
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.center),
         ));
-  }
-
-  @override
-  AntdInputStyle getFinalStyle(
-      BuildContext context, AntdInputStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdInputStyle(
-            activeObscureIconStyle:
-                style.activeObscureIconStyle.merge(style.obscureIconStyle)));
   }
 }
 

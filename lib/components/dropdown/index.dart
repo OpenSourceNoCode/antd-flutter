@@ -134,7 +134,8 @@ class AntdDropdownStyle extends AntdMaskBaseStyle {
         extraStyle: extraStyle.merge(style?.extraStyle),
         iconStyle: iconStyle.merge(style?.iconStyle),
         icon: style?.icon ?? icon,
-        activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+        activeIconStyle: activeIconStyle.mergeActive(
+            iconStyle, style?.iconStyle, style?.activeIconStyle),
         activeIcon: style?.activeIcon ?? activeIcon,
         animation: animation.merge(style?.animation));
   }
@@ -212,15 +213,6 @@ class AntdDropdown
   }
 
   @override
-  AntdDropdownStyle getFinalStyle(
-      BuildContext context, AntdDropdownStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdDropdownStyle(
-            activeIconStyle: style.iconStyle.merge(style.activeIconStyle)));
-  }
-
-  @override
   AntdDropdown getWidget(BuildContext context) {
     return this;
   }
@@ -255,6 +247,7 @@ class AntdDropdownState extends AntdMaskProxyState<AntdDropdownStyle,
 
   @override
   Widget render(BuildContext context) {
+    super.render(context);
     return AntdBox(
       style: style.bodyStyle,
       onLayout: (ctx) {

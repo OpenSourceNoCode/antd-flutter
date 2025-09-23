@@ -59,7 +59,8 @@ class AntdSelectorOptionStyle extends AntdStyle {
   AntdSelectorOptionStyle copyFrom(AntdSelectorOptionStyle? style) {
     return AntdSelectorOptionStyle(
       itemStyle: itemStyle.merge(style?.itemStyle),
-      activeItemStyle: activeItemStyle.merge(style?.activeItemStyle),
+      activeItemStyle: activeItemStyle.mergeActive(
+          itemStyle, style?.itemStyle, style?.activeItemStyle),
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       labelStyle: labelStyle.merge(style?.labelStyle),
       descriptionStyle: descriptionStyle.merge(style?.descriptionStyle),
@@ -210,17 +211,6 @@ class AntdSelectorOption
   AntdSelectorOptionStyle margeStyle(
       AntdSelectorOptionStyle defaultStyle, AntdSelectorOptionStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdSelectorOptionStyle getFinalStyle(
-      BuildContext context, AntdSelectorOptionStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSelectorOptionStyle(
-            activeItemStyle: style.itemStyle.merge(style.activeItemStyle),
-            badge: style.badge,
-            checkIcon: style.checkIcon));
   }
 }
 

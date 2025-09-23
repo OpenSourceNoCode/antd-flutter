@@ -120,6 +120,7 @@ abstract class AntdBaseAction<Style extends AntdActionStyle, WidgetType>
 
   @override
   Widget render(BuildContext context, Style style) {
+    var token = AntdTheme.ofToken(context);
     return AntdBox(
       innerSafeArea: safeArea ?? style.safeArea,
       disabled: disabled,
@@ -130,7 +131,14 @@ abstract class AntdBaseAction<Style extends AntdActionStyle, WidgetType>
           if (title != null)
             AntdBox(
               style: style.titleStyle,
-              child: title,
+              child: AntdBox(
+                style: danger == true
+                    ? AntdBoxStyle(
+                        textStyle: style.titleStyle?.textStyle
+                            ?.copyWith(color: token.colorError.text))
+                    : null,
+                child: title,
+              ),
             ),
           if (description != null)
             AntdBox(
@@ -226,7 +234,8 @@ class AntdActionSheetStyle extends AntdPopupBaseStyle {
       maskColor: style?.maskColor ?? maskColor,
       maskOpacity: style?.maskOpacity ?? maskOpacity,
       actionStyle: actionStyle.merge(style?.actionStyle),
-      cancelActionStyle: cancelActionStyle.merge(style?.cancelActionStyle),
+      cancelActionStyle: cancelActionStyle.mergeActive(
+          actionStyle, style?.actionStyle, style?.cancelActionStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
       animation: animation.merge(style?.animation),
     );
@@ -368,12 +377,19 @@ class AntdActionSheetState extends AntdPopupBaseState<AntdActionSheetStyle,
       return;
     }
 
-    if (widget.dismissOnAction == true) {
-      await close();
-    }
-
     if (action.onTap != null) {
       action.onTap?.call(close);
+    }
+
+    if (widget.dismissOnAction == true) {
+      if (action.onTap != null) {
+        AntdLogs.w(
+            msg:
+                "If you are using the close method within the onTap of AntdSheetAction, please set dismissOnAction to false, because when dismissOnAction is true, the close method will be automatically called internally.",
+            biz: "AntdActionSheet");
+      }
+
+      await close();
     }
   }
 

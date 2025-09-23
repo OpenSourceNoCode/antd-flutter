@@ -5,19 +5,19 @@ import 'package:flutter/widgets.dart';
 /// @l [AntdPageIndicator]
 class AntdPageIndicatorStyle extends AntdStyle {
   ///默认的分页符样式
-  final AntdBoxStyle? bodyStyle;
+  final AntdBoxStyle? style;
 
   ///被激活的样式
   final AntdBoxStyle? activeStyle;
 
-  const AntdPageIndicatorStyle(
-      {super.inherit, this.bodyStyle, this.activeStyle});
+  const AntdPageIndicatorStyle({super.inherit, this.style, this.activeStyle});
 
   @override
   AntdPageIndicatorStyle copyFrom(covariant AntdPageIndicatorStyle? style) {
     return AntdPageIndicatorStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      activeStyle: activeStyle.merge(style?.activeStyle),
+      style: this.style.merge(style?.style),
+      activeStyle:
+          activeStyle.mergeActive(this.style, style?.style, style?.activeStyle),
     );
   }
 }
@@ -62,7 +62,7 @@ class AntdPageIndicator
         ));
       } else {
         childList.add(AntdBox(
-          style: style.bodyStyle,
+          style: style.style,
         ));
       }
     }
@@ -83,7 +83,7 @@ class AntdPageIndicator
     var activeSize = vertical ? const Size(3, 13) : const Size(13, 3);
     var margin = vertical ? token.size.xxs.bottom : token.size.xxs.left;
     return AntdPageIndicatorStyle(
-        bodyStyle: AntdBoxStyle(
+        style: AntdBoxStyle(
             height: 3,
             width: 3,
             margin: margin,
@@ -105,15 +105,6 @@ class AntdPageIndicator
   AntdStyleBuilder<AntdPageIndicatorStyle, AntdPageIndicator>? getThemeStyle(
       BuildContext context, AntdTheme theme) {
     return theme.pageIndicatorStyle;
-  }
-
-  @override
-  AntdPageIndicatorStyle getFinalStyle(
-      BuildContext context, AntdPageIndicatorStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdPageIndicatorStyle(
-            activeStyle: style.bodyStyle.merge(style.activeStyle)));
   }
 
   @override

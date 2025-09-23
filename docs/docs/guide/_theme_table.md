@@ -12,7 +12,7 @@
 | switchStyle | [AntdSwitch]样式 | AntdStyleBuilder&lt;AntdSwitchStyle, AntdSwitch&gt; | - | - |
 | swiperStyle | [AntdSwiper]样式 | AntdStyleBuilder&lt;AntdSwiperStyle, AntdSwiper&gt; | - | - |
 | swipeActionStyle | [AntdSwipeAction]样式 | AntdStyleBuilder&lt;AntdSwipeActionStyle, AntdSwipeAction&gt; | - | - |
-| formStyle | [AntdForm]样式 | AntdStyleBuilder&lt;AntdFormStyle, AntdForm&gt; | - | - |
+| formStyle | [AntdForm]样式 | AntdStyleBuilder&lt;AntdBoxStyle, AntdForm&gt; | - | - |
 | stepsStyle | [AntdSteps]样式 | AntdStyleBuilder&lt;AntdStepsStyle, AntdSteps&gt; | - | - |
 | sliderStyle | [AntdSlider]样式 | AntdStyleBuilder&lt;AntdSliderStyle, AntdSlider&gt; | - | - |
 | skeletonStyle | [AntdSkeleton]样式 | AntdStyleBuilder&lt;AntdSkeletonStyle, AntdSkeleton&gt; | - | - |

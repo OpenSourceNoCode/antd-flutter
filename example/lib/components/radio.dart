@@ -44,7 +44,7 @@ class AntdRadioCustomDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdRadio(
         style: AntdRadioStyle(
-            defaultIcon: const AntdIcon(
+            icon: const AntdIcon(
               icon: AntdIcons.smile,
             ),
             activeIcon: AntdIcon(

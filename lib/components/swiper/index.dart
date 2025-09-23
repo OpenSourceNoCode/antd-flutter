@@ -19,8 +19,8 @@ class AntdSwiperStyle extends AntdStyle {
   @override
   AntdSwiperStyle copyFrom(covariant AntdSwiperStyle? style) {
     return AntdSwiperStyle(
-        bodyStyle: bodyStyle?.copyFrom(style?.bodyStyle),
-        itemStyle: itemStyle?.copyFrom(style?.itemStyle));
+        bodyStyle: bodyStyle?.merge(style?.bodyStyle),
+        itemStyle: itemStyle?.merge(style?.itemStyle));
   }
 }
 

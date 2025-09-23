@@ -44,7 +44,8 @@ class AntdSearchBarStyle extends AntdStyle {
     return AntdSearchBarStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       bodyRowStyle: bodyRowStyle.merge(style?.bodyRowStyle),
-      activeBodyStyle: activeBodyStyle.merge(style?.activeBodyStyle),
+      activeBodyStyle: activeBodyStyle.mergeActive(
+          bodyStyle, style?.bodyStyle, style?.activeBodyStyle),
       inputStyle: inputStyle.merge(style?.inputStyle),
       iconStyle: iconStyle.merge(style?.iconStyle),
       extraStyle: extraStyle.merge(style?.extraStyle),
@@ -185,15 +186,6 @@ class AntdSearchBar
   AntdSearchBarStyle margeStyle(
       AntdSearchBarStyle defaultStyle, AntdSearchBarStyle? style) {
     return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdSearchBarStyle getFinalStyle(
-      BuildContext context, AntdSearchBarStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdSearchBarStyle(
-            activeBodyStyle: style.bodyStyle.merge(style.activeBodyStyle)));
   }
 
   @override

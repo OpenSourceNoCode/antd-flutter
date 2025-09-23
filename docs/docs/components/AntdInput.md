@@ -358,9 +358,9 @@ class AntdInputFocusTextDemo extends StatelessWidget {
 | keyboardStyle | 键盘样式配置 | [AntdKeyboardStyle](../components/antd-keyboard/#AntdKeyboardStyle) | - | - |
 | clearIcon | 清除按钮图标 | Widget | - | - |
 | obscureIconStyle | 密码隐藏状态图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| obscureIcon | 密码隐藏状态图标 | Widget | const AntdIcon(icon: AntdIcons.eyeInvisible) | - |
+| obscureIcon | 密码隐藏状态图标 | Widget | - | - |
 | activeObscureIconStyle | 密码显示状态图标样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| activeObscureIcon | 密码显示状态图标 | Widget | const AntdIcon(icon: AntdIcons.eye) | - |
+| activeObscureIcon | 密码显示状态图标 | Widget | - | - |
 | rowStyle | 布局行样式配置 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | autocorrectionColor | 自动修正文本区域颜色 | Color | - | - |
 

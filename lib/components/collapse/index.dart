@@ -61,9 +61,11 @@ class AntdCollapseStyle extends AntdStyle {
       contentStyle: contentStyle.merge(style?.contentStyle),
       iconStyle: iconStyle.merge(style?.iconStyle),
       icon: style?.icon ?? icon,
-      activeIconStyle: activeIconStyle.merge(style?.activeIconStyle),
+      activeIconStyle: activeIconStyle.mergeActive(
+          iconStyle, style?.iconStyle, style?.activeIconStyle),
       activeIcon: style?.activeIcon ?? activeIcon,
-      disableIconStyle: disableIconStyle.merge(style?.disableIconStyle),
+      disableIconStyle: disableIconStyle.mergeActive(
+          iconStyle, style?.iconStyle, style?.disableIconStyle),
       disableIcon: style?.disableIcon ?? disableIcon,
     );
   }
@@ -155,18 +157,6 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
         activeIcon: const AntdIcon(
           icon: AntdIcons.down,
         ));
-  }
-
-  @override
-  AntdCollapseStyle getFinalStyle(
-      BuildContext context, AntdCollapseStyle style, AntdMapToken token) {
-    return margeStyle(
-        style,
-        AntdCollapseStyle(
-            activeIcon: style.activeIcon ?? style.icon,
-            activeIconStyle: style.iconStyle.merge(style.activeIconStyle),
-            disableIcon: style.disableIcon ?? style.icon,
-            disableIconStyle: style.iconStyle.merge(style.disableIconStyle)));
   }
 
   @override

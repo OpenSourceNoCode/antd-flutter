@@ -128,7 +128,7 @@ void main() {
 ```
 ## 🔨 样式系统
 
-优先级: 4>3>2>1
+优先级: 3>4>1>2
 
 ```dart
 import 'package:antd_flutter_mobile/index.dart';

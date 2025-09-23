@@ -406,6 +406,16 @@ abstract class AntdMaskProxyState<
     opened = false;
   }
 
+  @override
+  @protected
+  @mustCallSuper
+  Widget render(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setState?.call(() => {});
+    });
+    return const AntdBox();
+  }
+
   Future<T?> open<T>([AntdMaskHole? hole, bool animation = true]) async {
     initHole(hole, hole);
     if (animation) {

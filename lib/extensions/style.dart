@@ -16,4 +16,14 @@ extension StyleExtensions<T extends AntdStyle> on T? {
     }
     return this!.copyFrom(other) as T;
   }
+
+  T? mergeActive(
+    T? defaultStyle,
+    T? tdStyle,
+    T? tdaStyle,
+  ) {
+    var cm = defaultStyle.merge(this);
+    var tam = tdStyle.merge(tdaStyle);
+    return cm.merge(tam);
+  }
 }

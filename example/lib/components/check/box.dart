@@ -87,7 +87,7 @@ class AntdCheckboxCustomDemo extends StatelessWidget {
       AntdCheckbox(
         value: true,
         style: AntdCheckboxStyle(
-            defaultIcon: const AntdIcon(
+            icon: const AntdIcon(
               icon: AntdIcons.smile,
             ),
             activeIcon: AntdIcon(

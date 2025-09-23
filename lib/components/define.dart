@@ -7,6 +7,7 @@ const packageName = "antd_flutter_mobile";
 typedef FutureVoidCallback = Future<void> Function();
 
 enum AntdColor {
+  fill,
   primary,
   success,
   warning,
@@ -16,6 +17,8 @@ enum AntdColor {
 
   Color getColor(AntdMapToken token) {
     switch (this) {
+      case fill:
+        return token.colorFill;
       case primary:
         return token.colorPrimary;
       case success:
@@ -33,6 +36,8 @@ enum AntdColor {
 
   Color getActiveColor(AntdMapToken token) {
     switch (this) {
+      case fill:
+        return token.colorFill;
       case primary:
         return token.colorPrimary.active;
       case success:
@@ -50,6 +55,8 @@ enum AntdColor {
 
   Color getBgColor(AntdMapToken token) {
     switch (this) {
+      case fill:
+        return token.colorFill;
       case primary:
         return token.colorPrimary.bg;
       case success:
@@ -67,6 +74,8 @@ enum AntdColor {
 
   Color getBorderColor(AntdMapToken token) {
     switch (this) {
+      case fill:
+        return token.colorFill;
       case primary:
         return token.colorPrimary.border;
       case success:

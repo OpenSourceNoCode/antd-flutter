@@ -80,33 +80,20 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
         getThemeStyle(context, theme)?.call(context, widget, style, token);
 
     style = margeStyle(style, themeStyle);
-    final inputStyle = getInputStyle(context);
-    if (inputStyle != null) {
-      if (inputStyle.inherit != true) {
-        return getFinalStyle(context, margeStyle(style, inputStyle), token);
-      }
-    }
 
     final styleBuilder = getStyleBuilder(context);
     final buildStyle = styleBuilder?.call(context, widget, style, token);
     if (buildStyle != null) {
       if (buildStyle.inherit != true) {
-        return getFinalStyle(context,
-            margeStyle(margeStyle(style, buildStyle), inputStyle), token);
+        return getFinalStyle(context, margeStyle(style, buildStyle), token);
       }
     }
 
-    final styleProviderStyle = context
-        .dependOnInheritedWidgetOfExactType<AntdStyleProvider<Style>>()
-        ?.style;
-    if (styleProviderStyle != null) {
-      if (styleProviderStyle.inherit != true) {
-        return getFinalStyle(
-            context,
-            margeStyle(
-                margeStyle(margeStyle(style, styleProviderStyle), buildStyle),
-                inputStyle),
-            token);
+    final inputStyle = getInputStyle(context);
+    if (inputStyle != null) {
+      if (inputStyle.inherit != true) {
+        return getFinalStyle(context,
+            _margeStyle(style, buildStyle, inputStyle, null, null), token);
       }
     }
 
@@ -116,16 +103,22 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
         ?.builder
         ?.call(context, widget, style, token);
 
-    style = margeStyle(
-        margeStyle(
-            margeStyle(
-                margeStyle(
-                  style,
-                  styleBuildProviderStyle,
-                ),
-                styleProviderStyle),
-            buildStyle),
-        inputStyle);
+    if (styleBuildProviderStyle != null) {
+      if (styleBuildProviderStyle.inherit != true) {
+        return getFinalStyle(
+            context,
+            _margeStyle(
+                style, buildStyle, inputStyle, styleBuildProviderStyle, null),
+            token);
+      }
+    }
+
+    final styleProviderStyle = context
+        .dependOnInheritedWidgetOfExactType<AntdStyleProvider<Style>>()
+        ?.style;
+
+    style = _margeStyle(style, buildStyle, inputStyle, styleBuildProviderStyle,
+        styleProviderStyle);
 
     return getFinalStyle(context, style, token);
   }
@@ -147,6 +140,18 @@ abstract mixin class AntdStyleMixin<Style extends AntdStyle, WidgetType> {
   }
 
   Style margeStyle(Style defaultStyle, Style? style);
+
+  Style _margeStyle(Style defaultStyle, Style? buildStyle, Style? inputStyle,
+      Style? styleBuildProviderStyle, Style? styleProviderStyle) {
+    var style1 = margeStyle(
+      defaultStyle,
+      styleProviderStyle,
+    );
+    var style2 = margeStyle(style1, styleBuildProviderStyle);
+    var style3 = margeStyle(style2, inputStyle);
+    var style4 = margeStyle(style3, buildStyle);
+    return style4;
+  }
 
   WidgetType getWidget(BuildContext context);
 }

@@ -31,12 +31,20 @@ class AntdProvider extends StatefulWidget {
 
 class _AntdAntdProviderState extends State<AntdProvider> {
   late AntdTheme theme = widget.theme;
+  late AntdMapToken token;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateToken();
+  }
 
   @override
   void didUpdateWidget(covariant AntdProvider oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.theme != widget.theme) {
       theme = widget.theme;
+      _updateToken();
     }
   }
 
@@ -48,8 +56,7 @@ class _AntdAntdProviderState extends State<AntdProvider> {
         };
   }
 
-  @override
-  Widget build(BuildContext context) {
+  _updateToken() {
     var algorithms = [
       switch (theme.mode) {
         AntdThemeMode.light => light,
@@ -63,7 +70,17 @@ class _AntdAntdProviderState extends State<AntdProvider> {
     for (var algorithm in algorithms) {
       token = algorithm(seedToken, token);
     }
+    if (token == null) {
+      AntdLogs.e(
+          msg:
+              "Cannot generate an empty token. Please check the theme configuration in AntdProvider.",
+          docUrl: "theme");
+    }
+    this.token = token!;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     void configure(
       AntdThemeMode mode, {
       List<AntdThemeAlgorithm>? algorithms,
@@ -75,6 +92,7 @@ class _AntdAntdProviderState extends State<AntdProvider> {
           token: _getSeedToken(seedToken, mode),
           algorithms: algorithms ?? theme.algorithms,
         );
+        _updateToken();
       });
       return;
     }
@@ -83,7 +101,7 @@ class _AntdAntdProviderState extends State<AntdProvider> {
       theme: theme,
       configure: configure,
       child: AntdMapTokenProvider(
-          mapToken: token!,
+          mapToken: token,
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: DefaultTextStyle(

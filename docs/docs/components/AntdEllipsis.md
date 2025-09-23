@@ -26,19 +26,21 @@ class AntdEllipsisCustomDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdEllipsis(
-          onCollapseTap: () {
-            AntdToast.show("点击了收起");
-          },
-          onExpandTap: () {
-            AntdToast.show("点击了展开");
-          },
-          onTextTap: () {
-            AntdToast.show("点击了文本");
-          },
-          content: ellipsisText,
-          collapseText: "点我收起",
-          expandText: "点我展开")
+      AntdBox(
+          style: AntdBoxStyle(padding: 16.right),
+          child: AntdEllipsis(
+              onCollapseTap: () {
+                AntdToast.show("点击了收起");
+              },
+              onExpandTap: () {
+                AntdToast.show("点击了展开");
+              },
+              onTextTap: () {
+                AntdToast.show("点击了文本");
+              },
+              content: ellipsisText,
+              collapseText: "点我收起",
+              expandText: "点我展开"))
     ]);
   }
 }

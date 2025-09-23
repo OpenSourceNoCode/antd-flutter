@@ -14,7 +14,8 @@ class AntdSwipeItemStyle extends AntdStyle {
   AntdSwipeItemStyle copyFrom(covariant AntdSwipeItemStyle? style) {
     return AntdSwipeItemStyle(
       style: this.style.merge(style?.style),
-      confirmStyle: confirmStyle.merge(style?.confirmStyle),
+      confirmStyle: confirmStyle.mergeActive(
+          this.style, style?.style, style?.confirmStyle),
     );
   }
 }

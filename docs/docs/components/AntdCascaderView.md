@@ -182,8 +182,8 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | rowStyle | 布局使用的Flex样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | checkIconStyle | 选中状态下显示的图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | checkIcon | 选中状态下显示的图标 | Widget | - | - |
-| uncheckIconStyle | 未选中状态下显示的图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
-| uncheckIcon | 未选中状态下显示的图标 | Widget | - | - |
+| iconStyle | 未选中状态下显示的图标样式 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| icon | 未选中状态下显示的图标 | Widget | - | - |
 
 ## 选项(AntdCascaderOption) <a id='AntdCascaderOption'></a>
 
@@ -197,7 +197,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | title | 选项标题组件 | Widget | - | - |
 | child | 选项内容组件 | Widget | - | - |
 | checkIcon | 选中状态下显示的图标 | Widget | - | - |
-| uncheckIcon | 未选中状态下显示的图标 | Widget | - | - |
+| icon | 未选中状态下显示的图标 | Widget | - | - |
 | check | 是否选中该选项 | bool | false | - |
 | disabled | 是否禁用该选项 | bool | false | - |
 | onTap | 选项点击回调函数 | VoidCallback | - | - |

@@ -336,7 +336,7 @@ class AntdButtonThrottleDebounceDemo extends StatelessWidget {
 | style | 样式 | AntdButtonStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdButtonStyle, AntdButton&gt; | - | - |
 | block | 是否充满父容器宽度 | bool | - | - |
-| color | 按钮主题色:`primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
+| color | 按钮主题色:`fill` \| `primary` \| `success` \| `warning` \| `danger` \| `info` \| `link` | AntdColor | primary | - |
 | disabled | 是否禁用状态 | bool | - | - |
 | fill | 按钮填充模式:`solid` \| `outline` \| `none` | AntdButtonFill | solid | - |
 | shape | 按钮形状样式:`rounded` \| `rectangular` | AntdButtonShape | - | - |
