@@ -132,16 +132,8 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   bool _hasFocusNode = false;
   late final FocusNode _focusNode = widget.focusNode ?? FocusNode();
 
-  late final AntdTapHandler _handler = AntdTapHandler(
-    options: _options,
-    onTouchStateChange: (state) {
-      if (style.feedbackStyle != null && tapState != state && mounted) {
-        setState(() {
-          tapState = state;
-        });
-      }
-    },
-  );
+  late AntdTapEventRegistry _eventRegistry;
+  late AntdTapHandler _handler;
 
   double getSafeArea(AntdPosition? position) {
     switch (position) {
@@ -238,18 +230,9 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
       execLayoutCallback(false);
     });
 
-    AntdTapAccepter getAccepter() {
-      if (widget.options?.accepter != null) {
-        return widget.options!.accepter!;
-      }
-      if (widget.options?.allowOffset == true || style.feedbackStyle != null) {
-        return AntdTapAccepter.listener;
-      }
-      return AntdTapAccepter.gesture;
-    }
-
     _options = AntdTapOptions(
-            hapticFeedback: style.hapticFeedback, accepter: getAccepter())
+            hapticFeedback: style.hapticFeedback,
+            alwaysReceiveTap: style.feedbackStyle != null)
         .copyFrom(style.options)
         .copyFrom(widget.options)
         .copyWith(
@@ -258,6 +241,20 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
     _hasFocusNode = widget.onFocus != null || style.focusStyle != null;
     _focusNode.canRequestFocus = _options.disabled != true;
 
+    _eventRegistry = AntdTapEventRegistryProvider.maybeOf(context)?.registry ??
+        AntdTapEventRegistry();
+    _handler = AntdTapHandler(
+      context: context,
+      registry: _eventRegistry,
+      options: _options,
+      onTouchStateChange: (state) {
+        if (style.feedbackStyle != null && tapState != state && mounted) {
+          setState(() {
+            tapState = state;
+          });
+        }
+      },
+    );
     _handler.options = _options;
     if (_hasFocusNode && widget.onTap == null && widget.disabled != true) {
       _handler.tapHandler = () {
@@ -299,7 +296,12 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
 
     var child = innerStyle.render(widget.buildChild(context));
     if (_handler.hasHandlers || style.feedbackStyle != null) {
+      var registry = AntdTapEventRegistryProvider.maybeOf(context);
       child = _handler.wrap(child);
+      if (registry == null) {
+        child = AntdTapEventRegistryProvider(
+            registry: _eventRegistry, child: child);
+      }
     }
 
     if (innerStyle.radius != null && innerStyle.shadows == null) {

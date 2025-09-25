@@ -123,16 +123,16 @@ class AntdButton extends AntdStateComponent<AntdButtonStyle, AntdButton> {
     };
 
     var style = AntdBoxStyle(
-        width: block == true ? double.infinity : null,
-        padding: verticalPadding.marge(token.size.lg.horizontal),
-        feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
-        textStyle: textStyle.copyWith(color: setColor ?? token.colorText),
-        radius: BorderRadius.circular(
-            shape == AntdButtonShape.rounded ? 9999 : token.radius.seed),
-        border: fill != AntdButtonFill.none
-            ? Border.all(color: setColor ?? token.border.color, width: 1)
-            : null,
-        options: const AntdTapOptions(accepter: AntdTapAccepter.gesture));
+      width: block == true ? double.infinity : null,
+      padding: verticalPadding.marge(token.size.lg.horizontal),
+      feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
+      textStyle: textStyle.copyWith(color: setColor ?? token.colorText),
+      radius: BorderRadius.circular(
+          shape == AntdButtonShape.rounded ? 9999 : token.radius.seed),
+      border: fill != AntdButtonFill.none
+          ? Border.all(color: setColor ?? token.border.color, width: 1)
+          : null,
+    );
 
     if (fill == AntdButtonFill.solid && setColor != null) {
       style = style.copyFrom(AntdBoxStyle(

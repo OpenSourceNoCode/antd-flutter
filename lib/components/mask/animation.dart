@@ -1,31 +1,19 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/cupertino.dart';
 
-class AntdMaskAnimation<WidgetType, StateType> extends AntdAnimation {
+class AntdMaskBaseAnimation<WidgetType, StateType> extends AntdAnimation {
   final AntdAnimated<WidgetType, StateType>? maskAnimated;
 
   final AntdAnimated<WidgetType, StateType>? holeAnimated;
 
   final AntdAnimated<WidgetType, StateType>? contentAnimated;
 
-  const AntdMaskAnimation(
+  const AntdMaskBaseAnimation(
       {super.disable,
       super.duration,
       this.maskAnimated,
       this.holeAnimated,
       this.contentAnimated});
-
-  @override
-  AntdMaskAnimation<WidgetType, StateType> copyFrom(
-      covariant AntdMaskAnimation<WidgetType, StateType>? style) {
-    return AntdMaskAnimation<WidgetType, StateType>(
-      disable: style?.disable ?? disable,
-      duration: style?.duration ?? duration,
-      maskAnimated: style?.maskAnimated ?? maskAnimated,
-      holeAnimated: style?.holeAnimated ?? holeAnimated,
-      contentAnimated: style?.contentAnimated ?? contentAnimated,
-    );
-  }
 }
 
 class AntdMaskDefaultAnimated<WidgetType, StateType>
@@ -110,14 +98,4 @@ class AntdMaskContentDefaultAnimated<
       child: child,
     );
   }
-}
-
-class AntdMaskDefaultAnimation
-    extends AntdMaskAnimation<AntdMask, AntdMaskState> {
-  const AntdMaskDefaultAnimation(
-      {super.disable,
-      super.duration,
-      super.maskAnimated = const AntdMaskDefaultAnimated(),
-      super.contentAnimated = const AntdMaskContentDefaultAnimated<
-          AntdMaskStyle, AntdMask, AntdMaskState>()});
 }

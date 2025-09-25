@@ -68,8 +68,8 @@ class AntdCheckboxStyle extends AntdStyle {
 
   factory AntdCheckboxStyle.defaultStyle(AntdMapToken token) {
     return AntdCheckboxStyle(
-        bodyStyle: const AntdBoxStyle(
-            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+        bodyStyle:
+            const AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true)),
         indeterminateStyle: AntdBoxStyle(
           size: 11,
           color: token.colorPrimary,

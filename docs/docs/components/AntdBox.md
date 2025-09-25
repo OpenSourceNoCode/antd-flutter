@@ -497,7 +497,7 @@ class AntdListenerDemo extends StatelessWidget {
               onLongPress: () {
                 AntdToast.show("触发蓝色长按");
               },
-              options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+              options: const AntdTapOptions(alwaysReceiveTap: true),
               child: AntdBox(
                   onTap: () {
                     AntdToast.show("触发红色单击");

@@ -128,7 +128,7 @@ class AntdCheckItem
     return AntdCheckItemStyle(
         bodyStyle: AntdBoxStyle(
             color: token.colorBgContainer,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         itemStyle: AntdBoxStyle(
             padding: token.size.lg.vertical.marge(token.size.lg.right),
             margin: token.size.lg.left,

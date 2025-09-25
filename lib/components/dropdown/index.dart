@@ -2,11 +2,22 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
 class AntdDropdownAnimation
-    extends AntdMaskAnimation<AntdDropdown, AntdDropdownState> {
+    extends AntdMaskBaseAnimation<AntdDropdown, AntdDropdownState> {
   const AntdDropdownAnimation(
-      {required super.duration,
+      {super.disable,
+      super.duration,
       super.maskAnimated = const AntdMaskDefaultAnimated(),
       super.contentAnimated = const AntdDropdownContentDefaultAnimated()});
+
+  @override
+  AntdDropdownAnimation copyFrom(covariant AntdDropdownAnimation? style) {
+    return AntdDropdownAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 class AntdDropdownContentDefaultAnimated
@@ -148,23 +159,22 @@ class AntdDropdownStyle extends AntdMaskBaseStyle {
 ///@u 适用于筛选、排序并更改当前页面内容展示范围或顺序。
 class AntdDropdown
     extends AntdBaseMask<AntdDropdownStyle, AntdDropdown, AntdDropdownState> {
-  const AntdDropdown({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.onClosed,
-    super.onOpened,
-    super.onMaskTap,
-    super.builder,
-    super.opacity = AntdMaskOpacity.thin,
-    super.dismissOnMaskTap = true,
-    super.showMask = true,
-    super.animation,
-    required this.items,
-    this.icon,
-    this.activeIcon,
-    this.extra,
-  });
+  const AntdDropdown(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.onClosed,
+      super.onOpened,
+      super.onMaskTap,
+      super.builder,
+      super.opacity = AntdMaskOpacity.thin,
+      super.dismissOnMaskTap = true,
+      super.showMask = true,
+      required this.items,
+      this.icon,
+      this.activeIcon,
+      this.extra,
+      this.animation});
 
   ///内容
   final List<AntdDropdownItem> items;
@@ -177,6 +187,9 @@ class AntdDropdown
 
   ///额外区域,始终位于菜单下方
   final AntdMaskBuilder<AntdDropdownState>? extra;
+
+  ///动画
+  final AntdDropdownAnimation? animation;
 
   @override
   State<StatefulWidget> createState() {
@@ -192,7 +205,7 @@ class AntdDropdown
         childStyle: AntdBoxStyle(
             padding: token.size.md.all,
             alignment: Alignment.center,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         itemStyle: AntdBoxStyle(
             width: double.infinity,
             padding: token.size.md.all,
@@ -345,7 +358,14 @@ class AntdDropdownState extends AntdMaskProxyState<AntdDropdownStyle,
   }
 
   @override
-  AntdMaskAnimation<AntdDropdown, AntdDropdownState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdDropdown, AntdDropdownState>?
+      buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdDropdown, AntdDropdownState>?
+      buildWidgetAnimation() {
+    return widget.animation;
   }
 }

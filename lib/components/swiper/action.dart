@@ -105,7 +105,7 @@ class _AntdSwipeActionState<T>
     extends AntdState<AntdSwipeActionStyle, AntdSwipeAction>
     with TickerProviderStateMixin {
   final List<double> _totalWidths = [0, 0];
-  AntdSwipeStatus status = AntdSwipeStatus.close;
+  AntdSwipeStatus? status;
 
   late final AnimationController _offsetController =
       AnimationController.unbounded(vsync: this, duration: widget.duration);
@@ -132,16 +132,21 @@ class _AntdSwipeActionState<T>
     _beforeOffset = newOffset;
   }
 
+  _handlerStatus(AntdSwipeStatus status) {
+    this.status = status;
+    widget.onChange?.call(status);
+  }
+
   void _openLeft() async {
     _springAnimation(_totalWidths[0]);
     status = AntdSwipeStatus.left;
-    widget.onChange?.call(AntdSwipeStatus.left);
+    _handlerStatus(AntdSwipeStatus.left);
   }
 
   void _openRight() async {
     _springAnimation(-_totalWidths[1]);
     status = AntdSwipeStatus.right;
-    widget.onChange?.call(AntdSwipeStatus.right);
+    _handlerStatus(AntdSwipeStatus.right);
   }
 
   _springAnimation(double target) {
@@ -164,7 +169,7 @@ class _AntdSwipeActionState<T>
       return;
     }
     _springAnimation(0);
-    widget.onChange?.call(AntdSwipeStatus.close);
+    _handlerStatus(AntdSwipeStatus.close);
   }
 
   @override
@@ -175,7 +180,7 @@ class _AntdSwipeActionState<T>
 
   @override
   void dispose() {
-    status = AntdSwipeStatus.close;
+    status = null;
     _totalWidths.clear();
     _offsetController.dispose();
     widget.controller?._unregisterState(widget.key, this);

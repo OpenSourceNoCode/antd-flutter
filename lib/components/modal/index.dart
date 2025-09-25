@@ -74,13 +74,25 @@ class AntdModalAction extends AntdBaseAction<AntdActionStyle, AntdModalAction> {
 
 enum AntdModalType { alert, confirm, normal }
 
-class AntdModalAnimation extends AntdMaskAnimation<AntdModal, AntdModalState> {
+class AntdModalAnimation
+    extends AntdMaskBaseAnimation<AntdModal, AntdModalState> {
   const AntdModalAnimation(
-      {required super.duration,
+      {super.disable,
+      super.duration,
       super.maskAnimated =
           const AntdMaskDefaultAnimated<AntdModal, AntdModalState>(),
       super.contentAnimated = const AntdPopupScaleFadeAnimation<AntdModalStyle,
           AntdModal, AntdModalState>()});
+
+  @override
+  AntdModalAnimation copyFrom(covariant AntdModalAnimation? style) {
+    return AntdModalAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 class AntdModalStyle extends AntdDialogBaseStyle {
@@ -124,27 +136,31 @@ class AntdModalStyle extends AntdDialogBaseStyle {
 ///@u 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Modal 在当前页面正中打开一个浮层，承载相应的操作。
 class AntdModal extends AntdBaseDialog<AntdModalAction, AntdModal,
     AntdModalStyle, AntdModalState> {
-  const AntdModal(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.opacity,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animation,
-      super.actions,
-      super.dismissOnAction,
-      super.builder,
-      super.closeIcon,
-      super.header,
-      super.title,
-      this.type = AntdModalType.normal});
+  const AntdModal({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.opacity,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    super.actions,
+    super.dismissOnAction,
+    super.builder,
+    super.closeIcon,
+    super.header,
+    super.title,
+    this.type = AntdModalType.normal,
+    this.animation,
+  });
 
   ///modal的类型，一般用作全局主题的动态样式
   final AntdModalType type;
+
+  ///弹出层动画
+  final AntdModalAnimation? animation;
 
   static Future<T?> show<T>(
       {final Key? key,
@@ -345,8 +361,7 @@ class AntdModalState extends AntdBaseDialogState<AntdModalStyle,
               style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
               children: widget.actions!.map((value) {
                 return AntdBox(
-                  options:
-                      const AntdTapOptions(accepter: AntdTapAccepter.listener),
+                  options: const AntdTapOptions(alwaysReceiveTap: true),
                   onTap: () {
                     handlerTap(value);
                   },
@@ -357,7 +372,12 @@ class AntdModalState extends AntdBaseDialogState<AntdModalStyle,
   }
 
   @override
-  AntdMaskAnimation<AntdModal, AntdModalState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdModal, AntdModalState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdModal, AntdModalState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }

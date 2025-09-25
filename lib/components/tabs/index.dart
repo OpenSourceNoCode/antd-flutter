@@ -353,7 +353,7 @@ class AntdTabs extends AntdBaseTabs<AntdTabsStyle, AntdTab, AntdTabs> {
                 .marge(token.size.md.bottom)
                 .marge(token.size.lg.horizontal),
             textStyle: token.font.lg,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         indicatorStyle: AntdBoxStyle(
           color: token.colorPrimary,
           height: token.lineWidth + 1,

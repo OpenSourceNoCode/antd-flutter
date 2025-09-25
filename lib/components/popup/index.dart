@@ -1,8 +1,6 @@
 import 'package:antd_flutter_mobile/index.dart' hide AntdPopupDefaultAnimation;
 import 'package:flutter/widgets.dart';
 
-import 'animation.dart';
-
 ///弹出层样式
 ///@l [AntdPopup]
 class AntdPopupBaseStyle extends AntdMaskBaseStyle {
@@ -38,7 +36,6 @@ abstract class AntdBasePopup<Style extends AntdPopupBaseStyle, WidgetType,
     super.dismissOnMaskTap,
     super.showMask,
     super.builder,
-    super.animation,
     this.closeIcon,
     this.position = AntdPosition.bottom,
     this.avoidKeyboard = true,
@@ -108,7 +105,7 @@ abstract class AntdPopupBaseState<
     }
     if (widget.closeIcon != null) {
       childList.add(getCloseIcon(AntdBox(
-        options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+        options: const AntdTapOptions(alwaysReceiveTap: true),
         onTap: () async {
           await close();
         },
@@ -136,6 +133,27 @@ abstract class AntdPopupBaseState<
   }
 }
 
+class AntdPopupAnimation
+    extends AntdMaskBaseAnimation<AntdPopup, AntdPopupState> {
+  const AntdPopupAnimation(
+      {super.disable,
+      super.duration,
+      super.maskAnimated =
+          const AntdMaskDefaultAnimated<AntdPopup, AntdPopupState>(),
+      super.contentAnimated = const AntdPopupOffsetAnimation<AntdPopupStyle,
+          AntdPopup, AntdPopupState>()});
+
+  @override
+  AntdPopupAnimation copyFrom(covariant AntdPopupAnimation? style) {
+    return AntdPopupAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
+}
+
 class AntdPopupStyle extends AntdPopupBaseStyle {
   const AntdPopupStyle(
       {super.inherit,
@@ -147,7 +165,7 @@ class AntdPopupStyle extends AntdPopupBaseStyle {
       this.animation});
 
   ///弹出层动画
-  final AntdMaskAnimation<AntdPopup, AntdPopupState>? animation;
+  final AntdPopupAnimation? animation;
 
   @override
   AntdPopupStyle copyFrom(covariant AntdPopupStyle? style) {
@@ -175,8 +193,8 @@ class AntdPopupStyle extends AntdPopupBaseStyle {
             ),
             size: token.size.xl.roundToDouble(),
             color: token.colorText.tertiary),
-        animation: const AntdPopupDefaultAnimation(
-            duration: Duration(milliseconds: 400)));
+        animation:
+            const AntdPopupAnimation(duration: Duration(milliseconds: 400)));
   }
 }
 
@@ -201,7 +219,10 @@ class AntdPopup
       super.closeIcon,
       super.position = AntdPosition.bottom,
       super.avoidKeyboard = true,
-      super.animation});
+      this.animation});
+
+  ///弹出层动画
+  final AntdPopupAnimation? animation;
 
   static Future<T?> show<T>(
       {final Key? key,
@@ -263,7 +284,12 @@ class AntdPopupState
   }
 
   @override
-  AntdMaskAnimation<AntdPopup, AntdPopupState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdPopup, AntdPopupState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdPopup, AntdPopupState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }

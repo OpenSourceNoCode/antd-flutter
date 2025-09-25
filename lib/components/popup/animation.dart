@@ -114,13 +114,3 @@ class AntdPopupScaleFadeAnimation<
     );
   }
 }
-
-class AntdPopupDefaultAnimation
-    extends AntdMaskAnimation<AntdPopup, AntdPopupState> {
-  const AntdPopupDefaultAnimation(
-      {required super.duration,
-      super.maskAnimated =
-          const AntdMaskDefaultAnimated<AntdPopup, AntdPopupState>(),
-      super.contentAnimated = const AntdPopupOffsetAnimation<AntdPopupStyle,
-          AntdPopup, AntdPopupState>()});
-}

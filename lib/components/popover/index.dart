@@ -107,7 +107,7 @@ class AntdPopoverAction
 }
 
 class AntdPopoverAnimation
-    extends AntdMaskAnimation<AntdPopover, AntdPopoverState> {
+    extends AntdMaskBaseAnimation<AntdPopover, AntdPopoverState> {
   const AntdPopoverAnimation(
       {super.disable,
       super.duration,
@@ -115,6 +115,16 @@ class AntdPopoverAnimation
           const AntdMaskDefaultAnimated<AntdPopover, AntdPopoverState>(),
       super.contentAnimated = const AntdMaskContentDefaultAnimated<
           AntdPopoverStyle, AntdPopover, AntdPopoverState>()});
+
+  @override
+  AntdPopoverAnimation copyFrom(covariant AntdPopoverAnimation? style) {
+    return AntdPopoverAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 /// 弹出框整体样式配置类（继承自遮罩样式）
@@ -183,26 +193,27 @@ class AntdPopoverController {
 ///@u 适用于功能的导航，只可由导航栏上图标唤起，通常用于收纳低频使用的功能。
 class AntdPopover
     extends AntdBaseMask<AntdPopoverStyle, AntdPopover, AntdPopoverState> {
-  const AntdPopover(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.builder,
-      super.opacity = AntdMaskOpacity.transparent,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      required this.child,
-      this.actions,
-      this.placement = AntdPlacement.top,
-      this.mode = AntdPopoverMode.light,
-      this.dismissOnAction = true,
-      this.controller,
-      this.trigger = AntdPopoverTrigger.tap,
-      this.hapticFeedback = AntdHapticFeedback.light,
-      this.animation});
+  const AntdPopover({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.builder,
+    super.opacity = AntdMaskOpacity.transparent,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    required this.child,
+    this.actions,
+    this.placement = AntdPlacement.top,
+    this.mode = AntdPopoverMode.light,
+    this.dismissOnAction = true,
+    this.controller,
+    this.trigger = AntdPopoverTrigger.tap,
+    this.hapticFeedback = AntdHapticFeedback.light,
+    this.animation,
+  });
 
   ///弹出内容，比actions优先级更高
   final Widget child;
@@ -246,9 +257,9 @@ class AntdPopover
         color:
             mode == AntdPopoverMode.light ? token.colorText : token.colorWhite);
     var action = actions != null && builder == null;
-    var style = AntdPopoverStyle(
-        childStyle: const AntdBoxStyle(
-            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+    return AntdPopoverStyle(
+        childStyle:
+            const AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true)),
         actionStyle: AntdPopoverActionStyle(
           bodyStyle: AntdBoxStyle(
               textStyle: token.font.md.copyWith(
@@ -284,8 +295,6 @@ class AntdPopover
         ),
         animation:
             const AntdPopoverAnimation(duration: Duration(milliseconds: 400)));
-    return margeStyle(
-        style, theme.popoverStyle?.call(context, this, style, token));
   }
 
   @override
@@ -370,8 +379,7 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
               style: style.actionColumnStyle,
               children: widget.actions!.map((value) {
                 return AntdBox(
-                  options:
-                      const AntdTapOptions(accepter: AntdTapAccepter.listener),
+                  options: const AntdTapOptions(alwaysReceiveTap: true),
                   onTap: () async {
                     if (widget.dismissOnAction) {
                       await close();
@@ -399,8 +407,13 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
   }
 
   @override
-  AntdMaskAnimation<AntdPopover, AntdPopoverState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdPopover, AntdPopoverState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdPopover, AntdPopoverState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }
 

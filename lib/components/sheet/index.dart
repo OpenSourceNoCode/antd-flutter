@@ -65,7 +65,7 @@ class AntdActionStyle extends AntdStyle {
             feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
             padding: token.size.xl.all,
             border: token.border.bottom,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         titleStyle: AntdBoxStyle(
           alignment: Alignment.center,
           textStyle: token.font.xxl.copyWith(
@@ -192,13 +192,24 @@ class AntdSheetAction extends AntdBaseAction<AntdActionStyle, AntdSheetAction> {
 }
 
 class AntdActionSheetAnimation
-    extends AntdMaskAnimation<AntdActionSheet, AntdActionSheetState> {
+    extends AntdMaskBaseAnimation<AntdActionSheet, AntdActionSheetState> {
   const AntdActionSheetAnimation(
-      {required super.duration,
+      {super.disable,
+      super.duration,
       super.maskAnimated = const AntdMaskDefaultAnimated<AntdActionSheet,
           AntdActionSheetState>(),
       super.contentAnimated = const AntdPopupOffsetAnimation<
           AntdActionSheetStyle, AntdActionSheet, AntdActionSheetState>()});
+
+  @override
+  AntdActionSheetAnimation copyFrom(covariant AntdActionSheetAnimation? style) {
+    return AntdActionSheetAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 ///动作面板样式
@@ -251,24 +262,24 @@ typedef AntdActionCallback = void Function(Key? key, bool cancelTap);
 ///@u 由用户操作触发，提供一组与当前场景操作相关的两个或多个选项，让用户在不离场的情况下完成操作。
 class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
     AntdActionSheet, AntdActionSheetState> {
-  const AntdActionSheet(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.dismissOnMaskTap = true,
-      super.opacity,
-      super.showMask = true,
-      super.animation,
-      required this.actions,
-      this.cancelText,
-      this.dismissOnAction = true,
-      this.extra,
-      this.onAction,
-      this.safeArea = true})
-      : super(position: AntdPosition.bottom);
+  const AntdActionSheet({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.dismissOnMaskTap = true,
+    super.opacity,
+    super.showMask = true,
+    required this.actions,
+    this.cancelText,
+    this.dismissOnAction = true,
+    this.extra,
+    this.onAction,
+    this.safeArea = true,
+    this.animation,
+  }) : super(position: AntdPosition.bottom);
 
   ///面板选项列表
   final List<AntdSheetAction> actions;
@@ -287,6 +298,9 @@ class AntdActionSheet extends AntdBasePopup<AntdActionSheetStyle,
 
   ///安全区
   final bool safeArea;
+
+  ///动作面板动画
+  final AntdActionSheetAnimation? animation;
 
   static Future<T?> show<T>(List<AntdSheetAction> actions,
       {final Key? key,
@@ -402,7 +416,7 @@ class AntdActionSheetState extends AntdPopupBaseState<AntdActionSheetStyle,
 
     Widget wrap(AntdSheetAction action, bool cancel) {
       return AntdBox(
-        options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+        options: const AntdTapOptions(alwaysReceiveTap: true),
         onTap: () {
           _handlerTap(action, cancel);
         },
@@ -443,8 +457,14 @@ class AntdActionSheetState extends AntdPopupBaseState<AntdActionSheetStyle,
   }
 
   @override
-  AntdMaskAnimation<AntdActionSheet, AntdActionSheetState>?
+  AntdMaskBaseAnimation<AntdActionSheet, AntdActionSheetState>?
       buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdActionSheet, AntdActionSheetState>?
+      buildWidgetAnimation() {
+    return widget.animation;
   }
 }

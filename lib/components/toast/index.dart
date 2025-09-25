@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
-class AntdToastAnimation extends AntdMaskAnimation<AntdToast, AntdToastState> {
+class AntdToastAnimation
+    extends AntdMaskBaseAnimation<AntdToast, AntdToastState> {
   const AntdToastAnimation(
       {super.disable,
       super.duration,
@@ -74,23 +75,24 @@ enum AntdToastType { success, fail, normal }
 ///@u 适用于页面内容的变化不能直接反应操作结果时使用。
 class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
     with AntdLayerMixin {
-  const AntdToast(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.builder,
-      super.opacity = AntdMaskOpacity.transparent,
-      super.dismissOnMaskTap = true,
-      super.showMask = false,
-      super.animation,
-      this.duration = const Duration(milliseconds: 2000),
-      this.icon,
-      this.position,
-      this.dismissOnTap = true,
-      this.type});
+  const AntdToast({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.builder,
+    super.opacity = AntdMaskOpacity.transparent,
+    super.dismissOnMaskTap = true,
+    super.showMask = false,
+    this.duration = const Duration(milliseconds: 2000),
+    this.icon,
+    this.position,
+    this.dismissOnTap = true,
+    this.type,
+    this.animation,
+  });
 
   ///提示持续时间，若为 0 则不会自动关闭
   final Duration? duration;
@@ -106,6 +108,9 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
 
   ///toast的类型
   final AntdToastType? type;
+
+  ///自定义动画
+  final AntdToastAnimation? animation;
 
   @override
   State<StatefulWidget> createState() {
@@ -131,7 +136,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
               null => null,
             },
             options: dismissOnTap == true
-                ? const AntdTapOptions(accepter: AntdTapAccepter.listener)
+                ? const AntdTapOptions(alwaysReceiveTap: true)
                 : null),
         icon: switch (type) {
           null => null,
@@ -296,7 +301,12 @@ class AntdToastState
   }
 
   @override
-  AntdMaskAnimation<AntdToast, AntdToastState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdToast, AntdToastState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdToast, AntdToastState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }

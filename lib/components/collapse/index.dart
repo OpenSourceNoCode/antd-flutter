@@ -145,8 +145,8 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
     var style = AntdListStyle.defaultStyle(token, false);
     return AntdCollapseStyle(
         itemStyle: style.itemStyle,
-        childStyle: style.childStyle?.copyWith(
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+        childStyle: style.childStyle
+            ?.copyWith(options: const AntdTapOptions(alwaysReceiveTap: true)),
         bodyStyle: style.bodyStyle,
         titleStyle: AntdBoxStyle(textStyle: token.font.lg),
         iconStyle: AntdIconStyle(size: 20, color: token.colorText.quaternary),

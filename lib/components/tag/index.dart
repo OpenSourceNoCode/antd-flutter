@@ -76,7 +76,7 @@ class AntdTag extends AntdComponent<AntdTagStyle, AntdTag> {
         if (child != null) child!,
         if (close != null)
           AntdBox(
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+            options: const AntdTapOptions(alwaysReceiveTap: true),
             onTap: onClose,
             child: AntdIconWrap(style: style.closeIconStyle, child: close),
           )

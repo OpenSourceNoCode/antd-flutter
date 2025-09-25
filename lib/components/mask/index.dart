@@ -44,7 +44,6 @@ abstract class AntdBaseMask<Style extends AntdMaskBaseStyle, WidgetType,
       this.opacity,
       this.dismissOnMaskTap = true,
       this.showMask = true,
-      this.animation,
       this.hole});
 
   ///完全关闭后触发
@@ -68,9 +67,6 @@ abstract class AntdBaseMask<Style extends AntdMaskBaseStyle, WidgetType,
   ///点击背景板是否关闭,mask为true才有效
   final bool? dismissOnMaskTap;
 
-  ///mask内容动画
-  final AntdMaskAnimation<WidgetType, StateType>? animation;
-
   ///镂空的区域
   final AntdMaskHole? hole;
 
@@ -91,14 +87,17 @@ abstract class AntdMaskBaseState<
   AntdMaskHole? targetHole;
 
   @protected
-  late AntdMaskAnimation<WidgetType, StateType>? animation;
+  late AntdMaskBaseAnimation<WidgetType, StateType>? animation;
 
   @protected
-  AntdMaskAnimation<WidgetType, StateType>? buildStyleAnimation();
+  AntdMaskBaseAnimation<WidgetType, StateType>? buildStyleAnimation();
 
   @protected
-  AntdMaskAnimation<WidgetType, StateType>? buildAnimation() {
-    return buildStyleAnimation().merge(widget.animation);
+  AntdMaskBaseAnimation<WidgetType, StateType>? buildWidgetAnimation();
+
+  @protected
+  AntdMaskBaseAnimation<WidgetType, StateType>? buildAnimation() {
+    return buildStyleAnimation().merge(buildWidgetAnimation());
   }
 
   @protected
@@ -283,7 +282,7 @@ class AntdMaskStyle extends AntdMaskBaseStyle {
   });
 
   ///mask内容动画
-  final AntdMaskAnimation<AntdMask, AntdMaskState>? animation;
+  final AntdMaskAnimation? animation;
 
   @override
   AntdMaskStyle copyFrom(covariant AntdMaskStyle? style) {
@@ -295,25 +294,48 @@ class AntdMaskStyle extends AntdMaskBaseStyle {
   }
 }
 
+class AntdMaskAnimation extends AntdMaskBaseAnimation<AntdMask, AntdMaskState> {
+  const AntdMaskAnimation(
+      {super.disable,
+      super.duration,
+      super.maskAnimated = const AntdMaskDefaultAnimated(),
+      super.contentAnimated = const AntdMaskContentDefaultAnimated<
+          AntdMaskStyle, AntdMask, AntdMaskState>()});
+
+  @override
+  AntdMaskAnimation copyFrom(covariant AntdMaskAnimation? style) {
+    return AntdMaskAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
+}
+
 ///@t 背景蒙层
 ///@g 反馈
 ///@o 88
 ///@d 深色背景层。
 ///@u 常用于模态窗口的背景层，使视觉焦点突出在模态窗口本身。
 class AntdMask extends AntdBaseMask<AntdMaskStyle, AntdMask, AntdMaskState> {
-  const AntdMask(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.builder,
-      super.opacity,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animation,
-      super.hole});
+  const AntdMask({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.builder,
+    super.opacity,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    super.hole,
+    this.animation,
+  });
+
+  ///mask内容动画
+  final AntdMaskAnimation? animation;
 
   static Future<T?> show<T>(
       {final Key? key, final Widget? content, final AntdMask? mask}) {
@@ -338,8 +360,7 @@ class AntdMask extends AntdBaseMask<AntdMaskStyle, AntdMask, AntdMaskState> {
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdMaskStyle(
       maskColor: token.colorBlack,
-      animation:
-          const AntdMaskDefaultAnimation(duration: Duration(milliseconds: 200)),
+      animation: const AntdMaskAnimation(duration: Duration(milliseconds: 200)),
     );
   }
 
@@ -374,8 +395,13 @@ class AntdMaskState
   }
 
   @override
-  AntdMaskAnimation<AntdMask, AntdMaskState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdMask, AntdMaskState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdMask, AntdMaskState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }
 

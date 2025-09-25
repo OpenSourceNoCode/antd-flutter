@@ -156,7 +156,7 @@ class AntdSearchBar
         padding: token.size.ms.horizontal.marge(token.size.xs.vertical),
         color: token.colorBgContainer,
         radius: token.radius.all,
-        options: const AntdTapOptions(accepter: AntdTapAccepter.listener));
+        options: const AntdTapOptions(alwaysReceiveTap: true));
     return AntdSearchBarStyle(
         bodyStyle: bodyStyle,
         bodyRowStyle: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),

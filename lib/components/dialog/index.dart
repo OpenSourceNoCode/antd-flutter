@@ -120,7 +120,6 @@ abstract class AntdBaseDialog<
       super.showMask,
       super.builder,
       super.closeIcon,
-      super.animation,
       this.actions,
       this.dismissOnAction = true,
       this.header,
@@ -206,13 +205,24 @@ abstract class AntdBaseDialogState<
 }
 
 class AntdDialogAnimation
-    extends AntdMaskAnimation<AntdDialog, AntdDialogState> {
+    extends AntdMaskBaseAnimation<AntdDialog, AntdDialogState> {
   const AntdDialogAnimation(
-      {required super.duration,
+      {super.disable,
+      super.duration,
       super.maskAnimated =
           const AntdMaskDefaultAnimated<AntdDialog, AntdDialogState>(),
       super.contentAnimated = const AntdPopupScaleFadeAnimation<AntdDialogStyle,
           AntdDialog, AntdDialogState>()});
+
+  @override
+  AntdDialogAnimation copyFrom(covariant AntdDialogAnimation? style) {
+    return AntdDialogAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 class AntdDialogStyle extends AntdDialogBaseStyle {
@@ -270,13 +280,16 @@ class AntdDialog extends AntdBaseDialog<AntdDialogAction, AntdDialog,
       super.dismissOnAction,
       super.builder,
       super.closeIcon,
-      super.animation,
       super.header,
       super.title,
-      this.type = AntdDialogType.normal});
+      this.type = AntdDialogType.normal,
+      this.animation});
 
   ///dialog的类型，一般用作全局主题的动态样式
   final AntdDialogType type;
+
+  ///弹出层动画
+  final AntdDialogAnimation? animation;
 
   @override
   State<StatefulWidget> createState() {
@@ -465,7 +478,7 @@ class AntdDialogState extends AntdBaseDialogState<AntdDialogStyle,
   @protected
   Widget wrap(AntdDialogAction action) {
     return AntdBox(
-      options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+      options: const AntdTapOptions(alwaysReceiveTap: true),
       onTap: () {
         handlerTap(action);
       },
@@ -513,7 +526,12 @@ class AntdDialogState extends AntdBaseDialogState<AntdDialogStyle,
 
   @override
   @protected
-  AntdMaskAnimation<AntdDialog, AntdDialogState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdDialog, AntdDialogState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdDialog, AntdDialogState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }

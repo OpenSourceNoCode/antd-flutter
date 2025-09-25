@@ -35,8 +35,7 @@ class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
   @override
   AntdBoxStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return const AntdBoxStyle(
-        options: AntdTapOptions(accepter: AntdTapAccepter.listener));
+    return const AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true));
   }
 
   @override

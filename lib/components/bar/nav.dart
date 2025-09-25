@@ -112,7 +112,7 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
         bodyStyle: AntdBoxStyle(
             padding: token.size.lg.horizontal.marge(token.size.xs.vertical),
             textStyle: token.font.md,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         bodyRowStyle: const AntdFlexStyle(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,11 +124,10 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
             bodyStyle: AntdBoxStyle(
                 margin: token.size.xs.right,
                 padding: token.size.sm.vertical,
-                options:
-                    const AntdTapOptions(accepter: AntdTapAccepter.listener))),
+                options: const AntdTapOptions(alwaysReceiveTap: true))),
         backStyle: AntdBoxStyle(
             margin: token.size.xl.right,
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         backRowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,7 +156,7 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
       children: [
         if (backIcon != null)
           AntdBox(
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+            options: const AntdTapOptions(alwaysReceiveTap: true),
             onTap: onBack,
             child: AntdIconWrap(
               style: style.backIconStyle,

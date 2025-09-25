@@ -191,7 +191,7 @@ class AntdSelectorOption
           textStyle: text.copyWith(color: token.colorPrimary)),
       bodyStyle: AntdBoxStyle(
           radius: token.radius.all,
-          options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+          options: const AntdTapOptions(alwaysReceiveTap: true)),
       labelStyle: const AntdBoxStyle(),
       descriptionStyle: AntdBoxStyle(
           textStyle: token.font.sm.copyWith(color: token.colorText.tertiary)),

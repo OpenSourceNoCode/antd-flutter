@@ -502,6 +502,19 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
     return Alignment.centerLeft;
   }
 
+  Widget _defaultContextMenuBuilder(
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
+    if (defaultTargetPlatform == TargetPlatform.iOS &&
+        SystemContextMenu.isSupported(context)) {
+      return SystemContextMenu.editableText(
+          editableTextState: editableTextState);
+    }
+    return AdaptiveTextSelectionToolbar.editableText(
+        editableTextState: editableTextState);
+  }
+
   @override
   Widget render(BuildContext context) {
     var cursorStyle = style.cursorStyle;
@@ -557,7 +570,8 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       scrollPadding: EdgeInsets.zero,
       dragStartBehavior: widget.dragStartBehavior,
       onChanged: _handlerOnChange,
-      contextMenuBuilder: widget.contextMenuBuilder,
+      contextMenuBuilder:
+          widget.contextMenuBuilder ?? _defaultContextMenuBuilder,
       onEditingComplete: widget.onEditingComplete,
       onSubmitted: widget.onSubmitted,
       onAppPrivateCommand: widget.onAppPrivateCommand,
@@ -618,8 +632,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                     child: AntdIconWrap(
                       style: style.clearIconStyle,
                       child: AntdBox(
-                        options: const AntdTapOptions(
-                            accepter: AntdTapAccepter.listener),
+                        options: const AntdTapOptions(alwaysReceiveTap: true),
                         onTap: () async {
                           innerController.clear();
                         },
@@ -636,8 +649,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                   ? style.activeObscureIconStyle
                   : style.obscureIconStyle,
               child: AntdBox(
-                options:
-                    const AntdTapOptions(accepter: AntdTapAccepter.listener),
+                options: const AntdTapOptions(alwaysReceiveTap: true),
                 onTap: () async {
                   setState(() {
                     _obscureText = !_obscureText;

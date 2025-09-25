@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:antd_flutter_mobile/components/box/style.dart';
-import 'package:antd_flutter_mobile/components/define.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
-enum AntdTapAccepter { gesture, listener }
 
 void handleHapticFeedback(AntdHapticFeedback? hapticFeedback) {
   switch (hapticFeedback) {
@@ -54,8 +51,8 @@ class AntdTapOptions {
   /// 触觉反馈类型（用户交互时设备的震动反馈强度，如 light/medium/heavy）
   final AntdHapticFeedback? hapticFeedback;
 
-  ///反馈事件的接收者,listener 可以允许穿透 也就是说事件一定会触发并且可以进行移动检测，gesture则更安全
-  final AntdTapAccepter? accepter;
+  ///一直接收触摸
+  final bool alwaysReceiveTap;
 
   const AntdTapOptions(
       {this.behavior = HitTestBehavior.deferToChild,
@@ -69,7 +66,7 @@ class AntdTapOptions {
       this.debounce,
       this.hapticFeedback,
       this.feedbackDuration = const Duration(milliseconds: 200),
-      this.accepter});
+      this.alwaysReceiveTap = false});
 
   AntdTapOptions copyFrom(AntdTapOptions? options) {
     return copyWith(
@@ -84,7 +81,7 @@ class AntdTapOptions {
       debounce: options?.debounce ?? debounce,
       feedbackDuration: options?.feedbackDuration ?? feedbackDuration,
       hapticFeedback: options?.hapticFeedback ?? hapticFeedback,
-      accepter: options?.accepter ?? accepter,
+      alwaysReceiveTap: options?.alwaysReceiveTap ?? alwaysReceiveTap,
     );
   }
 
@@ -100,21 +97,20 @@ class AntdTapOptions {
       Duration? debounce,
       Duration? feedbackDuration,
       AntdHapticFeedback? hapticFeedback,
-      final AntdTapAccepter? accepter}) {
+      bool? alwaysReceiveTap}) {
     return AntdTapOptions(
-      behavior: behavior ?? this.behavior,
-      touchSlop: touchSlop ?? this.touchSlop,
-      doubleTapTimeout: doubleTapTimeout ?? this.doubleTapTimeout,
-      longPressTimeout: longPressTimeout ?? this.longPressTimeout,
-      alwaysTriggerTap: alwaysTriggerTap ?? this.alwaysTriggerTap,
-      allowOffset: allowOffset ?? this.allowOffset,
-      disabled: disabled ?? this.disabled,
-      throttle: throttle ?? this.throttle,
-      debounce: debounce ?? this.debounce,
-      feedbackDuration: feedbackDuration ?? this.feedbackDuration,
-      hapticFeedback: hapticFeedback ?? this.hapticFeedback,
-      accepter: accepter ?? this.accepter,
-    );
+        behavior: behavior ?? this.behavior,
+        touchSlop: touchSlop ?? this.touchSlop,
+        doubleTapTimeout: doubleTapTimeout ?? this.doubleTapTimeout,
+        longPressTimeout: longPressTimeout ?? this.longPressTimeout,
+        alwaysTriggerTap: alwaysTriggerTap ?? this.alwaysTriggerTap,
+        allowOffset: allowOffset ?? this.allowOffset,
+        disabled: disabled ?? this.disabled,
+        throttle: throttle ?? this.throttle,
+        debounce: debounce ?? this.debounce,
+        feedbackDuration: feedbackDuration ?? this.feedbackDuration,
+        hapticFeedback: hapticFeedback ?? this.hapticFeedback,
+        alwaysReceiveTap: alwaysReceiveTap ?? this.alwaysReceiveTap);
   }
 }
 
@@ -170,8 +166,40 @@ class AntdThrottleDebouncer {
   }
 }
 
+class AntdTapEventRegistry {
+  final Set<int> _registeredDownPointers = {};
+  final Set<int> _registeredUpPointers = {};
+
+  bool register(PointerEvent event) {
+    if (event.down) {
+      return _registeredDownPointers.add(event.pointer);
+    } else {
+      return _registeredUpPointers.add(event.pointer);
+    }
+  }
+}
+
+class AntdTapEventRegistryProvider extends InheritedWidget {
+  final AntdTapEventRegistry registry;
+
+  const AntdTapEventRegistryProvider(
+      {super.key, required super.child, required this.registry});
+
+  @override
+  bool updateShouldNotify(covariant AntdTapEventRegistryProvider oldWidget) {
+    return registry != oldWidget.registry;
+  }
+
+  static AntdTapEventRegistryProvider? maybeOf(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<AntdTapEventRegistryProvider>();
+  }
+}
+
 class AntdTapHandler {
+  BuildContext context;
   AntdTapOptions options;
+  AntdTapEventRegistry registry;
 
   VoidCallback? _tapHandler;
   VoidCallback? _doubleTapHandler;
@@ -191,7 +219,11 @@ class AntdTapHandler {
 
   final AntdThrottleDebouncer _throttleDebouncer;
 
-  AntdTapHandler({required this.options, this.onTouchStateChange})
+  AntdTapHandler(
+      {required this.context,
+      required this.registry,
+      required this.options,
+      this.onTouchStateChange})
       : _throttleDebouncer = AntdThrottleDebouncer(
           throttle: options.throttle,
           debounce: options.debounce,
@@ -214,9 +246,18 @@ class AntdTapHandler {
       _doubleTapHandler != null ||
       _longPressHandler != null;
 
-  void handlePointerDown(TapDownDetails details) {
-    if (options.disabled) return;
+  bool _checkPointerPremiss(PointerEvent event) {
+    var registered = registry.register(event);
+    return registered || options.alwaysReceiveTap;
+  }
 
+  void handlePointerDown(PointerDownEvent details) {
+    if (options.disabled) return;
+    if (!_checkPointerPremiss(details)) {
+      return;
+    }
+
+    print("ref:${registry.hashCode}");
     _longPressTriggered = false;
     _updateTouchState(true);
     _pointerDownPosition = details.localPosition;
@@ -227,11 +268,14 @@ class AntdTapHandler {
     }
   }
 
-  void handlePointerUp(TapUpDetails details) {
+  void handlePointerUp(PointerUpEvent details) {
     if (options.disabled) {
       return;
     }
 
+    if (!_checkPointerPremiss(details)) {
+      return;
+    }
     _updateTouchState(false);
     _longPressTimer?.cancel();
 
@@ -243,12 +287,7 @@ class AntdTapHandler {
     _handleTapSequence();
   }
 
-  bool _shouldAllowTap(TapUpDetails details) {
-    if (options.accepter == AntdTapAccepter.gesture && options.allowOffset) {
-      AntdLogs.i(
-          msg:
-              "GestureDetector events are incompatible with options.allowOffset = true. For movement detection, use AntdTapAccepter.listener instead.");
-    }
+  bool _shouldAllowTap(PointerUpEvent details) {
     if (!options.allowOffset) {
       if (_pointerDownPosition == null) {
         return false;
@@ -374,31 +413,10 @@ class AntdTapHandler {
   }
 
   Widget wrap(Widget child) {
-    if (options.accepter == null ||
-        options.accepter == AntdTapAccepter.gesture) {
-      return GestureDetector(
-        behavior: options.behavior,
-        onTapDown: handlePointerDown,
-        onTapUp: handlePointerUp,
-        onTapCancel: handlePointerCancel,
-        child: child,
-      );
-    }
-
     return Listener(
       behavior: options.behavior,
-      onPointerDown: (detail) {
-        handlePointerDown(TapDownDetails(
-            globalPosition: detail.position,
-            localPosition: detail.localPosition,
-            kind: detail.kind));
-      },
-      onPointerUp: (detail) {
-        handlePointerUp(TapUpDetails(
-            globalPosition: detail.position,
-            localPosition: detail.localPosition,
-            kind: detail.kind));
-      },
+      onPointerDown: handlePointerDown,
+      onPointerUp: handlePointerUp,
       onPointerCancel: (detail) {
         handlePointerCancel();
       },

@@ -139,11 +139,11 @@ class AntdNoticeBar
             color: bgColor,
             padding: token.size.seed.vertical.marge(token.size.lg.horizontal),
             textStyle: token.font.md.copyWith(color: _getColor(token)),
-            options: const AntdTapOptions(accepter: AntdTapAccepter.listener)),
+            options: const AntdTapOptions(alwaysReceiveTap: true)),
         iconStyle: iconStyle,
         closeIconStyle: const AntdIconStyle(
-            bodyStyle: AntdBoxStyle(
-                options: AntdTapOptions(accepter: AntdTapAccepter.listener))),
+            bodyStyle:
+                AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true))),
         extraStyle: AntdBoxStyle(margin: token.size.lg.left));
   }
 
@@ -200,7 +200,7 @@ class _AntdNoticeBarState extends AntdState<AntdNoticeBarStyle, AntdNoticeBar> {
             ),
           if (widget.closeable == true && widget.closeIcon != null)
             AntdBox(
-              options: const AntdTapOptions(accepter: AntdTapAccepter.listener),
+              options: const AntdTapOptions(alwaysReceiveTap: true),
               onTap: widget.onClose,
               child: AntdIconWrap(
                 style: style.closeIconStyle,

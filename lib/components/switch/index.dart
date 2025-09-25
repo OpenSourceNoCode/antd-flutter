@@ -115,8 +115,7 @@ class AntdSwitch
 
     var style = AntdSwitchStyle(
       bodyStyle: const AntdBoxStyle(
-          width: 70,
-          options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+          width: 70, options: AntdTapOptions(alwaysReceiveTap: true)),
       trackStyle: trackStyle,
       activeTrackStyle: trackStyle.copyWith(color: token.colorPrimary),
       thumbStyle: thumbStyle,

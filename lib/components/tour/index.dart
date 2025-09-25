@@ -1,13 +1,23 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/material.dart';
 
-class AntdTourAnimation extends AntdMaskAnimation<AntdTour, AntdTourState> {
+class AntdTourAnimation extends AntdMaskBaseAnimation<AntdTour, AntdTourState> {
   const AntdTourAnimation(
       {super.disable,
       super.duration,
       super.holeAnimated = const AntdHoleDefaultAnimated(),
       super.contentAnimated = const AntdMaskContentDefaultAnimated<
           AntdTourStyle, AntdTour, AntdTourState>()});
+
+  @override
+  AntdTourAnimation copyFrom(covariant AntdTourAnimation? style) {
+    return AntdTourAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      holeAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 /// 提示样式
@@ -161,26 +171,30 @@ class AntdTourProvider extends InheritedWidget {
 ///@o 101
 ///@u 提示用户操作和交互
 class AntdTour extends AntdBaseMask<AntdTourStyle, AntdTour, AntdTourState> {
-  const AntdTour(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.builder,
-      super.opacity = AntdMaskOpacity.thin,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animation,
-      required this.child,
-      this.controller});
+  const AntdTour({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.builder,
+    super.opacity = AntdMaskOpacity.thin,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    required this.child,
+    this.controller,
+    this.animation,
+  });
 
   /// 需要被引导的高亮目标组件
   final Widget child;
 
   /// 引导流程的控制器，用于手动控制步骤切换
   final AntdTourController? controller;
+
+  ///动画
+  final AntdTourAnimation? animation;
 
   @override
   State<StatefulWidget> createState() {
@@ -259,7 +273,12 @@ class AntdTourState
   }
 
   @override
-  AntdMaskAnimation<AntdTour, AntdTourState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdTour, AntdTourState>? buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdTour, AntdTourState>? buildWidgetAnimation() {
+    return widget.animation;
   }
 }

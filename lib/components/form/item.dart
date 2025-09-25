@@ -277,8 +277,7 @@ class AntdFormItem extends AntdFormBase<AntdFormItemStyle, AntdFormItem> {
             textStyle: token.font.sm.copyWith(color: token.colorError.text)),
         bodyStyle: const AntdBoxStyle(
           options: AntdTapOptions(
-              behavior: HitTestBehavior.translucent,
-              accepter: AntdTapAccepter.listener),
+              behavior: HitTestBehavior.translucent, alwaysReceiveTap: true),
         ),
         itemStyle: const AntdBoxStyle(),
         itemFlexStyle: AntdFlexStyle(

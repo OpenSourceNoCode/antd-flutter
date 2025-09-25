@@ -2,13 +2,24 @@ import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 class AntdCascaderAnimation
-    extends AntdMaskAnimation<AntdCascader, AntdCascaderState> {
+    extends AntdMaskBaseAnimation<AntdCascader, AntdCascaderState> {
   const AntdCascaderAnimation(
-      {required super.duration,
+      {super.disable,
+      super.duration,
       super.maskAnimated =
           const AntdMaskDefaultAnimated<AntdCascader, AntdCascaderState>(),
       super.contentAnimated = const AntdPopupOffsetAnimation<AntdCascaderStyle,
           AntdCascader, AntdCascaderState>()});
+
+  @override
+  AntdCascaderAnimation copyFrom(covariant AntdCascaderAnimation? style) {
+    return AntdCascaderAnimation(
+      disable: style?.disable ?? disable,
+      duration: style?.duration ?? duration,
+      maskAnimated: style?.maskAnimated ?? maskAnimated,
+      contentAnimated: style?.contentAnimated ?? contentAnimated,
+    );
+  }
 }
 
 /// 级联选择器样式
@@ -72,25 +83,26 @@ class AntdCascaderStyle extends AntdPopupBaseStyle {
 ///@u 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。
 class AntdCascader
     extends AntdBasePopup<AntdCascaderStyle, AntdCascader, AntdCascaderState> {
-  const AntdCascader(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      super.onClosed,
-      super.onOpened,
-      super.onMaskTap,
-      super.dismissOnMaskTap = true,
-      super.showMask = true,
-      super.animation,
-      super.closeIcon,
-      super.position = AntdPosition.bottom,
-      super.avoidKeyboard = true,
-      this.cancelWidget = const Text("取消"),
-      this.confirmWidget = const Text("确定"),
-      this.titleWidget,
-      this.onConfirm,
-      this.onCancel,
-      required this.cascaderView});
+  const AntdCascader({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.onClosed,
+    super.onOpened,
+    super.onMaskTap,
+    super.dismissOnMaskTap = true,
+    super.showMask = true,
+    super.closeIcon,
+    super.position = AntdPosition.bottom,
+    super.avoidKeyboard = true,
+    this.cancelWidget = const Text("取消"),
+    this.confirmWidget = const Text("确定"),
+    this.titleWidget,
+    this.onConfirm,
+    this.onCancel,
+    required this.cascaderView,
+    this.animation,
+  });
 
   ///取消按钮
   final Widget? cancelWidget;
@@ -110,6 +122,9 @@ class AntdCascader
   ///选择器
   final AntdCascaderView cascaderView;
 
+  ///弹出层动画
+  final AntdCascaderAnimation? animation;
+
   @override
   AntdCascaderStyle margeStyle(
       AntdCascaderStyle defaultStyle, AntdCascaderStyle? style) {
@@ -127,8 +142,8 @@ class AntdCascader
         maskOpacity: popupStyle.maskOpacity,
         headerFlexStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
-        cancelStyle: const AntdBoxStyle(
-            options: AntdTapOptions(accepter: AntdTapAccepter.listener)),
+        cancelStyle:
+            const AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true)),
         confirmStyle: const AntdBoxStyle(),
         headerStyle: AntdBoxStyle(
             padding: token.size.sm.vertical.marge(token.size.seed.horizontal),
@@ -209,7 +224,14 @@ class AntdCascaderState extends AntdPopupBaseState<AntdCascaderStyle,
   }
 
   @override
-  AntdMaskAnimation<AntdCascader, AntdCascaderState>? buildStyleAnimation() {
+  AntdMaskBaseAnimation<AntdCascader, AntdCascaderState>?
+      buildStyleAnimation() {
     return style.animation;
+  }
+
+  @override
+  AntdMaskBaseAnimation<AntdCascader, AntdCascaderState>?
+      buildWidgetAnimation() {
+    return widget.animation;
   }
 }

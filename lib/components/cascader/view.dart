@@ -145,8 +145,7 @@ class AntdCascaderOption
             margin: token.size.lg.left,
             border: token.border.bottom,
             options: const AntdTapOptions(
-                accepter: AntdTapAccepter.listener,
-                behavior: HitTestBehavior.opaque)),
+                alwaysReceiveTap: true, behavior: HitTestBehavior.opaque)),
         rowStyle: const AntdFlexStyle(
             mainAxisAlignment: MainAxisAlignment.spaceBetween),
         checkIcon: icon,
