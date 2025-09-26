@@ -295,7 +295,6 @@ class AntdModalWaitDemo extends StatelessWidget {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdModal, AntdModalState&gt; | - | - |
 | actions | 面板选项列表 | List&lt;AntdModalAction&gt; | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | - | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdModalState&gt; | - | - |
@@ -303,6 +302,7 @@ class AntdModalWaitDemo extends StatelessWidget {
 | header | 顶部区域 | Widget | - | - |
 | title | 标题 | Widget | - | - |
 | type | modal的类型，一般用作全局主题的动态样式:`alert` \| `confirm` \| `normal` | AntdModalType | normal | - |
+| animation | 弹出层动画 | AntdModalAnimation | - | - |
 
 
 ## 弹窗定义(AntdModalAction) <a id='AntdModalAction'></a>

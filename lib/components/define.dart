@@ -334,11 +334,11 @@ abstract class AntdAnimationState<Style extends AntdStyle, StateType,
 
   @override
   void dispose() {
-    super.dispose();
     for (var value in _animationControllers) {
       value.dispose();
     }
     _animationControllers.clear();
+    super.dispose();
   }
 
   @protected

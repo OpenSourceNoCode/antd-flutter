@@ -5,8 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'controller.dart';
-
 typedef AntdOnScrollEdge = Future<void> Function(double offset, bool isUp);
 
 abstract class AntdScrollView<Style extends AntdStyle, WidgetType,
@@ -166,29 +164,33 @@ abstract class AntdScrollViewState<
   }
 
   Widget buildScrollable(AxisDirection axisDirection) {
-    return Scrollable(
-      controller: scrollController,
-      physics: widget.physics,
-      axisDirection: axisDirection,
-      dragStartBehavior: widget.dragStartBehavior,
-      scrollBehavior: widget.scrollBehavior,
-      viewportBuilder: (context, offset) {
-        var slivers = buildSlivers();
-        if (widget.shrinkWrap == true) {
-          return ShrinkWrappingViewport(
-              axisDirection: axisDirection, offset: offset, slivers: slivers);
-        }
-
-        return Viewport(
+    return AntdScrollControllerProvider(
+        controller: scrollController,
+        child: Scrollable(
+          controller: scrollController,
+          physics: widget.physics,
           axisDirection: axisDirection,
-          offset: offset,
-          cacheExtent: widget.cacheExtent,
-          cacheExtentStyle: widget.cacheExtentStyle,
-          slivers: slivers,
-          center: centerKey,
-        );
-      },
-    );
+          dragStartBehavior: widget.dragStartBehavior,
+          scrollBehavior: widget.scrollBehavior,
+          viewportBuilder: (context, offset) {
+            var slivers = buildSlivers();
+            if (widget.shrinkWrap == true) {
+              return ShrinkWrappingViewport(
+                  axisDirection: axisDirection,
+                  offset: offset,
+                  slivers: slivers);
+            }
+
+            return Viewport(
+              axisDirection: axisDirection,
+              offset: offset,
+              cacheExtent: widget.cacheExtent,
+              cacheExtentStyle: widget.cacheExtentStyle,
+              slivers: slivers,
+              center: centerKey,
+            );
+          },
+        ));
   }
 
   @override

@@ -413,8 +413,7 @@ abstract class AntdInputBase<WidgetType>
         clearIcon: const AntdIcon(
           icon: AntdIcons.closeCircleFill,
         ),
-        selectionStyle:
-            AntdSelectionStyle(color: token.colorPrimary.bg, enable: true),
+        selectionStyle: AntdSelectionStyle(color: token.colorPrimary.bg),
         obscureIcon: const AntdIcon(icon: AntdIcons.eyeInvisible),
         activeObscureIcon: const AntdIcon(icon: AntdIcons.eye),
         obscureIconStyle: AntdIconStyle(
@@ -444,7 +443,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   bool _obscureText = false;
   late TextSelectionGestureDetectorBuilder selectionGestureDetectorBuilder =
       TextSelectionGestureDetectorBuilder(delegate: this);
-  bool _selectionEnable = true;
+  bool _showSelectionHandles = true;
 
   @override
   void initState() {
@@ -467,8 +466,73 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
 
     innerController._onClear = widget.onClear;
     innerController._focusNode = _focusNode;
-    _selectionEnable =
-        style.selectionStyle?.enable != false && !widget.disabled;
+  }
+
+  bool _shouldShowSelectionHandles(SelectionChangedCause? cause) {
+    if (cause == SelectionChangedCause.keyboard) {
+      return false;
+    }
+
+    if (widget.readOnly && innerController.selection.isCollapsed) {
+      return false;
+    }
+
+    if (style.selectionStyle?.enable == false || widget.disabled == true) {
+      return false;
+    }
+
+    if (cause == SelectionChangedCause.longPress ||
+        cause == SelectionChangedCause.stylusHandwriting) {
+      return true;
+    }
+
+    if (innerController.text.isNotEmpty) {
+      return true;
+    }
+
+    return false;
+  }
+
+  _handleSelectionChanged(
+      TextSelection selection, SelectionChangedCause? cause) {
+    final bool willShowSelectionHandles = _shouldShowSelectionHandles(cause);
+    if (willShowSelectionHandles != _showSelectionHandles) {
+      setState(() {
+        _showSelectionHandles = willShowSelectionHandles;
+      });
+    }
+
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.android:
+        if (cause == SelectionChangedCause.longPress) {
+          _editableTextKey.currentState?.bringIntoView(selection.extent);
+        }
+    }
+
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.iOS:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.android:
+        break;
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        if (cause == SelectionChangedCause.drag) {
+          _editableTextKey.currentState?.hideToolbar();
+        }
+    }
+    widget.onSelectionChanged?.call(selection, cause);
+  }
+
+  void _handleSelectionHandleTapped() {
+    if (innerController.selection.isCollapsed) {
+      _editableTextKey.currentState?.toggleToolbar();
+    }
   }
 
   @override
@@ -506,13 +570,10 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
     BuildContext context,
     EditableTextState editableTextState,
   ) {
-    if (defaultTargetPlatform == TargetPlatform.iOS &&
-        SystemContextMenu.isSupported(context)) {
-      return SystemContextMenu.editableText(
-          editableTextState: editableTextState);
-    }
-    return AdaptiveTextSelectionToolbar.editableText(
-        editableTextState: editableTextState);
+    return AdaptiveTextSelectionToolbar.buttonItems(
+      buttonItems: editableTextState.contextMenuButtonItems,
+      anchors: editableTextState.contextMenuAnchors,
+    );
   }
 
   @override
@@ -551,7 +612,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       autocorrect: widget.autocorrect,
       enableSuggestions: !_obscureText,
       spellCheckConfiguration: widget.spellCheckConfiguration,
-      enableInteractiveSelection: _selectionEnable,
+      enableInteractiveSelection: _showSelectionHandles,
       selectionColor: selectionStyle?.color,
       selectionControls: switch (defaultTargetPlatform) {
         TargetPlatform.iOS => cupertinoTextSelectionHandleControls,
@@ -563,8 +624,9 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       },
       selectionHeightStyle: selectionStyle?.heightStyle ?? BoxHeightStyle.tight,
       selectionWidthStyle: selectionStyle?.widthStyle ?? BoxWidthStyle.tight,
-      showSelectionHandles: _selectionEnable,
-      onSelectionChanged: widget.onSelectionChanged,
+      showSelectionHandles: _showSelectionHandles,
+      onSelectionChanged: _handleSelectionChanged,
+      onSelectionHandleTapped: _handleSelectionHandleTapped,
       scrollController: widget.scrollController,
       scrollPhysics: widget.scrollPhysics,
       scrollPadding: EdgeInsets.zero,

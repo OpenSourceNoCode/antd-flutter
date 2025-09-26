@@ -371,8 +371,8 @@ class AntdMaskWaitDemo extends StatelessWidget {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdMask, AntdMaskState&gt; | - | - |
 | hole | 镂空的区域 | AntdMaskHole | - | - |
+| animation | mask内容动画 | AntdMaskAnimation | - | - |
 
 
 

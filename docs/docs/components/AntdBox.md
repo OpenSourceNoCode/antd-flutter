@@ -739,6 +739,7 @@ class AntdStylCustomDemo extends StatelessWidget {
 | options | 包括：双击间隔、长按时长、触觉反馈等 | AntdTapOptions | - | - |
 | child | 子组件（通常为需要应用这些交互和布局约束的内容） | Widget | - | - |
 | focusNode | 焦点 | FocusNode | - | - |
+| scrollController | 滚动控制器 | ScrollController | - | - |
 
 
 ## 基础样式(AntdKitStyle) <a id='AntdKitStyle'></a>

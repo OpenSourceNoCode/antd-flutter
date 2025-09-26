@@ -30,13 +30,13 @@ class AntdSwitchDemo extends StatelessWidget {
           value: true,
           content: const Text("关闭"),
           activeContent: const Text("打开"),
-          onChange: (value) {
+          onChange: (value) async {
             AntdToast.show("当前值:$value");
           }),
       AntdSwitch(
           content: const Text("关闭"),
           activeContent: const Text("打开"),
-          onChange: (value) {
+          onChange: (value) async {
             AntdToast.show("当前值:$value");
           })
     ]);
@@ -80,7 +80,7 @@ class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
           value: open,
           content: const Text("关闭"),
           activeContent: const Text("打开"),
-          onChange: (value) {
+          onChange: (value) async {
             AntdToast.show("当前值:$value");
           }),
       Row(children: [
@@ -116,6 +116,48 @@ class AntdSwitchDisabledDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdSwitch(disabled: true, content: Text("禁用")),
       AntdSwitch(readOnly: true, value: true, activeContent: Text("只读"))
+    ]);
+  }
+}
+
+```
+
+### 与表单配合
+
+
+```dart
+class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
+  var value = false;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdForm(onValuesChange: (controller, values) {
+        AntdToast.show(jsonEncode(values));
+      }, builder: (controller) {
+        return AntdFormItem(
+            name: "switch",
+            builder: (ctx) {
+              return const AntdSwitch();
+            });
+      }),
+      AntdForm(onValuesChange: (controller, values) {
+        AntdToast.show(jsonEncode(values));
+      }, builder: (controller) {
+        return AntdFormItem(
+            name: "switch",
+            builder: (ctx) {
+              return Column(children: [
+                AntdSwitch(value: value),
+                AntdButton(
+                    onTap: () {
+                      setState(() {
+                        value = !value;
+                      });
+                    },
+                    child: const Text("点我更新"))
+              ]);
+            });
+      })
     ]);
   }
 }

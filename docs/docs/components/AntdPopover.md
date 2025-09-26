@@ -178,7 +178,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     final actions = [
       AntdPopoverAction(
-          onTap: () {
+          onTap: (_) {
             AntdToast.show("我触摸了扫一扫");
           },
           child: Text("扫一扫"),
@@ -361,7 +361,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
 | disabled | 是否禁用该操作项，禁用时不可点击且样式变灰 | bool | - | - |
 | icon | 操作项前显示的图标组件 | Widget | - | - |
 | child | 点击操作项时的回调函数，接收一个关闭弹层的方法 | Widget | - | - |
-| onTap | 点击 | VoidCallback | - | - |
+| onTap | 点击 | AntdActionOnTap | - | - |
 
 ## 弹出框整体样式配置类（继承自遮罩样式）(AntdPopoverStyle) <a id='AntdPopoverStyle'></a>
 

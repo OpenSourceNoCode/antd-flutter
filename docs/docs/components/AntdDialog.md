@@ -296,10 +296,10 @@ class AntdDialogWaitDemo extends StatelessWidget {
 | dismissOnAction | 点击选项后是否关闭 | bool | - | - |
 | builder | 内容 | AntdMaskBuilder&lt;AntdDialogState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdDialog, AntdDialogState&gt; | - | - |
 | header | 顶部区域 | Widget | - | - |
 | title | 标题 | Widget | - | - |
 | type | dialog的类型，一般用作全局主题的动态样式:`alert` \| `confirm` \| `normal` | AntdDialogType | normal | - |
+| animation | 弹出层动画 | AntdDialogAnimation | - | - |
 
 
 ## 对话框样式(AntdDialogBaseStyle) <a id='AntdDialogBaseStyle'></a>

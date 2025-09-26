@@ -658,7 +658,7 @@ abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
       this.readOnly,
       this.value,
       this.onChange,
-      this.autoCollect});
+      this.autoCollect = true});
 
   @override
   Widget get child => this;
@@ -669,6 +669,7 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     extends AntdState<Style, WidgetType> {
   var disabled = false;
   var readOnly = false;
+  var _controller = false;
   T? value;
 
   @override
@@ -679,6 +680,7 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     disabled = (widget.disabled ?? formItem?.disabled) == true;
     readOnly = (widget.readOnly ?? formItem?.readOnly) == true;
     value = widget.value;
+    _controller = widget.value != null;
     if (widget.value == null) {
       widget.useValue(context, (value) {
         if (value.runtimeType == this.value.runtimeType) {
@@ -692,20 +694,28 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     return value;
   }
 
-  void changeValue(T? Function() action) {
+  void changeValue(T? Function() changed) {
     if (readOnly || disabled) {
       return;
     }
 
-    var newValue = action();
-    if (newValue != value) {
-      value = newValue;
-      setState(() {});
+    T? newValue = changed();
+    var values = newValue == null ? null : getNewValue(newValue as T);
+    if (_controller) {
+      widget.onChange?.call(values);
+      return;
     }
-    var values = value == null ? null : getNewValue(value!);
-    widget.onChange?.call(values);
-    if (widget.autoCollect == true) {
-      widget.setValue(context, values, AntdFormTrigger.any);
+    handlerAutoCollect(values, value);
+    if (value != values) {
+      setState(() {
+        value = values;
+      });
+    }
+  }
+
+  void handlerAutoCollect(T? newValue, T? value) {
+    if (widget.autoCollect == true && newValue != value) {
+      widget.setValue(context, newValue, AntdFormTrigger.any);
     }
   }
 }

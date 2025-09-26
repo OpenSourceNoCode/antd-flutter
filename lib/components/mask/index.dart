@@ -154,6 +154,9 @@ abstract class AntdMaskBaseState<
   }
 
   Future<void> close([dynamic data]) async {
+    if (!mounted) {
+      return;
+    }
     await controller?.reverse();
     await AntdLayer.closeSingle(widget, data);
     onClosed();
@@ -251,10 +254,10 @@ abstract class AntdMaskBaseState<
               controller,
               GestureDetector(
                 onTap: () async {
+                  widget.onMaskTap?.call();
                   if (widget.dismissOnMaskTap == true) {
                     await close();
                   }
-                  widget.onMaskTap?.call();
                 },
                 child: getMask(),
               ),
@@ -463,16 +466,18 @@ abstract class AntdMaskProxyState<
     opened = true;
     var result =
         await AntdLayer.open(_openWidget!, layerType: widget.layerType);
-    opened = false;
     return result;
   }
 
   @override
   Future<void> close([data]) async {
+    if (!mounted) {
+      return;
+    }
     setState(() {
       hole = targetHole ?? AntdMaskHole.zero;
     });
-    await controller?.reverse();
+    controller?.reverse();
     if (_openWidget == null) {
       return;
     }

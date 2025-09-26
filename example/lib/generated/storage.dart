@@ -292,6 +292,7 @@ var demoMap = {
 "AntdSwitchCustomDemo": AntdSwitchCustomDemo(),
 "AntdSwitchValueDemo": AntdSwitchValueDemo(),
 "AntdSwitchDisabledDemo": AntdSwitchDisabledDemo(),
+"AntdSwitchFormDemo": AntdSwitchFormDemo(),
 "AntdTextAreaDemo": AntdTextAreaDemo(),
 "AntdTextAreaMinLinesDemo": AntdTextAreaMinLinesDemo(),
 "AntdTextAreaShowCountDemo": AntdTextAreaShowCountDemo(),

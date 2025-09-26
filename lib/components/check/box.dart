@@ -169,8 +169,10 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
     return AntdBox(
         style: style.bodyStyle,
         onTap: () {
-          handleHapticFeedback(widget.hapticFeedback);
-          changeValue(() => !(value == true));
+          changeValue(() {
+            handleHapticFeedback(widget.hapticFeedback);
+            return !(value == true);
+          });
         },
         disabled: widget.disabled,
         child: AntdRow(

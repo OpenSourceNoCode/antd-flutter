@@ -33,6 +33,27 @@ class AntdScrollMetrics {
 
 typedef AntdOnScrollMetrics = void Function(AntdScrollMetrics offset);
 
+class AntdScrollControllerProvider extends InheritedWidget {
+  final AntdScrollController controller;
+
+  const AntdScrollControllerProvider({
+    super.key,
+    required super.child,
+    required this.controller,
+  });
+
+  @override
+  bool updateShouldNotify(covariant AntdScrollControllerProvider oldWidget) {
+    return oldWidget.controller != controller;
+  }
+
+  static AntdScrollController? maybeOf(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<AntdScrollControllerProvider>()
+        ?.controller;
+  }
+}
+
 class AntdScrollController extends ScrollController {
   AntdScrollMetrics? _currentMetrics;
   AntdScrollMetrics? get metrics => _currentMetrics;

@@ -199,9 +199,9 @@ class _AntdTourControllerDemoStateDemo extends State<AntdTourControllerDemo> {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | thin | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdTour, AntdTourState&gt; | - | - |
 | child | 需要被引导的高亮目标组件 | Widget | - | - |
 | controller | 引导流程的控制器，用于手动控制步骤切换 | AntdTourController | - | - |
+| animation | 动画 | AntdTourAnimation | - | - |
 
 
 ## 提示样式(AntdTourStyle) <a id='AntdTourStyle'></a>

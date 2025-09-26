@@ -255,11 +255,11 @@ class AntdDropdownCloseDemo extends StatelessWidget {
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | thin | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdDropdown, AntdDropdownState&gt; | - | - |
 | items | 内容 | List&lt;AntdDropdownItem&gt; | - | - |
 | icon | 默认的图标 | Widget | - | - |
 | activeIcon | 激活后的图标 | Widget | - | - |
 | extra | 额外区域,始终位于菜单下方 | AntdMaskBuilder&lt;AntdDropdownState&gt; | - | - |
+| animation | 动画 | AntdDropdownAnimation | - | - |
 
 
 ## 下拉框内容(AntdDropdownItem) <a id='AntdDropdownItem'></a>

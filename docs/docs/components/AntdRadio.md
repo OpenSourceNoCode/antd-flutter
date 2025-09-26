@@ -28,7 +28,7 @@ class AntdRadioDemo extends StatelessWidget {
     return DemoWrapper(child: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         AntdRadio(
-            onChange: (value) {
+            onChange: (value) async {
               AntdToast.show("变更为:$value");
             },
             extra: const Text("有描述的单选框")),

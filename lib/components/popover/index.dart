@@ -50,7 +50,7 @@ class AntdPopoverAction
   final Widget? child;
 
   ///点击
-  final VoidCallback? onTap;
+  final AntdActionOnTap? onTap;
 
   const AntdPopoverAction(
       {super.key,
@@ -90,7 +90,6 @@ class AntdPopoverAction
               ? BorderSide.none.bottom
               : null),
       disabled: disabled,
-      onTap: onTap,
       child: AntdRow(
         style: style.childRowStyle,
         children: [
@@ -381,6 +380,10 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
                 return AntdBox(
                   options: const AntdTapOptions(alwaysReceiveTap: true),
                   onTap: () async {
+                    if (value.disabled == true) {
+                      return;
+                    }
+                    value.onTap?.call(close);
                     if (widget.dismissOnAction) {
                       await close();
                     }

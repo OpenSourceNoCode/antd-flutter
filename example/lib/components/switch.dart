@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +16,14 @@ class AntdSwitchDemo extends StatelessWidget {
         value: true,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
-        onChange: (value) {
+        onChange: (value) async {
           AntdToast.show("当前值:$value");
         },
       ),
       AntdSwitch(
         content: const Text("关闭"),
         activeContent: const Text("打开"),
-        onChange: (value) {
+        onChange: (value) async {
           AntdToast.show("当前值:$value");
         },
       ),
@@ -69,7 +71,7 @@ class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
         value: open,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
-        onChange: (value) {
+        onChange: (value) async {
           AntdToast.show("当前值:$value");
         },
       ),
@@ -114,6 +116,61 @@ class AntdSwitchDisabledDemo extends StatelessWidget {
         value: true,
         activeContent: Text("只读"),
       ),
+    ]);
+  }
+}
+
+class AntdSwitchFormDemo extends StatefulWidget {
+  const AntdSwitchFormDemo({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdSwitchFormDemoStateDemo();
+  }
+}
+
+/// @t 与表单配合
+/// @l [AntdSwitch]
+class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
+  var value = false;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      ///直接使用
+      AntdForm(onValuesChange: (controller, values) {
+        AntdToast.show(jsonEncode(values));
+      }, builder: (controller) {
+        return AntdFormItem(
+            name: "switch",
+            builder: (ctx) {
+              return const AntdSwitch();
+            });
+      }),
+
+      ///从外部更新
+      AntdForm(onValuesChange: (controller, values) {
+        AntdToast.show(jsonEncode(values));
+      }, builder: (controller) {
+        return AntdFormItem(
+            name: "switch",
+            builder: (ctx) {
+              return Column(
+                children: [
+                  AntdSwitch(
+                    value: value,
+                  ),
+                  AntdButton(
+                    onTap: () {
+                      setState(() {
+                        value = !value;
+                      });
+                    },
+                    child: const Text("点我更新"),
+                  )
+                ],
+              );
+            });
+      })
     ]);
   }
 }

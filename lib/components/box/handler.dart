@@ -199,7 +199,7 @@ class AntdTapEventRegistryProvider extends InheritedWidget {
 class AntdTapHandler {
   BuildContext context;
   AntdTapOptions options;
-  AntdTapEventRegistry registry;
+  AntdTapEventRegistry? registry;
 
   VoidCallback? _tapHandler;
   VoidCallback? _doubleTapHandler;
@@ -211,6 +211,7 @@ class AntdTapHandler {
   int _consecutiveTaps = 0;
   bool _longPressTriggered = false;
   Offset? _pointerDownPosition;
+  Offset? _lastPointerDownPosition;
 
   ValueChanged<bool>? onTouchStateChange;
   bool _isTouching = false;
@@ -221,7 +222,7 @@ class AntdTapHandler {
 
   AntdTapHandler(
       {required this.context,
-      required this.registry,
+      this.registry,
       required this.options,
       this.onTouchStateChange})
       : _throttleDebouncer = AntdThrottleDebouncer(
@@ -247,8 +248,10 @@ class AntdTapHandler {
       _longPressHandler != null;
 
   bool _checkPointerPremiss(PointerEvent event) {
-    var registered = registry.register(event);
-    return registered || options.alwaysReceiveTap;
+    if (options.alwaysReceiveTap) {
+      return true;
+    }
+    return registry?.register(event) == true;
   }
 
   void handlePointerDown(PointerDownEvent details) {
@@ -257,7 +260,6 @@ class AntdTapHandler {
       return;
     }
 
-    print("ref:${registry.hashCode}");
     _longPressTriggered = false;
     _updateTouchState(true);
     _pointerDownPosition = details.localPosition;
@@ -279,7 +281,7 @@ class AntdTapHandler {
     _updateTouchState(false);
     _longPressTimer?.cancel();
 
-    if (!_shouldAllowTap(details)) {
+    if (!_shouldAllowTap()) {
       _resetTapState();
       return;
     }
@@ -287,12 +289,15 @@ class AntdTapHandler {
     _handleTapSequence();
   }
 
-  bool _shouldAllowTap(PointerUpEvent details) {
+  bool _shouldAllowTap() {
     if (!options.allowOffset) {
-      if (_pointerDownPosition == null) {
+      if (_pointerDownPosition == null && _lastPointerDownPosition != null) {
         return false;
       }
-      final offset = details.localPosition - _pointerDownPosition!;
+      if (_lastPointerDownPosition == null) {
+        return true;
+      }
+      final offset = _lastPointerDownPosition! - _pointerDownPosition!;
       return offset.distance <= options.touchSlop;
     }
     return true;
@@ -351,6 +356,9 @@ class AntdTapHandler {
   }
 
   void _handleLongPress() {
+    if (!_shouldAllowTap()) {
+      return;
+    }
     _longPressTriggered = true;
     _executeCallback(_longPressHandler);
   }
@@ -398,6 +406,7 @@ class AntdTapHandler {
   void _resetTapState() {
     _consecutiveTaps = 0;
     _pointerDownPosition = null;
+    _lastPointerDownPosition = null;
     _longPressTriggered = false;
   }
 
@@ -417,6 +426,9 @@ class AntdTapHandler {
       behavior: options.behavior,
       onPointerDown: handlePointerDown,
       onPointerUp: handlePointerUp,
+      onPointerMove: (PointerMoveEvent event) {
+        _lastPointerDownPosition = event.position;
+      },
       onPointerCancel: (detail) {
         handlePointerCancel();
       },

@@ -161,7 +161,6 @@ class AntdCascaderDemo extends StatelessWidget {
 | onMaskTap | 点击蒙层自身触发,mask为true才有效 | VoidCallback | - | - |
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdCascader, AntdCascaderState&gt; | - | - |
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | position | 弹出位置:`top` \| `bottom` \| `left` \| `right` \| `horizontal` \| `vertical` \| `all` | AntdPosition | bottom | - |
 | avoidKeyboard | 当底部弹出式 避免键盘遮挡 | bool | true | - |
@@ -171,6 +170,7 @@ class AntdCascaderDemo extends StatelessWidget {
 | onConfirm | 取消事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
 | onCancel | 确认事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
 | cascaderView | 选择器 | AntdCascaderView | - | - |
+| animation | 弹出层动画 | AntdCascaderAnimation | - | - |
 
 
 ## 级联选择器样式(AntdCascaderStyle) <a id='AntdCascaderStyle'></a>

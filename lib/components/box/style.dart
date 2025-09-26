@@ -311,7 +311,7 @@ class AntdKitStyle extends AntdStyle {
 
     wrapChild = buildSize(wrapChild)!;
 
-    if (padding != null && padding != EdgeInsets.zero) {
+    if (padding != null) {
       wrapChild = Padding(
         padding: padding!,
         child: wrapChild,
@@ -345,7 +345,7 @@ class AntdKitStyle extends AntdStyle {
       );
     }
 
-    if (margin != null && margin != EdgeInsets.zero) {
+    if (margin != null) {
       wrapChild = Padding(
         padding: margin!,
         child: wrapChild,
@@ -547,10 +547,10 @@ class AntdBoxStyle extends AntdKitStyle {
       visibility: visibility ?? this.visibility,
       hapticFeedback: hapticFeedback ?? this.hapticFeedback,
       colorFilter: colorFilter ?? this.colorFilter,
-      focusStyle: focusStyle,
-      feedbackStyle: feedbackStyle,
-      disabledStyle: disabledStyle,
-      options: options,
+      focusStyle: this.focusStyle.merge(focusStyle),
+      feedbackStyle: this.feedbackStyle.merge(feedbackStyle),
+      disabledStyle: this.disabledStyle.merge(disabledStyle),
+      options: this.options == null ? options : this.options?.copyFrom(options),
     );
   }
 }

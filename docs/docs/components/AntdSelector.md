@@ -59,7 +59,7 @@ class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
-          onChange: (values) {
+          onChange: (values) async {
             this.values = values ?? {};
           },
           options: options

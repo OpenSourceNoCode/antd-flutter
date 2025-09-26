@@ -69,6 +69,9 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
   ///焦点
   final FocusNode? focusNode;
 
+  ///滚动控制器
+  final ScrollController? scrollController;
+
   const AntdBox(
       {super.key,
       super.style,
@@ -83,7 +86,8 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
       this.disabled,
       this.options,
       this.child,
-      this.focusNode});
+      this.focusNode,
+      this.scrollController});
 
   @override
   State<StatefulWidget> createState() {
@@ -133,7 +137,17 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   late final FocusNode _focusNode = widget.focusNode ?? FocusNode();
 
   late AntdTapEventRegistry _eventRegistry;
-  late AntdTapHandler _handler;
+  late final AntdTapHandler _handler = AntdTapHandler(
+    context: context,
+    options: _options,
+    onTouchStateChange: (state) {
+      if (style.feedbackStyle != null && tapState != state && mounted) {
+        setState(() {
+          tapState = state;
+        });
+      }
+    },
+  );
 
   double getSafeArea(AntdPosition? position) {
     switch (position) {
@@ -240,21 +254,9 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
         );
     _hasFocusNode = widget.onFocus != null || style.focusStyle != null;
     _focusNode.canRequestFocus = _options.disabled != true;
-
     _eventRegistry = AntdTapEventRegistryProvider.maybeOf(context)?.registry ??
         AntdTapEventRegistry();
-    _handler = AntdTapHandler(
-      context: context,
-      registry: _eventRegistry,
-      options: _options,
-      onTouchStateChange: (state) {
-        if (style.feedbackStyle != null && tapState != state && mounted) {
-          setState(() {
-            tapState = state;
-          });
-        }
-      },
-    );
+    _handler.registry = _eventRegistry;
     _handler.options = _options;
     if (_hasFocusNode && widget.onTap == null && widget.disabled != true) {
       _handler.tapHandler = () {

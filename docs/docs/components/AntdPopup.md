@@ -405,7 +405,7 @@ class AntdPopupAvoidKeyboardDemo extends StatelessWidget {
 | closeIcon | 自定义关闭按钮图标 | Widget | - | - |
 | position | 弹出位置:`top` \| `bottom` \| `left` \| `right` \| `horizontal` \| `vertical` \| `all` | AntdPosition | bottom | - |
 | avoidKeyboard | 当底部弹出式 避免键盘遮挡 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdPopup, AntdPopupState&gt; | - | - |
+| animation | 弹出层动画 | AntdPopupAnimation | - | - |
 
 
 ## 弹出层样式(AntdPopupBaseStyle) <a id='AntdPopupBaseStyle'></a>

@@ -197,7 +197,7 @@ class AntdPopoverActionDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     final actions = [
       AntdPopoverAction(
-          onTap: () {
+          onTap: (_) {
             AntdToast.show("我触摸了扫一扫");
           },
           child: Text("扫一扫"),

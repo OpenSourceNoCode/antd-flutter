@@ -307,13 +307,13 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
 | dismissOnMaskTap | 点击背景板是否关闭,mask为true才有效 | bool | true | - |
 | opacity | 透明度,mask为true才有效:`transparent` \| `thin` \| `thick` | AntdMaskOpacity | - | - |
 | showMask | 是否显示背景蒙版 | bool | true | - |
-| animation | mask内容动画 | AntdMaskAnimation&lt;AntdActionSheet, AntdActionSheetState&gt; | - | - |
 | actions | 面板选项列表 | List&lt;AntdSheetAction&gt; | - | - |
 | cancelText | 取消按钮文字，如果设置为空则不显示取消按钮 | Widget | - | - |
 | dismissOnAction | 点击选项后是否关闭 | bool | true | - |
 | extra | 顶部的额外区域 | Widget | - | - |
 | onAction | 点击选项时触发，禁用或加载状态下不会触发 | AntdActionCallback | - | - |
 | safeArea | 安全区 | bool | true | - |
+| animation | 动作面板动画 | AntdActionSheetAnimation | - | - |
 
 
 ## 定义(AntdSheetAction) <a id='AntdSheetAction'></a>
