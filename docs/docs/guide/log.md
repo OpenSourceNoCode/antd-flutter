@@ -2,8 +2,20 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.6-alpha.1
+tag: 5.0.7-alpha.1
 ---
+
+## 5.0.7-alpha.1
+
+`2025-09-27`
+
+- 重构了`AntdBox`的事件模型，修复了长按会意外触发单机的问题。移除了`AntdTapAccepter`属性，添加了`alwaysReceiveTap`
+- 修复了`AntdAnimation`没有正确合并的问题
+- `AntdInput`完善了上下文菜单
+- 新增了`AntdScrollControllerProvider` 这样可以在上下文中获取到滚动信息
+- `AntdSelector`的value 由Set更新为List,因为Set不支持序列化
+- 修复了`AntdAction`的样式优先级问题
+- `AntdSwipeAction`的动画更新
 
 ## 5.0.6-alpha.1
 
