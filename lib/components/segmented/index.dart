@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 /// 分段项
 /// @l [AntdSegmented]
 class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
+  ///绑定的value
+  final String? value;
+
   /// 是否禁用该分段项，禁用时不可点击且样式变灰
   final bool? disable;
 
@@ -17,6 +20,7 @@ class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
       {super.key,
       super.style,
       super.styleBuilder,
+      this.value,
       this.disable,
       this.child,
       this.onTap});
@@ -26,6 +30,7 @@ class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
       key: other?.key ?? key,
       style: other?.style ?? style,
       styleBuilder: other?.styleBuilder ?? styleBuilder,
+      value: other?.value ?? value,
       disable: other?.disable ?? disable,
       onTap: other?.onTap ?? onTap,
       child: other?.child ?? child,
@@ -102,7 +107,7 @@ class AntdSegmented
   const AntdSegmented(
       {super.key,
       this.disabled = false,
-      this.activeIndex,
+      this.value,
       required this.items,
       this.onChange,
       this.duration = const Duration(milliseconds: 200),
@@ -112,13 +117,13 @@ class AntdSegmented
   final bool disabled;
 
   /// 当前选中的分段项索引，null 表示没有选中项
-  final int? activeIndex;
+  final String? value;
 
   /// 分段选项列表，至少需要包含两个选项
   final List<AntdSegmentedItem> items;
 
   /// 选项变化时的回调函数，返回选中项的索引
-  final ValueChanged<int>? onChange;
+  final ValueChanged<String?>? onChange;
 
   /// 选项切换时的动画过渡时长
   final Duration duration;
@@ -166,7 +171,7 @@ class AntdSegmented
 
 class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
     with SingleTickerProviderStateMixin {
-  int? activeIndex;
+  String? value;
   late final AnimationController _controller =
       AnimationController(duration: widget.duration, vsync: this);
   late Animation<double> _animation = Tween(begin: 0.0, end: 0.0)
@@ -181,7 +186,7 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
   @override
   void updateDependentValues(covariant AntdSegmented? oldWidget) {
     super.updateDependentValues(oldWidget);
-    activeIndex = widget.activeIndex;
+    value = widget.value;
     _offset.clear();
     for (var _ in widget.items) {
       _offset.add(0);
@@ -199,7 +204,7 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
 
   @override
   void dispose() {
-    activeIndex = null;
+    value = null;
     bodyBox = null;
     _controller.dispose();
     _offset.clear();
@@ -209,7 +214,9 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
 
   @override
   Widget render(BuildContext context) {
-    var activeItem = activeIndex != null ? widget.items[activeIndex!] : null;
+    var activeItem = value != null
+        ? widget.items.where((v) => v.value == value).firstOrNull
+        : null;
     return AntdBox(
       onLayout: (ctx) {
         bodyBox = ctx.renderBox;
@@ -263,9 +270,9 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
                             .localToGlobal(Offset.zero, ancestor: bodyBox)
                             .dx;
                         _offset[index] = offset;
-                        if (activeIndex == index) {
+                        if (value == item.value) {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            if (widget.activeIndex != null) {
+                            if (widget.value != null) {
                               _updateAnimation(offset);
                             }
                           });
@@ -279,10 +286,10 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
                             }
                             handleHapticFeedback(widget.hapticFeedback);
                             item.onTap?.call();
-                            widget.onChange?.call(index);
+                            widget.onChange?.call(item.value);
 
                             setState(() {
-                              activeIndex = index;
+                              value = item.value;
                               _updateAnimation(_offset[index]);
                             });
                           })),

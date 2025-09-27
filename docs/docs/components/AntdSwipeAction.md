@@ -226,7 +226,7 @@ class AntdSwipeActionControllerDemo extends StatefulWidget {
 | openThreshold | 滑动到达阈值直接打开 | double | 0.01 | - |
 | duration | 动画周期 | Duration | const Duration(milliseconds: 200) | - |
 | closeOnAction | 是否在点击操作按钮时自动归位 | bool | true | - |
-| onChange | 打开 | AntdSwipeActionOnChangeStatus | - | - |
+| onChange | 打开 | AntdSwipeActionOnChange | - | - |
 | controller | 控制器 | AntdSwipeActionController | - | - |
 
 

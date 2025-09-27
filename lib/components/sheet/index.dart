@@ -414,36 +414,45 @@ class AntdActionSheetState extends AntdPopupBaseState<AntdActionSheetStyle,
       childList.add(AntdBox(style: style.extraStyle, child: widget.extra!));
     }
 
-    Widget wrap(AntdSheetAction action, bool cancel) {
-      return AntdBox(
-        options: const AntdTapOptions(alwaysReceiveTap: true),
-        onTap: () {
-          _handlerTap(action, cancel);
-        },
-        child: action,
-      );
+    Widget wrap(AntdSheetAction action, bool cancel,
+        AntdActionStyle? defaultStyle, AntdActionStyle? extraStyle) {
+      var actionThemeStyle = theme.sheetActionStyle?.call(
+          context, action, defaultStyle ?? const AntdActionStyle(), token);
+      actionThemeStyle = defaultStyle.merge(actionThemeStyle);
+      actionThemeStyle = actionThemeStyle.merge(extraStyle);
+
+      return AntdStyleProvider<AntdActionStyle>(
+          style: actionThemeStyle,
+          child: AntdBox(
+            options: const AntdTapOptions(alwaysReceiveTap: true),
+            onTap: () {
+              _handlerTap(action, cancel);
+            },
+            child: action,
+          ));
     }
 
     for (var action in widget.actions) {
-      childList.add(AntdStyleProvider<AntdActionStyle>(
-          style: AntdActionStyle(
-                  safeArea: widget.safeArea &&
-                          action == widget.actions.last &&
-                          widget.cancelText == null
-                      ? AntdPosition.bottom
-                      : null)
-              .copyFrom(style.actionStyle),
-          child: wrap(action, false)));
+      childList.add(wrap(
+          action,
+          false,
+          style.actionStyle,
+          AntdActionStyle(
+              safeArea: widget.safeArea &&
+                      action == widget.actions.last &&
+                      widget.cancelText == null
+                  ? AntdPosition.bottom
+                  : null)));
     }
 
     if (widget.cancelText != null) {
-      childList.add(AntdStyleProvider<AntdActionStyle>(
-          style: style.cancelActionStyle,
-          child: wrap(
-              AntdSheetAction(
-                  title: widget.cancelText,
-                  safeArea: widget.safeArea ? AntdPosition.bottom : null),
-              true)));
+      childList.add(wrap(
+          AntdSheetAction(
+              title: widget.cancelText,
+              safeArea: widget.safeArea ? AntdPosition.bottom : null),
+          true,
+          style.cancelActionStyle,
+          null));
     }
     return Column(
       mainAxisSize: MainAxisSize.min,

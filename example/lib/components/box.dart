@@ -17,8 +17,7 @@ class AntdBoxDemo extends StatelessWidget {
           AntdBox(
             style: AntdBoxStyle(
                 alignment: Alignment.center,
-                height: 100,
-                width: 100,
+                size: 100,
                 color: token.colorPrimary,
                 radius: 40.radius.all,
                 border: token.border
@@ -33,6 +32,19 @@ class AntdBoxDemo extends StatelessWidget {
   }
 }
 
+Widget _buildBg(Widget child) {
+  return AntdTokenBuilder(builder: (context, token) {
+    return AntdBox(
+      style: AntdBoxStyle(
+          alignment: Alignment.center,
+          color: token.colorPrimary,
+          height: 200,
+          width: double.infinity),
+      child: child,
+    );
+  });
+}
+
 /// @t 布局
 /// @l [AntdBox]
 class AntdLayoutDemo extends StatelessWidget {
@@ -42,125 +54,127 @@ class AntdLayoutDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(outline: true, child: [
-      AntdBox(
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
             height: 100,
-            width: 150,
-            color: token.colorPrimary,
-            alignment: Alignment.center,
+            width: 200,
+            color: token.colorSuccess,
             textStyle: token.font.md.copyWith(color: token.colorWhite)),
-        child: const Text(
-          "指定宽高",
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "指定宽高",
+            ),
+            Text(
+              "height:100,width: 150",
+            )
+          ],
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
             size: 100,
             radius: 100.radius.all,
             alignment: Alignment.center,
-            color: token.colorPrimary,
+            color: token.colorSuccess,
             textStyle: token.font.md.copyWith(color: token.colorWhite)),
         child: const Text(
-          "通过Size属性并指定圆角",
+          "圆角",
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
-            size: 100,
-            color: token.colorError,
-            alignment: Alignment.centerLeft),
-        child: AntdBox(
-          style: AntdBoxStyle(
-              width: 0.8,
-              height: 50,
-              layoutModes: [
-                AntdBoxLayoutMode.factorWidth,
-                AntdBoxLayoutMode.fixedHeight
-              ],
-              color: token.colorPrimary,
-              textStyle: token.font.md.copyWith(color: token.colorWhite)),
-          child: const Text(
-            "宽度百分比高度固定",
-          ),
+            width: 0.6,
+            height: 100,
+            layoutModes: [
+              AntdBoxLayoutMode.factorWidth,
+              AntdBoxLayoutMode.fixedHeight
+            ],
+            color: token.colorSuccess,
+            alignment: Alignment.center,
+            textStyle: token.font.md.copyWith(color: token.colorWhite)),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "宽度百分比高度固定",
+            ),
+            Text(
+              "width: 0.6,height: 100",
+            )
+          ],
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
-            size: 100,
-            color: token.colorError,
-            alignment: Alignment.centerLeft),
-        child: AntdBox(
-          style: AntdBoxStyle(
-              height: 0.8,
-              width: 50,
-              color: token.colorPrimary,
-              layoutModes: [
-                AntdBoxLayoutMode.factorHeight,
-                AntdBoxLayoutMode.fixedWidth
-              ],
-              textStyle: token.font.md.copyWith(color: token.colorWhite)),
-          child: const Text(
-            "高度百分比宽度固定",
-          ),
+            height: 0.6,
+            width: 200,
+            color: token.colorSuccess,
+            layoutModes: [
+              AntdBoxLayoutMode.factorHeight,
+              AntdBoxLayoutMode.fixedWidth
+            ],
+            alignment: Alignment.center,
+            textStyle: token.font.md.copyWith(color: token.colorWhite)),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "高度百分比宽度固定",
+            ),
+            Text(
+              "height: 0.6,width: 200,",
+            )
+          ],
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
-            size: 100,
-            color: token.colorError,
-            alignment: Alignment.centerLeft),
-        child: AntdBox(
-          style: AntdBoxStyle(
-              height: 0.8,
-              width: 0.8,
-              color: token.colorPrimary,
-              layoutModes: [
-                AntdBoxLayoutMode.factorHeight,
-                AntdBoxLayoutMode.factorWidth
-              ],
-              textStyle: token.font.md.copyWith(color: token.colorWhite)),
-          child: const Text(
-            "宽高百分比",
-          ),
+            height: 0.8,
+            width: 0.8,
+            color: token.colorSuccess,
+            layoutModes: [
+              AntdBoxLayoutMode.factorHeight,
+              AntdBoxLayoutMode.factorWidth
+            ],
+            alignment: Alignment.center,
+            textStyle: token.font.md.copyWith(color: token.colorWhite)),
+        child: const Text(
+          "宽高百分比,height: 0.8,width: 0.8",
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
-          size: 150,
-          color: token.colorError,
-          alignment: Alignment.center,
+            color: token.colorSuccess,
+            textStyle: token.font.md.copyWith(color: token.colorWhite)),
+        child: const Text(
+          "内容自适应",
         ),
-        child: AntdBox(
-          style: AntdBoxStyle(
-              color: token.colorPrimary,
-              textStyle: token.font.md.copyWith(color: token.colorWhite)),
-          child: const Text(
-            "内容自适应",
-          ),
-        ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
             height: 9,
             width: 16,
             layoutModes: [AntdBoxLayoutMode.aspectRatio],
-            color: token.colorPrimary,
+            color: token.colorSuccess,
+            alignment: Alignment.center,
             textStyle: token.font.md.copyWith(color: token.colorWhite)),
         child: const Text(
           "16:9宽高比",
         ),
-      ),
-      AntdBox(
+      )),
+      _buildBg(AntdBox(
         style: AntdBoxStyle(
             height: 3,
             width: 4,
             layoutModes: [AntdBoxLayoutMode.aspectRatio],
-            color: token.colorPrimary,
+            color: token.colorSuccess,
             textStyle: token.font.md.copyWith(color: token.colorWhite)),
         child: const Text(
           "4:3宽高比",
         ),
-      )
+      ))
     ]);
   }
 }
@@ -182,7 +196,7 @@ class AntdBackdropFilterDemo extends StatelessWidget {
               alignment: Alignment.center,
               size: 100,
               backdropFilter: 25,
-              color: token.colorPrimary.withValues(alpha: 0.8),
+              color: token.colorSuccess.withValues(alpha: 0.8),
             ),
             child: const Text("我是文字"),
           )
@@ -224,30 +238,55 @@ class AntdShadowsGradientDemo extends StatelessWidget {
   }
 }
 
-/// @t 隐藏和可见
-/// @l [AntdBox]
-class AntdVisibilityDemo extends StatelessWidget {
+class AntdVisibilityDemo extends StatefulWidget {
   const AntdVisibilityDemo({super.key});
 
   @override
+  State<StatefulWidget> createState() {
+    return _AntdVisibilityDemoStateDemo();
+  }
+}
+
+/// @t 隐藏和可见
+/// @l [AntdBox]
+class _AntdVisibilityDemoStateDemo extends State<AntdVisibilityDemo> {
+  String? value;
+
+  @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(
+    return DemoWrapper(
         outline: true,
-        style: AntdBoxStyle(alignment: Alignment.center),
+        style: const AntdBoxStyle(alignment: Alignment.center),
         child: [
-          AntdBox(
-            style: AntdBoxStyle(
-              size: 100,
-              visibility: AntdVisibility.hidden,
-            ),
-            child: Text("完全隐藏"),
-          ),
-          AntdBox(
-            style: AntdBoxStyle(
-              size: 100,
-              visibility: AntdVisibility.visible,
-            ),
-            child: Text("隐藏但是空间仍在"),
+          Column(
+            children: [
+              AntdSegmented(
+                  value: value,
+                  onChange: (value) {
+                    setState(() {
+                      this.value = value;
+                    });
+                  },
+                  items: [
+                    AntdSegmentedItem(
+                      value: AntdVisibility.hidden.name,
+                      child: const Text("hidden(不占空间)"),
+                    ),
+                    AntdSegmentedItem(
+                      value: AntdVisibility.visible.name,
+                      child: const Text("visible(空间不变)"),
+                    )
+                  ]),
+              AntdBox(
+                style: AntdBoxStyle(
+                  size: 100,
+                  visibility: AntdVisibility.values
+                      .where((data) => data.name == value)
+                      .firstOrNull,
+                ),
+                child: const Text("完全隐藏"),
+              ),
+            ],
           )
         ]);
   }
@@ -551,6 +590,7 @@ class AntdListenerDemo extends StatelessWidget {
 }
 
 /// @t 按下时反馈
+/// @d 通过feedbackStyle完全自定义样式
 /// @l [AntdBox]
 class AntdFeedbackStyleDemo extends StatelessWidget {
   const AntdFeedbackStyleDemo({super.key});
@@ -558,11 +598,14 @@ class AntdFeedbackStyleDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);
     var style = AntdBoxStyle(
-        size: 100,
+        height: 200,
+        width: double.infinity,
         alignment: Alignment.center,
         textStyle: TextStyle(color: token.colorWhite),
+        border: token.border.copyWith(color: token.colorError).all,
         color: token.colorPrimary,
         feedbackStyle: AntdBoxStyle(
+            textStyle: TextStyle(color: token.colorPrimary),
             border:
                 token.border.copyWith(width: 2, color: token.colorPrimary).all,
             color: token.colorSuccess));
@@ -592,62 +635,81 @@ class AntdStylCustomDemo extends StatelessWidget {
         outline: true,
         style: const AntdBoxStyle(alignment: Alignment.center),
         child: [
-          AntdStyleBuilderProvider<AntdBoxStyle, AntdBox>(
-
-              /// 1
-              builder: (
-                context,
-                box,
-                style,
-                token,
-              ) {
-                return AntdBoxStyle(
-                    color: token.colorPrimary,
-                    size: 100,
-                    textStyle:
-                        token.font.md.copyWith(color: token.colorSuccess),
-                    alignment: Alignment.center);
-              },
-              child: Row(
+          AntdBox(
+            style: AntdBoxStyle(
+                height: 200,
+                alignment: Alignment.center,
+                textStyle: token.font.lg.copyWith(color: token.colorWhite),
+                width: double.infinity,
+                color: token.colorPrimary,
+                border: token.border
+                    .copyWith(color: token.colorSuccess, width: 2)
+                    .all),
+            child: const Text("通过style设置样式"),
+          ),
+          AntdBox(
+            styleBuilder: (context, box, style, token) {
+              return AntdBoxStyle(
+                  height: 200,
+                  alignment: Alignment.center,
+                  textStyle: token.font.lg.copyWith(color: token.colorWhite),
+                  width: double.infinity,
+                  color: token.colorSuccess,
+                  border: token.border
+                      .copyWith(color: token.colorError, width: 2)
+                      .all);
+            },
+            child: const Text("通过styleBuilder设置样式"),
+          ),
+          AntdStyleProvider(
+              style: AntdBoxStyle(
+                  height: 100,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  textStyle: token.font.lg.copyWith(color: token.colorWhite),
+                  color: token.colorPrimary),
+              child: Column(
                 children: [
-                  AntdStyleProvider<AntdBoxStyle>(
-
-                      /// 2
-                      style: const AntdBoxStyle(size: 50),
-                      child: AntdBox(
-                        /// 4
-                        style: AntdBoxStyle(
-                            radius: 10.radius.all,
-                            textStyle: const TextStyle(color: Colors.white)),
-
-                        /// 3
-                        styleBuilder: (
-                          context,
-                          box,
-                          style,
-                          token,
-                        ) {
-                          return AntdBoxStyle(
-                              border: token.border
-                                  .copyWith(color: token.colorSuccess, width: 3)
-                                  .all);
-                        },
-                        child: const Text("box1"),
-                      )),
                   AntdBox(
-                    style: AntdBoxStyle(margin: 10.left),
-                    child: const Text("box2"),
-                  )
+                    child: Text("通过AntdStyleProvider统一设置"),
+                  ),
+                  AntdBox(
+                    style: AntdBoxStyle(margin: 10.top),
+                    child: Text("通过AntdStyleProvider统一设置"),
+                  ),
+                ],
+              )),
+          AntdStyleBuilderProvider<AntdBoxStyle, AntdBox>(
+              builder: (context, box, style, token) {
+                return AntdBoxStyle(
+                    height: 100,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    textStyle: token.font.lg.copyWith(color: token.colorWhite),
+                    color: token.colorSuccess);
+              },
+              child: Column(
+                children: [
+                  const AntdBox(
+                    child: Text("通过AntdStyleBuilderProvider统一设置"),
+                  ),
+                  AntdBox(
+                    style: AntdBoxStyle(margin: 10.top),
+                    child: const Text("通过AntdStyleBuilderProvider统一设置"),
+                  ),
                 ],
               )),
           AntdBox(
             disabled: true,
             style: AntdBoxStyle(
-                size: 50,
+                height: 200,
+                width: double.infinity,
                 color: Colors.green,
                 disabledStyle: AntdBoxStyle(
                     size: 100,
                     color: token.colorError,
+                    alignment: Alignment.center,
+                    textStyle: token.font.lg.copyWith(color: token.colorWhite),
                     border: token.border
                         .copyWith(color: token.colorPrimary, width: 3)
                         .all)),

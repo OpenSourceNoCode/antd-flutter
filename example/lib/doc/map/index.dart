@@ -126,7 +126,8 @@ class MapUseComponents implements UseComponents {
 
             stringBuffer.writeln("""
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(${props.type}.values
                       .firstWhere((value) => value.name == values?.lastOrNull));

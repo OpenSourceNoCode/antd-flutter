@@ -679,8 +679,19 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     var formItem = AntdFormItemProvider.ofMaybe(context);
     disabled = (widget.disabled ?? formItem?.disabled) == true;
     readOnly = (widget.readOnly ?? formItem?.readOnly) == true;
-    value = widget.value;
     _controller = widget.value != null;
+    if (_controller) {
+      value = widget.value;
+      AntdLogs.w(
+          msg:
+              "Controlled mode active (non-empty value). Manual value update required.",
+          biz: widget.runtimeType.toString());
+      if (oldWidget != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          handlerAutoCollect(value, oldWidget.value);
+        });
+      }
+    }
     if (widget.value == null) {
       widget.useValue(context, (value) {
         if (value.runtimeType == this.value.runtimeType) {
@@ -690,8 +701,8 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     }
   }
 
-  T getNewValue(T value) {
-    return value;
+  bool isChanged(T? newValue, T? value) {
+    return newValue != value;
   }
 
   void changeValue(T? Function() changed) {
@@ -700,21 +711,29 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     }
 
     T? newValue = changed();
-    var values = newValue == null ? null : getNewValue(newValue as T);
+    widget.onChange?.call(newValue);
     if (_controller) {
-      widget.onChange?.call(values);
       return;
     }
-    handlerAutoCollect(values, value);
-    if (value != values) {
+    handlerAutoCollect(newValue, value);
+    if (isChanged(newValue, value)) {
       setState(() {
-        value = values;
+        value = newValue;
       });
     }
   }
 
   void handlerAutoCollect(T? newValue, T? value) {
-    if (widget.autoCollect == true && newValue != value) {
+    if (widget.autoCollect == true && isChanged(newValue, value)) {
+      widget.useValue(context, (cv) {
+        if (cv.runtimeType != newValue.runtimeType) {
+          var fromItem = AntdFormItemProvider.ofMaybe(context);
+          AntdLogs.w(
+              msg:
+                  "Field '${fromItem?.namePath}' value type mismatch: stored value type (${cv.runtimeType}) differs from new value type (${newValue.runtimeType}). Auto-ignored. Set autoCollect to false for custom handling.",
+              biz: widget.runtimeType.toString());
+        }
+      });
       widget.setValue(context, newValue, AntdFormTrigger.any);
     }
   }

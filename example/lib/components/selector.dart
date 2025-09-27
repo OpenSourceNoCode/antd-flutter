@@ -56,14 +56,14 @@ class AntdSelectorValueDemo extends StatefulWidget {
 /// @t 受控模式 不要忘记使用onChange更新
 /// @l [AntdSelector]
 class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
-  var values = {"1"};
+  var values = ["1"];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
           onChange: (values) async {
-            this.values = values ?? {};
+            this.values = values ?? [];
           },
           options: options
               .map((option) => AntdSelectorOption(
@@ -107,7 +107,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
       ),
       AntdSelector(
         readOnly: true,
-        value: {"2"},
+        value: ["2"],
         options: options,
       ),
     ]);

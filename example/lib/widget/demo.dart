@@ -47,13 +47,13 @@ class Blocks extends StatefulWidget {
 }
 
 class _BlocksState extends State<Blocks> {
-  var activeIndex = 0;
+  String? activeValue;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     var mode = AntdTheme.ofMode(context);
-    activeIndex = mode == AntdThemeMode.light ? 0 : 1;
+    activeValue = mode.name;
   }
 
   @override
@@ -71,23 +71,25 @@ class _BlocksState extends State<Blocks> {
               Column(
                 children: [
                   AntdSegmented(
-                      activeIndex: activeIndex,
-                      onChange: (index) {
+                      value: activeValue,
+                      onChange: (value) {
                         setState(() {
-                          activeIndex = index;
+                          activeValue = value;
+                          AntdTheme.configure(
+                              context,
+                              AntdThemeMode.values
+                                      .where((mode) => mode.name == activeValue)
+                                      .firstOrNull ??
+                                  AntdTheme.ofMode(context));
                         });
-                        if (index == 0) {
-                          AntdTheme.configure(context, AntdThemeMode.light);
-                        }
-                        if (index == 1) {
-                          AntdTheme.configure(context, AntdThemeMode.dark);
-                        }
                       },
-                      items: const [
+                      items: [
                         AntdSegmentedItem(
+                          value: AntdThemeMode.light.name,
                           child: const Text("亮色"),
                         ),
                         AntdSegmentedItem(
+                          value: AntdThemeMode.dark.name,
                           child: const Text("暗色"),
                         ),
                       ]),

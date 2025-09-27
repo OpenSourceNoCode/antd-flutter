@@ -477,19 +477,13 @@ abstract class AntdMaskProxyState<
     setState(() {
       hole = targetHole ?? AntdMaskHole.zero;
     });
-    controller?.reverse();
+    await controller?.reverse();
     if (_openWidget == null) {
       return;
     }
     await AntdLayer.closeSingle(_openWidget!, data);
     onClosed();
-  }
-
-  @override
-  @protected
-  void dispose() {
     _openWidget = null;
-    super.dispose();
   }
 }
 

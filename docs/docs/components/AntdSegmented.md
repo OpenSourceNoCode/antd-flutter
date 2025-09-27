@@ -27,7 +27,6 @@ class AntdSegmentedDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSegmented(
-          activeIndex: 0,
           items: const [
             AntdSegmentedItem(child: Text("Daily")),
             AntdSegmentedItem(child: Text("Weekly")),
@@ -48,28 +47,28 @@ class AntdSegmentedDemo extends StatelessWidget {
 
 ```dart
 class _AntdControllerDemoStateDemo extends State<AntdControllerDemo> {
-  var value = 0;
+  String? value;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(activeIndex: value, items: const [
-        AntdSegmentedItem(child: Text("Daily")),
-        AntdSegmentedItem(child: Text("Weekly")),
-        AntdSegmentedItem(child: Text("Monthly")),
-        AntdSegmentedItem(child: Text("Yearly"))
+      AntdSegmented(value: value, items: const [
+        AntdSegmentedItem(value: "1", child: Text("Daily")),
+        AntdSegmentedItem(value: "2", child: Text("Weekly")),
+        AntdSegmentedItem(value: "3", child: Text("Monthly")),
+        AntdSegmentedItem(value: "4", child: Text("Yearly"))
       ]),
       AntdButton(
           child: const Text("选择第3个"),
           onTap: () {
             setState(() {
-              value = 2;
+              value = "2";
             });
           }),
       AntdButton(
           child: const Text("取消"),
           onTap: () {
             setState(() {
-              value = 0;
+              value;
             });
           })
     ]);
@@ -87,15 +86,15 @@ class AntdDisabledDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdSegmented(activeIndex: 0, items: [
+      AntdSegmented(items: [
         AntdSegmentedItem(child: Text("Daily")),
         AntdSegmentedItem(disable: true, child: Text("Weekly")),
         AntdSegmentedItem(child: Text("Monthly")),
         AntdSegmentedItem(disable: true, child: Text("Yearly"))
       ]),
-      AntdSegmented(disabled: true, activeIndex: 2, items: [
+      AntdSegmented(disabled: true, value: "1", items: [
         AntdSegmentedItem(child: Text("Daily")),
-        AntdSegmentedItem(disable: true, child: Text("Weekly")),
+        AntdSegmentedItem(disable: true, value: "1", child: Text("Weekly")),
         AntdSegmentedItem(child: Text("Monthly")),
         AntdSegmentedItem(disable: true, child: Text("Yearly"))
       ])
@@ -115,7 +114,7 @@ class AntdSegmentedIconDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdSegmented(activeIndex: 0, items: [
+      AntdSegmented(items: [
         AntdSegmentedItem(
             child:
                 Row(children: [AntdIcon(icon: AntdIcons.add), Text("Daily")])),
@@ -123,7 +122,7 @@ class AntdSegmentedIconDemo extends StatelessWidget {
         AntdSegmentedItem(child: Text("Monthly")),
         AntdSegmentedItem(child: Text("Yearly"))
       ]),
-      AntdSegmented(activeIndex: 0, items: [
+      AntdSegmented(items: [
         AntdSegmentedItem(child: AntdIcon(icon: AntdIcons.add)),
         AntdSegmentedItem(child: AntdIcon(icon: AntdIcons.appstore))
       ])
@@ -143,7 +142,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(activeIndex: 0, items: [
+      AntdSegmented(items: [
         AntdSegmentedItem(
             child: Column(children: [
           AntdAvatar(image: NetworkImage(demoAvatarImages[0])),
@@ -269,9 +268,9 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
 | disabled | 是否禁用整个分段控制器，为 true 时所有选项都不可交互 | bool | false | - |
-| activeIndex | 当前选中的分段项索引，null 表示没有选中项 | int | - | - |
+| value | 当前选中的分段项索引，null 表示没有选中项 | String | - | - |
 | items | 分段选项列表，至少需要包含两个选项 | List&lt;AntdSegmentedItem&gt; | - | - |
-| onChange | 选项变化时的回调函数，返回选中项的索引 | ValueChanged&lt;int&gt; | - | - |
+| onChange | 选项变化时的回调函数，返回选中项的索引 | ValueChanged&lt;String?&gt; | - | - |
 | duration | 选项切换时的动画过渡时长 | Duration | const Duration(milliseconds: 200) | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
@@ -283,6 +282,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdBoxStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdBoxStyle, AntdSegmentedItem&gt; | - | - |
+| value | 绑定的value | String | - | - |
 | disable | 是否禁用该分段项，禁用时不可点击且样式变灰 | bool | - | - |
 | child | 分段项中显示的子组件，通常是文字或图标 | Widget | - | - |
 | onTap | 点击分段项时的回调函数，为 null 时表示不可点击 | VoidCallback | - | - |

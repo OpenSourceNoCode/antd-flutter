@@ -477,13 +477,19 @@ class AntdDialogState extends AntdBaseDialogState<AntdDialogStyle,
     AntdDialogAction, AntdDialog, AntdDialogState> {
   @protected
   Widget wrap(AntdDialogAction action) {
-    return AntdBox(
-      options: const AntdTapOptions(alwaysReceiveTap: true),
-      onTap: () {
-        handlerTap(action);
-      },
-      child: action,
-    );
+    var actionThemeStyle = theme.dialogActionStyle?.call(
+        context, action, style.actionStyle ?? const AntdActionStyle(), token);
+    actionThemeStyle = style.actionStyle.merge(actionThemeStyle);
+
+    return AntdStyleProvider(
+        style: actionThemeStyle,
+        child: AntdBox(
+          options: const AntdTapOptions(alwaysReceiveTap: true),
+          onTap: () {
+            handlerTap(action);
+          },
+          child: action,
+        ));
   }
 
   @override
@@ -503,17 +509,13 @@ class AntdDialogState extends AntdBaseDialogState<AntdDialogStyle,
       }
     }
     var actionWidgets = <Widget>[];
-    actionWidgets.add(AntdStyleProvider<AntdActionStyle>(
-        style: style.actionStyle,
-        child: AntdColumn(
-            style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
-            children: actions)));
+    actionWidgets.add(AntdColumn(
+        style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+        children: actions));
     if (bottomActions.isNotEmpty) {
-      actionWidgets.add(AntdStyleProvider<AntdActionStyle>(
-          style: style.actionStyle,
-          child: AntdRow(
-            children: bottomActions,
-          )));
+      actionWidgets.add(AntdRow(
+        children: bottomActions,
+      ));
     }
     return actionWidgets;
   }

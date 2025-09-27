@@ -23,7 +23,7 @@ class AntdSwipeActionStyle extends AntdStyle {
 
 enum AntdSwipeStatus { left, right, close }
 
-typedef AntdSwipeActionOnChangeStatus = void Function(AntdSwipeStatus status);
+typedef AntdSwipeActionOnChange = void Function(AntdSwipeStatus status);
 
 ///@t 滑动操作
 ///@g 反馈
@@ -48,7 +48,7 @@ class AntdSwipeAction
   final bool? closeOnAction;
 
   /// 打开
-  final AntdSwipeActionOnChangeStatus? onChange;
+  final AntdSwipeActionOnChange? onChange;
 
   ///控制器
   final AntdSwipeActionController? controller;
@@ -134,6 +134,7 @@ class _AntdSwipeActionState<T>
 
   _handlerStatus(AntdSwipeStatus status) {
     this.status = status;
+    _isOpen = status != AntdSwipeStatus.close;
     widget.onChange?.call(status);
   }
 
@@ -153,12 +154,12 @@ class _AntdSwipeActionState<T>
     var spring = ScrollSpringSimulation(
       const SpringDescription(
         mass: 1,
-        stiffness: 200.0,
+        stiffness: 500.0,
         damping: 60.0,
       ),
       _offsetController.value,
       target,
-      30,
+      0,
     );
     _offsetController.reset();
     _offsetController.animateWith(spring);

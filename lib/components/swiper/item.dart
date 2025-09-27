@@ -131,20 +131,20 @@ class _AntdSwipeItemsState extends State<AntdSwipeItems>
     with SingleTickerProviderStateMixin {
   final List<double> _itemWidths = [];
   double get _totalItemWidth => _itemWidths.reduce((a, b) => a + b);
-  late final AnimationController _controller =
-      AnimationController(vsync: this, duration: widget.duration);
-  late final Animation<double> _animation =
-      Tween<double>(begin: 0, end: 1).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ),
-  );
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
   AntdSwipeItem? _tapItem;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(vsync: this, duration: widget.duration);
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+      ),
+    );
     for (var _ in widget.items) {
       _itemWidths.add(0);
     }

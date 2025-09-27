@@ -737,9 +737,9 @@ Widget _AntdSegmentedFormMap(Map<String,dynamic> atr){
 return AntdSegmented(
 key:_resolveValue(atr,'AntdSegmented','key','Key',null),
 disabled:_resolveValue(atr,'AntdSegmented','disabled','bool',false),
-activeIndex:_resolveValue(atr,'AntdSegmented','activeIndex','int',null),
+value:_resolveValue(atr,'AntdSegmented','value','String',null),
 items:_resolveValue(atr,'AntdSegmented','items','List<AntdSegmentedItem>',null),
-onChange:_resolveValue(atr,'AntdSegmented','onChange','ValueChanged<int>',null),
+onChange:_resolveValue(atr,'AntdSegmented','onChange','ValueChanged<String?>',null),
 duration:_resolveValue(atr,'AntdSegmented','duration','Duration',const Duration(milliseconds: 200)),
 hapticFeedback:_resolveValue(atr,'AntdSegmented','hapticFeedback','AntdHapticFeedback',AntdHapticFeedback.light),
 );
@@ -865,7 +865,7 @@ child:_resolveValue(atr,'AntdSwipeAction','child','Widget',null),
 openThreshold:_resolveValue(atr,'AntdSwipeAction','openThreshold','double',0.01),
 duration:_resolveValue(atr,'AntdSwipeAction','duration','Duration',const Duration(milliseconds: 200)),
 closeOnAction:_resolveValue(atr,'AntdSwipeAction','closeOnAction','bool',true),
-onChange:_resolveValue(atr,'AntdSwipeAction','onChange','AntdSwipeActionOnChangeStatus',null),
+onChange:_resolveValue(atr,'AntdSwipeAction','onChange','AntdSwipeActionOnChange',null),
 controller:_resolveValue(atr,'AntdSwipeAction','controller','AntdSwipeActionController',null),
 );
 }
@@ -1117,9 +1117,9 @@ style:_resolveValue(atr,'AntdSelector','style','AntdSelectorStyle',null),
 styleBuilder:_resolveValue(atr,'AntdSelector','styleBuilder','AntdStyleBuilder<AntdSelectorStyle, AntdSelector>',null),
 disabled:_resolveValue(atr,'AntdSelector','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdSelector','readOnly','bool',null),
-value:_resolveValue(atr,'AntdSelector','value','Set<String>',null),
+value:_resolveValue(atr,'AntdSelector','value','List<String>',null),
 autoCollect:_resolveValue(atr,'AntdSelector','autoCollect','bool',null),
-onChange:_resolveValue(atr,'AntdSelector','onChange','ValueChanged<Set<String>>',null),
+onChange:_resolveValue(atr,'AntdSelector','onChange','ValueChanged<List<String>>',null),
 columns:_resolveValue(atr,'AntdSelector','columns','int',2),
 options:_resolveValue(atr,'AntdSelector','options','List<AntdSelectorOption>',null),
 );
@@ -1262,7 +1262,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1320,7 +1321,8 @@ name: "outerSafeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1338,7 +1340,8 @@ name: "innerSafeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1422,7 +1425,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1454,7 +1458,8 @@ name: "fill",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdButtonFill.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1472,7 +1477,8 @@ name: "shape",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdButtonShape.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1490,7 +1496,8 @@ name: "size",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdSize.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1584,7 +1591,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1722,7 +1730,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1766,7 +1775,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdDividerPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1786,7 +1796,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1868,7 +1879,8 @@ name: "type",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdDialogType.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1936,7 +1948,8 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdTabAlignment.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -1954,7 +1967,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2012,7 +2026,8 @@ name: "status",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdErrorBlockStatus.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2134,7 +2149,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2190,7 +2206,8 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdTabAlignment.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2208,7 +2225,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2240,7 +2258,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2384,7 +2403,8 @@ name: "safeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2468,7 +2488,8 @@ name: "alignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdEdge.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2486,7 +2507,8 @@ name: "titlePlacement",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdEdge.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2504,7 +2526,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2634,7 +2657,8 @@ name: "safeArea",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2752,7 +2776,8 @@ name: "tabAlignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdTabAlignment.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2770,7 +2795,8 @@ name: "indicatorPosition",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdIndicatorPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2788,7 +2814,8 @@ name: "indicatorMode",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdIndicatorMode.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2806,7 +2833,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2842,7 +2870,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2924,7 +2953,8 @@ name: "type",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdModalType.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -2992,7 +3022,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFloatingPanelPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3076,7 +3107,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3134,7 +3166,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3192,7 +3225,8 @@ name: "placement",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPlacement.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3210,7 +3244,8 @@ name: "mode",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPopoverMode.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3228,7 +3263,8 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPopoverTrigger.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3246,7 +3282,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3376,7 +3413,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3562,7 +3600,8 @@ name: "fit",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdScrollItemFit.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3580,7 +3619,8 @@ name: "alignment",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdEdge.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3650,7 +3690,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3694,7 +3735,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3752,7 +3794,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3820,7 +3863,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -3922,9 +3966,9 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "activeIndex",
+name: "value",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('activeIndex(int)'),
+            Text('value(String)'),
             Text('当前选中的分段项索引，null 表示没有选中项')
           ],),
               
@@ -3954,7 +3998,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4084,7 +4129,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4350,7 +4396,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4368,7 +4415,8 @@ name: "fill",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdTagFill.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4594,7 +4642,8 @@ name: "status",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdResultStatus.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4614,7 +4663,8 @@ name: "opacity",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdMaskOpacity.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4670,7 +4720,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdToastPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4688,7 +4739,8 @@ name: "type",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdToastType.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4746,7 +4798,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdPosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4852,7 +4905,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4898,7 +4952,8 @@ name: "fit",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdScrollItemFit.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -4956,7 +5011,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5018,7 +5074,8 @@ name: "layout",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormLayout.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5064,7 +5121,8 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormTrigger.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5096,7 +5154,8 @@ name: "validateTrigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormTrigger.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5244,7 +5303,8 @@ name: "layout",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormLayout.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5290,7 +5350,8 @@ name: "trigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormTrigger.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5322,7 +5383,8 @@ name: "validateTrigger",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdFormTrigger.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5810,7 +5872,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -5984,18 +6047,6 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "value",
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('value(Set<String>)'),
-            Text('值')
-          ],),
-              
-builder: (ctx) {
-              return  AntdInput();
-            
-},
-),
-AntdFormItem(
 name: "autoCollect",
                 label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('autoCollect(bool)'),
@@ -6146,7 +6197,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -6258,7 +6310,8 @@ name: "hapticFeedback",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdHapticFeedback.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -6556,7 +6609,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -6600,7 +6654,8 @@ name: "position",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdBadgePosition.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
@@ -6670,7 +6725,8 @@ name: "color",
               
 builder: (ctx) {
               return AntdSelector(
-              value:ctx.value != null ? {ctx.value.toString().split('.').last} : {},
+              autoCollect:false,
+              value:ctx.value != null ? [ctx.value.toString().split('.').last] : [],
                 onChange: (values) async {
                   ctx.onChange(AntdColor.values
                       .firstWhere((value) => value.name == values?.lastOrNull));

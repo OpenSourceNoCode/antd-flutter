@@ -355,19 +355,23 @@ class AntdModalState extends AntdBaseDialogState<AntdModalStyle,
     }
 
     return [
-      AntdStyleProvider<AntdActionStyle>(
-          style: style.actionStyle,
-          child: AntdColumn(
-              style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
-              children: widget.actions!.map((value) {
-                return AntdBox(
+      AntdColumn(
+          style: const AntdFlexStyle(mainAxisSize: MainAxisSize.min),
+          children: widget.actions!.map((value) {
+            var actionThemeStyle = theme.modalActionStyle?.call(context, value,
+                style.actionStyle ?? const AntdActionStyle(), token);
+            actionThemeStyle = style.actionStyle.merge(actionThemeStyle);
+
+            return AntdStyleProvider<AntdActionStyle>(
+                style: actionThemeStyle,
+                child: AntdBox(
                   options: const AntdTapOptions(alwaysReceiveTap: true),
                   onTap: () {
                     handlerTap(value);
                   },
                   child: value,
-                );
-              }).toList()))
+                ));
+          }).toList())
     ];
   }
 

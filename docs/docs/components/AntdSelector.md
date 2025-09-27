@@ -53,14 +53,14 @@ class AntdSelectorColumnsDemo extends StatelessWidget {
 
 ```dart
 class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
-  var values = {"1"};
+  var values = ["1"];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
           onChange: (values) async {
-            this.values = values ?? {};
+            this.values = values ?? [];
           },
           options: options
               .map((option) => AntdSelectorOption(
@@ -98,7 +98,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdSelector(options: options, disabled: true),
-      AntdSelector(readOnly: true, value: {"2"}, options: options)
+      AntdSelector(readOnly: true, value: ["2"], options: options)
     ]);
   }
 }
@@ -218,9 +218,9 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSelectorStyle, AntdSelector&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| value | 值 | Set&lt;String&gt; | - | - |
+| value | 值 | List&lt;String&gt; | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
-| onChange | 变更事件 | ValueChanged&lt;Set&lt;String&gt;&gt; | - | - |
+| onChange | 变更事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
 | columns | 列数 | int | 2 | - |
 | options | 可选项 | List&lt;AntdSelectorOption&gt; | - | - |
 

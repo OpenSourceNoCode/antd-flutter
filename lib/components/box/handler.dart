@@ -262,7 +262,7 @@ class AntdTapHandler {
 
     _longPressTriggered = false;
     _updateTouchState(true);
-    _pointerDownPosition = details.localPosition;
+    _pointerDownPosition = details.position;
 
     if (_longPressHandler != null) {
       _longPressTimer = Timer(

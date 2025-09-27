@@ -1,4 +1,5 @@
 import 'package:antd_flutter_mobile/index.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// 选择器角标
@@ -251,8 +252,8 @@ typedef AntdSelectorOnChange = void Function(
 ///@o 52
 ///@d  在一组选项中选择一个或多个。
 ///@u 提供多个选项供用户选择，一般在筛选和表单中使用。
-class AntdSelector extends AntdFormItemComponent<Set<String>, AntdSelectorStyle,
-    AntdSelector> {
+class AntdSelector extends AntdFormItemComponent<List<String>,
+    AntdSelectorStyle, AntdSelector> {
   const AntdSelector({
     super.key,
     super.style,
@@ -309,11 +310,11 @@ class AntdSelector extends AntdFormItemComponent<Set<String>, AntdSelectorStyle,
   }
 }
 
-class _AntdSelectorState extends AntdFormItemComponentState<Set<String>,
+class _AntdSelectorState extends AntdFormItemComponentState<List<String>,
     AntdSelectorStyle, AntdSelector> {
   @override
-  Set<String> getNewValue(Set<String> value) {
-    return {...value};
+  bool isChanged(List<String>? newValue, List<String>? value) {
+    return !listEquals(newValue, value);
   }
 
   @override
@@ -345,13 +346,13 @@ class _AntdSelectorState extends AntdFormItemComponentState<Set<String>,
                       }
 
                       changeValue(() {
-                        this.value ??= {};
+                        var values = [...(this.value ??= [])];
                         if (check) {
-                          this.value?.add(value.value!);
+                          values.add(value.value!);
                         } else {
-                          this.value?.remove(value.value);
+                          values.remove(value.value);
                         }
-                        return {...?this.value};
+                        return values;
                       });
                     },
                   ),
