@@ -291,7 +291,7 @@ class AntdTapHandler {
 
   bool _shouldAllowTap() {
     if (!options.allowOffset) {
-      if (_pointerDownPosition == null && _lastPointerDownPosition != null) {
+      if (_pointerDownPosition == null) {
         return false;
       }
       if (_lastPointerDownPosition == null) {
@@ -313,6 +313,9 @@ class AntdTapHandler {
     if (_doubleTapHandler == null) {
       _triggerTap();
       return;
+    }
+    if (options.alwaysTriggerTap) {
+      _triggerTap();
     }
 
     final now = DateTime.now();
@@ -344,7 +347,8 @@ class AntdTapHandler {
   }
 
   void _triggerTap() {
-    if (options.disabled || _longPressTriggered) {
+    if (options.disabled ||
+        (_longPressTriggered && !options.alwaysTriggerTap)) {
       return;
     }
     _executeCallback(_tapHandler);
@@ -368,9 +372,6 @@ class AntdTapHandler {
 
     _throttleDebouncer.run(() {
       handleHapticFeedback(options.hapticFeedback);
-      if (callback != _tapHandler && options.alwaysTriggerTap) {
-        _tapHandler?.call();
-      }
       callback();
     });
   }
