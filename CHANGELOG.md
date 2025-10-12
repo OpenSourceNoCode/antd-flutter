@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.0.7-alpha.1
+## 5.0.8-alpha.1
 
 `2025-10-12`
 
@@ -26,6 +26,15 @@
 - Tap Priority: Corrected `AntdTapOptions` priority issue
 - Navigation Layout: Fixed incorrect display position for `AntdNavBar`'s left property
 - Dynamic Updates: Resolved `AntdSegmented` dynamic update issue
+
+## 5.0.7-alpha.1
+- Refactored the `AntdBox` event model, fixing the issue where long press would accidentally trigger click events. Removed the `AntdTapAccepter` property and added `alwaysReceiveTap`.
+- Fixed the issue where `AntdAnimation` was not merging correctly.
+- Improved the context menu for `AntdInput`.
+- Added `AntdScrollControllerProvider` to allow accessing scroll information in the context.
+- Updated `AntdSelector's` value from Set to List because Set does not support serialization.
+- Fixed the style priority issue for `AntdAction`.
+- Updated animations for `AntdSwipeAction`.
 
 ## 5.0.6-alpha.1
 - Added a `hapticFeedback` option to `AntdIndexBar`, supporting configuration at both the `Style` and property levels.
