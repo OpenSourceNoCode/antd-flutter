@@ -105,14 +105,12 @@ abstract class AntdScrollViewState<
   }
 
   void _checkReachEdge() {
-    final threshold = widget.edgeThreshold;
-    if (threshold == null ||
-        threshold <= 0 ||
-        widget.onEdgeReached == null ||
-        _isEdgeCallbackProcessing) {
+    if (widget.onEdgeReached == null || _isEdgeCallbackProcessing) {
       return;
     }
 
+    var threshold = widget.edgeThreshold;
+    threshold ??= 0.2;
     final position = scrollController.position;
     final maxScrollExtent = position.maxScrollExtent;
     final offset = scrollController.offset;

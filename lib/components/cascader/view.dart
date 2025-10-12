@@ -53,13 +53,12 @@ class AntdCascaderOptionStyle extends AntdStyle {
 
 ///选项
 ///@l [AntdCascaderView]
-class AntdCascaderOption
-    extends AntdComponent<AntdCascaderOptionStyle, AntdCascaderOption> {
+class AntdCascaderOption {
   /// 选项的唯一标识值
-  final String value;
+  final dynamic value;
 
   /// 父级选项的值，用于构建层级关系
-  final String? parentValue;
+  final dynamic parentValue;
 
   /// 选项标题组件
   final Widget? title;
@@ -73,98 +72,18 @@ class AntdCascaderOption
   /// 未选中状态下显示的图标
   final Widget? icon;
 
-  /// 是否选中该选项
-  final bool check;
-
   /// 是否禁用该选项
   final bool disabled;
 
-  /// 选项点击回调函数
-  final VoidCallback? onTap;
-
-  const AntdCascaderOption(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      required this.value,
-      this.parentValue,
-      this.title,
-      this.child,
-      this.checkIcon,
-      this.icon,
-      this.check = false,
-      this.disabled = false,
-      this.onTap});
-
-  AntdCascaderOption copyFrom(AntdCascaderOption other) {
-    return AntdCascaderOption(
-      style: other.style ?? style,
-      styleBuilder: other.styleBuilder ?? styleBuilder,
-      value: other.value,
-      parentValue: other.parentValue ?? parentValue,
-      title: other.title ?? title,
-      check: other.check,
-      disabled: other.disabled,
-      checkIcon: other.checkIcon ?? checkIcon,
-      icon: other.icon ?? icon,
-      onTap: other.onTap ?? onTap,
-      child: other.child ?? child,
-    );
-  }
-
-  @override
-  Widget render(BuildContext context, AntdCascaderOptionStyle style) {
-    var uncheckIcon = icon ?? style.icon;
-    var checkIcon = this.checkIcon ?? style.checkIcon;
-    return AntdBox(
-      onTap: onTap,
-      disabled: disabled,
-      style: check
-          ? style.childStyle.merge(style.checkChildStyle)
-          : style.childStyle,
-      child: AntdRow(style: style.rowStyle, children: [
-        if (child != null) child!,
-        AntdIconWrap(
-          style: check ? style.checkIconStyle : style.iconStyle,
-          child: (check ? checkIcon : uncheckIcon),
-        )
-      ]),
-    );
-  }
-
-  @override
-  AntdCascaderOptionStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdMapToken token) {
-    var icon = AntdIcon(
-      icon: AntdIcons.check,
-      style: AntdIconStyle(color: token.colorPrimary),
-    );
-    return AntdCascaderOptionStyle(
-        childStyle: AntdBoxStyle(
-            padding: token.size.lg.vertical.marge(token.size.lg.right),
-            margin: token.size.lg.left,
-            border: token.border.bottom,
-            options: const AntdTapOptions(
-                alwaysReceiveTap: true, behavior: HitTestBehavior.opaque)),
-        rowStyle: const AntdFlexStyle(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween),
-        checkIcon: icon,
-        icon: AntdBox(
-          style: const AntdBoxStyle(visibility: AntdVisibility.visible),
-          child: icon,
-        ));
-  }
-
-  @override
-  AntdCascaderOption getWidget(BuildContext context) {
-    return this;
-  }
-
-  @override
-  AntdCascaderOptionStyle margeStyle(
-      AntdCascaderOptionStyle defaultStyle, AntdCascaderOptionStyle? style) {
-    return defaultStyle.copyFrom(style);
-  }
+  const AntdCascaderOption({
+    required this.value,
+    this.parentValue,
+    this.title,
+    this.child,
+    this.checkIcon,
+    this.icon,
+    this.disabled = false,
+  });
 }
 
 ///选项
@@ -195,48 +114,43 @@ class AntdCascaderViewStyle extends AntdStyle {
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       tabsStyle: tabsStyle.merge(style?.tabsStyle),
       listStyle: listStyle.merge(style?.listStyle),
-      optionStyle: optionStyle.merge(style?.optionStyle),
+      optionStyle: optionStyle?.copyFrom(style?.optionStyle),
     );
   }
 }
-
-typedef AntdCascaderViewChange = void Function(List<String> value);
 
 ///@t 级联选择视图
 ///@g 信息录入
 ///@o 61
 ///@d CascaderView 是 Cascader 的内容区域。
 ///@u 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。
-class AntdCascaderView
-    extends AntdStateComponent<AntdCascaderViewStyle, AntdCascaderView> {
-  const AntdCascaderView(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      this.placeholder = const Text("请选择"),
-      this.value,
-      required this.options,
-      this.onTabsChange,
-      this.onChange,
-      this.hapticFeedback = AntdHapticFeedback.light});
+class AntdCascaderView extends AntdFormItemComponent<List<dynamic>,
+    AntdCascaderViewStyle, AntdCascaderView> {
+  const AntdCascaderView({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.disabled,
+    super.readOnly,
+    super.defaultValue,
+    super.value,
+    super.autoCollect,
+    super.onChange,
+    super.shouldTriggerChange,
+    super.hapticFeedback,
+    this.placeholder = const Text("请选择"),
+    required this.options,
+    this.onTabsChange,
+  });
 
   ///未选中时的提示文案
   final Widget placeholder;
-
-  ///配置每一列的选项
-  final List<String>? value;
 
   ///配置每一列的选项
   final List<AntdCascaderOption> options;
 
   ///默认选中项
   final AntdTabsOnChange<AntdTab>? onTabsChange;
-
-  ///选项变化时的回调
-  final AntdCascaderViewChange? onChange;
-
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
 
   AntdCascaderView copyFrom(AntdCascaderView? view) {
     return AntdCascaderView(
@@ -257,12 +171,32 @@ class AntdCascaderView
   @override
   AntdCascaderViewStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
+    var icon = AntdIcon(
+      icon: AntdIcons.check,
+      style: AntdIconStyle(color: token.colorPrimary),
+    );
+    var optionStyle = AntdCascaderOptionStyle(
+        childStyle: AntdBoxStyle(
+            padding: token.size.lg.vertical.marge(token.size.lg.right),
+            margin: token.size.lg.left,
+            border: token.border.bottom,
+            options: const AntdTapOptions(
+                alwaysReceiveTap: true, behavior: HitTestBehavior.opaque)),
+        rowStyle: const AntdFlexStyle(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween),
+        checkIcon: icon,
+        icon: AntdBox(
+          style: const AntdBoxStyle(visibility: AntdVisibility.visible),
+          child: icon,
+        ));
+
     return AntdCascaderViewStyle(
         bodyStyle: const AntdBoxStyle(),
         tabsStyle: const AntdTabsStyle(),
         listStyle:
             AntdListStyle(bodyStyle: AntdBoxStyle(border: token.border.bottom)),
-        optionStyle: const AntdCascaderOptionStyle());
+        optionStyle: optionStyle);
   }
 
   @override
@@ -282,8 +216,8 @@ class AntdCascaderView
   }
 }
 
-class _AntdCascaderViewState
-    extends AntdState<AntdCascaderViewStyle, AntdCascaderView> {
+class _AntdCascaderViewState extends AntdFormItemComponentState<List<dynamic>,
+    AntdCascaderViewStyle, AntdCascaderView> {
   int _currentIndex = -1;
   var _items = <List<AntdCascaderOption>>[];
   final _values = <int, AntdCascaderOption>{};
@@ -364,6 +298,7 @@ class _AntdCascaderViewState
 
   @override
   Widget render(BuildContext context) {
+    var optionStyle = style.optionStyle;
     return AntdBox(
       style: style.bodyStyle,
       child: Column(
@@ -384,44 +319,54 @@ class _AntdCascaderViewState
               widget.onTabsChange?.call(key, tab);
             },
           ),
-          AntdStyleProvider<AntdCascaderOptionStyle>(
-              style: style.optionStyle,
-              child: AntdTabPanel(
-                  vertical: false,
-                  tabController: _tabController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  items: List.generate(_items.length, (i) {
-                    var value = _values[i]?.value;
+          AntdTabPanel(
+              vertical: false,
+              tabController: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              items: List.generate(_items.length, (i) {
+                var value = _values[i]?.value;
 
-                    return AntdList(
-                      style: style.listStyle,
-                      shrinkWrap: true,
-                      itemBuilder: (ctx) {
-                        return ctx.data;
+                return AntdList(
+                  style: style.listStyle,
+                  shrinkWrap: true,
+                  itemBuilder: (ctx) {
+                    return ctx.data;
+                  },
+                  items: _items[i].map((item) {
+                    var check = value == item.value;
+                    var uncheckIcon = item.icon ?? optionStyle?.icon;
+                    var checkIcon = item.checkIcon ?? optionStyle?.checkIcon;
+                    var child = item.child;
+                    return AntdBox(
+                      onTap: () {
+                        handleHapticFeedback(widget.hapticFeedback);
+                        if (check == true) {
+                          _values.remove(i);
+                          changePanel(i, i);
+                        } else {
+                          _values[i] = item;
+                          changePanel(i, i + 1);
+                        }
+                        setValue(_values.values
+                            .map((value) => value.value)
+                            .toList());
                       },
-                      items: _items[i].map((item) {
-                        var check = value == item.value;
-                        return item.copyFrom(AntdCascaderOption(
-                          check: check == true,
-                          onTap: () {
-                            handleHapticFeedback(widget.hapticFeedback);
-                            item.onTap?.call();
-                            if (check == true) {
-                              _values.remove(i);
-                              changePanel(i, i);
-                            } else {
-                              _values[i] = item;
-                              changePanel(i, i + 1);
-                            }
-                            widget.onChange?.call(_values.values
-                                .map((value) => value.value)
-                                .toList());
-                          },
-                          value: item.value,
-                        ));
-                      }).toList(),
+                      style: check
+                          ? optionStyle?.checkChildStyle
+                          : optionStyle?.childStyle,
+                      child: AntdRow(style: optionStyle?.rowStyle, children: [
+                        if (child != null) child,
+                        AntdIconWrap(
+                          style: check
+                              ? optionStyle?.checkIconStyle
+                              : optionStyle?.iconStyle,
+                          child: (check ? checkIcon : uncheckIcon),
+                        )
+                      ]),
                     );
-                  })))
+                  }).toList(),
+                );
+              }))
         ],
       ),
     );

@@ -39,7 +39,7 @@ void main() async {
 
   final buffer = StringBuffer();
   map.forEach((name, defines) {
-    buffer.writeln("## ${name}");
+    buffer.writeln("## $name");
     buffer.writeln(generatePropertiesTable(defines));
   });
   String sideDocRoot = '${scriptDir.parent.path}/docs/docs/guide';

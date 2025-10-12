@@ -17,7 +17,7 @@ subtitle: 文本域
 </div>
 <div style='flex: 1;'>
 
-### 基本的输入框组件
+### 基础
 
 
 ```dart
@@ -28,9 +28,55 @@ class AntdTextAreaDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdTextArea(
           onChange: (value) {
-            AntdToast.show("当前的输入值:$value");
+            AntdToast.show("当前的输入值:$value", position: AntdToastPosition.top);
           },
           placeholder: const Text("请输入内容"))
+    ]);
+  }
+}
+
+```
+
+### 默认值
+
+
+```dart
+class AntdTextAreaDefaultValueDemo extends StatelessWidget {
+  const AntdTextAreaDefaultValueDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdTextArea(
+          defaultValue: "默认值",
+          onChange: (value) {
+            AntdToast.show("当前的输入值:$value", position: AntdToastPosition.top);
+          },
+          placeholder: const Text("请输入内容"))
+    ]);
+  }
+}
+
+```
+
+### 只读/禁用
+
+
+```dart
+class AntdTextAreaReadOnlyDisabledDemo extends StatelessWidget {
+  const AntdTextAreaReadOnlyDisabledDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "只读",
+          child: AntdTextArea(
+              defaultValue: "默认值", readOnly: true, placeholder: Text("请输入内容"))),
+      DemoTitle(
+          outline: false,
+          title: "禁用",
+          child: AntdTextArea(
+              defaultValue: "默认值", disabled: true, placeholder: Text("请输入内容")))
     ]);
   }
 }
@@ -45,8 +91,16 @@ class AntdTextAreaMinLinesDemo extends StatelessWidget {
   const AntdTextAreaMinLinesDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(
-        child: [AntdTextArea(minLines: 5, placeholder: Text("请输入内容"))]);
+    return const DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最小行",
+          child: AntdTextArea(minLines: 5, placeholder: Text("请输入内容"))),
+      DemoTitle(
+          outline: false,
+          title: "最大行",
+          child: AntdTextArea(maxLines: 5, placeholder: Text("请输入内容")))
+    ]);
   }
 }
 
@@ -61,58 +115,258 @@ class AntdTextAreaShowCountDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdTextArea(showCount: true, minLines: 5, value: "北极星垂地，东山月满川。")
+      DemoTitle(
+          outline: false,
+          title: "统计",
+          child: AntdTextArea(
+              showCount: true, minLines: 5, value: "北极星垂地，东山月满川。")),
+      DemoTitle(
+          outline: false,
+          title: "最大长度",
+          child: AntdTextArea(
+              showCount: true,
+              maxLength: 10,
+              minLines: 5,
+              value: "北极星垂地，东山月满川。"))
     ]);
   }
 }
 
 ```
 
-### 字数限制
+### 键盘类型
 
 
 ```dart
-class AntdTextAreaMaxLengthDemo extends StatelessWidget {
-  const AntdTextAreaMaxLengthDemo({super.key});
+class AntdTextAreaKeyboardTypeDemo extends StatelessWidget {
+  const AntdTextAreaKeyboardTypeDemo({super.key});
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdTextArea(
-          showCount: true, maxLength: 30, minLines: 5, value: "北极星垂地，东山月满川。")
+      DemoTitle(
+          outline: false,
+          title: "数字",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              keyboardType: TextInputType.number)),
+      DemoTitle(
+          outline: false,
+          title: "手机号",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              keyboardType: TextInputType.phone)),
+      DemoTitle(
+          outline: false,
+          title: "日期",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              keyboardType: TextInputType.datetime))
     ]);
   }
 }
 
 ```
 
-### 禁用状态
+### 事件
 
 
 ```dart
-class AntdTextAreaDisabledDemo extends StatelessWidget {
-  const AntdTextAreaDisabledDemo({super.key});
+class AntdTextAreaEventDemo extends StatelessWidget {
+  const AntdTextAreaEventDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
-      AntdTextArea(
-          showCount: true, minLines: 5, disabled: true, value: "北极星垂地，东山月满川。")
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "onChange",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              onChange: (value) {
+                AntdToast.show("当前的输入值:$value",
+                    position: AntdToastPosition.top);
+              })),
+      DemoTitle(
+          outline: false,
+          title: "onClear 点击清理图标",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              onChange: (value) {
+                AntdToast.show("当前的输入值:$value",
+                    position: AntdToastPosition.top);
+              },
+              onClear: () {
+                AntdToast.show("触发clear", position: AntdToastPosition.top);
+              })),
+      DemoTitle(
+          outline: false,
+          title: "onTap 触摸事件",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              onChange: (value) {
+                AntdToast.show("当前的输入值:$value",
+                    position: AntdToastPosition.top);
+              },
+              onTap: () {
+                AntdToast.show("触发onTap", position: AntdToastPosition.top);
+              })),
+      DemoTitle(
+          outline: false,
+          title: "onFocus 焦点事件",
+          child: AntdTextArea(
+              showCount: true,
+              placeholder: Text("请输入"),
+              onChange: (value) {
+                AntdToast.show("当前的输入值:$value",
+                    position: AntdToastPosition.top);
+              },
+              onFocus: (value) {
+                AntdToast.show("触发onFocus:$value",
+                    position: AntdToastPosition.top);
+              }))
     ]);
   }
 }
 
 ```
 
-### 只读状态
+### 与表单配合
 
 
 ```dart
-class AntdTextAreaReadOnlyDemo extends StatelessWidget {
-  const AntdTextAreaReadOnlyDemo({super.key});
+class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
+  String? value;
+  String? value1;
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
-      AntdTextArea(
-          showCount: true, minLines: 5, readOnly: true, value: "北极星垂地，东山月满川。")
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdTextArea的值",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "textarea",
+                    builder: (ctx) {
+                      return const AntdTextArea(
+                          minLines: 2, placeholder: Text("请输入"));
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"textarea": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "textarea",
+                        builder: (ctx) {
+                          return const AntdTextArea(
+                              minLines: 2, placeholder: Text("请输入"));
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdTextArea覆盖了",
+          child: AntdForm(
+              initialValues: {"textarea": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "textarea",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdTextArea(
+                              disabled: false, placeholder: Text("请输入"));
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"textarea": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "textarea",
+                        builder: (ctx) {
+                          return const AntdTextArea(
+                              autoCollect: false, placeholder: Text("请输入"));
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = "我是外部设置的值";
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"textarea": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "textarea",
+                        builder: (ctx) {
+                          return AntdTextArea(
+                              value: value,
+                              placeholder: Text("请输入"),
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = "我是外部设置的值";
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"textarea": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "textarea",
+                        builder: (ctx) {
+                          return AntdTextArea(
+                              value: value1,
+                              placeholder: Text("请输入"),
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
     ]);
   }
 }
@@ -232,15 +486,17 @@ class AntdTextAreaReadOnlyDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdInputStyle, AntdTextArea&gt; | - | - |
 | focusNode | 控制输入框的焦点状态 | FocusNode | - | - |
 | clearable | 是否显示清除按钮（点击会清空输入内容） | bool | true | - |
-| value | 输入框的初始值 | String | - | - |
-| disabled | 是否禁用输入框 | bool | false | - |
-| onChange | 输入内容变化时的回调函数 | ValueChanged&lt;String&gt; | - | - |
+| defaultValue | 默认值 | String | - | - |
+| value | 值 | String | - | - |
+| disabled | 禁用 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;String&gt; | - | - |
 | onEditingComplete | 编辑完成时的回调（通常点击键盘完成/下一步时触发） | VoidCallback | - | - |
 | onSubmitted | 文本提交时的回调（通常点击键盘发送/搜索时触发） | ValueChanged&lt;String&gt; | - | - |
 | onClear | 点击清除按钮时的回调函数 | VoidCallback | - | - |
 | placeholder | 输入框为空时显示的提示文本 | Widget | - | - |
-| readOnly | 是否为只读模式（可选中文本但不可编辑） | bool | false | - |
+| readOnly | 只读 | bool | - | - |
 | controller | 输入框的控制器，用于程序化控制文本内容 | AntdInputController | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
 | autocorrect | 是否自动校正拼写错误（如iOS键盘的自动修正），默认为true | bool | false | - |
 | maxLines | 输入框的最大行数（多行文本时生效） | int | - | - |
 | minLines | 输入框的最小行数（多行文本时生效） | int | - | - |
@@ -259,9 +515,11 @@ class AntdTextAreaReadOnlyDemo extends StatelessWidget {
 | onAppPrivateCommand | 处理来自键盘的私有命令（如第三方键盘扩展功能） | AppPrivateCommandCallback | - | - |
 | dragStartBehavior | 拖动行为的起始方式（如立即响应或延迟响应） | DragStartBehavior | start | - |
 | scrollController | 滚动控制器（用于控制多行文本的滚动位置） | ScrollController | - | - |
-| scrollPhysics | 滚动物理效果（如滚动边界行为） | ScrollPhysics | const AlwaysScrollableScrollPhysics() | - |
+| scrollPhysics | 滚动物理效果（如滚动边界行为） | ScrollPhysics | const NeverScrollableScrollPhysics() | - |
 | clipBehavior | 内容裁剪方式（如抗锯齿裁剪） | Clip | hardEdge | - |
 | onFocus | 焦点事件 | AntdOnFocus | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | true | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | showCount | 是否展示字数统计 | bool | true | - |
 | countBuilder | 自定义统计数字 | AntdTextAreaCountBuilder | - | - |
 

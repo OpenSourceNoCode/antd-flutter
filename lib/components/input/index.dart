@@ -226,7 +226,7 @@ class AntdInputController extends TextEditingController {
 }
 
 abstract class AntdInputBase<WidgetType>
-    extends AntdStateComponent<AntdInputStyle, WidgetType>
+    extends AntdFormItemComponent<String, AntdInputStyle, WidgetType>
     with AntdFormItemMixin {
   /// 控制输入框的焦点状态
   final FocusNode? focusNode;
@@ -234,20 +234,11 @@ abstract class AntdInputBase<WidgetType>
   /// 是否显示清除按钮（点击会清空输入内容）
   final bool clearable;
 
-  /// 输入框的初始值
-  final String? value;
-
-  /// 是否禁用输入框
-  final bool disabled;
-
   /// 点击清除按钮时的回调函数
   final VoidCallback? onClear;
 
   /// 输入框为空时显示的提示文本
   final Widget? placeholder;
-
-  /// 是否为只读模式（可选中文本但不可编辑）
-  final bool readOnly;
 
   /// 输入框的控制器，用于程序化控制文本内容
   final AntdInputController? controller;
@@ -278,9 +269,6 @@ abstract class AntdInputBase<WidgetType>
 
   /// 键盘动作按钮类型（如搜索、发送等）
   final TextInputAction? inputAction;
-
-  /// 输入内容变化时的回调函数
-  final ValueChanged<String?>? onChange;
 
   /// 编辑完成时的回调（通常点击键盘完成/下一步时触发）
   final VoidCallback? onEditingComplete;
@@ -337,16 +325,20 @@ abstract class AntdInputBase<WidgetType>
     super.key,
     super.style,
     super.styleBuilder,
+    super.disabled,
+    super.readOnly,
+    super.defaultValue,
+    super.value,
+    super.autoCollect,
+    super.onChange,
+    super.shouldTriggerChange,
+    super.hapticFeedback,
     this.focusNode,
     this.clearable = true,
-    this.value,
-    this.disabled = false,
-    this.onChange,
     this.onEditingComplete,
     this.onSubmitted,
     this.onClear,
     this.placeholder,
-    this.readOnly = false,
     this.controller,
     this.textAlign = TextAlign.start,
     this.obscureIcon = true,
@@ -369,7 +361,7 @@ abstract class AntdInputBase<WidgetType>
     this.onAppPrivateCommand,
     this.dragStartBehavior = DragStartBehavior.start,
     this.scrollController,
-    this.scrollPhysics = const ClampingScrollPhysics(),
+    this.scrollPhysics = const NeverScrollableScrollPhysics(),
     this.clipBehavior = Clip.hardEdge,
     this.onFocus,
   });
@@ -431,7 +423,7 @@ abstract class AntdInputBase<WidgetType>
 }
 
 class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
-    extends AntdState<AntdInputStyle, T>
+    extends AntdFormItemComponentState<String, AntdInputStyle, T>
     implements TextSelectionGestureDetectorBuilderDelegate {
   final GlobalKey<EditableTextState> _editableTextKey =
       GlobalKey<EditableTextState>();
@@ -454,18 +446,10 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   @override
   void updateDependentValues(covariant T? oldWidget) {
     super.updateDependentValues(oldWidget);
-    widget.useValue(context, (value) {
-      innerController.text = value ?? "";
-    });
-    if (widget.value != oldWidget?.value) {
-      innerController.text = widget.value!;
-    }
-    if (widget.obscureText != oldWidget?.obscureText) {
-      _obscureText = widget.obscureText;
-    }
-
-    innerController._onClear = widget.onClear;
+    innerController.text = value ?? "";
     innerController._focusNode = _focusNode;
+    _obscureText = widget.obscureText;
+    innerController._onClear = widget.onClear;
   }
 
   bool _shouldShowSelectionHandles(SelectionChangedCause? cause) {
@@ -473,7 +457,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       return false;
     }
 
-    if (widget.readOnly && innerController.selection.isCollapsed) {
+    if (widget.readOnly == true && innerController.selection.isCollapsed) {
       return false;
     }
 
@@ -547,8 +531,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   }
 
   void _handlerOnChange(String? value) {
-    widget.onChange?.call(value);
-    widget.setValue(context, value, AntdFormTrigger.onChange);
+    setValue(value, false);
   }
 
   Widget buildInput(Widget input) {
@@ -584,7 +567,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       key: _editableTextKey,
       controller: innerController,
       focusNode: _focusNode,
-      readOnly: widget.readOnly || widget.disabled,
+      readOnly: disabled == true || readOnly == true,
       obscureText: _obscureText,
       obscuringCharacter: style.obscuringCharacter!,
       style: _obscureText ? style.obscureTextStyle! : style.textStyle!,
@@ -644,7 +627,7 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       clipBehavior: widget.clipBehavior,
     );
     return AntdBox(
-      disabled: widget.disabled,
+      disabled: disabled,
       style: style.bodyStyle,
       onTap: widget.onTap,
       focusNode: _focusNode,
@@ -696,6 +679,9 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                       child: AntdBox(
                         options: const AntdTapOptions(alwaysReceiveTap: true),
                         onTap: () async {
+                          if (disabled == true || readOnly == true) {
+                            return;
+                          }
                           innerController.clear();
                         },
                         child: style.clearIcon,
@@ -743,49 +729,52 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
 ///@d 通过键盘输入内容，是最基础的表单域包装。
 ///@u 一般用在表单页进行信息的收集，提供文本框、选择框两种类型。
 class AntdInput extends AntdInputBase<AntdInput> {
-  const AntdInput({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.focusNode,
-    super.clearable = true,
-    super.value,
-    super.disabled = false,
-    super.onChange,
-    super.onEditingComplete,
-    super.onSubmitted,
-    super.onClear,
-    super.placeholder,
-    super.readOnly = false,
-    super.controller,
-    super.textAlign = TextAlign.start,
-    super.obscureIcon = true,
-    super.obscureText = false,
-    super.autocorrect = false,
-    super.maxLines,
-    super.minLines,
-    super.maxLength,
-    super.keyboardType = TextInputType.text,
-    super.inputAction,
-    super.onSelectionChanged,
-    super.formatters,
-    super.prefix,
-    super.suffix,
-    super.onTap,
-    super.contextMenuBuilder,
-    super.undoController,
-    super.spellCheckConfiguration,
-    super.magnifierConfiguration,
-    super.onAppPrivateCommand,
-    super.dragStartBehavior = DragStartBehavior.start,
-    super.scrollController,
-    super.scrollPhysics = const AlwaysScrollableScrollPhysics(),
-    super.clipBehavior = Clip.hardEdge,
-    super.onFocus,
-  });
+  const AntdInput(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.focusNode,
+      super.clearable = true,
+      super.defaultValue,
+      super.value,
+      super.disabled = false,
+      super.onChange,
+      super.onEditingComplete,
+      super.onSubmitted,
+      super.onClear,
+      super.placeholder,
+      super.readOnly = false,
+      super.controller,
+      super.textAlign = TextAlign.start,
+      super.obscureIcon = true,
+      super.obscureText = false,
+      super.autocorrect = false,
+      super.maxLines,
+      super.minLines,
+      super.maxLength,
+      super.keyboardType = TextInputType.text,
+      super.inputAction,
+      super.onSelectionChanged,
+      super.formatters,
+      super.prefix,
+      super.suffix,
+      super.onTap,
+      super.contextMenuBuilder,
+      super.undoController,
+      super.spellCheckConfiguration,
+      super.magnifierConfiguration,
+      super.onAppPrivateCommand,
+      super.dragStartBehavior = DragStartBehavior.start,
+      super.scrollController,
+      super.scrollPhysics = const NeverScrollableScrollPhysics(),
+      super.clipBehavior = Clip.hardEdge,
+      super.onFocus,
+      super.shouldTriggerChange = false,
+      super.hapticFeedback,
+      super.autoCollect});
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 
   @override
   AntdInput getWidget(BuildContext context) {

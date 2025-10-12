@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/widgets.dart';
+
+import 'form/form.dart';
 
 /// @t 基础使用
 /// @l [AntdRadio]
@@ -14,16 +18,19 @@ class AntdRadioDemo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AntdRadio(
+            defaultValue: 1,
             onChange: (value) async {
               AntdToast.show("变更为:$value");
             },
             extra: const Text("有描述的单选框"),
           ),
           const AntdRadio(
+            defaultValue: 1,
             indeterminate: true,
             extra: Text("半选"),
           ),
           const AntdRadio(
+            defaultValue: 1,
             disabled: true,
             extra: Text("禁用"),
           )
@@ -43,6 +50,7 @@ class AntdRadioCustomDemo extends StatelessWidget {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(child: [
       AntdRadio(
+        defaultValue: 1,
         style: AntdRadioStyle(
             icon: const AntdIcon(
               icon: AntdIcons.smile,
@@ -63,62 +71,6 @@ class AntdRadioCustomDemo extends StatelessWidget {
   }
 }
 
-/// @t 列表选择
-/// @l [AntdRadio]
-class AntdRadioListDemo extends StatefulWidget {
-  const AntdRadioListDemo({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _AntdRadioListDemoStateDemo();
-  }
-}
-
-class _AntdRadioListDemoStateDemo extends State<AntdRadioListDemo> {
-  var value = -1;
-  @override
-  Widget build(BuildContext context) {
-    var token = AntdTheme.ofToken(context);
-    return DemoWrapper(outline: true, child: [
-      AntdList(
-        shrinkWrap: true,
-        items: List.generate(
-          5,
-          (i) {
-            return i;
-          },
-        ),
-        itemBuilder: (ctx) {
-          return AntdBox(
-              onTap: () {
-                setState(() {
-                  value = ctx.index;
-                });
-              },
-              style: AntdBoxStyle(
-                  feedbackStyle:
-                      AntdBoxStyle(color: token.colorFill.quaternary)),
-              child: AntdBox(
-                style: AntdBoxStyle(
-                    padding: 12.vertical,
-                    margin: 12.left,
-                    border: token.border.bottom),
-                child: AntdCheckbox(
-                  value: value == ctx.index,
-                  onChange: (check) {
-                    setState(() {
-                      value = check == true ? ctx.index : -1;
-                    });
-                  },
-                  extra: Text("内容${ctx.index}"),
-                ),
-              ));
-        },
-      )
-    ]);
-  }
-}
-
 class AntdRadioValueDemo extends StatefulWidget {
   const AntdRadioValueDemo({super.key});
 
@@ -129,9 +81,9 @@ class AntdRadioValueDemo extends StatefulWidget {
 }
 
 /// @t 受控模式
-/// @l [AntdCheckbox]
+/// @l [AntdRadio]
 class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
-  var check = false;
+  bool? check = false;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
@@ -153,7 +105,7 @@ class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
             child: const Text("取消"),
             onTap: () {
               setState(() {
-                check = false;
+                check = null;
               });
             },
           )
@@ -180,6 +132,185 @@ class AntdRadioDisabledDemo extends StatelessWidget {
         value: true,
         extra: Text("只读"),
       ),
+    ]);
+  }
+}
+
+/// @t 选择组
+/// @l [AntdRadio]
+class AntdRadioGroupDemo extends StatelessWidget {
+  const AntdRadioGroupDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdRadioGroup(
+        items: const [
+          AntdRadio(
+            extra: Text("1"),
+            defaultValue: 1,
+          ),
+          AntdRadio(
+            extra: Text("2"),
+            defaultValue: 2,
+          ),
+          AntdRadio(
+            extra: Text("3"),
+            defaultValue: 3,
+          ),
+        ],
+        onChange: (values) {
+          AntdToast.show(jsonEncode(values));
+        },
+      )
+    ]);
+  }
+}
+
+class AntdRadioFormDemo extends StatefulWidget {
+  const AntdRadioFormDemo({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdRadioFormDemoStateDemo();
+  }
+}
+
+/// @t 与表单配合
+/// @l [AntdRadio]
+class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
+  String? value;
+  String? value1;
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdRadio的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "radio",
+                    builder: (ctx) {
+                      return const AntdRadio(
+                        defaultValue: "1",
+                      );
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: const {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return const AntdRadio();
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdRadio覆盖了",
+          child: AntdForm(
+              initialValues: const {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdRadio(
+                            disabled: false,
+                          );
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: const {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return const AntdRadio(
+                            autoCollect: false,
+                          );
+                        }));
+              })),
+      AntdButton(
+        child: const Text('点我修改'),
+        onTap: () {
+          setState(() {
+            value = value == null ? "1" : null;
+          });
+        },
+      ),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: const {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return AntdRadio(
+                            value: value,
+                            onChange: (value) {
+                              AntdToast.show("当前的输入值:$value",
+                                  position: AntdToastPosition.top);
+                              setState(() {
+                                this.value = value;
+                              });
+                            },
+                          );
+                        }));
+              })),
+      AntdButton(
+        child: const Text('点我修改'),
+        onTap: () {
+          setState(() {
+            value1 = value1 == null ? "1" : null;
+          });
+        },
+      ),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: const {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return AntdRadio(
+                            value: value1,
+                            onChange: (value) {
+                              AntdToast.show("当前的输入值:$value",
+                                  position: AntdToastPosition.top);
+                              setState(() {
+                                this.value = value;
+                              });
+                            },
+                            shouldTriggerChange: false,
+                          );
+                        }));
+              })),
     ]);
   }
 }

@@ -440,13 +440,13 @@ class _AntdTabsLoadingDemoStateDemo extends State<AntdTabsLoadingDemo> {
 | leftExtra | 标签栏左侧扩展内容区域 | Widget | - | - |
 | rightExtra | 标签栏右侧扩展内容区域 | Widget | - | - |
 | controller | 控制器 | AntdTabController&lt;AntdTab&gt; | - | - |
-| activeValue | 默认选中的标签key（为空时不激活任何一个） | String | - | - |
+| activeValue | 默认选中的标签key（为空时不激活任何一个） | dynamic | - | - |
 | onChange | 标签切换时的回调（参数为当前选中key） | AntdTabsOnChange&lt;AntdTab&gt; | - | - |
 | tabAlignment | 标签对齐方式（居中时会自动启用滚动或填充）:`left` \| `center` | AntdTabAlignment | center | - |
 | tabs | 标签页配置列表（至少包含一个标签） | List&lt;AntdTab&gt; | - | - |
 | indicatorPosition | 指示器位置（顶部/底部）:`top` \| `bottom` | AntdIndicatorPosition | bottom | - |
 | indicatorMode | 指示器宽度模式（固定/自适应标签宽度）:`full` \| `fixed` | AntdIndicatorMode | fixed | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 
 
 ## 标签页样式(AntdTabsStyle) <a id='AntdTabsStyle'></a>
@@ -463,7 +463,7 @@ class _AntdTabsLoadingDemoStateDemo extends State<AntdTabsLoadingDemo> {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | title | 标签标题内容组件 | Widget | - | - |
-| value | 标签唯一标识（默认使用索引） | String | - | - |
+| value | 标签唯一标识（默认使用索引） | dynamic | - | - |
 | disabled | 是否禁用当前标签 | bool | - | - |
 | child | 标签页对应的内容组件 | Widget | - | - |
 

@@ -210,9 +210,6 @@ class AntdTheme {
   /// [AntdCheckbox] 样式
   final AntdStyleBuilder<AntdCheckboxStyle, AntdCheckbox>? checkboxStyle;
 
-  /// [AntdCheckList] 样式
-  final AntdStyleBuilder<AntdCheckListStyle, AntdCheckList>? checkListStyle;
-
   /// [AntdCascader] 样式
   final AntdStyleBuilder<AntdCascaderStyle, AntdCascader>? cascaderStyle;
 
@@ -318,7 +315,6 @@ class AntdTheme {
       this.dividerStyle,
       this.collapseStyle,
       this.checkboxStyle,
-      this.checkListStyle,
       this.cascaderStyle,
       this.cascaderViewStyle,
       this.cardStyle,
@@ -383,7 +379,6 @@ class AntdTheme {
     AntdStyleBuilder<AntdDividerStyle, AntdDivider>? dividerStyle,
     AntdStyleBuilder<AntdCollapseStyle, AntdCollapse>? collapseStyle,
     AntdStyleBuilder<AntdCheckboxStyle, AntdCheckbox>? checkboxStyle,
-    AntdStyleBuilder<AntdCheckListStyle, AntdCheckList>? checkListStyle,
     AntdStyleBuilder<AntdCascaderStyle, AntdCascader>? cascaderStyle,
     AntdStyleBuilder<AntdCascaderViewStyle, AntdCascaderView>?
         cascaderViewStyle,
@@ -448,7 +443,6 @@ class AntdTheme {
       dividerStyle: dividerStyle ?? this.dividerStyle,
       collapseStyle: collapseStyle ?? this.collapseStyle,
       checkboxStyle: checkboxStyle ?? this.checkboxStyle,
-      checkListStyle: checkListStyle ?? this.checkListStyle,
       cascaderStyle: cascaderStyle ?? this.cascaderStyle,
       cascaderViewStyle: cascaderViewStyle ?? this.cascaderViewStyle,
       cardStyle: cardStyle ?? this.cardStyle,

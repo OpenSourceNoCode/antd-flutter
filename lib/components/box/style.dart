@@ -49,7 +49,7 @@ enum AntdBoxLayoutMode {
 
 enum AntdVisibility { hidden, visible }
 
-enum AntdHapticFeedback { light, medium, heavy }
+enum AntdHapticFeedback { light, medium, heavy, none }
 
 ///基础样式
 ///@l [AntdBox]

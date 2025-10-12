@@ -42,7 +42,6 @@
 | dividerStyle | [AntdDivider] 样式 | AntdStyleBuilder&lt;AntdDividerStyle, AntdDivider&gt; | - | - |
 | collapseStyle | [AntdCollapse] 样式 | AntdStyleBuilder&lt;AntdCollapseStyle, AntdCollapse&gt; | - | - |
 | checkboxStyle | [AntdCheckbox] 样式 | AntdStyleBuilder&lt;AntdCheckboxStyle, AntdCheckbox&gt; | - | - |
-| checkListStyle | [AntdCheckList] 样式 | AntdStyleBuilder&lt;AntdCheckListStyle, AntdCheckList&gt; | - | - |
 | cascaderStyle | [AntdCascader] 样式 | AntdStyleBuilder&lt;AntdCascaderStyle, AntdCascader&gt; | - | - |
 | cascaderViewStyle | [AntdCascaderView] 样式 | AntdStyleBuilder&lt;AntdCascaderViewStyle, AntdCascaderView&gt; | - | - |
 | cardStyle | [AntdCard] 样式 | AntdStyleBuilder&lt;AntdCardStyle, AntdCard&gt; | - | - |

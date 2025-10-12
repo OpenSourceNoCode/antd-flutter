@@ -293,7 +293,7 @@ class AntdPopover
               size: const Size(15, 8), color: color, bluntness: 1),
         ),
         animation:
-            const AntdPopoverAnimation(duration: Duration(milliseconds: 400)));
+            const AntdPopoverAnimation(duration: Duration(milliseconds: 200)));
   }
 
   @override

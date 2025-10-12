@@ -30,7 +30,8 @@ class AntdListStyle extends AntdStyle {
       this.childStyle});
 
   /// 获取默认列表样式 [token]设计令牌 [card]是否卡片模式
-  factory AntdListStyle.defaultStyle(AntdMapToken token, bool card) {
+  factory AntdListStyle.defaultStyle(
+      AntdMapToken token, bool card, bool feedback) {
     var headerStyle = AntdBoxStyle(
         alignment: Alignment.centerLeft,
         padding: token.size.seed.vertical.marge(token.size.lg.horizontal));
@@ -42,9 +43,11 @@ class AntdListStyle extends AntdStyle {
             radius: card ? token.radius.all : null),
         headerStyle: headerStyle,
         footerStyle: headerStyle,
-        itemStyle: AntdBoxStyle(
-          feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
-        ),
+        itemStyle: feedback
+            ? AntdBoxStyle(
+                feedbackStyle: AntdBoxStyle(color: token.colorFill.tertiary),
+              )
+            : null,
         childStyle: AntdBoxStyle(
           padding: 12.vertical.marge(12.right),
           margin: 12.left,
@@ -78,34 +81,34 @@ const listItemStyle = AntdBoxStyle();
 ///@u 以列表的形式干净高效的承载文字、列表、图片、段落等。
 class AntdList<T> extends AntdScrollPositionedBase<T, AntdListStyle,
     AntdList<T>, AntdListController<T>> {
-  const AntdList({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    super.edgeThreshold,
-    super.onEdgeReached,
-    super.controller,
-    super.cacheExtent = 1.5,
-    super.cacheExtentStyle = CacheExtentStyle.viewport,
-    super.physics = const BouncingScrollPhysics(),
-    super.dragStartBehavior = DragStartBehavior.start,
-    super.scrollBehavior = const CupertinoScrollBehavior(),
-    super.vertical = true,
-    super.reversed = false,
-    super.shrinkWrap = false,
-    super.virtual = false,
-    super.fit = AntdScrollItemFit.child,
-    required super.items,
-    super.itemBuilder,
-    super.alignment,
-    super.onItemPosition,
-    super.throttle,
-    super.headers,
-    super.footers,
-    this.header,
-    this.footer,
-    this.card,
-  });
+  const AntdList(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.edgeThreshold,
+      super.onEdgeReached,
+      super.controller,
+      super.cacheExtent = 1.5,
+      super.cacheExtentStyle = CacheExtentStyle.viewport,
+      super.physics = const BouncingScrollPhysics(),
+      super.dragStartBehavior = DragStartBehavior.start,
+      super.scrollBehavior = const CupertinoScrollBehavior(),
+      super.vertical = true,
+      super.reversed = false,
+      super.shrinkWrap = false,
+      super.virtual = false,
+      super.fit = AntdScrollItemFit.child,
+      required super.items,
+      super.itemBuilder,
+      super.alignment,
+      super.onItemPosition,
+      super.throttle,
+      super.headers,
+      super.footers,
+      this.header,
+      this.footer,
+      this.card,
+      this.feedback = true});
 
   ///标题内容
   final Widget? header;
@@ -115,6 +118,9 @@ class AntdList<T> extends AntdScrollPositionedBase<T, AntdListStyle,
 
   ///卡片式列表
   final bool? card;
+
+  ///按下效果
+  final bool? feedback;
 
   @override
   State<StatefulWidget> createState() {
@@ -133,7 +139,7 @@ class AntdList<T> extends AntdScrollPositionedBase<T, AntdListStyle,
         childStyle: AntdBoxStyle(),
       );
     }
-    return AntdListStyle.defaultStyle(token, card == true);
+    return AntdListStyle.defaultStyle(token, card == true, feedback == true);
   }
 
   @override

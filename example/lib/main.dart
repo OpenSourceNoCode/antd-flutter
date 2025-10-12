@@ -21,7 +21,7 @@ class DemoInfo {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  runApp(const App());
 }
 
 /// 读取指定目录下的所有JSON文件
@@ -68,15 +68,17 @@ class _AppState extends State<App> {
         values.sort((a, b) {
           return a.comment.order.compareTo(b.comment.order);
         });
-        menus.add(Menu(group: true, title: group));
+        menus.add(Menu(group: true, name: "", title: group));
         for (var value in values) {
           menus.add(Menu(
             group: false,
+            name: value.comment.name,
             title: value.comment.title ?? "",
             path: value.comment.name,
           ));
 
           panels[value.comment.name] = SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: buildDemoBlocks(value.demos, value.comment),
           );
         }

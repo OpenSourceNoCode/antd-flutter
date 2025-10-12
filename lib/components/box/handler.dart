@@ -19,25 +19,25 @@ void handleHapticFeedback(AntdHapticFeedback? hapticFeedback) {
 
 class AntdTapOptions {
   /// 点击测试行为（决定组件如何响应命中测试，如透明区域是否可点击）
-  final HitTestBehavior behavior;
+  final HitTestBehavior? behavior;
 
   /// 触摸滑动阈值（单位：逻辑像素，触摸移动超过该距离则不再视为点击）
-  final double touchSlop;
+  final double? touchSlop;
 
   /// 双击事件的时间窗口（单位：毫秒，两次点击间隔小于该值视为双击）
-  final int doubleTapTimeout;
+  final int? doubleTapTimeout;
 
   /// 长按触发时间（单位：毫秒，按压持续时间超过该值触发长按事件）
-  final int longPressTimeout;
+  final int? longPressTimeout;
 
   /// 当使用双击和长按以及穿透是否触发 tap
-  final bool alwaysTriggerTap;
+  final bool? alwaysTriggerTap;
 
   /// 是否允许事件坐标偏移（用于处理触摸点与渲染位置偏差的场景）
-  final bool allowOffset;
+  final bool? allowOffset;
 
   /// 是否禁用所有手势交互（true 时组件将不会响应任何手势）
-  final bool disabled;
+  final bool? disabled;
 
   /// 事件节流时长（避免高频事件触发，如限制滚动事件的触发频率）
   final Duration? throttle;
@@ -46,27 +46,27 @@ class AntdTapOptions {
   final Duration? debounce;
 
   /// 反馈的时长(反馈样式发生时保持的时间)
-  final Duration feedbackDuration;
+  final Duration? feedbackDuration;
 
   /// 触觉反馈类型（用户交互时设备的震动反馈强度，如 light/medium/heavy）
   final AntdHapticFeedback? hapticFeedback;
 
   ///一直接收触摸
-  final bool alwaysReceiveTap;
+  final bool? alwaysReceiveTap;
 
   const AntdTapOptions(
-      {this.behavior = HitTestBehavior.deferToChild,
-      this.touchSlop = 8.0,
-      this.doubleTapTimeout = 300,
-      this.longPressTimeout = 200,
-      this.alwaysTriggerTap = false,
-      this.allowOffset = false,
-      this.disabled = false,
+      {this.behavior,
+      this.touchSlop,
+      this.doubleTapTimeout,
+      this.longPressTimeout,
+      this.alwaysTriggerTap,
+      this.allowOffset,
+      this.disabled,
       this.throttle,
       this.debounce,
       this.hapticFeedback,
-      this.feedbackDuration = const Duration(milliseconds: 200),
-      this.alwaysReceiveTap = false});
+      this.feedbackDuration,
+      this.alwaysReceiveTap});
 
   AntdTapOptions copyFrom(AntdTapOptions? options) {
     return copyWith(
@@ -248,14 +248,15 @@ class AntdTapHandler {
       _longPressHandler != null;
 
   bool _checkPointerPremiss(PointerEvent event) {
-    if (options.alwaysReceiveTap) {
+    if (options.alwaysReceiveTap == true) {
+      registry?.register(event);
       return true;
     }
     return registry?.register(event) == true;
   }
 
   void handlePointerDown(PointerDownEvent details) {
-    if (options.disabled) return;
+    if (options.disabled == true) return;
     if (!_checkPointerPremiss(details)) {
       return;
     }
@@ -266,12 +267,13 @@ class AntdTapHandler {
 
     if (_longPressHandler != null) {
       _longPressTimer = Timer(
-          Duration(milliseconds: options.longPressTimeout), _handleLongPress);
+          Duration(milliseconds: options.longPressTimeout ?? 200),
+          _handleLongPress);
     }
   }
 
   void handlePointerUp(PointerUpEvent details) {
-    if (options.disabled) {
+    if (options.disabled == true) {
       return;
     }
 
@@ -290,15 +292,15 @@ class AntdTapHandler {
   }
 
   bool _shouldAllowTap() {
-    if (!options.allowOffset) {
-      if (_pointerDownPosition == null && _lastPointerDownPosition != null) {
+    if (options.allowOffset != false) {
+      if (_pointerDownPosition == null) {
         return false;
       }
       if (_lastPointerDownPosition == null) {
         return true;
       }
       final offset = _lastPointerDownPosition! - _pointerDownPosition!;
-      return offset.distance <= options.touchSlop;
+      return offset.distance <= (options.touchSlop ?? 8);
     }
     return true;
   }
@@ -314,12 +316,15 @@ class AntdTapHandler {
       _triggerTap();
       return;
     }
+    if (options.alwaysTriggerTap == true) {
+      _triggerTap();
+    }
 
     final now = DateTime.now();
 
     final isDoubleTap = _lastTapTime != null &&
         now.difference(_lastTapTime!) <
-            Duration(milliseconds: options.doubleTapTimeout);
+            Duration(milliseconds: options.doubleTapTimeout ?? 300);
 
     _consecutiveTaps = isDoubleTap ? _consecutiveTaps + 1 : 1;
     _lastTapTime = now;
@@ -332,7 +337,7 @@ class AntdTapHandler {
     } else if (_tapHandler != null) {
       _tapTimer?.cancel();
       _tapTimer = Timer(
-        Duration(milliseconds: options.doubleTapTimeout),
+        Duration(milliseconds: options.doubleTapTimeout ?? 300),
         () {
           if (_consecutiveTaps == 1 && !_longPressTriggered) {
             _triggerTap();
@@ -344,14 +349,15 @@ class AntdTapHandler {
   }
 
   void _triggerTap() {
-    if (options.disabled || _longPressTriggered) {
+    if (options.disabled == true ||
+        (_longPressTriggered && options.alwaysTriggerTap != true)) {
       return;
     }
     _executeCallback(_tapHandler);
   }
 
   void _triggerDoubleTap() {
-    if (options.disabled || _longPressTriggered) return;
+    if (options.disabled == true || _longPressTriggered) return;
     _executeCallback(_doubleTapHandler);
   }
 
@@ -368,9 +374,6 @@ class AntdTapHandler {
 
     _throttleDebouncer.run(() {
       handleHapticFeedback(options.hapticFeedback);
-      if (callback != _tapHandler && options.alwaysTriggerTap) {
-        _tapHandler?.call();
-      }
       callback();
     });
   }
@@ -395,7 +398,8 @@ class AntdTapHandler {
     _protectionTimer?.cancel();
     _inProtectionPeriod = true;
 
-    _protectionTimer = Timer(options.feedbackDuration, () {
+    _protectionTimer = Timer(
+        options.feedbackDuration ?? const Duration(milliseconds: 200), () {
       _inProtectionPeriod = false;
       if (!_isTouching) {
         onTouchStateChange?.call(false);
@@ -423,7 +427,7 @@ class AntdTapHandler {
 
   Widget wrap(Widget child) {
     return Listener(
-      behavior: options.behavior,
+      behavior: options.behavior ?? HitTestBehavior.deferToChild,
       onPointerDown: handlePointerDown,
       onPointerUp: handlePointerUp,
       onPointerMove: (PointerMoveEvent event) {

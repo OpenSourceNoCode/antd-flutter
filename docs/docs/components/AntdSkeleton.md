@@ -17,28 +17,31 @@ subtitle: 骨架屏
 </div>
 <div style='flex: 1;'>
 
-### 基础使用
+### 动画
 
-不开启动画
 
 ```dart
-class AntdSkeletonDemo extends StatelessWidget {
-  const AntdSkeletonDemo({super.key});
+class AntdSkeletonAnimatedDemo extends StatelessWidget {
+  const AntdSkeletonAnimatedDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [AntdSkeleton(animated: false)]);
+    return const DemoWrapper(child: [
+      DemoTitle(
+          outline: false, title: "无动画", child: AntdSkeleton(animated: false)),
+      DemoTitle(title: "有动画", outline: false, child: AntdSkeleton())
+    ]);
   }
 }
 
 ```
 
-### 动画和标题行
+### 标题行
 
 动画使用
 
 ```dart
-class AntdSkeletonAnimatedDemo extends StatelessWidget {
-  const AntdSkeletonAnimatedDemo({super.key});
+class AntdSkeletonTitleDemo extends StatelessWidget {
+  const AntdSkeletonTitleDemo({super.key});
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(
@@ -58,6 +61,53 @@ class AntdSkeletonRowsDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(
         child: [AntdSkeleton(animated: true, title: true, rows: 6)]);
+  }
+}
+
+```
+
+### 受控loading
+
+
+```dart
+class _AntdSkeletonSpinDemoStateDemo extends State<AntdSkeletonSpinDemo> {
+  var spin = false;
+  Widget? child = const AntdBox(
+      style:
+          AntdBoxStyle(height: 100, width: double.infinity, color: Colors.red));
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdButton(
+          onTap: () {
+            setState(() {
+              spin = !spin;
+            });
+          },
+          child: Text("${spin ? '停止' : '开始'}加载")),
+      DemoTitle(
+          outline: false,
+          title: "使用spin控制加载中",
+          child: AntdSkeleton(
+              animated: true, title: true, spin: spin, child: child)),
+      AntdButton(
+          onTap: () async {
+            setState(() {
+              child = null;
+            });
+            await Future.delayed(const Duration(seconds: 3));
+            setState(() {
+              child = const AntdBox(
+                  style: AntdBoxStyle(
+                      height: 100, width: double.infinity, color: Colors.red));
+            });
+          },
+          child: const Text("点我3s后加载出child")),
+      DemoTitle(
+          outline: false,
+          title: "当spin为空时，使用child控制加载中",
+          child: AntdSkeleton(animated: true, title: true, child: child))
+    ]);
   }
 }
 
@@ -178,6 +228,8 @@ class AntdSkeletonRowsDemo extends StatelessWidget {
 | title | 展示标题 | bool | true | - |
 | rows | 行数 | int | 3 | - |
 | duration | 动画周期 | Duration | const Duration(milliseconds: 1200) | - |
+| spin | 加载中 | bool | - | - |
+| child | 内容 | Widget | - | - |
 
 
 ## 骨架屏样式(AntdSkeletonStyle) <a id='AntdSkeletonStyle'></a>
@@ -185,6 +237,7 @@ class AntdSkeletonRowsDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
+| wrapStyle | 上下间距 | [AntdWrapStyle](../components/antd-wrap/#AntdWrapStyle) | - | - |
 | bodyStyle | 主体样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | titleStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | rowStyle | 内容样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |

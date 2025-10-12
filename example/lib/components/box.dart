@@ -670,19 +670,19 @@ class AntdStylCustomDemo extends StatelessWidget {
                   color: token.colorPrimary),
               child: Column(
                 children: [
-                  AntdBox(
+                  const AntdBox(
                     child: Text("通过AntdStyleProvider统一设置"),
                   ),
                   AntdBox(
                     style: AntdBoxStyle(margin: 10.top),
-                    child: Text("通过AntdStyleProvider统一设置"),
+                    child: const Text("通过AntdStyleProvider统一设置"),
                   ),
                 ],
               )),
           AntdStyleBuilderProvider<AntdBoxStyle, AntdBox>(
               builder: (context, box, style, token) {
                 return AntdBoxStyle(
-                    height: 100,
+                    height: 150,
                     width: double.infinity,
                     alignment: Alignment.center,
                     textStyle: token.font.lg.copyWith(color: token.colorWhite),

@@ -38,7 +38,7 @@ class AntdIconStyle extends AntdStyle {
   /// 颜色混合模式
   final BlendMode? blendMode;
 
-  /// 图标容器样式
+  /// 最外层样式
   final AntdBoxStyle? bodyStyle;
 
   ///布局样式
@@ -85,6 +85,9 @@ class AntdIconStyle extends AntdStyle {
   }
 }
 
+/// iconWrap
+/// @d child能自动判断是不是[AntdIcon],不是[AntdIcon]的会自动使用[AntdIcon]包裹
+/// @l [AntdIcon]
 class AntdIconWrap extends StatelessWidget {
   const AntdIconWrap({super.key, this.child, this.style});
 
@@ -98,7 +101,7 @@ class AntdIconWrap extends StatelessWidget {
     }
 
     return AntdStyleProvider<AntdIconStyle>(
-        style: style,
+        style: style.merge(AntdStyleProvider.maybeOf<AntdIconStyle>(context)),
         child: child is AntdIcon
             ? child!
             : AntdIcon(
@@ -122,6 +125,9 @@ class AntdIcon extends AntdComponent<AntdIconStyle, AntdIcon> {
   ///child和icon按行还是按列布局
   final bool row;
 
+  ///反转图标和child的位置
+  final bool reversed;
+
   ///触摸后的回调
   final VoidCallback? onTap;
 
@@ -132,38 +138,40 @@ class AntdIcon extends AntdComponent<AntdIconStyle, AntdIcon> {
       this.icon,
       this.child,
       this.row = true,
+      this.reversed = false,
       this.onTap});
 
   @override
   Widget render(BuildContext context, AntdIconStyle style) {
+    var list = [
+      if (icon != null)
+        Icon(
+          icon,
+          size: style.size,
+          color: style.color,
+          fill: style.fill,
+          weight: style.weight,
+          grade: style.grade,
+          opticalSize: style.opticalSize,
+          shadows: style.shadows,
+          semanticLabel: style.semanticLabel,
+          textDirection: style.textDirection,
+          applyTextScaling: style.applyTextScaling,
+          blendMode: style.blendMode,
+        ),
+      if (child != null)
+        AntdBox(
+          style: style.childStyle,
+          child: child,
+        ),
+    ];
     return AntdBox(
       style: style.bodyStyle,
       onTap: onTap,
       child: AntdFlex(
           direction: row ? Axis.horizontal : Axis.vertical,
           style: style.flexStyle,
-          children: [
-            if (child != null)
-              AntdBox(
-                style: style.childStyle,
-                child: child,
-              ),
-            if (icon != null)
-              Icon(
-                icon,
-                size: style.size,
-                color: style.color,
-                fill: style.fill,
-                weight: style.weight,
-                grade: style.grade,
-                opticalSize: style.opticalSize,
-                shadows: style.shadows,
-                semanticLabel: style.semanticLabel,
-                textDirection: style.textDirection,
-                applyTextScaling: style.applyTextScaling,
-                blendMode: style.blendMode,
-              )
-          ]),
+          children: reversed ? list.reversed.toList() : list),
     );
   }
 

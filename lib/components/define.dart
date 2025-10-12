@@ -229,17 +229,21 @@ abstract class AntdState<Style extends AntdStyle,
         WidgetType extends AntdStateComponent<Style, WidgetType>>
     extends State<WidgetType> {
   @protected
-  late Style style = widget.getStyle(context);
+  late Style style;
   @protected
-  late AntdTheme theme = AntdTheme.of(context);
+  late AntdTheme theme;
   @protected
-  late AntdMapToken token = AntdTheme.ofToken(context);
+  late AntdMapToken token;
 
   @override
   @protected
   @mustCallSuper
   void didChangeDependencies() {
     super.didChangeDependencies();
+    style = widget.getStyle(context);
+    theme = AntdTheme.of(context);
+    token = AntdTheme.ofToken(context);
+
     updateDependentValues(null);
   }
 
@@ -248,17 +252,13 @@ abstract class AntdState<Style extends AntdStyle,
   @mustCallSuper
   void didUpdateWidget(covariant WidgetType oldWidget) {
     super.didUpdateWidget(oldWidget);
+    style = widget.getStyle(context);
     updateDependentValues(oldWidget);
   }
 
   @protected
-  @protected
   @mustCallSuper
-  void updateDependentValues(covariant WidgetType? oldWidget) {
-    style = widget.getStyle(context);
-    theme = AntdTheme.of(context);
-    token = AntdTheme.ofToken(context);
-  }
+  void updateDependentValues(covariant WidgetType? oldWidget) {}
 
   @override
   @protected

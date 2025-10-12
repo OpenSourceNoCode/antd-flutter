@@ -64,7 +64,7 @@ class AntdSwitchStyle extends AntdStyle {
   }
 }
 
-typedef AntdSwitchChange = void Function(bool value);
+typedef AntdSwitchChange = void Function(dynamic value);
 
 ///@t 开关
 ///@g 信息录入
@@ -72,7 +72,7 @@ typedef AntdSwitchChange = void Function(bool value);
 ///@d 开关选择器。
 ///@u 需要表示开关状态/两种状态之间的切换时
 class AntdSwitch
-    extends AntdFormItemComponent<bool, AntdSwitchStyle, AntdSwitch> {
+    extends AntdFormItemComponent<dynamic, AntdSwitchStyle, AntdSwitch> {
   ///选中时的内容
   final Widget? content;
 
@@ -82,22 +82,21 @@ class AntdSwitch
   ///动画周期
   final Duration duration;
 
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
-
   const AntdSwitch(
       {super.key,
       super.style,
       super.styleBuilder,
       super.disabled,
       super.readOnly,
+      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
       this.content,
       this.activeContent,
-      this.duration = const Duration(milliseconds: 200),
-      this.hapticFeedback = AntdHapticFeedback.light});
+      this.duration = const Duration(milliseconds: 200)});
 
   @override
   AntdSwitchStyle getDefaultStyle(
@@ -155,12 +154,11 @@ class AntdSwitch
   }
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 }
 
-class _AntdSwitchState
-    extends AntdFormItemComponentState<bool, AntdSwitchStyle, AntdSwitch>
-    with SingleTickerProviderStateMixin {
+class _AntdSwitchState extends AntdFormItemSelectComponentState<dynamic,
+    AntdSwitchStyle, AntdSwitch> with SingleTickerProviderStateMixin {
   double trackWidth = 0;
   double thumbWidth = 0;
   double contentWidth = 0;
@@ -187,15 +185,15 @@ class _AntdSwitchState
   }
 
   void _startAnimation() {
-    if (value == true) {
+    if (select) {
       _controller.forward();
     } else {
       _controller.reverse();
     }
   }
 
-  void _handlerAnimation(bool init) {
-    if (init) {
+  void _handlerAnimation(bool reset) {
+    if (reset) {
       _controller.reset();
     }
     _startAnimation();
@@ -214,11 +212,11 @@ class _AntdSwitchState
   Widget? buildContent() {
     var activeContent = widget.activeContent ?? style.activeContent;
     var content = widget.content ?? style.content;
-    return _get(value == true, activeContent, content);
+    return _get(activeContent, content);
   }
 
-  T? _get<T>(bool open, T? activeStyle, T? style) {
-    if (open) {
+  T? _get<T>(T? activeStyle, T? style) {
+    if (select) {
       if (_animation.value > 0.5) {
         return activeStyle;
       } else {
@@ -234,19 +232,15 @@ class _AntdSwitchState
 
   @override
   Widget render(BuildContext context) {
-    var open = value == true;
-
     return AntdBox(
       style: style.bodyStyle,
-      disabled: widget.disabled,
+      disabled: disabled,
       onTap: () {
-        changeValue(() {
-          handleHapticFeedback(widget.hapticFeedback);
+        if (switchValue()) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _startAnimation();
           });
-          return !open;
-        });
+        }
       },
       child: AnimatedBuilder(
         animation: _animation,
@@ -255,7 +249,7 @@ class _AntdSwitchState
               (trackWidth - thumbWidth);
 
           return AntdBox(
-            style: _get(open, style.activeTrackStyle, style.trackStyle),
+            style: _get(style.activeTrackStyle, style.trackStyle),
             onLayout: (context) {
               if (context.hasSizeChange) {
                 var init = trackWidth == 0;
@@ -280,8 +274,7 @@ class _AntdSwitchState
                         _handlerContentTrackWidth();
                       }
                     },
-                    style: _get(
-                        open, style.activeContentStyle, style.contentStyle),
+                    style: _get(style.activeContentStyle, style.contentStyle),
                     child: buildContent(),
                   ),
                 ),
@@ -295,7 +288,7 @@ class _AntdSwitchState
                         _handlerAnimation(init);
                       }
                     },
-                    style: _get(open, style.activeThumbStyle, style.thumbStyle),
+                    style: _get(style.activeThumbStyle, style.thumbStyle),
                   ),
                 ),
               ],

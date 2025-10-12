@@ -145,7 +145,7 @@ class AntdTabsTabOnChangeDemo extends StatelessWidget {
                   color: getRandomColor(),
                   padding: 12.all,
                   textStyle: const TextStyle(color: Colors.white)),
-              child: Text("我是Tab$i的Child，index:${i}"),
+              child: Text("我是Tab$i的Child，index:$i"),
             );
           }))
     ]);
@@ -289,7 +289,7 @@ class _AntdTabsPanelDemoStateDemo extends State<AntdTabsPanelDemo> {
                           style: AntdBoxStyle(
                               color: getRandomColor(),
                               alignment: Alignment.center),
-                          child: Text("我是Tab$i的child,index:${i}"),
+                          child: Text("我是Tab$i的child,index:$i"),
                         ))),
           )
         ],
@@ -368,7 +368,7 @@ class _AntdTabsLoadingDemoStateDemo extends State<AntdTabsLoadingDemo> {
                       spinning: _loading.contains(i),
                       text: const Text("正在加载中"),
                       child: _loading.contains(i)
-                          ? AntdBox()
+                          ? const AntdBox()
                           : Center(
                               child: child,
                             ),

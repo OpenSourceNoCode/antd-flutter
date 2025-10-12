@@ -129,6 +129,7 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
             margin: token.size.xl.right,
             options: const AntdTapOptions(alwaysReceiveTap: true)),
         backRowStyle: const AntdFlexStyle(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             expanded: true),
@@ -154,6 +155,7 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
     var leftRow = AntdRow(
       style: style.backRowStyle,
       children: [
+        if (left != null) left!,
         if (backIcon != null)
           AntdBox(
             options: const AntdTapOptions(alwaysReceiveTap: true),
@@ -169,7 +171,6 @@ class AntdNavBar extends AntdComponent<AntdNavBarStyle, AntdNavBar> {
             style: style.backStyle,
             child: back,
           ),
-        if (left != null) left!
       ],
     );
 

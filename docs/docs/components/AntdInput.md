@@ -164,6 +164,144 @@ class AntdInputFocusTextDemo extends StatelessWidget {
 
 ```
 
+### 与表单配合
+
+
+```dart
+class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
+  String? value;
+  String? value1;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdInput的值",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "input",
+                    builder: (ctx) {
+                      return const AntdInput(
+                          minLines: 2, placeholder: Text("请输入"));
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"input": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "input",
+                        builder: (ctx) {
+                          return const AntdInput(
+                              minLines: 2, placeholder: Text("请输入"));
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdInput覆盖了",
+          child: AntdForm(
+              initialValues: {"input": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "input",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdInput(
+                              disabled: false, placeholder: Text("请输入"));
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"input": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "input",
+                        builder: (ctx) {
+                          return const AntdInput(
+                              autoCollect: false, placeholder: Text("请输入"));
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = "我是外部设置的值";
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"input": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "input",
+                        builder: (ctx) {
+                          return AntdInput(
+                              value: value,
+                              placeholder: Text("请输入"),
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = "我是外部设置的值";
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"input": '来自form的默认值'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "input",
+                        builder: (ctx) {
+                          return AntdInput(
+                              value: value1,
+                              placeholder: Text("请输入"),
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
+    ]);
+  }
+}
+
+```
+
 </div>
 </div>
 
@@ -277,14 +415,15 @@ class AntdInputFocusTextDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdInputStyle, AntdInput&gt; | - | - |
 | focusNode | 控制输入框的焦点状态 | FocusNode | - | - |
 | clearable | 是否显示清除按钮（点击会清空输入内容） | bool | true | - |
-| value | 输入框的初始值 | String | - | - |
-| disabled | 是否禁用输入框 | bool | false | - |
-| onChange | 输入内容变化时的回调函数 | ValueChanged&lt;String&gt; | - | - |
+| defaultValue | 默认值 | String | - | - |
+| value | 值 | String | - | - |
+| disabled | 禁用 | bool | false | - |
+| onChange | 变更事件 | ValueChanged&lt;String&gt; | - | - |
 | onEditingComplete | 编辑完成时的回调（通常点击键盘完成/下一步时触发） | VoidCallback | - | - |
 | onSubmitted | 文本提交时的回调（通常点击键盘发送/搜索时触发） | ValueChanged&lt;String&gt; | - | - |
 | onClear | 点击清除按钮时的回调函数 | VoidCallback | - | - |
 | placeholder | 输入框为空时显示的提示文本 | Widget | - | - |
-| readOnly | 是否为只读模式（可选中文本但不可编辑） | bool | false | - |
+| readOnly | 只读 | bool | false | - |
 | controller | 输入框的控制器，用于程序化控制文本内容 | AntdInputController | - | - |
 | textAlign | 文本对齐方式（左/中/右） | TextAlign | start | - |
 | obscureIcon | 是否显示密码可见性切换图标（仅当obscureText=true时有效） | bool | true | - |
@@ -307,9 +446,11 @@ class AntdInputFocusTextDemo extends StatelessWidget {
 | onAppPrivateCommand | 处理来自键盘的私有命令（如第三方键盘扩展功能） | AppPrivateCommandCallback | - | - |
 | dragStartBehavior | 拖动行为的起始方式（如立即响应或延迟响应） | DragStartBehavior | start | - |
 | scrollController | 滚动控制器（用于控制多行文本的滚动位置） | ScrollController | - | - |
-| scrollPhysics | 滚动物理效果（如滚动边界行为） | ScrollPhysics | const AlwaysScrollableScrollPhysics() | - |
+| scrollPhysics | 滚动物理效果（如滚动边界行为） | ScrollPhysics | const NeverScrollableScrollPhysics() | - |
 | clipBehavior | 内容裁剪方式（如抗锯齿裁剪） | Clip | hardEdge | - |
 | onFocus | 焦点事件 | AntdOnFocus | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | false | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 
 
 ## 输入框光标样式配置(AntInputCursorStyle) <a id='AntInputCursorStyle'></a>

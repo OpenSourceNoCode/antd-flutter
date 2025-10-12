@@ -17,38 +17,6 @@ subtitle: 复选框
 </div>
 <div style='flex: 1;'>
 
-### 受控模式
-
-
-```dart
-class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
-  var check = false;
-  @override
-  Widget build(BuildContext context) {
-    return DemoWrapper(child: [
-      AntdRadio(value: check, extra: const Text("受控模式")),
-      Row(children: [
-        AntdButton(
-            child: const Text("选中"),
-            onTap: () {
-              setState(() {
-                check = true;
-              });
-            }),
-        AntdButton(
-            child: const Text("取消"),
-            onTap: () {
-              setState(() {
-                check = false;
-              });
-            })
-      ])
-    ]);
-  }
-}
-
-```
-
 ### 基础使用
 
 
@@ -60,6 +28,7 @@ class AntdCheckboxDemo extends StatelessWidget {
     return DemoWrapper(child: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         AntdCheckbox(
+            defaultValue: true,
             onChange: (value) {
               AntdToast.show("变更为:$value");
             },
@@ -84,15 +53,15 @@ class _AntdCheckboxIndeterminateDemoStateDemo
     return DemoWrapper(child: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         AntdCheckbox(
-            value: true,
+            defaultValue: true,
             indeterminate: values.length != 3,
             extra: const Text("半选")),
         ...(List.generate(3, (i) {
           return AntdCheckbox(
-              value: values.contains(i),
+              defaultValue: i,
               onChange: (check) {
                 setState(() {
-                  if (check == true) {
+                  if (check != null) {
                     values.add(i);
                   } else {
                     values.remove(i);
@@ -119,7 +88,7 @@ class AntdCheckboxCustomDemo extends StatelessWidget {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(child: [
       AntdCheckbox(
-          value: true,
+          defaultValue: true,
           style: AntdCheckboxStyle(
               icon: const AntdIcon(icon: AntdIcons.smile),
               activeIcon: AntdIcon(
@@ -137,29 +106,32 @@ class AntdCheckboxCustomDemo extends StatelessWidget {
 
 ```
 
-### 列表选择
+### 受控模式
 
 
 ```dart
-class _AntdCheckboxListDemoStateDemo extends State<AntdCheckboxListDemo> {
-  var values = <int>[];
+class _AntdCheckboxValueDemoStateDemo extends State<AntdCheckboxValueDemo> {
+  bool? check = false;
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
-      AntdList(
-          shrinkWrap: true,
-          items: List.generate(5, (i) {
-            return AntdCheckbox(
-                value: values.contains(i),
-                onChange: (check) {
-                  if (check == true) {
-                    values.add(i);
-                  } else {
-                    values.remove(i);
-                  }
-                },
-                extra: Text("内容${i}"));
-          }))
+    return DemoWrapper(child: [
+      AntdCheckbox(value: check, extra: const Text("受控模式")),
+      Row(children: [
+        AntdButton(
+            child: const Text("选中"),
+            onTap: () {
+              setState(() {
+                check = true;
+              });
+            }),
+        AntdButton(
+            child: const Text("取消"),
+            onTap: () {
+              setState(() {
+                check = null;
+              });
+            })
+      ])
     ]);
   }
 }
@@ -177,6 +149,162 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdCheckbox(disabled: true, extra: Text("禁用")),
       AntdCheckbox(readOnly: true, value: true, extra: Text("只读"))
+    ]);
+  }
+}
+
+```
+
+### 选择组
+
+
+```dart
+class AntdCheckboxGroupDemo extends StatelessWidget {
+  const AntdCheckboxGroupDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdCheckboxGroup(
+          items: const [
+            AntdCheckbox(extra: Text("1"), defaultValue: 1),
+            AntdCheckbox(extra: Text("2"), defaultValue: 2),
+            AntdCheckbox(extra: Text("3"), defaultValue: 3)
+          ],
+          onChange: (values) {
+            AntdToast.show(jsonEncode(values));
+          })
+    ]);
+  }
+}
+
+```
+
+### 与表单配合
+
+
+```dart
+class _AntdCheckboxFormDemoStateDemo extends State<AntdCheckboxFormDemo> {
+  String? value;
+  String? value1;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdCheckbox的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "checkbox",
+                    builder: (ctx) {
+                      return const AntdCheckbox(defaultValue: "1");
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"checkbox": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "checkbox",
+                        builder: (ctx) {
+                          return const AntdCheckbox();
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdCheckbox覆盖了",
+          child: AntdForm(
+              initialValues: {"checkbox": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "checkbox",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdCheckbox(disabled: false);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"checkbox": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "checkbox",
+                        builder: (ctx) {
+                          return const AntdCheckbox(autoCollect: false);
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = value == null ? "1" : null;
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"checkbox": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "checkbox",
+                        builder: (ctx) {
+                          return AntdCheckbox(
+                              value: value,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = value1 == null ? "1" : null;
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"checkbox": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "checkbox",
+                        builder: (ctx) {
+                          return AntdCheckbox(
+                              value: value1,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
     ]);
   }
 }
@@ -296,9 +424,12 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCheckboxStyle, AntdCheckbox&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| value | 值 | bool | - | - |
+| defaultValue | 默认值 | dynamic | - | - |
+| value | 值 | dynamic | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
-| onChange | 变更事件 | ValueChanged&lt;bool&gt; | - | - |
+| onChange | 变更事件 | ValueChanged&lt;dynamic&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | indeterminate | 半选 | bool | - | - |
 | extra | 内容 | Widget | - | - |
 
@@ -318,5 +449,21 @@ class AntdCheckboxDisabledDemo extends StatelessWidget {
 | disableIconStyle | 禁用图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | disableIcon | 禁用状态下显示的图标组件 | Widget | - | - |
 | rowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+
+## 多选选择组(AntdCheckboxGroup) <a id='AntdCheckboxGroup'></a>
+
+| 属性名 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| key | - | Key | - | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | T | - | - |
+| value | 值 | T | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;T&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| items | 列表项 | List&lt;AntdCheckbox&gt; | - | - |
+| builder | 自定义构建 默认使用List | Widget? Function(List&lt;AntdCheckbox&gt;? items) | - | - |
 
 

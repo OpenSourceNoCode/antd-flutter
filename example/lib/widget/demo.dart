@@ -289,3 +289,55 @@ class DemoWrapper extends AntdComponent<AntdBoxStyle, DemoWrapper> {
     return this;
   }
 }
+
+class DemoTitle extends StatelessWidget {
+  final Widget child;
+
+  final String? title;
+
+  final Widget? extra;
+
+  final bool outline;
+
+  const DemoTitle(
+      {super.key,
+      this.title,
+      this.extra,
+      required this.child,
+      this.outline = true});
+
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null)
+          AntdBox(
+            style: AntdBoxStyle(
+                margin: 8.horizontal,
+                textStyle:
+                    token.font.sm.copyWith(color: token.colorText.secondary)),
+            child: Text(title!),
+          ),
+        if (extra != null)
+          AntdBox(
+            style: AntdBoxStyle(
+                margin:
+                    title != null ? 8.horizontal.marge(4.top) : 8.horizontal),
+            child: extra,
+          ),
+        AntdBox(
+          style: AntdBoxStyle(
+              margin: 8.top, padding: outline ? 8.horizontal : 0.all),
+          child: AntdBox(
+            style: AntdBoxStyle(
+                color: outline ? token.colorFill : null,
+                radius: token.radius.lg.all),
+            child: child,
+          ),
+        )
+      ],
+    );
+  }
+}

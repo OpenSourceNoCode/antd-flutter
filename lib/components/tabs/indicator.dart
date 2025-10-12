@@ -152,7 +152,7 @@ class _AntdTabsIndicatorState<T extends AntdTab>
   void updateDependentValues(covariant AntdTabsIndicator<T>? oldWidget) {
     super.updateDependentValues(oldWidget);
     innerIndicatorController._indicatorMode = widget.indicatorMode;
-    innerIndicatorController._fixedWidth = style.width;
+
     innerIndicatorController._sliverListController =
         widget.sliverListController;
     if (innerIndicatorController.moveIndex != null) {

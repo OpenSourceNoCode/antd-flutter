@@ -17,6 +17,33 @@ tag: 5.0.7-alpha.1
 - 修复了`AntdAction`的样式优先级问题
 - `AntdSwipeAction`的动画更新
 
+## 5.0.7-alpha.1
+
+`2025-10-12`
+
+### 本次更新主要统一了可输入组件的表单模型，优化了表单性能，并将所有支持值的组件类型改为 dynamic。包含大量示例和文档完善。
+
+✨ 新功能
+
+- 表单自动收集支持：`AntdCascaderView`、`AntdInput`、`AntdTextArea`、`AntdSegmented`、`AntdSlider`、`AntdSwitch`、`AntdCheckList`、`AntdRadio`、`AntdCheckbox`、`AntdSelector`、`AntdRadioGroup` 和 `AntdCheckboxGroup` 现在支持自动表单数据收集
+- 动态属性：`AntdRadioGroup` 和 `AntdCheckboxGroup` 均支持动态属性
+- 触摸反馈控制：`AntdList` 新增 `feedback` 属性，可直接禁用触摸反馈样式
+- 受控加载：`AntdSkeleton` 新增 `spin` 和 `child` 属性，便于控制加载状态
+- 滑块增强：`AntdSliderBarItem` 新增 `onActive` 事件和动态 value 属性
+- 触感反馈选项：`AntdHapticFeedback` 新增 `none` 属性
+
+⚙️ 改进
+
+- 滚动行为：将 AntdScrollView 中的 edgeThreshold 默认值修复为 0.2
+- 动画修复：解决了 AntdSkeleton 动画覆盖圆角的问题
+
+🐛 问题修复
+
+- 滑块定位：修复了 `AntdSliderBar` 滚动视图位置不正确的问题
+- 点击优先级：修正了 `AntdTapOptions` 优先级问题
+- 导航布局：修复了 `AntdNavBar` 的 `left` 属性展示位置不正确的问题
+- 动态更新：解决了 `AntdSegmented` 不能动态更新的问题
+
 ## 5.0.6-alpha.1
 
 `2025-09-23`

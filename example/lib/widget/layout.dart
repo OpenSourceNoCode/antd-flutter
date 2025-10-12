@@ -123,11 +123,17 @@ class _LayoutState extends State<Layout> {
 class Menu {
   final bool group;
 
+  final String name;
+
   final String title;
 
   final String? path;
 
-  const Menu({required this.group, required this.title, this.path});
+  const Menu(
+      {required this.group,
+      required this.name,
+      required this.title,
+      this.path});
 }
 
 class MenuPopup extends StatelessWidget {
@@ -154,7 +160,18 @@ class MenuPopup extends StatelessWidget {
           textStyle: menu.group
               ? token.font.xs.copyWith(color: token.colorText.quaternary)
               : token.font.ms),
-      child: Text(menu.title),
+      child: Row(
+        children: [
+          Text(menu.title),
+          AntdBox(
+            style: AntdBoxStyle(margin: 8.left),
+            child: Text(
+              menu.name,
+              style: TextStyle(color: token.colorText.tertiary),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -167,7 +184,7 @@ class MenuPopup extends StatelessWidget {
         AntdLayer.open(AntdPopup(
           position: AntdPosition.right,
           style: AntdPopupStyle(
-              bodyStyle: AntdBoxStyle(width: 0.4 * mediaQueryData.size.width)),
+              bodyStyle: AntdBoxStyle(width: 0.7 * mediaQueryData.size.width)),
           dismissOnMaskTap: true,
           showMask: true,
           builder: (close, ctx) {

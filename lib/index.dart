@@ -16,7 +16,6 @@ export 'components/card/index.dart';
 export 'components/cascader/index.dart';
 export 'components/cascader/view.dart';
 export 'components/check/box.dart';
-export 'components/check/item.dart';
 export 'components/check/list.dart';
 export 'components/collapse/index.dart';
 export 'components/define.dart';

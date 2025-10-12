@@ -182,7 +182,7 @@ class _AntdSwipeActionControllerDemoStateDemo
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorWhite)),
-              content: Text("免打扰"),
+              content: const Text("免打扰"),
               confirmContent: const Text(
                 "确定免打扰",
                 overflow: TextOverflow.ellipsis,
@@ -191,7 +191,7 @@ class _AntdSwipeActionControllerDemoStateDemo
             AntdSwipeItem(
               style: AntdSwipeItemStyle(
                   style: AntdBoxStyle(color: token.colorError)),
-              content: Text("删除"),
+              content: const Text("删除"),
               confirmContent: const Text(
                 "确定删除",
                 overflow: TextOverflow.ellipsis,

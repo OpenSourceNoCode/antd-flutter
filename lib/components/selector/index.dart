@@ -1,5 +1,4 @@
 import 'package:antd_flutter_mobile/index.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// 选择器角标
@@ -23,7 +22,7 @@ class AntdSelectorBadgeStyle extends AntdStyle {
   }
 }
 
-class AntdSelectorOptionStyle extends AntdStyle {
+class AntdSelectorItemStyle extends AntdStyle {
   /// 选项外层容器的默认样式
   final AntdBoxStyle? itemStyle;
 
@@ -45,7 +44,7 @@ class AntdSelectorOptionStyle extends AntdStyle {
   /// 角标尺寸配置（宽高）
   final AntdSelectorBadgeStyle checkIcon;
 
-  const AntdSelectorOptionStyle({
+  const AntdSelectorItemStyle({
     super.inherit,
     this.itemStyle,
     this.activeItemStyle,
@@ -57,8 +56,8 @@ class AntdSelectorOptionStyle extends AntdStyle {
   });
 
   @override
-  AntdSelectorOptionStyle copyFrom(AntdSelectorOptionStyle? style) {
-    return AntdSelectorOptionStyle(
+  AntdSelectorItemStyle copyFrom(AntdSelectorItemStyle? style) {
+    return AntdSelectorItemStyle(
       itemStyle: itemStyle.merge(style?.itemStyle),
       activeItemStyle: activeItemStyle.mergeActive(
           itemStyle, style?.itemStyle, style?.activeItemStyle),
@@ -73,111 +72,26 @@ class AntdSelectorOptionStyle extends AntdStyle {
 
 /// 选择器选项数据类
 /// @l [AntdSelector]
-class AntdSelectorOption
-    extends AntdComponent<AntdSelectorOptionStyle, AntdSelectorOption> {
+class AntdSelectorItem extends AntdFormItemComponent<dynamic,
+    AntdSelectorItemStyle, AntdSelectorItem> {
   /// 选项的描述信息组件（显示在label下方）
   final Widget? description;
-
-  /// 是否禁用该选项（默认false）
-  final bool disabled;
-
-  /// 是否选中该选项（默认false）
-  final bool check;
 
   /// 选项的主标签组件
   final Widget label;
 
-  /// 选项的唯一标识值
-  final String? value;
-
-  ///更改事件
-  final ValueChanged<bool>? onChange;
-
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
-
-  const AntdSelectorOption(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      this.description,
-      this.disabled = false,
-      this.check = false,
-      required this.label,
-      this.value,
-      this.onChange,
-      this.hapticFeedback = AntdHapticFeedback.light});
-
-  AntdSelectorOption copyFrom(AntdSelectorOption? other) {
-    if (other == null) return this;
-
-    return AntdSelectorOption(
-      key: other.key ?? key,
-      style: other.style ?? style,
-      styleBuilder: other.styleBuilder ?? styleBuilder,
-      description: other.description ?? description,
-      disabled: other.disabled,
-      check: other.check,
-      label: other.label,
-      value: other.value ?? value,
-      onChange: other.onChange ?? onChange,
-    );
-  }
+  const AntdSelectorItem({
+    super.key,
+    super.style,
+    super.styleBuilder,
+    super.disabled,
+    super.value,
+    this.description,
+    required this.label,
+  });
 
   @override
-  Widget render(BuildContext context, AntdSelectorOptionStyle style) {
-    var badge = CustomPaint(
-      size: style.badge.size,
-      painter: _TrianglePainter(
-        color: style.badge.color,
-      ),
-    );
-    var checkIcon = CustomPaint(
-      size: style.checkIcon.size,
-      painter: _CheckMarkPainter(
-        color: style.checkIcon.color,
-      ),
-    );
-    return AntdBox(
-        style: style.bodyStyle,
-        disabled: disabled,
-        onTap: () {
-          handleHapticFeedback(hapticFeedback);
-          onChange?.call(!check);
-        },
-        child: Stack(
-          children: [
-            AntdBox(
-              style: (check ? style.activeItemStyle : style.itemStyle),
-              child: Column(
-                children: [
-                  AntdBox(
-                    style: style.labelStyle,
-                    child: label,
-                  ),
-                  if (description != null)
-                    AntdBox(
-                      style: style.descriptionStyle,
-                      child: description!,
-                    )
-                ],
-              ),
-            ),
-            if (check) Positioned(right: 0, bottom: 0, child: badge),
-            if (check)
-              Positioned(
-                  right:
-                      (style.badge.size.width - style.checkIcon.size.width) / 8,
-                  bottom:
-                      (style.badge.size.height - style.checkIcon.size.height) /
-                          6,
-                  child: checkIcon)
-          ],
-        ));
-  }
-
-  @override
-  AntdSelectorOptionStyle getDefaultStyle(
+  AntdSelectorItemStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     var text = token.font.md;
     var base = AntdBoxStyle(
@@ -185,7 +99,7 @@ class AntdSelectorOption
         padding: token.size.seed.vertical.marge(token.size.xl.horizontal),
         textStyle: text,
         color: token.colorFill.tertiary);
-    return AntdSelectorOptionStyle(
+    return AntdSelectorItemStyle(
       itemStyle: base,
       activeItemStyle: AntdBoxStyle(
           color: token.colorPrimary.bg,
@@ -204,14 +118,71 @@ class AntdSelectorOption
   }
 
   @override
-  AntdSelectorOption getWidget(BuildContext context) {
+  AntdSelectorItem getWidget(BuildContext context) {
     return this;
   }
 
   @override
-  AntdSelectorOptionStyle margeStyle(
-      AntdSelectorOptionStyle defaultStyle, AntdSelectorOptionStyle? style) {
+  AntdSelectorItemStyle margeStyle(
+      AntdSelectorItemStyle defaultStyle, AntdSelectorItemStyle? style) {
     return defaultStyle.copyFrom(style);
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdSelectorItemState();
+  }
+}
+
+class _AntdSelectorItemState extends AntdFormItemSelectComponentState<dynamic,
+    AntdSelectorItemStyle, AntdSelectorItem> {
+  @override
+  Widget render(BuildContext context) {
+    var badge = CustomPaint(
+      size: style.badge.size,
+      painter: _TrianglePainter(
+        color: style.badge.color,
+      ),
+    );
+    var checkIcon = CustomPaint(
+      size: style.checkIcon.size,
+      painter: _CheckMarkPainter(
+        color: style.checkIcon.color,
+      ),
+    );
+    return AntdBox(
+        style: style.bodyStyle,
+        disabled: disabled,
+        onTap: switchValue,
+        child: Stack(
+          children: [
+            AntdBox(
+              style: (select ? style.activeItemStyle : style.itemStyle),
+              child: Column(
+                children: [
+                  AntdBox(
+                    style: style.labelStyle,
+                    child: widget.label,
+                  ),
+                  if (widget.description != null)
+                    AntdBox(
+                      style: style.descriptionStyle,
+                      child: widget.description,
+                    )
+                ],
+              ),
+            ),
+            if (select) Positioned(right: 0, bottom: 0, child: badge),
+            if (select)
+              Positioned(
+                  right:
+                      (style.badge.size.width - style.checkIcon.size.width) / 8,
+                  bottom:
+                      (style.badge.size.height - style.checkIcon.size.height) /
+                          6,
+                  child: checkIcon)
+          ],
+        ));
   }
 }
 
@@ -225,13 +196,13 @@ class AntdSelectorStyle extends AntdStyle {
   final AntdWrapStyle? wrapStyle;
 
   ///选项样式
-  final AntdSelectorOptionStyle? optionStyle;
+  final AntdSelectorItemStyle? itemStyle;
 
   const AntdSelectorStyle({
     super.inherit,
     this.bodyStyle,
     this.wrapStyle,
-    this.optionStyle,
+    this.itemStyle,
   });
 
   @override
@@ -239,39 +210,37 @@ class AntdSelectorStyle extends AntdStyle {
     return AntdSelectorStyle(
       bodyStyle: bodyStyle.merge(style?.bodyStyle),
       wrapStyle: wrapStyle.merge(style?.wrapStyle),
-      optionStyle: optionStyle.merge(style?.optionStyle),
+      itemStyle: itemStyle.merge(style?.itemStyle),
     );
   }
 }
-
-typedef AntdSelectorOnChange = void Function(
-    String value, bool check, Set<String> values);
 
 ///@t 选择组
 ///@g 信息录入
 ///@o 52
 ///@d  在一组选项中选择一个或多个。
 ///@u 提供多个选项供用户选择，一般在筛选和表单中使用。
-class AntdSelector extends AntdFormItemComponent<List<String>,
-    AntdSelectorStyle, AntdSelector> {
+class AntdSelector extends AntdFormItemGroup<AntdSelectorItem,
+    AntdSelectorStyle, List<dynamic>, AntdSelector> {
   const AntdSelector({
     super.key,
     super.style,
     super.styleBuilder,
     super.disabled,
     super.readOnly,
+    super.defaultValue,
     super.value,
     super.autoCollect,
     super.onChange,
+    super.shouldTriggerChange,
+    super.hapticFeedback,
+    super.items,
+    super.builder,
     this.columns = 2,
-    required this.options,
   });
 
   ///列数
   final int columns;
-
-  ///可选项
-  final List<AntdSelectorOption> options;
 
   @override
   State<StatefulWidget> createState() {
@@ -302,7 +271,7 @@ class AntdSelector extends AntdFormItemComponent<List<String>,
   }
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 
   @override
   AntdSelector getWidget(BuildContext context) {
@@ -310,56 +279,34 @@ class AntdSelector extends AntdFormItemComponent<List<String>,
   }
 }
 
-class _AntdSelectorState extends AntdFormItemComponentState<List<String>,
-    AntdSelectorStyle, AntdSelector> {
+class _AntdSelectorState extends AntdFormItemGroupMultipleState<
+    AntdSelectorItem, AntdSelectorStyle, dynamic, AntdSelector> {
   @override
-  bool isChanged(List<String>? newValue, List<String>? value) {
-    return !listEquals(newValue, value);
+  Widget buildDefaultWidget() {
+    return AntdWrap(
+      style: style.wrapStyle?.copyWith(spacing: 0),
+      children: (widget.items ?? []).map((value) {
+        return AntdBox(
+          style: AntdBoxStyle(
+            width: 1 / widget.columns,
+            layoutModes: [AntdBoxLayoutMode.factorWidth],
+          ),
+          child: AntdBox(
+              style: AntdBoxStyle(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: (style.wrapStyle?.spacing ?? 0) / 2)),
+              child: value),
+        );
+      }).toList(),
+    );
   }
 
   @override
   Widget render(BuildContext context) {
+    var child = super.render(context);
     return AntdBox(
       style: style.bodyStyle,
-      child: AntdWrap(
-        style: style.wrapStyle?.copyWith(spacing: 0),
-        children: widget.options.map((value) {
-          var contains = this.value?.contains(value.value) == true;
-          return AntdBox(
-            style: AntdBoxStyle(
-              width: 1 / widget.columns,
-              layoutModes: [AntdBoxLayoutMode.factorWidth],
-            ),
-            child: AntdBox(
-                style: AntdBoxStyle(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: (style.wrapStyle?.spacing ?? 0) / 2)),
-                child: value.copyFrom(
-                  AntdSelectorOption(
-                    label: value.label,
-                    check: contains,
-                    value: value.value,
-                    disabled: disabled == true,
-                    onChange: (check) {
-                      if (value.value == null) {
-                        return;
-                      }
-
-                      changeValue(() {
-                        var values = [...(this.value ??= [])];
-                        if (check) {
-                          values.add(value.value!);
-                        } else {
-                          values.remove(value.value);
-                        }
-                        return values;
-                      });
-                    },
-                  ),
-                )),
-          );
-        }).toList(),
-      ),
+      child: child,
     );
   }
 }

@@ -74,15 +74,14 @@ class AntdTabBarItem {
   /// 激活状态下显示的图标（未设置时回退使用icon）
   final Widget? activeIcon;
 
+  ///被激活时的回调
+  final VoidCallback? onActive;
+
   /// 自定义内容构建器（参数：child-基础内容, index-选项卡索引, active-是否激活）
   final Widget Function(Widget child, int index, bool active)? builder;
 
-  const AntdTabBarItem({
-    this.icon,
-    this.title,
-    this.activeIcon,
-    this.builder,
-  });
+  const AntdTabBarItem(
+      {this.icon, this.title, this.activeIcon, this.builder, this.onActive});
 }
 
 typedef AntdTabBarOnChange = void Function(int index);
@@ -162,11 +161,10 @@ class AntdTabBar extends AntdComponent<AntdTabBarStyle, AntdTabBar> {
         style: style.itemStyle,
         options: const AntdTapOptions(
             behavior: HitTestBehavior.opaque, alwaysTriggerTap: true),
-        onTap: item.builder != null
-            ? null
-            : () {
-                onChange?.call(i);
-              },
+        onTap: () {
+          item.onActive?.call();
+          onChange?.call(i);
+        },
         child: AntdColumn(
           style: style.itemColumnStyle,
           children: [

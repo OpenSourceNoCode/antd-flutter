@@ -114,10 +114,10 @@ class AntdCascader
   final Widget? titleWidget;
 
   ///取消事件
-  final ValueChanged<List<String>>? onConfirm;
+  final ValueChanged<List<dynamic>?>? onConfirm;
 
   ///确认事件
-  final ValueChanged<List<String>>? onCancel;
+  final ValueChanged<List<dynamic>?>? onCancel;
 
   ///选择器
   final AntdCascaderView cascaderView;
@@ -172,7 +172,7 @@ class AntdCascader
 
 class AntdCascaderState extends AntdPopupBaseState<AntdCascaderStyle,
     AntdCascader, AntdCascaderState> {
-  var values = <String>[];
+  List<dynamic>? values;
 
   @override
   Widget? buildPopup() {
@@ -208,12 +208,11 @@ class AntdCascaderState extends AntdPopupBaseState<AntdCascaderStyle,
             ],
           ),
         ),
-        widget.cascaderView.copyFrom(AntdCascaderView(
-          options: widget.cascaderView.options,
-          onChange: (values) {
-            this.values = values;
-          },
-        ))
+        AntdFormItemOnChangeProvider<List<dynamic>>(
+            child: widget.cascaderView,
+            onChange: (values) {
+              this.values = values;
+            })
       ],
     );
   }

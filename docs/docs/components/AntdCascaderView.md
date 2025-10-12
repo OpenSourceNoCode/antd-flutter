@@ -28,7 +28,7 @@ class AntdCascaderViewDemo extends StatelessWidget {
     return DemoWrapper(outline: true, child: [
       AntdCascaderView(
           onChange: (values) {
-            AntdToast.show(values.join(","));
+            AntdToast.show(values?.join(",") ?? "");
           },
           options: cascaderOptions)
     ]);
@@ -164,12 +164,17 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdCascaderViewStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCascaderViewStyle, AntdCascaderView&gt; | - | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | List&lt;dynamic&gt; | - | - |
+| value | 值 | List&lt;dynamic&gt; | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;List&lt;dynamic&gt;&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | placeholder | 未选中时的提示文案 | Widget | const Text("请选择") | - |
-| value | 配置每一列的选项 | List&lt;String&gt; | - | - |
 | options | 配置每一列的选项 | List&lt;AntdCascaderOption&gt; | - | - |
 | onTabsChange | 默认选中项 | AntdTabsOnChange&lt;AntdTab&gt; | - | - |
-| onChange | 选项变化时的回调 | AntdCascaderViewChange | - | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 配置项样式(AntdCascaderOptionStyle) <a id='AntdCascaderOptionStyle'></a>
@@ -189,18 +194,13 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| key | - | Key | - | - |
-| style | 样式 | AntdCascaderOptionStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCascaderOptionStyle, AntdCascaderOption&gt; | - | - |
-| value | 选项的唯一标识值 | String | - | - |
-| parentValue | 父级选项的值，用于构建层级关系 | String | - | - |
+| value | 选项的唯一标识值 | dynamic | - | - |
+| parentValue | 父级选项的值，用于构建层级关系 | dynamic | - | - |
 | title | 选项标题组件 | Widget | - | - |
 | child | 选项内容组件 | Widget | - | - |
 | checkIcon | 选中状态下显示的图标 | Widget | - | - |
 | icon | 未选中状态下显示的图标 | Widget | - | - |
-| check | 是否选中该选项 | bool | false | - |
 | disabled | 是否禁用该选项 | bool | false | - |
-| onTap | 选项点击回调函数 | VoidCallback | - | - |
 
 ## 选项(AntdCascaderViewStyle) <a id='AntdCascaderViewStyle'></a>
 

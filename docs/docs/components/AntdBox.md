@@ -615,15 +615,15 @@ class AntdStylCustomDemo extends StatelessWidget {
                   textStyle: token.font.lg.copyWith(color: token.colorWhite),
                   color: token.colorPrimary),
               child: Column(children: [
-                AntdBox(child: Text("通过AntdStyleProvider统一设置")),
+                const AntdBox(child: Text("通过AntdStyleProvider统一设置")),
                 AntdBox(
                     style: AntdBoxStyle(margin: 10.top),
-                    child: Text("通过AntdStyleProvider统一设置"))
+                    child: const Text("通过AntdStyleProvider统一设置"))
               ])),
           AntdStyleBuilderProvider<AntdBoxStyle, AntdBox>(
               builder: (context, box, style, token) {
                 return AntdBoxStyle(
-                    height: 100,
+                    height: 150,
                     width: double.infinity,
                     alignment: Alignment.center,
                     textStyle: token.font.lg.copyWith(color: token.colorWhite),
@@ -779,7 +779,6 @@ class AntdStylCustomDemo extends StatelessWidget {
 | options | 包括：双击间隔、长按时长、触觉反馈等 | AntdTapOptions | - | - |
 | child | 子组件（通常为需要应用这些交互和布局约束的内容） | Widget | - | - |
 | focusNode | 焦点 | FocusNode | - | - |
-| scrollController | 滚动控制器 | ScrollController | - | - |
 
 
 ## 基础样式(AntdKitStyle) <a id='AntdKitStyle'></a>
@@ -805,7 +804,7 @@ class AntdStylCustomDemo extends StatelessWidget {
 | gradient | 渐变 | Gradient | - | - |
 | alignment | 子容器的对齐方式 | Alignment | - | - |
 | visibility | 可见状态:`hidden` \| `visible` | AntdVisibility | - | - |
-| hapticFeedback | 震动反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
+| hapticFeedback | 震动反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | colorFilter | 颜色过滤 | ColorFilter | - | - |
 
 ## 盒子样式(AntdBoxStyle) <a id='AntdBoxStyle'></a>
@@ -831,7 +830,7 @@ class AntdStylCustomDemo extends StatelessWidget {
 | gradient | 渐变 | Gradient | - | - |
 | alignment | 子容器的对齐方式 | Alignment | - | - |
 | visibility | 可见状态:`hidden` \| `visible` | AntdVisibility | - | - |
-| hapticFeedback | 震动反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
+| hapticFeedback | 震动反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | colorFilter | 颜色过滤 | ColorFilter | - | - |
 | focusStyle |  | [AntdKitStyle](../components/antd-box/#AntdKitStyle) | - | - |
 | disabledStyle |  | [AntdKitStyle](../components/antd-box/#AntdKitStyle) | - | - |

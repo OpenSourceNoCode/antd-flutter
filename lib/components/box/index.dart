@@ -69,9 +69,6 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
   ///焦点
   final FocusNode? focusNode;
 
-  ///滚动控制器
-  final ScrollController? scrollController;
-
   const AntdBox(
       {super.key,
       super.style,
@@ -86,8 +83,7 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
       this.disabled,
       this.options,
       this.child,
-      this.focusNode,
-      this.scrollController});
+      this.focusNode});
 
   @override
   State<StatefulWidget> createState() {
@@ -237,11 +233,10 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   }
 
   @override
-  void updateDependentValues(covariant AntdBox? oldWidget) {
+  void updateDependentValues(AntdBox? oldWidget) {
     super.updateDependentValues(oldWidget);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      execLayoutCallback(false);
+      execLayoutCallback(oldWidget != null);
     });
 
     _options = AntdTapOptions(
@@ -252,6 +247,7 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
         .copyWith(
           disabled: widget.disabled,
         );
+
     _hasFocusNode = widget.onFocus != null || style.focusStyle != null;
     _focusNode.canRequestFocus = _options.disabled != true;
     _eventRegistry = AntdTapEventRegistryProvider.maybeOf(context)?.registry ??
@@ -313,7 +309,9 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
       );
     }
 
-    if (widget.onLayout != null || widget.focusNode != null) {
+    if (widget.onLayout != null ||
+        widget.focusNode != null ||
+        style.feedbackStyle != null) {
       return AntdBoxProvider(
         focusNode: widget.focusNode,
         handleSizeChange: widget.onLayout != null

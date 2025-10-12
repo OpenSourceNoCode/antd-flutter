@@ -16,13 +16,13 @@ class AntdCascaderDemo extends StatelessWidget {
         onTap: () {
           AntdLayer.open(AntdCascader(
             onConfirm: (values) {
-              AntdToast.show(values.join(","));
+              AntdToast.show(values?.join(",") ?? "");
             },
             onCancel: (values) {
-              AntdToast.show(values.join(","));
+              AntdToast.show(values?.join(",") ?? "");
             },
             titleWidget: const Text("地址选择"),
-            cascaderView: AntdCascaderView(
+            cascaderView: const AntdCascaderView(
               options: cascaderOptions,
             ),
           ));

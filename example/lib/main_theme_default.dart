@@ -19,7 +19,7 @@ void main() {
       }));
 }
 
-void main_customer() {
+void mainCustomer() {
   runApp(AntdProvider(
       theme: const AntdTheme(
 

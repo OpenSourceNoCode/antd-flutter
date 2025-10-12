@@ -23,6 +23,7 @@ class _Value {
 class AntdFormStore extends ChangeNotifier {
   bool _dispose = false;
   final Set<String> _preserveNames = {};
+  final Map<String, AntdFormItemShouUpdate> _shouUpdates = {};
   final Map<String, AntdFormItemState> _items = {};
   final Map<String, ValueNotifier<bool>> _itemRebuildMark = {};
   final Map<String, List<String>> _dependencies = {};
@@ -91,12 +92,29 @@ class AntdFormStore extends ChangeNotifier {
     super.dispose();
   }
 
+  void addShouUpUpdate(String? name, AntdFormItemShouUpdate? shouUpdate) {
+    if (name == null || shouUpdate == null) {
+      return;
+    }
+
+    _shouUpdates[name] = shouUpdate;
+  }
+
+  void removeShouUpUpdate(String? name) {
+    if (name == null) {
+      return;
+    }
+
+    _shouUpdates.remove(name);
+  }
+
   void addItem<T>(String name, AntdFormItemState state) {
     if (_items.containsKey(name) && _items[name] == state) {
       return;
     }
 
     AntdFormItemState? oldState = _items[name];
+    addShouUpUpdate(name, state.widget.shouUpdate);
     _items[name] = state;
     _itemRebuildMark[name] = ValueNotifier(false);
     _feedbackRebuildMark[name] = ValueNotifier(false);
@@ -147,6 +165,7 @@ class AntdFormStore extends ChangeNotifier {
       _value.remove(name);
     }
 
+    removeShouUpUpdate(name);
     _dependencies.removeWhere((key, value) => value.contains(name));
     for (var entry in _dependencies.entries) {
       entry.value.remove(name);
@@ -227,10 +246,9 @@ class AntdFormStore extends ChangeNotifier {
     if (innerValue.isChanged) {
       for (var item in _items.values) {
         var name = item.widget.name;
-        if ((item.widget.dependencies == null &&
-                item.widget.shouUpdate == null) ||
-            item.widget.shouUpdate
-                    ?.call(_getValues(), _getValues(before: true)) ==
+        var shouUpUpdate = _shouUpdates[name];
+        if ((item.widget.dependencies == null && shouUpUpdate == null) ||
+            shouUpUpdate?.call(_getValues(), _getValues(before: true)) ==
                 true) {
           _itemRebuildMark[name]!.value = !_itemRebuildMark[name]!.value;
         }

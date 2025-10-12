@@ -14,7 +14,7 @@ class AntdMaskDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdButton(
           onTap: () {
-            AntdMask.show(content: Center());
+            AntdMask.show(content: const Center());
           },
           child: const Text("静态方法")),
       AntdButton(
@@ -213,13 +213,13 @@ class AntdMaskHiddenDemo extends StatelessWidget {
       AntdButton(
           onTap: () {
             AntdLayer.open(AntdMask(
-              key: ValueKey("out-close"),
+              key: const ValueKey("out-close"),
               showMask: false,
               style: const AntdMaskStyle(maskColor: Colors.white),
               builder: (close, ctx) {
-                return Center(
+                return const Center(
                   child: AntdButton(
-                    child: const Text("我打开了"),
+                    child: Text("我打开了"),
                   ),
                 );
               },
@@ -227,9 +227,9 @@ class AntdMaskHiddenDemo extends StatelessWidget {
           },
           child: const Text("外部关闭")),
       AntdButton(
-        child: Text("我来关闭刚才打开的蒙层"),
+        child: const Text("我来关闭刚才打开的蒙层"),
         onTap: () {
-          AntdLayer.closeByKey(ValueKey("out-close"));
+          AntdLayer.closeByKey(const ValueKey("out-close"));
         },
       )
     ]);

@@ -35,6 +35,12 @@ class AntdStyleProvider<Style extends AntdStyle> extends InheritedWidget {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<Style>('style', style));
   }
+
+  static Style? maybeOf<Style extends AntdStyle>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<AntdStyleProvider<Style>>()
+        ?.style;
+  }
 }
 
 class AntdStyleBuilderProvider<Style extends AntdStyle, WidgetType>
@@ -49,6 +55,14 @@ class AntdStyleBuilderProvider<Style extends AntdStyle, WidgetType>
   bool updateShouldNotify(
       covariant AntdStyleBuilderProvider<Style, WidgetType> oldWidget) {
     return oldWidget.builder != builder;
+  }
+
+  static AntdStyleBuilder<Style, WidgetType>?
+      maybeOf<Style extends AntdStyle, WidgetType>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<
+            AntdStyleBuilderProvider<Style, WidgetType>>()
+        ?.builder;
   }
 }
 

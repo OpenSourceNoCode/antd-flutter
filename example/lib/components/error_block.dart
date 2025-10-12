@@ -61,9 +61,9 @@ class AntdErrorBlockCustomerDemo extends StatelessWidget {
       AntdErrorBlock(
         style: style,
         status: AntdErrorBlockStatus.none,
-        title: Text("页面遇到一些小问题"),
-        desc: Text("Customize Description"),
-        extra: AntdButton(
+        title: const Text("页面遇到一些小问题"),
+        desc: const Text("Customize Description"),
+        extra: const AntdButton(
           color: AntdColor.primary,
           child: Text("点我修复"),
         ),

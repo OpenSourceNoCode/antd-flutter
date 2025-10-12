@@ -5,6 +5,7 @@ import 'package:example/components/bar/index.dart';
 import 'package:example/components/image/image.dart';
 import 'package:example/components/tab/tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../components/avatar.dart';
 import '../../components/cascader/view.dart';
@@ -84,6 +85,9 @@ Map<String, dynamic> customFull = {
   "AntdIndexBar-itemBuilder": (entity) {
     return Text(entity.data.text);
   },
+  "AntdSliderBar-cacheExtent": 1.5,
+  "AntdSliderBar-cacheExtentStyle": CacheExtentStyle.viewport,
+  "AntdSliderBar-fit": AntdScrollItemFit.child,
   "AntdSliderBar-items": List.generate(
     100,
     (i) => AntdSliderBarItem(
@@ -91,10 +95,12 @@ Map<String, dynamic> customFull = {
         disabled: i % 4 == 0,
         content: AntdBox(
           style: AntdBoxStyle(
-              color: getRandomColor(), alignment: Alignment.center),
+              height: 100,
+              color: getRandomColor(),
+              alignment: Alignment.center),
           child: Text(
             "选项$i ${i % 3 == 0 ? '($i)' : ''}",
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         title: i % 5 == 0
@@ -121,8 +127,8 @@ Map<String, dynamic> customFull = {
     onTap: () {
       AntdToast.show("背景点击事件");
     },
-    child: Text("我是背景内容，我可以被正常点击"),
-    style: AntdBoxStyle(width: double.infinity, height: 500),
+    style: const AntdBoxStyle(width: double.infinity, height: 500),
+    child: const Text("我是背景内容，我可以被正常点击"),
   ),
   "AntdList-items": List.generate(100, (i) => Text("$i")),
   "AntdSteps-steps": List.generate(
@@ -164,15 +170,15 @@ Map<String, dynamic> customFull = {
     child: Text('气泡'),
   ),
   "AntdSelector-options": const [
-    AntdSelectorOption(
+    AntdSelectorItem(
       label: Text("选项1"),
       value: "1",
     ),
-    AntdSelectorOption(
+    AntdSelectorItem(
       label: Text("选项2"),
       value: "2",
     ),
-    AntdSelectorOption(
+    AntdSelectorItem(
         label: Text("选项3"), value: "3", description: Text("选项1的描述"))
   ],
   "AntdForm-builder": (controller) {
@@ -193,28 +199,29 @@ Map<String, dynamic> customFull = {
           },
         ),
         AntdList(
+          feedback: false,
           shrinkWrap: true,
           items: [
             AntdFormItem(
               required: true,
-              label: Text("姓名"),
+              label: const Text("姓名"),
               name: "name",
-              rules: [AntdFormRule(len: 5)],
+              rules: const [AntdFormRule(len: 5)],
               builder: (ctx) {
-                return AntdInput(
+                return const AntdInput(
                   placeholder: Text("请输入姓名"),
                 );
               },
             ),
             AntdFormItem(
               required: true,
-              label: Text("喜爱的水果"),
+              label: const Text("喜爱的水果"),
               name: "apple",
               builder: (ctx) {
-                return AntdSelector(options: [
-                  AntdSelectorOption(label: Text("苹果"), value: "ap"),
-                  AntdSelectorOption(label: Text("橘子"), value: "or"),
-                  AntdSelectorOption(label: Text("香蕉"), value: "ba")
+                return const AntdSelector(items: [
+                  AntdSelectorItem(label: Text("苹果"), value: "ap"),
+                  AntdSelectorItem(label: Text("橘子"), value: "or"),
+                  AntdSelectorItem(label: Text("香蕉"), value: "ba")
                 ]);
               },
             ),
@@ -235,8 +242,8 @@ Map<String, dynamic> customFull = {
   ),
   "AntdFormItem-name": "name",
   "AntdFormItem-builder": (ctx) {
-    return AntdList(shrinkWrap: true, items: [
-      const AntdInput(
+    return const AntdList(shrinkWrap: true, items: [
+      AntdInput(
         placeholder: Text("请输入名字"),
       )
     ]);
@@ -246,29 +253,33 @@ Map<String, dynamic> customFull = {
       child: Text("$i"),
     );
   }),
-  "AntdCascaderView-placeholder": Text("请选择"),
+  "AntdCascaderView-placeholder": const Text("请选择"),
   "AntdCascaderView-options": cascaderOptions,
   "AntdSwipeAction-child": AntdBox(
     style: AntdBoxStyle(padding: 16.all, width: double.infinity),
     child: const Text("左右滑动"),
   ),
-  "AntdCascader-cascaderView": AntdCascaderView(
+  "AntdCascader-cascaderView": const AntdCascaderView(
     options: cascaderOptions,
   ),
-  "AntdSegmented-items": [
+  "AntdSegmented-items": const [
     AntdSegmentedItem(
+      value: "1",
       child: Text("Daily"),
     ),
     AntdSegmentedItem(
+      value: "2",
       child: Text("Weekly"),
     ),
     AntdSegmentedItem(
+      value: "3",
       child: Text("Monthly"),
     ),
     AntdSegmentedItem(
+      value: "4",
       child: Text("Yearly"),
     )
   ],
-  "AntdTour-child": AntdBox(),
+  "AntdTour-child": const AntdBox(),
   "AntdDropdown-items": <AntdDropdownItem>[],
 };

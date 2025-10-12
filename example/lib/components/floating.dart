@@ -41,12 +41,12 @@ class AntdFloatingDemo extends StatelessWidget {
               return Text(value);
             }).toList()),
         child: AntdBox(
-          child: Text("我是背景"),
           style: AntdBoxStyle(
               width: double.infinity, height: 500, color: token.colorBgLayout),
           onTap: () {
-            print("111");
+            debugPrint("111");
           },
+          child: const Text("我是背景"),
         ),
       )
     ]);
@@ -80,9 +80,9 @@ class AntdFloatingPositionDemo extends StatelessWidget {
           onTap: () {
             AntdToast.show("背景点击事件");
           },
-          child: Text("我是背景内容，我可以被正常点击"),
           style: AntdBoxStyle(
               width: double.infinity, height: 500, color: token.colorBgLayout),
+          child: const Text("我是背景内容，我可以被正常点击"),
         ),
       )
     ]);
@@ -100,19 +100,19 @@ class AntdFloatingAnchorsDemo extends StatelessWidget {
     return DemoWrapper(outline: false, child: [
       AntdFloatingPanel(
         anchors: const [0.3, 0.6, 0.8],
-        child: AntdBox(
-          onTap: () {
-            AntdToast.show("背景点击事件");
-          },
-          child: Text("我是背景内容，我可以被正常点击"),
-          style: AntdBoxStyle(
-              width: double.infinity, height: 500, color: token.colorBgLayout),
-        ),
         content: AntdList(
             shrinkWrap: true,
             items: data.map((value) {
               return Text(value);
             }).toList()),
+        child: AntdBox(
+          onTap: () {
+            AntdToast.show("背景点击事件");
+          },
+          style: AntdBoxStyle(
+              width: double.infinity, height: 500, color: token.colorBgLayout),
+          child: const Text("我是背景内容，我可以被正常点击"),
+        ),
       )
     ]);
   }
@@ -144,9 +144,9 @@ class AntdFloatingIndicatorDemo extends StatelessWidget {
           onTap: () {
             AntdToast.show("背景点击事件");
           },
-          child: Text("我是背景内容，我可以被正常点击"),
           style: AntdBoxStyle(
               width: double.infinity, height: 500, color: token.colorBgLayout),
+          child: const Text("我是背景内容，我可以被正常点击"),
         ),
       )
     ]);
