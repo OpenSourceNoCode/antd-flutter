@@ -118,7 +118,7 @@ class AntdDropdownCloseDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 200),
+      padding: const EdgeInsets.only(bottom: 200),
       child: DemoWrapper(child: [
         AntdDropdown(
           dismissOnMaskTap: false,
@@ -166,7 +166,7 @@ class AntdDropdownCloseDemo extends StatelessWidget {
               onTap: () {
                 close();
               },
-              child: Text("确定"),
+              child: const Text("确定"),
             );
           },
         ),

@@ -104,15 +104,12 @@ class AntdCheckboxStyle extends AntdStyle {
 }
 
 abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
-    extends AntdFormItemComponent<bool, Style, WidgetType> {
+    extends AntdFormItemComponent<dynamic, Style, WidgetType> {
   ///半选
   final bool? indeterminate;
 
   ///内容
   final Widget? extra;
-
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
 
   const AntdBaseCheckbox(
       {super.key,
@@ -120,20 +117,22 @@ abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
       super.styleBuilder,
       super.disabled,
       super.readOnly,
+      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
       this.indeterminate,
-      this.extra,
-      this.hapticFeedback = AntdHapticFeedback.light});
+      this.extra});
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 }
 
 abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
         WidgetType extends AntdBaseCheckbox<Style, WidgetType>>
-    extends AntdFormItemComponentState<bool, Style, WidgetType> {
+    extends AntdFormItemSelectComponentState<dynamic, Style, WidgetType> {
   @override
   Widget render(BuildContext context) {
     var defaultIcon = AntdIconWrap(
@@ -152,7 +151,7 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
           child: style.disableIcon,
         );
       }
-      if (value == true) {
+      if (select) {
         if (widget.indeterminate == true) {
           return AntdIconWrap(
             style: style.iconStyle,
@@ -168,12 +167,7 @@ abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
 
     return AntdBox(
         style: style.bodyStyle,
-        onTap: () {
-          changeValue(() {
-            handleHapticFeedback(widget.hapticFeedback);
-            return !(value == true);
-          });
-        },
+        onTap: switchValue,
         disabled: widget.disabled,
         child: AntdRow(
           style: style.rowStyle,
@@ -201,9 +195,12 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
     super.styleBuilder,
     super.disabled,
     super.readOnly,
+    super.defaultValue,
     super.value,
     super.autoCollect,
     super.onChange,
+    super.shouldTriggerChange,
+    super.hapticFeedback,
     super.indeterminate,
     super.extra,
   });
@@ -239,3 +236,45 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
 
 class _AntdCheckboxState
     extends AntdBaseCheckboxState<AntdCheckboxStyle, AntdCheckbox> {}
+
+///多选选择组
+///@l [AntdCheckbox]
+class AntdCheckboxGroup<T> extends AntdFormItemGroup<AntdCheckbox, AntdBoxStyle,
+    List<T>, AntdCheckboxGroup<T>> {
+  const AntdCheckboxGroup(
+      {super.key,
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
+      super.items,
+      super.builder});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdCheckboxGroupState<T>();
+  }
+
+  @override
+  AntdCheckboxGroup<T> getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  AntdBoxStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return const AntdBoxStyle();
+  }
+
+  @override
+  AntdBoxStyle margeStyle(AntdBoxStyle defaultStyle, AntdBoxStyle? style) {
+    return defaultStyle.copyFrom(style);
+  }
+}
+
+class _AntdCheckboxGroupState<T> extends AntdFormItemGroupMultipleState<
+    AntdCheckbox, AntdBoxStyle, T, AntdCheckboxGroup<T>> {}

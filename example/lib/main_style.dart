@@ -54,7 +54,7 @@ void main() {
   ));
 }
 
-void main_style_builder() async {
+void mainStyleBuilder() async {
   runApp(const App());
 }
 

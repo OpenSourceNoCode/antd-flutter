@@ -3,65 +3,17 @@ import 'package:flutter/cupertino.dart';
 
 /// 分段项
 /// @l [AntdSegmented]
-class AntdSegmentedItem extends AntdComponent<AntdBoxStyle, AntdSegmentedItem> {
+class AntdSegmentedItem {
   ///绑定的value
-  final String? value;
+  final dynamic value;
 
   /// 是否禁用该分段项，禁用时不可点击且样式变灰
-  final bool? disable;
+  final bool? disabled;
 
   /// 分段项中显示的子组件，通常是文字或图标
   final Widget? child;
 
-  /// 点击分段项时的回调函数，为 null 时表示不可点击
-  final VoidCallback? onTap;
-
-  const AntdSegmentedItem(
-      {super.key,
-      super.style,
-      super.styleBuilder,
-      this.value,
-      this.disable,
-      this.child,
-      this.onTap});
-
-  AntdSegmentedItem copyFrom(AntdSegmentedItem? other) {
-    return AntdSegmentedItem(
-      key: other?.key ?? key,
-      style: other?.style ?? style,
-      styleBuilder: other?.styleBuilder ?? styleBuilder,
-      value: other?.value ?? value,
-      disable: other?.disable ?? disable,
-      onTap: other?.onTap ?? onTap,
-      child: other?.child ?? child,
-    );
-  }
-
-  @override
-  AntdBoxStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return const AntdBoxStyle(options: AntdTapOptions(alwaysReceiveTap: true));
-  }
-
-  @override
-  AntdSegmentedItem getWidget(BuildContext context) {
-    return this;
-  }
-
-  @override
-  AntdBoxStyle margeStyle(AntdBoxStyle defaultStyle, AntdBoxStyle? style) {
-    return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  Widget render(BuildContext context, AntdBoxStyle style) {
-    return AntdBox(
-      disabled: disable,
-      onTap: onTap,
-      style: style,
-      child: child,
-    );
-  }
+  const AntdSegmentedItem({this.value, this.disabled, this.child});
 }
 
 ///样式
@@ -103,33 +55,27 @@ class AntdSegmentedStyle extends AntdStyle {
 ///@o 78
 ///@u 用于展示多个选项并允许用户选择其中单个选项
 class AntdSegmented
-    extends AntdStateComponent<AntdSegmentedStyle, AntdSegmented> {
+    extends AntdFormItemComponent<dynamic, AntdSegmentedStyle, AntdSegmented> {
   const AntdSegmented(
       {super.key,
-      this.disabled = false,
-      this.value,
+      super.style,
+      super.styleBuilder,
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
       required this.items,
-      this.onChange,
-      this.duration = const Duration(milliseconds: 200),
-      this.hapticFeedback = AntdHapticFeedback.light});
-
-  /// 是否禁用整个分段控制器，为 true 时所有选项都不可交互
-  final bool disabled;
-
-  /// 当前选中的分段项索引，null 表示没有选中项
-  final String? value;
+      this.duration = const Duration(milliseconds: 200)});
 
   /// 分段选项列表，至少需要包含两个选项
   final List<AntdSegmentedItem> items;
 
-  /// 选项变化时的回调函数，返回选中项的索引
-  final ValueChanged<String?>? onChange;
-
   /// 选项切换时的动画过渡时长
   final Duration duration;
-
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
 
   @override
   State<StatefulWidget> createState() {
@@ -169,31 +115,23 @@ class AntdSegmented
   }
 }
 
-class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
-    with SingleTickerProviderStateMixin {
-  String? value;
+class _AntdSegmentedState extends AntdFormItemComponentState<dynamic,
+    AntdSegmentedStyle, AntdSegmented> with SingleTickerProviderStateMixin {
   late final AnimationController _controller =
       AnimationController(duration: widget.duration, vsync: this);
   late Animation<double> _animation = Tween(begin: 0.0, end: 0.0)
       .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
   RenderBox? bodyBox;
-  final _offset = <double>[];
+  final Map<int, double> _offset = {};
   double halfOffset = 0;
   double offset = 0;
   AntdSegmentedItem? beforeItem;
 
-  @override
-  void updateDependentValues(covariant AntdSegmented? oldWidget) {
-    super.updateDependentValues(oldWidget);
-    value = widget.value;
-    _offset.clear();
-    for (var _ in widget.items) {
-      _offset.add(0);
+  _updateAnimation(double? target) {
+    if (target == null) {
+      return;
     }
-  }
-
-  _updateAnimation(double target) {
     halfOffset = offset + (target - offset) * 0.3;
     _animation = Tween(begin: offset, end: target)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
@@ -203,8 +141,18 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
   }
 
   @override
+  void updateDependentValues(covariant AntdSegmented? oldWidget) {
+    super.updateDependentValues(oldWidget);
+    if (value != null && isChanged(value, oldWidget?.value)) {
+      var index = widget.items.indexWhere((item) => item.value == value);
+      if (index >= -1) {
+        _updateAnimation(_offset[index]);
+      }
+    }
+  }
+
+  @override
   void dispose() {
-    value = null;
     bodyBox = null;
     _controller.dispose();
     _offset.clear();
@@ -235,66 +183,55 @@ class _AntdSegmentedState extends AntdState<AntdSegmentedStyle, AntdSegmented>
                 }
                 return Positioned(
                     left: _animation.value,
-                    child: AntdStyleProvider<AntdBoxStyle>(
+                    child: AntdBox(
                         style: style.activeItemStyle,
-                        child: activeItem.copyFrom(AntdSegmentedItem(
-                          disable: widget.disabled,
-                          child: AntdBox(
-                            style: const AntdBoxStyle(
-                                visibility: AntdVisibility.visible),
-                            child: AnimatedCrossFade(
-                                firstChild:
-                                    beforeItem?.child ?? const AntdBox(),
-                                secondChild:
-                                    activeItem.child ?? const AntdBox(),
-                                crossFadeState: _animation.value >= halfOffset
-                                    ? CrossFadeState.showSecond
-                                    : CrossFadeState.showFirst,
-                                duration: widget.duration),
-                          ),
-                        ))));
+                        child: AntdBox(
+                          disabled: activeItem.disabled ?? disabled,
+                          style: const AntdBoxStyle(
+                              visibility: AntdVisibility.visible),
+                          child: AnimatedCrossFade(
+                              firstChild: beforeItem?.child ?? const AntdBox(),
+                              secondChild: activeItem.child ?? const AntdBox(),
+                              crossFadeState: _animation.value >= halfOffset
+                                  ? CrossFadeState.showSecond
+                                  : CrossFadeState.showFirst,
+                              duration: widget.duration),
+                        )));
               },
             ),
-          AntdStyleProvider<AntdBoxStyle>(
-              style: style.itemStyle,
-              child: AntdRow(
-                  style: style.bodyRowStyle,
-                  children: widget.items.map((item) {
-                    var index = widget.items.indexOf(item);
-                    return AntdBox(
-                      onLayout: (ctx) {
-                        if (_offset[index] > 0 && !ctx.hasSizeChange) {
-                          return;
+          AntdRow(
+              style: style.bodyRowStyle,
+              children: widget.items.map((item) {
+                var disabled = this.disabled == true || item.disabled == true;
+                var index = widget.items.indexOf(item);
+                if (!disabled && item.value == null) {
+                  AntdLogs.w(
+                      msg:
+                          "Clickable AntdSegmented items need values - please add a value property to each item.");
+                }
+                return AntdBox(
+                    onLayout: (ctx) {
+                      if (_offset[index] != null &&
+                          _offset[index]! > 0 &&
+                          !ctx.hasSizeChange) {
+                        return;
+                      }
+                      var offset = ctx.renderBox
+                          .localToGlobal(Offset.zero, ancestor: bodyBox)
+                          .dx;
+                      _offset[index] = offset;
+                    },
+                    style: style.itemStyle,
+                    disabled: disabled,
+                    child: item.child,
+                    onTap: () {
+                      if (setValue(item.value)) {
+                        if (!valueManual) {
+                          _updateAnimation(_offset[index]);
                         }
-                        var offset = ctx.renderBox
-                            .localToGlobal(Offset.zero, ancestor: bodyBox)
-                            .dx;
-                        _offset[index] = offset;
-                        if (value == item.value) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            if (widget.value != null) {
-                              _updateAnimation(offset);
-                            }
-                          });
-                        }
-                      },
-                      child: item.copyFrom(AntdSegmentedItem(
-                          disable: !widget.disabled && item.disable == true,
-                          onTap: () {
-                            if (widget.disabled || item.disable == true) {
-                              return;
-                            }
-                            handleHapticFeedback(widget.hapticFeedback);
-                            item.onTap?.call();
-                            widget.onChange?.call(item.value);
-
-                            setState(() {
-                              value = item.value;
-                              _updateAnimation(_offset[index]);
-                            });
-                          })),
-                    );
-                  }).toList())),
+                      }
+                    });
+              }).toList()),
         ],
       ),
     );

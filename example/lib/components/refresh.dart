@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:antd_flutter_mobile/index.dart';
-import 'package:example/components/bar/slider.dart';
+import 'package:example/components/tab/tabs.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class AntdPullToRefreshDemo extends StatefulWidget {
   }
 }
 
-var style = AntdBoxStyle(
+var style = const AntdBoxStyle(
     alignment: Alignment.center, width: double.infinity, color: Colors.blue);
 
 final random = Random();
@@ -43,7 +43,7 @@ class _AntdPullToRefreshDemoStateDemo extends State<AntdPullToRefreshDemo> {
               });
             },
             onChange: (status) {
-              AntdToast.show("$status");
+              AntdToast.show("$status", position: AntdToastPosition.top);
             },
             initialDelay: const Duration(seconds: 2),
             initialPrompt: AntdBox(

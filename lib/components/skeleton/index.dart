@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 ///骨架屏样式
 ///@l [AntdSkeleton]
 class AntdSkeletonStyle extends AntdStyle {
+  ///上下间距
+  final AntdWrapStyle? wrapStyle;
+
   ///主体样式
   final AntdBoxStyle? bodyStyle;
 
@@ -21,6 +24,7 @@ class AntdSkeletonStyle extends AntdStyle {
 
   const AntdSkeletonStyle(
       {super.inherit,
+      this.wrapStyle,
       this.bodyStyle,
       this.titleStyle,
       this.rowStyle,
@@ -30,12 +34,13 @@ class AntdSkeletonStyle extends AntdStyle {
   @override
   AntdSkeletonStyle copyFrom(covariant AntdSkeletonStyle? style) {
     return AntdSkeletonStyle(
+        wrapStyle: wrapStyle.merge(style?.wrapStyle),
         bodyStyle: bodyStyle.merge(style?.bodyStyle),
-        titleStyle:
-            rowStyle.mergeActive(rowStyle, style?.rowStyle, style?.titleStyle),
+        titleStyle: titleStyle.mergeActive(
+            rowStyle, style?.rowStyle, style?.titleStyle),
         rowStyle: rowStyle.merge(style?.rowStyle),
         lastRowStyle: lastRowStyle.mergeActive(
-            titleStyle, style?.rowStyle, style?.lastRowStyle),
+            rowStyle, style?.rowStyle, style?.lastRowStyle),
         color: style?.color ?? color);
   }
 }
@@ -58,15 +63,22 @@ class AntdSkeleton extends AntdStateComponent<AntdSkeletonStyle, AntdSkeleton> {
   ///动画周期
   final Duration duration;
 
-  const AntdSkeleton({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    this.animated = true,
-    this.title = true,
-    this.rows = 3,
-    this.duration = const Duration(milliseconds: 1200),
-  });
+  ///加载中
+  final bool? spin;
+
+  ///内容
+  final Widget? child;
+
+  const AntdSkeleton(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      this.animated = true,
+      this.title = true,
+      this.rows = 3,
+      this.duration = const Duration(milliseconds: 1200),
+      this.spin,
+      this.child});
 
   @override
   AntdSkeletonStyle getDefaultStyle(
@@ -74,12 +86,14 @@ class AntdSkeleton extends AntdStateComponent<AntdSkeletonStyle, AntdSkeleton> {
     var rowStyle = AntdBoxStyle(
         radius: token.radius.sm.all,
         color: token.colorFill.quaternary,
-        margin: token.size.md.top,
         padding: token.size.seed.vertical,
         width: 1,
         layoutModes: [AntdBoxLayoutMode.factorWidth]);
     return AntdSkeletonStyle(
-        //color: token.colorBgContainer,
+        color: token.colorFill,
+        wrapStyle: AntdWrapStyle(
+          runSpacing: token.size.lg.toDouble(),
+        ),
         bodyStyle: AntdBoxStyle(
             padding: token.size.xl.top.marge(token.size.md.bottom)),
         titleStyle: rowStyle.copyFrom(AntdBoxStyle(
@@ -93,12 +107,7 @@ class AntdSkeleton extends AntdStateComponent<AntdSkeletonStyle, AntdSkeleton> {
   @override
   AntdSkeletonStyle margeStyle(
       AntdSkeletonStyle defaultStyle, AntdSkeletonStyle? style) {
-    return AntdSkeletonStyle(
-        bodyStyle: defaultStyle.bodyStyle?.copyFrom(style?.bodyStyle),
-        rowStyle: defaultStyle.rowStyle?.copyFrom(style?.rowStyle),
-        titleStyle: defaultStyle.titleStyle?.copyFrom(style?.titleStyle),
-        lastRowStyle: defaultStyle.lastRowStyle?.copyFrom(style?.lastRowStyle),
-        color: style?.color ?? defaultStyle.color);
+    return defaultStyle.copyFrom(style);
   }
 
   @override
@@ -159,6 +168,7 @@ class _AntdSkeletonState extends AntdState<AntdSkeletonStyle, AntdSkeleton>
       ).copyFrom(style),
     );
     return ClipRRect(
+      borderRadius: style?.radius ?? BorderRadius.circular(0),
       child: Stack(
         children: [
           AntdBox(
@@ -191,17 +201,24 @@ class _AntdSkeletonState extends AntdState<AntdSkeletonStyle, AntdSkeleton>
 
   @override
   Widget render(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.title) wrapAnimated("title", style.titleStyle),
-        if (widget.rows > 0)
-          ...List.generate(widget.rows, (i) {
-            return wrapAnimated("row$i",
-                (i == widget.rows - 1) ? style.lastRowStyle : style.rowStyle);
-          })
-      ],
+    return AntdBox(
+      style: style.bodyStyle,
+      child: widget.spin == true || widget.child == null
+          ? AntdWrap(
+              style: style.wrapStyle,
+              children: [
+                if (widget.title) wrapAnimated("title", style.titleStyle),
+                if (widget.rows > 0)
+                  ...List.generate(widget.rows, (i) {
+                    return wrapAnimated(
+                        "row$i",
+                        (i == widget.rows - 1)
+                            ? style.lastRowStyle
+                            : style.rowStyle);
+                  })
+              ],
+            )
+          : widget.child,
     );
   }
 }

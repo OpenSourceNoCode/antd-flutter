@@ -26,24 +26,28 @@ class AntdTabBarBadgeDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
-      AntdTabBar(items: [
-        const AntdTabBarItem(
-            icon: AntdBadge(
-                badge: Text("15"), child: AntdIcon(icon: AntdIcons.appstore)),
-            title: Text("首页")),
-        AntdTabBarItem(
-            icon: const AntdIcon(icon: AntdIcons.unorderedList),
-            builder: (child, index, active) {
-              return AntdBox(
-                  style: const AntdBoxStyle(color: Colors.green), child: child);
-            },
-            title: const Text("待办")),
-        const AntdTabBarItem(
-            icon: AntdIcon(icon: AntdIcons.send),
-            title: AntdBadge(badge: Text("6"), child: Text("消息"))),
-        const AntdTabBarItem(
-            icon: AntdIcon(icon: AntdIcons.user), title: Text("我的"))
-      ], activeIndex: 1)
+      DemoTitle(
+          title: "使用builder完全控制自定义",
+          child: AntdTabBar(items: [
+            const AntdTabBarItem(
+                icon: AntdBadge(
+                    badge: Text("15"),
+                    child: AntdIcon(icon: AntdIcons.appstore)),
+                title: Text("首页")),
+            AntdTabBarItem(
+                icon: const AntdIcon(icon: AntdIcons.unorderedList),
+                builder: (child, index, active) {
+                  return AntdBox(
+                      style: const AntdBoxStyle(color: Colors.green),
+                      child: child);
+                },
+                title: const Text("待办")),
+            const AntdTabBarItem(
+                icon: AntdIcon(icon: AntdIcons.send),
+                title: AntdBadge(badge: Text("6"), child: Text("消息"))),
+            const AntdTabBarItem(
+                icon: AntdIcon(icon: AntdIcons.user), title: Text("我的"))
+          ], activeIndex: 1))
     ]);
   }
 }
@@ -59,18 +63,22 @@ class AntdTabBarIconDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
-      AntdTabBar(items: [
-        AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.app)),
-        AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.unorderedList)),
-        AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.send)),
-        AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.user))
-      ], activeIndex: 1),
-      AntdTabBar(items: [
-        AntdTabBarItem(title: Text("首页")),
-        AntdTabBarItem(title: Text("待办")),
-        AntdTabBarItem(title: Text("消息")),
-        AntdTabBarItem(title: Text("我的"))
-      ], activeIndex: 1)
+      DemoTitle(
+          title: "仅图标",
+          child: AntdTabBar(items: [
+            AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.app)),
+            AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.unorderedList)),
+            AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.send)),
+            AntdTabBarItem(icon: AntdIcon(icon: AntdIcons.user))
+          ], activeIndex: 1)),
+      DemoTitle(
+          title: "仅标题",
+          child: AntdTabBar(items: [
+            AntdTabBarItem(title: Text("首页")),
+            AntdTabBarItem(title: Text("待办")),
+            AntdTabBarItem(title: Text("消息")),
+            AntdTabBarItem(title: Text("我的"))
+          ], activeIndex: 1))
     ]);
   }
 }
@@ -93,8 +101,8 @@ class AntdTabBarTitleDemo extends StatelessWidget {
                   textStyle: token.font.xl.copyWith(color: token.colorWhite),
                   color: token.colorPrimary.withValues(alpha: 0.5),
                   backdropFilter: 32),
-              activeIconStyle: AntdIconStyle(size: 53),
-              iconStyle: AntdIconStyle(size: 32)),
+              activeIconStyle: const AntdIconStyle(size: 53),
+              iconStyle: const AntdIconStyle(size: 32)),
           items: const [
             AntdTabBarItem(
                 icon: AntdIcon(icon: AntdIcons.app), title: Text("首页")),
@@ -272,6 +280,7 @@ class AntdTabBarSafeAreaDemo extends StatefulWidget {
 | icon | 默认状态下显示的图标 | Widget | - | - |
 | title | 选项卡标题（支持任意Widget） | Widget | - | - |
 | activeIcon | 激活状态下显示的图标（未设置时回退使用icon） | Widget | - | - |
+| onActive | 被激活时的回调 | VoidCallback | - | - |
 | builder | 自定义内容构建器（参数：child-基础内容, index-选项卡索引, active-是否激活） | Widget Function(Widget child, int index, bool active) | - | - |
 
 

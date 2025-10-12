@@ -51,7 +51,7 @@ class AntdSearchBarAutoCustomDemo extends StatelessWidget {
         style: AntdSearchBarStyle(
             bodyStyle: AntdBoxStyle(color: token.colorBgContainer),
             activeBodyStyle: AntdBoxStyle(radius: BorderRadius.circular(0))),
-        placeholder: Text("请输入内容"),
+        placeholder: const Text("请输入内容"),
       ),
     ]);
   }

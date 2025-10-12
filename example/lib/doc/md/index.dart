@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:example/comment/parse.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
 import '../../comment/define.dart';
@@ -19,14 +20,14 @@ String generatePropertiesTable(List<PropertiesDefine> properties) {
       var enums = '';
       if (properties.enums != null && properties.enums!.isNotEmpty) {
         enums =
-            properties.enums!.map((enumName) => "`$enumName`").join(' \\\| ');
+            properties.enums!.map((enumName) => "`$enumName`").join(' \\| ');
         return ":$enums";
       }
     }
     return "";
   }
 
-  String _formatType(PropertiesDefine properties) {
+  String formatType(PropertiesDefine properties) {
     // if (properties.name == 'styleBuilder') {
     //   return "-";
     // }
@@ -46,19 +47,19 @@ String generatePropertiesTable(List<PropertiesDefine> properties) {
     return str;
   }
 
-  String _padRight(String input, int length) {
+  String padRight(String input, int length) {
     if (input.length >= length) return input;
     return input;
   }
 
   for (final prop in properties) {
-    buffer.writeln('| ${_padRight(prop.name, 10)} '
-        '| ${_padRight(prop.description != null ? "${prop.description}${getEnums(prop)}" : '-', 23)} '
-        '| ${_padRight(_formatType(
+    buffer.writeln('| ${padRight(prop.name, 10)} '
+        '| ${padRight(prop.description != null ? "${prop.description}${getEnums(prop)}" : '-', 23)} '
+        '| ${padRight(formatType(
               prop,
             ), 8)} '
-        '| ${_padRight(prop.defaultValue?.replaceAll("${prop.type}.", "") ?? '-', 6)} '
-        '| ${_padRight(prop.version ?? '-', 4)} |');
+        '| ${padRight(prop.defaultValue?.replaceAll("${prop.type}.", "") ?? '-', 6)} '
+        '| ${padRight(prop.version ?? '-', 4)} |');
   }
 
   var str = buffer.toString();
@@ -77,7 +78,7 @@ class MdUseComponents implements UseComponents {
     final docsDir = Directory(outputDir);
     if (!await docsDir.exists()) {
       await docsDir.create(recursive: true); // recursive: true 会创建所有不存在的父目录
-      print('已创建目录: $outputDir');
+      debugPrint('已创建目录: $outputDir');
     }
 
     for (final component in components) {
@@ -125,7 +126,7 @@ class MdUseComponents implements UseComponents {
         buffer.writeln(generateRelateApiDoc(component));
 
         await File(mdOutputPath).writeAsString(buffer.toString());
-        print('已生成: $outputPath');
+        debugPrint('已生成: $outputPath');
       }
     }
   }

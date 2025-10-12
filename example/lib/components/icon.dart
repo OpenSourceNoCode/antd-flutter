@@ -28,6 +28,49 @@ class AntdIconStyleDemo extends StatelessWidget {
   }
 }
 
+/// @t 使用AntdIconWrap
+/// @d AntdIconWrap 能够自动识别child,并使用AntdIcon包裹
+/// @l [AntdIcon]
+class AntdIconWrapDemo extends StatelessWidget {
+  const AntdIconWrapDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return AntdStyleProvider<AntdIconStyle>(
+        style: AntdIconStyle(
+            bodyStyle: AntdBoxStyle(
+                border: token.border.copyWith(color: token.colorPrimary).all),
+            childStyle: AntdBoxStyle(
+                height: 24,
+                padding: 4.horizontal,
+                textStyle: TextStyle(color: token.colorPrimary))),
+        child: const DemoWrapper(child: [
+          AntdIconWrap(
+            child: Text("我是Text"),
+          ),
+          AntdIcon(
+            child: Text("我是文字"),
+          ),
+          AntdIconWrap(
+            style: AntdIconStyle(
+                flexStyle: AntdFlexStyle(
+                    crossAxisAlignment: CrossAxisAlignment.start)),
+            child: AntdIcon(
+              row: false,
+              icon: AntdIcons.key,
+              child: Text("我是文字"),
+            ),
+          ),
+          AntdIcon(
+            reversed: true,
+            icon: AntdIcons.key,
+            child: Text("我是文字"),
+          )
+        ]));
+  }
+}
+
 /// @t 线框风格
 /// @d 线框风格的按钮
 /// @l [AntdIcon]

@@ -25,7 +25,7 @@ class AntdSelectorDemo extends StatelessWidget {
   const AntdSelectorDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [AntdSelector(options: options)]);
+    return const DemoWrapper(child: [AntdSelector(items: options)]);
   }
 }
 
@@ -39,9 +39,15 @@ class AntdSelectorColumnsDemo extends StatelessWidget {
   const AntdSelectorColumnsDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DemoWrapper(child: [
-      AntdSelector(columns: 2, options: options),
-      AntdSelector(columns: 3, options: options)
+    return DemoWrapper(child: [
+      const AntdSelector(columns: 2, items: options),
+      const AntdSelector(columns: 3, items: options),
+      AntdSelector(
+          items: options,
+          builder: (items) {
+            return AntdList(
+                feedback: false, items: items ?? const [], shrinkWrap: true);
+          })
     ]);
   }
 }
@@ -53,29 +59,31 @@ class AntdSelectorColumnsDemo extends StatelessWidget {
 
 ```dart
 class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
-  var values = ["1"];
+  List<dynamic> values = ["1"];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
           onChange: (values) async {
-            this.values = values ?? [];
+            setState(() {
+              this.values = values ?? [];
+            });
           },
-          options: options
-              .map((option) => AntdSelectorOption(
-                  label: option.label, value: option.value, disabled: true))
+          items: options
+              .map((option) =>
+                  AntdSelectorItem(label: option.label, value: option.value))
               .toList()),
-      Row(children: [
+      Wrap(spacing: 12, children: [
         AntdButton(
-            child: Text("选中2"),
+            child: const Text("选中2"),
             onTap: () {
               setState(() {
                 values.add("2");
               });
             }),
         AntdButton(
-            child: Text("取消2"),
+            child: const Text("取消2"),
             onTap: () {
               setState(() {
                 values.remove("2");
@@ -97,8 +105,145 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdSelector(options: options, disabled: true),
-      AntdSelector(readOnly: true, value: ["2"], options: options)
+      AntdSelector(items: options, disabled: true),
+      AntdSelector(readOnly: true, defaultValue: ["2"], items: options)
+    ]);
+  }
+}
+
+```
+
+### 与表单配合
+
+
+```dart
+class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
+  List<dynamic> defaultValue = ['2'];
+  List<dynamic>? value = ['2'];
+  List<dynamic>? value1 = ['2'];
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdSelector的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "selector",
+                    builder: (ctx) {
+                      return const AntdSelector(items: options);
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"selector": defaultValue},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "selector",
+                        builder: (ctx) {
+                          return const AntdSelector(items: options);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdSelector覆盖了",
+          child: AntdForm(
+              initialValues: {"selector": defaultValue},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "selector",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdSelector(
+                              disabled: false, items: options);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"selector": defaultValue},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "selector",
+                        builder: (ctx) {
+                          return const AntdSelector(
+                              autoCollect: false, items: options);
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = ['2'];
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"selector": defaultValue},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "selector",
+                        builder: (ctx) {
+                          return AntdSelector(
+                              value: value,
+                              items: options,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = ['2'];
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"selector": defaultValue},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "selector",
+                        builder: (ctx) {
+                          return AntdSelector(
+                              value: value1,
+                              items: options,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value1 = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
     ]);
   }
 }
@@ -218,11 +363,15 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSelectorStyle, AntdSelector&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| value | 值 | List&lt;String&gt; | - | - |
+| defaultValue | 默认值 | List&lt;dynamic&gt; | - | - |
+| value | 值 | List&lt;dynamic&gt; | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
-| onChange | 变更事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
+| onChange | 变更事件 | ValueChanged&lt;List&lt;dynamic&gt;&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| items | 列表项 | List&lt;AntdSelectorItem&gt; | - | - |
+| builder | 自定义构建 默认使用List | Widget? Function(List&lt;AntdSelectorItem&gt;? items) | - | - |
 | columns | 列数 | int | 2 | - |
-| options | 可选项 | List&lt;AntdSelectorOption&gt; | - | - |
 
 
 ## 选择器角标(AntdSelectorBadgeStyle) <a id='AntdSelectorBadgeStyle'></a>
@@ -233,20 +382,17 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 | size | 角标尺寸配置（宽高） | Size | - | - |
 | color | 角标背景颜色 | Color | - | - |
 
-## 选择器选项数据类(AntdSelectorOption) <a id='AntdSelectorOption'></a>
+## 选择器选项数据类(AntdSelectorItem) <a id='AntdSelectorItem'></a>
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
-| style | 样式 | AntdSelectorOptionStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSelectorOptionStyle, AntdSelectorOption&gt; | - | - |
+| style | 样式 | AntdSelectorItemStyle | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSelectorItemStyle, AntdSelectorItem&gt; | - | - |
+| disabled | 禁用 | bool | - | - |
+| value | 值 | dynamic | - | - |
 | description | 选项的描述信息组件（显示在label下方） | Widget | - | - |
-| disabled | 是否禁用该选项（默认false） | bool | false | - |
-| check | 是否选中该选项（默认false） | bool | false | - |
 | label | 选项的主标签组件 | Widget | - | - |
-| value | 选项的唯一标识值 | String | - | - |
-| onChange | 更改事件 | ValueChanged&lt;bool&gt; | - | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 ## 选择器样式配置类(AntdSelectorStyle) <a id='AntdSelectorStyle'></a>
 
@@ -255,6 +401,6 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
 | inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
 | bodyStyle | 最外层样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | wrapStyle | 布局 | [AntdWrapStyle](../components/antd-wrap/#AntdWrapStyle) | - | - |
-| optionStyle | 选项样式 | [AntdSelectorOptionStyle](../components/antd-selector-option/#AntdSelectorOptionStyle) | - | - |
+| itemStyle | 选项样式 | [AntdSelectorItemStyle](../components/antd-selector-item/#AntdSelectorItemStyle) | - | - |
 
 

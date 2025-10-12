@@ -25,7 +25,7 @@ class AntdFormItemDemo extends StatelessWidget {
                 label: const Text("姓名"),
                 name: "name",
                 rules: const [AntdFormRule(len: 5)],
-                builder: <String>(ctx) {
+                builder: (ctx) {
                   return const AntdInput(
                     placeholder: Text("请输入姓名"),
                   );
@@ -38,7 +38,7 @@ class AntdFormItemDemo extends StatelessWidget {
                 label: const Text("姓名1"),
                 name: "name1",
                 rules: const [AntdFormRule(len: 5)],
-                builder: <String>(ctx) {
+                builder: (ctx) {
                   return const AntdInput(
                     placeholder: Text("请输入姓名1"),
                   );
@@ -72,7 +72,7 @@ class AntdFormLayoutDemo extends StatelessWidget {
                 name: "name",
                 help: const Text("不能超过5个哈"),
                 rules: const [AntdFormRule(len: 5)],
-                builder: <String>(ctx) {
+                builder: (ctx) {
                   return const AntdInput(
                     placeholder: Text("请输入姓名"),
                   );
@@ -97,7 +97,7 @@ class AntdFormLayoutDemo extends StatelessWidget {
                   icon: AntdIcons.message,
                 ),
                 rules: const [AntdFormRule(len: 5)],
-                builder: <String>(ctx) {
+                builder: (ctx) {
                   return const AntdInput(
                     placeholder: Text("请输入姓名"),
                   );
@@ -120,7 +120,7 @@ class AntdFormLayoutDemo extends StatelessWidget {
                 help: const Text("我是提示"),
                 extra: const Text("我是额外区域"),
                 rules: const [AntdFormRule(len: 5)],
-                builder: <String>(ctx) {
+                builder: (ctx) {
                   return const AntdInput(
                     placeholder: Text("请输入姓名"),
                   );
@@ -232,7 +232,7 @@ class AntdFormNormalizeDemo extends StatelessWidget {
                   return value + "222";
                 },
                 builder: (ctx) {
-                  return AntdInput(
+                  return const AntdInput(
                     placeholder: Text("请输入姓名"),
                   );
                 },

@@ -1,4 +1,5 @@
 import 'package:antd_flutter_mobile/index.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 /// 滑动选择器(SliderBar)的样式配置
@@ -55,7 +56,7 @@ class AntdSliderBarStyle extends AntdStyle {
 /// @l [AntdSliderBar]
 class AntdSliderBarItem {
   /// 选项的唯一标识值
-  final String value;
+  final dynamic value;
 
   /// 自定义内容组件（优先级高于title）
   final Widget? content;
@@ -66,12 +67,15 @@ class AntdSliderBarItem {
   /// 是否禁用该选项
   final bool disabled;
 
-  const AntdSliderBarItem({
-    required this.value,
-    this.content,
-    this.title,
-    this.disabled = false,
-  });
+  ///item被激活后
+  final VoidCallback? onActive;
+
+  const AntdSliderBarItem(
+      {required this.value,
+      this.content,
+      this.title,
+      this.disabled = false,
+      this.onActive});
 }
 
 class AntdSliderBarController
@@ -80,7 +84,7 @@ class AntdSliderBarController
   int get currentIndex => _currentIndex.value;
   AntdHapticFeedback? _hapticFeedback;
 
-  AntdScrollPositionController<Widget>? _panelController;
+  AntdScrollPositionController<AntdSliderBarItem>? _panelController;
 
   @override
   Future<void> toIndex(int index,
@@ -93,13 +97,16 @@ class AntdSliderBarController
     handleHapticFeedback(_hapticFeedback);
 
     if (_panelController != null) {
-      _panelController!.toIndex(index, config: config);
+      _panelController!.toIndex(index,
+          config: config.copyWith(
+              itemAlign: AntdEdge.start, viewportAlign: AntdEdge.start));
     }
     return super.toIndex(index, config: config);
   }
 }
 
-typedef AntdSliderBarOnChange = void Function(AntdSliderBarItem item);
+typedef AntdSliderBarOnChange = void Function(
+    AntdSliderBarItem item, int index);
 
 ///@t 侧边导航
 ///@g 导航
@@ -112,7 +119,7 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
       {super.key,
       super.style,
       super.styleBuilder,
-      super.physics,
+      super.physics = const BouncingScrollPhysics(),
       super.shrinkWrap,
       super.controller,
       super.onItemPosition,
@@ -121,11 +128,19 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
       super.onEdgeReached,
       super.virtual = false,
       super.alignment,
+      super.fit = AntdScrollItemFit.child,
+      super.scrollBehavior,
+      super.cacheExtent = 1.5,
+      super.cacheExtentStyle = CacheExtentStyle.viewport,
       required super.items,
       this.onChange,
       this.titlePlacement = AntdEdge.center,
-      this.hapticFeedback = AntdHapticFeedback.light})
+      this.hapticFeedback = AntdHapticFeedback.light,
+      this.contentFit})
       : super(vertical: true);
+
+  ///内容如何填充
+  final AntdScrollItemFit? contentFit;
 
   ///变更事件
   final AntdSliderBarOnChange? onChange;
@@ -140,10 +155,11 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
   AntdSliderBarStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     var titleStyle = AntdBoxStyle(
-        padding: token.size.xl.vertical.marge(token.size.lg.horizontal),
+        padding: token.size.xl.vertical.marge(token.size.lg.right),
         color: token.colorFill.tertiary,
         textStyle: token.font.sm);
     var indicatorStyle = AntdBoxStyle(
+        margin: token.size.lg.right,
         width: token.size.xxs.roundToDouble(),
         height: token.size.lg.roundToDouble(),
         color: token.colorTransparent);
@@ -155,7 +171,7 @@ class AntdSliderBar extends AntdScrollPositionedBase<AntdSliderBarItem,
         titleStyle: titleStyle,
         activeTitleStyle: AntdBoxStyle(
             radius: BorderRadius.circular(0),
-            color: token.colorBgLayout,
+            color: token.colorWhite,
             textStyle: token.font.sm.copyWith(color: token.colorPrimary)));
   }
 
@@ -187,29 +203,25 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
     AntdSliderBarStyle,
     AntdSliderBarController,
     AntdSliderBar> {
-  AntdScrollPositionController<Widget> panelController =
+  AntdScrollPositionController<AntdSliderBarItem> panelController =
       AntdScrollPositionController();
   late AntdScrollToIndexConfig _config;
 
-  @override
-  void initState() {
-    super.initState();
-    scrollController._panelController = panelController;
-    if (widget.onChange != null) {
-      scrollController.addPositionListener((context) {
-        if (context.isFirstAppear) {
-          widget.onChange?.call(context.data);
-        }
-      });
+  handlerOnChange(AntdSliderBarItem? item) {
+    if (item == null) {
+      return;
     }
+    widget.onChange?.call(item, widget.items.indexOf(item));
+    item.onActive?.call();
   }
 
   @override
   void updateDependentValues(covariant AntdSliderBar? oldWidget) {
     super.updateDependentValues(oldWidget);
+    scrollController._panelController = panelController;
     scrollController._hapticFeedback = widget.hapticFeedback;
     _config = AntdScrollToIndexConfig(
-        jump: false,
+        jump: true,
         viewportAlign: widget.titlePlacement,
         itemAlign: widget.titlePlacement);
   }
@@ -234,9 +246,15 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
           var active = value == index;
           var after = value + 1 == index;
 
-          return AntdBox(
+          var child = AntdBox(
+            style: (active ? style.activeTitleStyle : style.titleStyle)
+                ?.copyWith(
+                    radius: BorderRadius.only(
+                        bottomRight: before ? radius : Radius.zero,
+                        topRight: after ? radius : Radius.zero)),
             disabled: item.disabled,
             onTap: () {
+              handlerOnChange(entity.data);
               scrollController.toIndex(entity.index, config: _config);
             },
             child: Row(
@@ -250,16 +268,18 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
                 ),
                 Expanded(
                     child: AntdBox(
-                  style: (active ? style.activeTitleStyle : style.titleStyle)
-                      ?.copyWith(
-                          radius: BorderRadius.only(
-                              bottomRight: before ? radius : Radius.zero,
-                              topRight: after ? radius : Radius.zero)),
                   child: item.title,
                 ))
               ],
             ),
           );
+          if (before || after) {
+            return AntdBox(
+              style: AntdBoxStyle(color: style.activeTitleStyle?.color),
+              child: child,
+            );
+          }
+          return child;
         });
   }
 
@@ -274,25 +294,23 @@ class _AntdSliderBarState extends AntdScrollPositionedBaseState<
           child: left,
         ),
         Expanded(
-            child: AntdPositionList<Widget>(
-          fit: AntdScrollItemFit.fill,
+            child: AntdPositionList<AntdSliderBarItem>(
+          fit: widget.contentFit ?? AntdScrollItemFit.child,
           vertical: true,
+          physics: widget.physics,
           controller: panelController,
-          items: widget.items
-              .map((value) => AntdBox(
-                    style: style.contentStyle,
-                    child: value.content,
-                  ))
-              .toList(),
+          items: widget.items,
           onItemPosition: (context) {
             if (context.isFirstAppear) {
+              handlerOnChange(context.data);
               scrollController.toIndex(context.index, config: _config);
             }
           },
-          itemBuilder: (AntdScrollItemContext<Widget,
-                  AntdScrollPositionController<Widget>>
-              meta) {
-            return meta.data;
+          itemBuilder: (ctx) {
+            return AntdBox(
+              style: style.contentStyle,
+              child: ctx.data.content,
+            );
           },
         ))
       ],

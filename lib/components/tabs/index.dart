@@ -98,7 +98,7 @@ class AntdTab {
   final Widget title;
 
   /// 标签唯一标识（默认使用索引）
-  final String value;
+  final dynamic value;
 
   /// 是否禁用当前标签
   final bool? disabled;
@@ -115,7 +115,7 @@ class AntdTab {
 }
 
 typedef AntdTabsOnChange<T extends AntdTab> = void Function(
-    String key, int index);
+    dynamic value, int index);
 
 enum AntdTabAlignment { left, center }
 
@@ -137,11 +137,14 @@ abstract class AntdBaseTabs<Style extends AntdTabsStyle, T extends AntdTab,
       this.leftExtra,
       this.rightExtra,
       this.tabAlignment = AntdTabAlignment.center,
-      this.hapticFeedback = AntdHapticFeedback.light})
-      : super(vertical: false, fit: AntdScrollItemFit.split);
+      this.hapticFeedback})
+      : super(
+            vertical: false,
+            fit: AntdScrollItemFit.split,
+            physics: const BouncingScrollPhysics());
 
   /// 默认选中的标签key（为空时不激活任何一个）
-  final String? activeValue;
+  final dynamic activeValue;
 
   /// 标签切换时的回调（参数为当前选中key）
   final AntdTabsOnChange<T>? onChange;
@@ -174,7 +177,7 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
   var defaultIndex = 0;
   var initMove = false;
 
-  void _setActiveIndex(String? defaultActiveKey) {
+  void _setActiveIndex(dynamic defaultActiveKey) {
     if (defaultActiveKey == null) {
       defaultIndex = 0;
       return;
@@ -212,6 +215,11 @@ abstract class AntdBaseTabsState<Style extends AntdTabsStyle, T extends AntdTab,
     scrollController._hapticFeedback = widget.hapticFeedback;
     if (oldWidget?.activeValue != widget.activeValue) {
       _setActiveIndex(widget.activeValue);
+    }
+    if (widget.activeValue != null && widget.onChange == null) {
+      AntdLogs.w(
+          msg:
+              "When manually setting activeValue, the onChange callback must be used.");
     }
     if (oldWidget?.onChange != widget.onChange) {
       scrollController.currentIndex.removeListener(_innerOnChange);

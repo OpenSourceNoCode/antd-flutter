@@ -1,5 +1,32 @@
 # Changelog
 
+## 5.0.7-alpha.1
+
+`2025-10-12`
+
+### This update primarily unifies form models for input components, optimizes form performance, and changes the value type of all value-supporting components to dynamic. Includes extensive demo and documentation improvements.
+
+✨ New Features
+
+- Form Auto-collection Support: `AntdCascaderView`, `AntdInput`, `AntdTextArea`, `AntdSegmented`, `AntdSlider`, `AntdSwitch`, `AntdCheckList`, `AntdRadio`, `AntdCheckbox`, `AntdSelector`, `AntdRadioGroup`, and `AntdCheckboxGroup` now support automatic form data collection
+- Dynamic Properties: Added support for dynamic properties in both `AntdRadioGroup` and `AntdCheckboxGroup`
+- Touch Feedback Control: `AntdList` now includes a `feedback` property to directly disable touch feedback styles
+- Controlled Loading: `AntdSkeleton` adds `spin` and `child` properties for controlled loading states
+- Enhanced Slider: `AntdSliderBarItem` adds onActive event and dynamic value property
+- Haptic Feedback Option: `AntdHapticFeedback` now includes a none property
+
+⚙️ Improvements
+
+- Scroll Behavior: Fixed default edgeThreshold to 0.2 in AntdScrollView
+- Animation Fix: Resolved issue where AntdSkeleton animations would override border radius
+
+🐛 Bug Fixes
+
+- Slider Positioning: Fixed incorrect scroll view positioning in `AntdSliderBar`
+- Tap Priority: Corrected `AntdTapOptions` priority issue
+- Navigation Layout: Fixed incorrect display position for `AntdNavBar`'s left property
+- Dynamic Updates: Resolved `AntdSegmented` dynamic update issue
+
 ## 5.0.6-alpha.1
 - Added a `hapticFeedback` option to `AntdIndexBar`, supporting configuration at both the `Style` and property levels.
 - Changed the default behavior of `AntdButton` to be non-click-through.

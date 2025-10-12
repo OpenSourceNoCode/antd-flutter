@@ -17,31 +17,198 @@ subtitle: 侧边导航
 </div>
 <div style='flex: 1;'>
 
+### 内容的高度
+
+
+```dart
+class AntdSliderBarFitDemo extends StatelessWidget {
+  const AntdSliderBarFitDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          title: "AntdScrollItemFit.fill每个内容撑满一屏",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  contentFit: AntdScrollItemFit.fill, items: _items))),
+      DemoTitle(
+          title: "AntdScrollItemFit.child根据自身的内容自适应",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  contentFit: AntdScrollItemFit.child, items: _items))),
+      DemoTitle(
+          title: "AntdScrollItemFit.split,内容无法撑满时自动均分，内容过多时自适应",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  contentFit: AntdScrollItemFit.split, items: _items)))
+    ]);
+  }
+}
+
+```
+
+### 当内容滚动时标题栏如何对齐
+
+
+```dart
+class AntdSliderBarTitlePlacementDemo extends StatelessWidget {
+  const AntdSliderBarTitlePlacementDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          title: "最顶部对齐",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  titlePlacement: AntdEdge.start, items: _items))),
+      DemoTitle(
+          title: "中间对齐",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  titlePlacement: AntdEdge.center, items: _items))),
+      DemoTitle(
+          title: "底部对齐",
+          child: SizedBox(
+              height: 500,
+              child:
+                  AntdSliderBar(titlePlacement: AntdEdge.end, items: _items)))
+    ]);
+  }
+}
+
+```
+
+### 震动反馈
+
+
+```dart
+class AntdSliderBarHapticFeedbackDemo extends StatelessWidget {
+  const AntdSliderBarHapticFeedbackDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          title: "关闭反馈",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  hapticFeedback: AntdHapticFeedback.none, items: _items))),
+      DemoTitle(
+          title: "hapticFeedback自定义反馈级别",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  hapticFeedback: AntdHapticFeedback.medium, items: _items)))
+    ]);
+  }
+}
+
+```
+
 ### 事件
 
 
 ```dart
-class AntdSliderBarDemo extends StatelessWidget {
-  const AntdSliderBarDemo({super.key});
+class AntdSliderBarEventDemo extends StatelessWidget {
+  const AntdSliderBarEventDemo({super.key});
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      SizedBox(
-          height: 500,
-          child: AntdSliderBar(
-              onChange: (item) {
-                AntdToast.show("我是:${item.value}");
-              },
-              items: const [
-                AntdSliderBarItem(
-                    value: "1", content: Text("选项1"), title: Text("我是标题1")),
-                AntdSliderBarItem(
-                    value: "2", content: Text("选项2"), title: Text("我是标题2")),
-                AntdSliderBarItem(
-                    value: "3", content: Text("选项3"), title: Text("我是标题3")),
-                AntdSliderBarItem(
-                    value: "4", content: Text("选项4"), title: Text("我是标题4"))
-              ]))
+      DemoTitle(
+          title: "AntdSliderBar的onChange,可以读取AntdSliderBarItem的完整属性",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  onChange: (item, index) {
+                    AntdToast.show("我是:${item.value}");
+                  },
+                  items: _items))),
+      DemoTitle(
+          title: "标题栏目触底/触顶事件",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  onChange: (item, index) {
+                    AntdToast.show("我是:${item.value}");
+                  },
+                  onEdgeReached: (offset, up) async {
+                    AntdToast.show("到达${up ? '顶部' : '底部'}");
+                  },
+                  items: _items))),
+      DemoTitle(
+          title: "通过edgeThreshold控制触底/触顶阈值",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  onChange: (item, index) {
+                    AntdToast.show("我是:${item.value}");
+                  },
+                  edgeThreshold: 0.3,
+                  onEdgeReached: (offset, up) async {
+                    AntdToast.show("到达${up ? '顶部' : '底部'}");
+                  },
+                  items: _items))),
+      DemoTitle(
+          title: "标题栏索引监听事件",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  onChange: (item, index) {
+                    AntdToast.show("我是:${item.value}");
+                  },
+                  onEdgeReached: (offset, up) async {
+                    AntdToast.show("到达${up ? '顶部' : '底部'}");
+                  },
+                  onItemPosition: (ctx) {
+                    AntdToast.show("当前是:${ctx.index},进入:${ctx.visibleHeight},");
+                  },
+                  items: _items)))
+    ]);
+  }
+}
+
+```
+
+### 标题栏宽度和填充方式
+
+
+```dart
+class AntdSliderBarTitleDemo extends StatelessWidget {
+  const AntdSliderBarTitleDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          title: "自定义标题栏宽度",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  style: const AntdSliderBarStyle(
+                      titleStyle: AntdBoxStyle(width: 200)),
+                  items: _items))),
+      DemoTitle(
+          title: "每行都填充宽度",
+          child: SizedBox(
+              height: 500,
+              child:
+                  AntdSliderBar(fit: AntdScrollItemFit.fill, items: _items))),
+      DemoTitle(
+          title: "自动均分",
+          child: SizedBox(
+              height: 500,
+              child:
+                  AntdSliderBar(fit: AntdScrollItemFit.split, items: _items))),
+      DemoTitle(
+          title: "内容自适应",
+          child: SizedBox(
+              height: 500,
+              child:
+                  AntdSliderBar(fit: AntdScrollItemFit.child, items: _items)))
     ]);
   }
 }
@@ -87,44 +254,107 @@ class AntdSliderBarStyleDemo extends StatelessWidget {
 
 ```
 
-### 超多内容填满
+### 加载更多和懒加载
 
-每个页面可以自己适应内容的高度
 
 ```dart
-class AntdSliderBarBigContentDemo extends StatelessWidget {
-  const AntdSliderBarBigContentDemo({super.key});
+class _AntdSliderBarMoreDemoStateDemo extends State<AntdSliderBarMoreDemo> {
+  var titleMoreItems = [..._items];
+  var _laodingIndex = [];
+  var _loadingingIndex = [];
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return DemoWrapper(child: [
+      DemoTitle(
+          title: "标题栏触底加载更多",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  items: titleMoreItems,
+                  onEdgeReached: (offset, up) async {
+                    if (!up) {
+                      AntdToast.show("触发加载");
+                      setState(() {
+                        titleMoreItems.addAll(List.generate(5, (i) {
+                          var index = titleMoreItems.length + i;
+                          return AntdSliderBarItem(
+                              value: index,
+                              content: AntdBox(
+                                  style: AntdBoxStyle(
+                                      color: getRandomColor(), height: 200),
+                                  child: Text("内容$index,${DateTime.now()}")),
+                              title: Text("新增$index"));
+                        }));
+                      });
+                      await Future.delayed(const Duration(seconds: 2));
+                    }
+                  }))),
+      DemoTitle(
+          title: "内容懒加载",
+          child: SizedBox(
+              height: 500,
+              child: AntdSliderBar(
+                  onChange: (item, index) async {
+                    if (_laodingIndex.contains(index)) {
+                      return;
+                    }
+                    setState(() {
+                      _loadingingIndex.add(index);
+                    });
+                    await Future.delayed(const Duration(seconds: 3));
+                    setState(() {
+                      _laodingIndex.add(index);
+                      _loadingingIndex.remove(index);
+                    });
+                  },
+                  items: List.generate(20, (i) {
+                    return AntdSliderBarItem(
+                        value: i,
+                        content: AntdBox(
+                            style: AntdBoxStyle(
+                                color: i % 2 == 0
+                                    ? token.colorPrimary
+                                    : token.colorSuccess,
+                                height: 200),
+                            child: AntdBox(
+                                style: AntdBoxStyle(padding: 8.all),
+                                child: _loadingingIndex.contains(i)
+                                    ? const AntdSkeleton(rows: 3)
+                                    : Text("内容$i"))),
+                        title: Text("新增$i"));
+                  }))))
+    ]);
+  }
+}
+
+```
+
+### 使用Controller手动控制跳转
+
+
+```dart
+class _AntdSliderBarControllerDemoStateDemo
+    extends State<AntdSliderBarControllerDemo> {
+  AntdSliderBarController controller = AntdSliderBarController();
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
+      Wrap(spacing: 12, children: [
+        AntdButton(
+            onTap: () {
+              controller.toIndex(50);
+            },
+            child: const Text("跳转至50")),
+        AntdButton(
+            onTap: () {
+              controller.toIndex(99);
+            },
+            child: const Text("跳转至99"))
+      ]),
       SizedBox(
           height: 500,
-          child: AntdSliderBar(
-              style:
-                  const AntdSliderBarStyle(bodyStyle: AntdBoxStyle(width: 150)),
-              items: [
-                AntdSliderBarItem(
-                    value: "1",
-                    content:
-                        _Child(title: "选项1", desc: generateRandomString(1000)),
-                    title: const Text("我是标题1")),
-                AntdSliderBarItem(
-                    value: "2",
-                    disabled: true,
-                    content:
-                        _Child(title: "选项2", desc: generateRandomString(1200)),
-                    title: const Text("我是标题2")),
-                AntdSliderBarItem(
-                    value: "3",
-                    content:
-                        _Child(title: "选项3", desc: generateRandomString(1400)),
-                    title: const Text("我是标题3")),
-                AntdSliderBarItem(
-                    value: "4",
-                    content:
-                        _Child(title: "选项4", desc: generateRandomString(200)),
-                    title: const Text("我是标题4"))
-              ]))
+          child: AntdSliderBar(controller: controller, items: _items))
     ]);
   }
 }
@@ -242,7 +472,7 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdSliderBarStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSliderBarStyle, AntdSliderBar&gt; | - | - |
-| physics | 滚动物理效果 | ScrollPhysics | - | - |
+| physics | 滚动物理效果 | ScrollPhysics | const BouncingScrollPhysics() | - |
 | shrinkWrap | 自动扩展高度 | bool | - | - |
 | controller | 控制器 | AntdSliderBarController | - | - |
 | onItemPosition | item变更事件 | AntdItemPositionListener&lt;AntdSliderBarItem&gt; | - | - |
@@ -251,10 +481,15 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
 | onEdgeReached | 当触碰到边界时的回调 | AntdOnScrollEdge | - | - |
 | virtual | 启动虚拟滚动 | bool | false | - |
 | alignment | 根据方向自动优化视图边界:`start` \| `center` \| `end` | AntdEdge | - | - |
+| fit | 自动适配策略:`fill` \| `split` \| `child` | AntdScrollItemFit | child | - |
+| scrollBehavior | 滚动行为 | ScrollBehavior | - | - |
+| cacheExtent | 预渲染区域大小 | double | 1.5 | - |
+| cacheExtentStyle | 预渲染区域计算方式 | [CacheExtentStyle](../components/cache-extent/#CacheExtentStyle) | viewport | - |
 | items | 滚动的数据 | List&lt;AntdSliderBarItem&gt; | - | - |
+| contentFit | 内容如何填充:`fill` \| `split` \| `child` | AntdScrollItemFit | - | - |
 | onChange | 变更事件 | AntdSliderBarOnChange | - | - |
 | titlePlacement | 标题和视图的对齐方式:`start` \| `center` \| `end` | AntdEdge | center | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | light | - |
 
 
 ## 滑动选择器(SliderBar)的样式配置(AntdSliderBarStyle) <a id='AntdSliderBarStyle'></a>
@@ -274,9 +509,10 @@ class AntdSliderBarBigContentDemo extends StatelessWidget {
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| value | 选项的唯一标识值 | String | - | - |
+| value | 选项的唯一标识值 | dynamic | - | - |
 | content | 自定义内容组件（优先级高于title） | Widget | - | - |
 | title | 默认标题内容（当content为空时使用） | Widget | - | - |
 | disabled | 是否禁用该选项 | bool | false | - |
+| onActive | item被激活后 | VoidCallback | - | - |
 
 

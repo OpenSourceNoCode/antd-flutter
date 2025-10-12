@@ -43,6 +43,40 @@ class AntdIconStyleDemo extends StatelessWidget {
 
 ```
 
+### 使用AntdIconWrap
+
+AntdIconWrap 能够自动识别child,并使用AntdIcon包裹
+
+```dart
+class AntdIconWrapDemo extends StatelessWidget {
+  const AntdIconWrapDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    var token = AntdTheme.ofToken(context);
+    return AntdStyleProvider<AntdIconStyle>(
+        style: AntdIconStyle(
+            bodyStyle: AntdBoxStyle(
+                border: token.border.copyWith(color: token.colorPrimary).all),
+            childStyle: AntdBoxStyle(
+                height: 24,
+                padding: 4.horizontal,
+                textStyle: TextStyle(color: token.colorPrimary))),
+        child: const DemoWrapper(child: [
+          AntdIconWrap(child: Text("我是Text")),
+          AntdIcon(child: Text("我是文字")),
+          AntdIconWrap(
+              style: AntdIconStyle(
+                  flexStyle: AntdFlexStyle(
+                      crossAxisAlignment: CrossAxisAlignment.start)),
+              child: AntdIcon(
+                  row: false, icon: AntdIcons.key, child: Text("我是文字"))),
+          AntdIcon(reversed: true, icon: AntdIcons.key, child: Text("我是文字"))
+        ]));
+  }
+}
+
+```
+
 ### 线框风格
 
 线框风格的按钮
@@ -338,6 +372,7 @@ class AntdIconFillDemo extends StatelessWidget {
 | icon | 图标 | IconData | - | - |
 | child | 和图标在一起的内容 | Widget | - | - |
 | row | child和icon按行还是按列布局 | bool | true | - |
+| reversed | 反转图标和child的位置 | bool | false | - |
 | onTap | 触摸后的回调 | VoidCallback | - | - |
 
 
@@ -357,8 +392,16 @@ class AntdIconFillDemo extends StatelessWidget {
 | textDirection | 文本方向（LTR/RTL） | TextDirection | - | - |
 | applyTextScaling | 是否应用文本缩放 | bool | - | - |
 | blendMode | 颜色混合模式 | BlendMode | - | - |
-| bodyStyle | 图标容器样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+| bodyStyle | 最外层样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
 | flexStyle | 布局样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
 | childStyle | childStyle | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
+
+## iconWrap(AntdIconWrap) <a id='AntdIconWrap'></a>
+child能自动判断是不是[AntdIcon](/antd-icon),不是[AntdIcon](/antd-icon)的会自动使用[AntdIcon](/antd-icon)包裹
+| 属性名 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| key | - | Key | - | - |
+| style | - | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
+| child | - | Widget | - | - |
 
 

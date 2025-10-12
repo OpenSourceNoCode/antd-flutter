@@ -27,14 +27,13 @@ class AntdCheckListDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
       AntdCheckList(
-          onChange: (values, value, check) {
-            AntdToast.show(
-                "当前的值:${values.join(",")},变化的值:$value,状态：${check ? '选中' : '取消'}");
+          onChange: (value) {
+            AntdToast.show("当前的值:${value?.join(",")},变化的值:$value");
           },
-          values: const {
+          defaultValue: const [
             "A",
             "C"
-          },
+          ],
           items: const [
             AntdCheckItem(value: "A", child: Text("A")),
             AntdCheckItem(value: "B", child: Text("B")),
@@ -79,9 +78,11 @@ class AntdCheckListReadOnlyDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
-      AntdCheckList(items: [
-        AntdCheckItem(value: "A", child: Text("A"), readOnly: true),
-        AntdCheckItem(value: "B", child: Text("B"), readOnly: true)
+      AntdCheckList(defaultValue: [
+        'A'
+      ], items: [
+        AntdCheckItem(value: "A", child: Text("A")),
+        AntdCheckItem(value: "B", child: Text("B"))
       ])
     ]);
   }
@@ -99,8 +100,8 @@ class AntdCheckListDisableDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
       AntdCheckList(items: [
-        AntdCheckItem(value: "A", disable: true, child: Text("A")),
-        AntdCheckItem(value: "B", disable: true, child: Text("B"))
+        AntdCheckItem(value: "A", disabled: true, child: Text("A")),
+        AntdCheckItem(value: "B", disabled: true, child: Text("B"))
       ])
     ]);
   }
@@ -113,15 +114,15 @@ class AntdCheckListDisableDemo extends StatelessWidget {
 
 ```dart
 class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
-  var values = <String>{'A'};
+  var values = <String>['A'];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
       AntdCheckList(
-          values: values,
-          onChange: (value, _, check) {
+          value: values,
+          onChange: (value) {
             setState(() {
-              values = value;
+              values = value ?? [];
             });
           },
           items: const [
@@ -260,29 +261,17 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
-| style | 样式 | AntdCheckListStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCheckListStyle, AntdCheckList&gt; | - | - |
-| controller | 控制器 | AntdCheckListController | - | - |
-| items | 滚动的数据 | List&lt;AntdCheckItem&gt; | - | - |
-| itemBuilder | 数据构造器 | AntdScrollItemBuilder&lt;AntdCheckItem, AntdCheckListController&gt; | - | - |
-| edgeThreshold | 触边阈值 (0-1表示百分比) | double | - | - |
-| onEdgeReached | 当触碰到边界时的回调 | AntdOnScrollEdge | - | - |
-| virtual | 启动虚拟滚动 | bool | false | - |
-| fit | 自动适配策略:`fill` \| `split` \| `child` | AntdScrollItemFit | child | - |
-| shrinkWrap | 自动扩展高度 | bool | true | - |
-| disable | 禁用 | bool | - | - |
-| onChange | 选项改变时触发 | AntdCheckListChange | - | - |
-| values | 默认选中的值 | Set&lt;String&gt; | - | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | T | - | - |
+| value | 值 | T | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;T&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| items | 列表项 | List&lt;AntdCheckItem&gt; | - | - |
+| builder | 自定义构建 默认使用List | Widget? Function(List&lt;AntdCheckItem&gt;? items) | - | - |
 
-
-## 可勾选列表样式(AntdCheckListStyle) <a id='AntdCheckListStyle'></a>
-
-| 属性名 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| inherit | 是否继承样式,如果为false则不会向上合并其他的样式 | bool | - | - |
-| bodyStyle | 整个复选框列表容器的样式 | [AntdBoxStyle](../components/antd-box/#AntdBoxStyle) | - | - |
-| checkItemStyle | 复选框项目中各个选项项的样式配置 | [AntdCheckItemStyle](../components/antd-check-item/#AntdCheckItemStyle) | - | - |
 
 ## 可选中的列表项(AntdCheckItem) <a id='AntdCheckItem'></a>
 
@@ -291,15 +280,18 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
 | key | - | Key | - | - |
 | style | 样式 | AntdCheckItemStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCheckItemStyle, AntdCheckItem&gt; | - | - |
+| disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| disable | 是否禁用 | bool | - | - |
+| defaultValue | 默认值 | dynamic | - | - |
+| value | 值 | dynamic | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;dynamic&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | child | 内容 | Widget | - | - |
 | activeIcon | 样式 | Widget | - | - |
 | unActiveIcon | 样式 | Widget | - | - |
 | disableIcon | 禁用样式 | Widget | - | - |
 | onTap | 触摸事件 | VoidCallback | - | - |
-| value | - | String | - | - |
-| check | 绑定值 | bool | - | - |
-| onChange | 选中或者取消 | AntdCheckItemChange | - | - |
 
 

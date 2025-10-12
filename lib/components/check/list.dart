@@ -1,153 +1,198 @@
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
-///可勾选列表样式
-///@l [AntdCheckList]
-class AntdCheckListStyle extends AntdStyle {
-  /// 整个复选框列表容器的样式
+///可选中的列表项样式
+///@l [AntdCheckItem]
+class AntdCheckItemStyle extends AntdStyle {
+  /// 整个复选框项目容器的样式
   final AntdBoxStyle? bodyStyle;
 
-  /// 复选框项目中各个选项项的样式配置
-  final AntdCheckItemStyle? checkItemStyle;
+  /// 单个选项对齐样式
+  final AntdFlexStyle? itemRowStyle;
 
-  const AntdCheckListStyle({
-    super.inherit,
-    this.bodyStyle,
-    this.checkItemStyle,
-  });
+  /// 单个选项的样式
+  final AntdBoxStyle? itemStyle;
+
+  /// 图标样式配置
+  final AntdIconStyle? iconStyle;
+
+  /// 选中状态下显示的图标
+  final Widget? activeIcon;
+
+  /// 未选中状态下显示的图标
+  final Widget? unActiveIcon;
+
+  /// 禁用状态下显示的图标
+  final Widget? disableIcon;
+
+  const AntdCheckItemStyle(
+      {super.inherit,
+      this.bodyStyle,
+      this.itemRowStyle,
+      this.itemStyle,
+      this.iconStyle,
+      this.activeIcon,
+      this.unActiveIcon,
+      this.disableIcon});
 
   @override
-  AntdCheckListStyle copyFrom(covariant AntdCheckListStyle? style) {
-    return AntdCheckListStyle(
-      bodyStyle: bodyStyle.merge(style?.bodyStyle),
-      checkItemStyle: checkItemStyle.merge(style?.checkItemStyle),
-    );
+  AntdCheckItemStyle copyFrom(AntdCheckItemStyle? style) {
+    return AntdCheckItemStyle(
+        iconStyle: iconStyle.merge(style?.iconStyle),
+        itemRowStyle: itemRowStyle.merge(style?.itemRowStyle),
+        itemStyle: itemStyle.merge(style?.itemStyle),
+        bodyStyle: bodyStyle.merge(style?.bodyStyle),
+        activeIcon: style?.activeIcon ?? activeIcon,
+        unActiveIcon: style?.unActiveIcon ?? unActiveIcon,
+        disableIcon: style?.disableIcon ?? disableIcon);
   }
 }
 
-typedef AntdCheckListChange = void Function(
-    Set<String> values, String? value, bool check);
+///可选中的列表项
+///@l [AntdCheckList]
+class AntdCheckItem
+    extends AntdFormItemComponent<dynamic, AntdCheckItemStyle, AntdCheckItem> {
+  ///内容
+  final Widget? child;
 
-class AntdCheckListController
-    extends AntdScrollPositionController<AntdCheckItem> {}
+  ///样式
+  final Widget? activeIcon;
+
+  ///样式
+  final Widget? unActiveIcon;
+
+  ///禁用样式
+  final Widget? disableIcon;
+
+  ///触摸事件
+  final VoidCallback? onTap;
+
+  const AntdCheckItem(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
+      this.child,
+      this.onTap,
+      this.activeIcon,
+      this.unActiveIcon,
+      this.disableIcon});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdCheckItemState();
+  }
+
+  @override
+  AntdCheckItemStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return AntdCheckItemStyle(
+        itemRowStyle: const AntdFlexStyle(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween),
+        iconStyle: AntdIconStyle(
+            size: token.size.xxl.roundToDouble(),
+            color: token.colorPrimary,
+            bodyStyle: AntdBoxStyle(padding: token.size.lg.left)),
+        activeIcon: const AntdIcon(
+          icon: AntdIcons.check,
+        ),
+        unActiveIcon: const AntdBox(
+          style: AntdBoxStyle(visibility: AntdVisibility.visible),
+          child: AntdIcon(
+            icon: AntdIcons.check,
+          ),
+        ));
+  }
+
+  @override
+  AntdCheckItem getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  AntdCheckItemStyle margeStyle(
+      AntdCheckItemStyle defaultStyle, AntdCheckItemStyle? style) {
+    return defaultStyle.copyFrom(style);
+  }
+}
+
+class _AntdCheckItemState extends AntdFormItemSelectComponentState<dynamic,
+    AntdCheckItemStyle, AntdCheckItem> {
+  Widget? _getIcon() {
+    if (widget.disabled == true) {
+      return widget.disableIcon ?? style.disableIcon;
+    }
+
+    return select
+        ? (widget.activeIcon ?? style.activeIcon)
+        : (widget.unActiveIcon ?? style.unActiveIcon);
+  }
+
+  @override
+  Widget render(BuildContext context) {
+    return AntdBox(
+      style: style.bodyStyle,
+      disabled: widget.disabled,
+      onTap: switchValue,
+      child: AntdBox(
+        style: style.itemStyle,
+        child: AntdRow(style: style.itemRowStyle, children: [
+          if (widget.child != null) widget.child!,
+          AntdIconWrap(style: style.iconStyle, child: _getIcon())
+        ]),
+      ),
+    );
+  }
+}
 
 ///@t 可勾选列表
 ///@g 信息录入
 ///@o 60
 ///@d 列表的勾选操作。
 ///@u 在一组列表项中选择一个或多个。
-class AntdCheckList extends AntdScrollPositionedBase<AntdCheckItem,
-    AntdCheckListStyle, AntdCheckList, AntdCheckListController> {
+class AntdCheckList<T> extends AntdFormItemGroup<AntdCheckItem, AntdBoxStyle,
+    List<T>, AntdCheckList<T>> {
   const AntdCheckList(
       {super.key,
-      super.style,
-      super.styleBuilder,
-      super.controller,
-      required super.items,
-      super.itemBuilder,
-      super.edgeThreshold,
-      super.onEdgeReached,
-      super.virtual = false,
-      super.fit = AntdScrollItemFit.child,
-      super.shrinkWrap = true,
-      this.disable,
-      this.onChange,
-      this.values,
-      this.hapticFeedback = AntdHapticFeedback.light});
-
-  ///禁用
-  final bool? disable;
-
-  ///选项改变时触发
-  final AntdCheckListChange? onChange;
-
-  ///默认选中的值
-  final Set<String>? values;
-
-  ///开启反馈
-  final AntdHapticFeedback? hapticFeedback;
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
+      super.items,
+      super.builder});
 
   @override
   State<StatefulWidget> createState() {
-    return _AntdCheckListState();
+    return _AntdCheckListState<T>();
   }
 
   @override
-  AntdCheckListStyle getDefaultStyle(
-      BuildContext context, AntdTheme theme, AntdMapToken token) {
-    return AntdCheckListStyle(
-        bodyStyle: AntdBoxStyle(border: token.border.vertical),
-        checkItemStyle: const AntdCheckItemStyle());
-  }
-
-  @override
-  AntdCheckListStyle margeStyle(
-      AntdCheckListStyle defaultStyle, AntdCheckListStyle? style) {
-    return defaultStyle.copyFrom(style);
-  }
-
-  @override
-  AntdStyleBuilder<AntdCheckListStyle, AntdCheckList>? getThemeStyle(
-      BuildContext context, AntdTheme theme) {
-    return theme.checkListStyle;
-  }
-
-  @override
-  AntdCheckList getWidget(BuildContext context) {
+  AntdCheckList<T> getWidget(BuildContext context) {
     return this;
   }
-}
-
-class _AntdCheckListState extends AntdScrollPositionedBaseState<AntdCheckItem,
-    AntdCheckListStyle, AntdCheckListController, AntdCheckList> {
-  var _values = <String>{};
 
   @override
-  void updateDependentValues(covariant AntdCheckList? oldWidget) {
-    super.updateDependentValues(oldWidget);
-    _values = widget.values != null ? {...widget.values!} : {};
+  AntdBoxStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return const AntdBoxStyle();
   }
 
   @override
-  Widget? buildItemBuilder(
-      AntdScrollItemContext<AntdCheckItem, AntdCheckListController> ctx) {
-    var item = super.buildItemBuilder(ctx);
-    if (item != null) {
-      return item;
-    }
-    var data = ctx.data;
-    return AntdStyleProvider<AntdCheckItemStyle>(
-        style: style.checkItemStyle,
-        child: ctx.data.copyFrom(AntdCheckItem(
-          disable: widget.disable,
-          check: _values.contains(data.value),
-          onChange: (value, check) {
-            if (value == null) {
-              return;
-            }
-            setState(() {
-              if (check) {
-                _values.add(value);
-              } else {
-                _values.remove(value);
-              }
-              handleHapticFeedback(widget.hapticFeedback);
-              widget.onChange?.call(_values, value, check);
-            });
-          },
-        )));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AntdBox(
-      style: style.bodyStyle,
-      child: super.build(context),
-    );
-  }
-
-  @override
-  AntdCheckListController createController() {
-    return AntdCheckListController();
+  AntdBoxStyle margeStyle(AntdBoxStyle defaultStyle, AntdBoxStyle? style) {
+    return defaultStyle.copyFrom(style);
   }
 }
+
+class _AntdCheckListState<T> extends AntdFormItemGroupMultipleState<
+    AntdCheckItem, AntdBoxStyle, T, AntdCheckList<T>> {}

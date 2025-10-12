@@ -63,18 +63,21 @@ typedef AntdFormFinish = void Function(
     Map<String, dynamic>? values, List<AntdFormRuleResult> ruleResults);
 
 class AntdFormProvider extends InheritedWidget {
-  final AntdForm from;
+  final AntdFormState fromState;
   final AntdFormController controller;
+
+  AntdForm get from => fromState.widget;
 
   const AntdFormProvider(
       {super.key,
       required super.child,
-      required this.from,
+      required this.fromState,
       required this.controller});
 
   @override
   bool updateShouldNotify(covariant AntdFormProvider oldWidget) {
-    return from != oldWidget.from;
+    return fromState != oldWidget.fromState ||
+        controller != oldWidget.controller;
   }
 
   static AntdFormProvider? ofMaybe(BuildContext context) {
@@ -128,7 +131,7 @@ class AntdForm extends AntdFormBase<AntdBoxStyle, AntdForm> {
 
   @override
   State<StatefulWidget> createState() {
-    return _AntdFormState();
+    return AntdFormState();
   }
 
   @override
@@ -154,7 +157,7 @@ class AntdForm extends AntdFormBase<AntdBoxStyle, AntdForm> {
   }
 }
 
-class _AntdFormState extends AntdState<AntdBoxStyle, AntdForm> {
+class AntdFormState extends AntdState<AntdBoxStyle, AntdForm> {
   late final AntdFormController innerController =
       widget.controller ?? AntdFormController();
 
@@ -186,7 +189,7 @@ class _AntdFormState extends AntdState<AntdBoxStyle, AntdForm> {
     return AntdBox(
       style: style,
       child: AntdFormProvider(
-          from: widget,
+          fromState: this,
           controller: innerController,
           child: widget.builder(innerController)),
     );

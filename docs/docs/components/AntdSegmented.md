@@ -28,13 +28,13 @@ class AntdSegmentedDemo extends StatelessWidget {
     return DemoWrapper(child: [
       AntdSegmented(
           items: const [
-            AntdSegmentedItem(child: Text("Daily")),
-            AntdSegmentedItem(child: Text("Weekly")),
-            AntdSegmentedItem(child: Text("Monthly")),
-            AntdSegmentedItem(child: Text("Yearly"))
+            AntdSegmentedItem(value: "1", child: Text("Daily")),
+            AntdSegmentedItem(value: "2", child: Text("Weekly")),
+            AntdSegmentedItem(value: "3", child: Text("Monthly")),
+            AntdSegmentedItem(value: "4", child: Text("Yearly"))
           ],
           onChange: (index) {
-            AntdToast.show("当前index:$index");
+            AntdToast.show("当前index:$index", position: AntdToastPosition.top);
           })
     ]);
   }
@@ -88,15 +88,15 @@ class AntdDisabledDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdSegmented(items: [
         AntdSegmentedItem(child: Text("Daily")),
-        AntdSegmentedItem(disable: true, child: Text("Weekly")),
+        AntdSegmentedItem(disabled: true, child: Text("Weekly")),
         AntdSegmentedItem(child: Text("Monthly")),
-        AntdSegmentedItem(disable: true, child: Text("Yearly"))
+        AntdSegmentedItem(disabled: true, child: Text("Yearly"))
       ]),
       AntdSegmented(disabled: true, value: "1", items: [
         AntdSegmentedItem(child: Text("Daily")),
-        AntdSegmentedItem(disable: true, value: "1", child: Text("Weekly")),
+        AntdSegmentedItem(disabled: true, value: "1", child: Text("Weekly")),
         AntdSegmentedItem(child: Text("Monthly")),
-        AntdSegmentedItem(disable: true, child: Text("Yearly"))
+        AntdSegmentedItem(disabled: true, child: Text("Yearly"))
       ])
     ]);
   }
@@ -267,25 +267,27 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | - | Key | - | - |
-| disabled | 是否禁用整个分段控制器，为 true 时所有选项都不可交互 | bool | false | - |
-| value | 当前选中的分段项索引，null 表示没有选中项 | String | - | - |
+| style | 样式 | AntdSegmentedStyle | - | - |
+| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSegmentedStyle, AntdSegmented&gt; | - | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | dynamic | - | - |
+| value | 值 | dynamic | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;dynamic&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | items | 分段选项列表，至少需要包含两个选项 | List&lt;AntdSegmentedItem&gt; | - | - |
-| onChange | 选项变化时的回调函数，返回选中项的索引 | ValueChanged&lt;String?&gt; | - | - |
 | duration | 选项切换时的动画过渡时长 | Duration | const Duration(milliseconds: 200) | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 分段项(AntdSegmentedItem) <a id='AntdSegmentedItem'></a>
 
 | 属性名 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| key | - | Key | - | - |
-| style | 样式 | AntdBoxStyle | - | - |
-| styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdBoxStyle, AntdSegmentedItem&gt; | - | - |
-| value | 绑定的value | String | - | - |
-| disable | 是否禁用该分段项，禁用时不可点击且样式变灰 | bool | - | - |
+| value | 绑定的value | dynamic | - | - |
+| disabled | 是否禁用该分段项，禁用时不可点击且样式变灰 | bool | - | - |
 | child | 分段项中显示的子组件，通常是文字或图标 | Widget | - | - |
-| onTap | 点击分段项时的回调函数，为 null 时表示不可点击 | VoidCallback | - | - |
 
 ## 样式(AntdSegmentedStyle) <a id='AntdSegmentedStyle'></a>
 

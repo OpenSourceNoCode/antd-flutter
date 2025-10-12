@@ -1,10 +1,11 @@
-import 'dart:convert';
-
 import 'package:antd_flutter_mobile/index.dart';
 import 'package:example/widget/demo.dart';
 import 'package:flutter/material.dart';
 
+import 'form/form.dart';
+
 /// @t 基础使用
+/// @d 使用defaultValue来指定业务数据，支持任意数据类型
 /// @l [AntdSwitch]
 class AntdSwitchDemo extends StatelessWidget {
   const AntdSwitchDemo({super.key});
@@ -13,7 +14,7 @@ class AntdSwitchDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSwitch(
-        value: true,
+        defaultValue: 1,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
         onChange: (value) async {
@@ -21,8 +22,15 @@ class AntdSwitchDemo extends StatelessWidget {
         },
       ),
       AntdSwitch(
+        defaultValue: 2,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
+        onChange: (value) async {
+          AntdToast.show("当前值:$value");
+        },
+      ),
+      AntdSwitch(
+        defaultValue: 3,
         onChange: (value) async {
           AntdToast.show("当前值:$value");
         },
@@ -61,27 +69,29 @@ class AntdSwitchValueDemo extends StatefulWidget {
 }
 
 /// @t 受控模式
+/// @d 通过value为null来关闭，只要value不是null 就是打开状态
 /// @l [AntdSwitch]
 class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
-  bool open = false;
+  String? status;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSwitch(
-        value: open,
+        value: status,
         content: const Text("关闭"),
         activeContent: const Text("打开"),
         onChange: (value) async {
           AntdToast.show("当前值:$value");
         },
       ),
-      Row(
+      Wrap(
+        spacing: 12,
         children: [
           AntdButton(
             child: const Text("打开"),
             onTap: () {
               setState(() {
-                open = true;
+                status = "open";
               });
             },
           ),
@@ -89,7 +99,7 @@ class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
             child: const Text("关闭"),
             onTap: () {
               setState(() {
-                open = false;
+                status = null;
               });
             },
           )
@@ -132,45 +142,138 @@ class AntdSwitchFormDemo extends StatefulWidget {
 /// @t 与表单配合
 /// @l [AntdSwitch]
 class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
-  var value = false;
+  String? value;
+  String? value1;
+
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      ///直接使用
-      AntdForm(onValuesChange: (controller, values) {
-        AntdToast.show(jsonEncode(values));
-      }, builder: (controller) {
-        return AntdFormItem(
-            name: "switch",
-            builder: (ctx) {
-              return const AntdSwitch();
-            });
-      }),
-
-      ///从外部更新
-      AntdForm(onValuesChange: (controller, values) {
-        AntdToast.show(jsonEncode(values));
-      }, builder: (controller) {
-        return AntdFormItem(
-            name: "switch",
-            builder: (ctx) {
-              return Column(
-                children: [
-                  AntdSwitch(
-                    value: value,
-                  ),
-                  AntdButton(
-                    onTap: () {
-                      setState(() {
-                        value = !value;
-                      });
-                    },
-                    child: const Text("点我更新"),
-                  )
-                ],
-              );
-            });
-      })
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdSwitch的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "switch",
+                    builder: (ctx) {
+                      return const AntdSwitch(
+                        defaultValue: "1",
+                      );
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: const {"switch": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "switch",
+                        builder: (ctx) {
+                          return const AntdSwitch();
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdSwitch覆盖了",
+          child: AntdForm(
+              initialValues: const {"switch": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "switch",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdSwitch(
+                            disabled: false,
+                          );
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: const {"switch": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "switch",
+                        builder: (ctx) {
+                          return const AntdSwitch(
+                            autoCollect: false,
+                          );
+                        }));
+              })),
+      AntdButton(
+        child: const Text('点我修改'),
+        onTap: () {
+          setState(() {
+            value = value == null ? "1" : null;
+          });
+        },
+      ),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: const {"switch": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "switch",
+                        builder: (ctx) {
+                          return AntdSwitch(
+                            value: value,
+                            onChange: (value) {
+                              AntdToast.show("当前的输入值:$value",
+                                  position: AntdToastPosition.top);
+                              setState(() {
+                                this.value = value;
+                              });
+                            },
+                          );
+                        }));
+              })),
+      AntdButton(
+        child: const Text('点我修改'),
+        onTap: () {
+          setState(() {
+            value1 = value1 == null ? "1" : null;
+          });
+        },
+      ),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: const {"switch": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "switch",
+                        builder: (ctx) {
+                          return AntdSwitch(
+                            value: value1,
+                            onChange: (value) {
+                              AntdToast.show("当前的输入值:$value",
+                                  position: AntdToastPosition.top);
+                              setState(() {
+                                this.value = value;
+                              });
+                            },
+                            shouldTriggerChange: false,
+                          );
+                        }));
+              })),
     ]);
   }
 }

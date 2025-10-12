@@ -142,7 +142,7 @@ class AntdCollapse extends AntdScrollPositionedBase<AntdCollapseItem,
   @override
   AntdCollapseStyle getDefaultStyle(
       BuildContext context, AntdTheme theme, AntdMapToken token) {
-    var style = AntdListStyle.defaultStyle(token, false);
+    var style = AntdListStyle.defaultStyle(token, false, true);
     return AntdCollapseStyle(
         itemStyle: style.itemStyle,
         childStyle: style.childStyle

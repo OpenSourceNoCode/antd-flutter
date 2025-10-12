@@ -60,6 +60,23 @@ class AntdButtonSizeDemo extends StatelessWidget {
   }
 }
 
+/// @t 不同形状
+/// @l [AntdButton]
+class AntdButtonShapeDemo extends StatelessWidget {
+  const AntdButtonShapeDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(
+        child: AntdButtonShape.values.map((shape) {
+      return AntdButton(
+        shape: shape,
+        child: Text(shape.name),
+      );
+    }).toList());
+  }
+}
+
 /// @t 语意按钮
 /// @l [AntdButton]
 class AntdButtonColorDemo extends StatelessWidget {
@@ -90,7 +107,15 @@ class AntdButtonIconDemo extends StatelessWidget {
         icon: AntdIcon(
           icon: AntdIcons.search,
         ),
-        color: AntdColor.warning,
+        color: AntdColor.primary,
+        fill: AntdButtonFill.solid,
+        child: Text("搜索"),
+      ),
+      AntdButton(
+        icon: AntdBox(
+          style: AntdBoxStyle(size: 24, color: Colors.red),
+        ),
+        color: AntdColor.primary,
         fill: AntdButtonFill.solid,
         child: Text("搜索"),
       ),
@@ -108,6 +133,7 @@ class AntdButtonStyleDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdButton(
+        size: AntdSize.large,
         style: const AntdButtonStyle(
             buttonStyle: AntdBoxStyle(color: Colors.green)),
         styleBuilder: (context, button, style, token) {
@@ -177,11 +203,11 @@ class AntdButtonLoadingDemo extends StatelessWidget {
         loading: true,
         color: AntdColor.primary,
         fill: AntdButtonFill.solid,
-        child: Text("默认按钮"),
+        child: Text("受控Loading"),
       ),
       AntdButton(
         onLoadingTap: () async {
-          await Future.delayed(Duration(seconds: 3));
+          await Future.delayed(const Duration(seconds: 3));
         },
         fill: AntdButtonFill.solid,
         child: const Text("自动loading"),

@@ -269,6 +269,7 @@ class AntdListIndexDemo extends StatefulWidget {
 | header | 标题内容 | Widget | - | - |
 | footer | 标题内容 | Widget | - | - |
 | card | 卡片式列表 | bool | - | - |
+| feedback | 按下效果 | bool | true | - |
 
 
 ## 列表组件样式配置(AntdListStyle) <a id='AntdListStyle'></a>

@@ -17,15 +17,17 @@ class AntdTextArea extends AntdInputBase<AntdTextArea> {
       super.styleBuilder,
       super.focusNode,
       super.clearable = true,
+      super.defaultValue,
       super.value,
-      super.disabled = false,
+      super.disabled,
       super.onChange,
       super.onEditingComplete,
       super.onSubmitted,
       super.onClear,
       super.placeholder,
-      super.readOnly = false,
+      super.readOnly,
       super.controller,
+      super.autoCollect,
       super.autocorrect = false,
       super.maxLines,
       super.minLines,
@@ -44,9 +46,11 @@ class AntdTextArea extends AntdInputBase<AntdTextArea> {
       super.onAppPrivateCommand,
       super.dragStartBehavior = DragStartBehavior.start,
       super.scrollController,
-      super.scrollPhysics = const AlwaysScrollableScrollPhysics(),
+      super.scrollPhysics = const NeverScrollableScrollPhysics(),
       super.clipBehavior = Clip.hardEdge,
       super.onFocus,
+      super.shouldTriggerChange = true,
+      super.hapticFeedback,
       this.showCount = true,
       this.countBuilder})
       : super(textAlign: TextAlign.start);
@@ -63,7 +67,7 @@ class AntdTextArea extends AntdInputBase<AntdTextArea> {
   }
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 
   @override
   AntdTextArea getWidget(BuildContext context) {

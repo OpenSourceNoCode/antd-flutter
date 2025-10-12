@@ -52,13 +52,13 @@ class _AntdSwiperControllerDemoStateDemo
                 onTap: () {
                   controller.previous();
                 },
-                child: Text("上一张"),
+                child: const Text("上一张"),
               ),
               AntdButton(
                 onTap: () {
                   controller.next();
                 },
-                child: Text("下一张"),
+                child: const Text("下一张"),
               )
             ],
           )
@@ -127,7 +127,7 @@ class AntdSwiperCustomIndicatorDemo extends StatelessWidget {
                           color: Colors.black.withValues(alpha: 0.4)),
                       child: Text(
                         "$index/$total",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ));

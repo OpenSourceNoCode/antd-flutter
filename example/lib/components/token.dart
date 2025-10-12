@@ -170,7 +170,7 @@ class _ColorBox extends StatelessWidget {
   final String title;
   final AntdColorDefine define;
 
-  const _ColorBox({super.key, required this.title, required this.define});
+  const _ColorBox({required this.title, required this.define});
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'class.dart';
 import 'define.dart';
@@ -36,7 +37,7 @@ CommentDefine parseComment(String name, String filePath, List<Token>? tokens) {
   StringBuffer? currentBlockBuffer;
 
   // 处理描述文本中的链接转换（修正版）
-  String _convertLinks(String text) {
+  String convertLinks(String text) {
     return text.replaceAllMapped(
       RegExp(r'\[([^\]]+)\](?:#\[([^\]]+)\])?'),
       (match) {
@@ -51,7 +52,7 @@ CommentDefine parseComment(String name, String filePath, List<Token>? tokens) {
   }
 
   // 结束当前块的处理
-  void _endCurrentBlock() {
+  void endCurrentBlock() {
     if (currentBlockType == null || currentBlockBuffer == null) return;
 
     final content = currentBlockBuffer.toString().trim();
@@ -60,7 +61,7 @@ CommentDefine parseComment(String name, String filePath, List<Token>? tokens) {
         title = content;
         break;
       case 'd':
-        description = _convertLinks(content);
+        description = convertLinks(content);
         break;
       case 'u':
         usage = content;
@@ -98,7 +99,7 @@ CommentDefine parseComment(String name, String filePath, List<Token>? tokens) {
 
     if (match != null) {
       // 遇到新注解，结束当前块
-      _endCurrentBlock();
+      endCurrentBlock();
 
       final key = match.group(1)!;
       final value = match.group(2)!;
@@ -141,7 +142,7 @@ CommentDefine parseComment(String name, String filePath, List<Token>? tokens) {
   }
 
   // 处理最后的块
-  _endCurrentBlock();
+  endCurrentBlock();
 
   return CommentDefine(
     name: name,
@@ -274,6 +275,9 @@ String _processParamList(String params, Map<String, String> genericMap) {
 String _replaceSimpleGenerics(String type, Map<String, String> genericMap) {
   // 简单类型的替换逻辑（同之前方案）
   if (genericMap.containsKey(type)) {
+    if (genericMap[type] == type) {
+      return type;
+    }
     return _replaceSimpleGenerics(genericMap[type]!, genericMap);
   }
 
@@ -359,13 +363,13 @@ List<String>? _getEnumValues(
 
     // 4. 检查结果有效性
     if (enumValues.isEmpty) {
-      print('⚠️ 枚举 [$typeName] 没有定义任何值');
+      debugPrint('⚠️ 枚举 [$typeName] 没有定义任何值');
       return null;
     }
 
     return enumValues;
   } catch (e, stack) {
-    print('❌ 获取枚举 [$typeName] 值时出错: $e\n$stack');
+    debugPrint('❌ 获取枚举 [$typeName] 值时出错: $e\n$stack');
     return null;
   }
 }
@@ -710,7 +714,7 @@ Future<List<File>> getFiles(List<String> targetDirs, Directory parent) async {
   for (final dir in targetDirs) {
     final files = await _findDartFiles('${parent.path}/$dir');
     allDartFiles.addAll(files);
-    print('在目录 $dir 中找到 ${files.length} 个Dart文件');
+    debugPrint('在目录 $dir 中找到 ${files.length} 个Dart文件');
   }
   return allDartFiles;
 }
@@ -719,7 +723,7 @@ Future<List<ComponentDefine>> getComponents(
     List<File> files, ClassDeclarationVisitor visitor) async {
   final allComponents = <ComponentDefine>[];
   for (final file in files) {
-    allComponents.addAll(await _parseFile(file, visitor));
+    allComponents.addAll(_parseFile(file, visitor));
   }
 
   final components = _margeDemos(allComponents);
@@ -884,7 +888,7 @@ Future<List<File>> _findDartFiles(String dirPath) async {
       }
     }
   } catch (e) {
-    print('警告: 无法访问目录 $dirPath: $e');
+    debugPrint('警告: 无法访问目录 $dirPath: $e');
   }
 
   return files;
@@ -907,7 +911,7 @@ List<ComponentDefine> _parseFile(
 
     return visitor.components;
   } catch (e) {
-    print('解析文件 ${file.path} 时出错: $e');
+    debugPrint('解析文件 ${file.path} 时出错: $e');
     return [];
   }
 }
@@ -938,7 +942,7 @@ Map<String, List<PropertiesDefine>> getStyleComment(
 
     return visitor.commentMap;
   } catch (e) {
-    print('解析文件 ${file.path} 时出错: $e');
+    debugPrint('解析文件 ${file.path} 时出错: $e');
     return {};
   }
 }

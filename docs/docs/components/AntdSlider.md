@@ -27,7 +27,7 @@ class AntdSliderDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
       AntdSlider(onChange: (value) {
-        AntdToast.show("当前选中值为start:${value.start},end:${value.end}");
+        AntdToast.show("当前选中值为start:${value?.start},end:${value?.end}");
       })
     ]);
   }
@@ -48,7 +48,7 @@ class AntdSliderTicksStepDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           onChange: (value) {
-            AntdToast.show("当前选中值为start:${value.start},end:${value.end}");
+            AntdToast.show("当前选中值为start:${value?.start},end:${value?.end}");
           })
     ]);
   }
@@ -69,7 +69,7 @@ class AntdSliderTicksStepMarkDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           onChange: (value) {
-            AntdToast.show("当前选中值为${value.start}");
+            AntdToast.show("当前选中值为${value?.start}");
           },
           renderTicks: (value) {
             return Text("$value");
@@ -95,7 +95,7 @@ class AntdSliderMaxMinDemo extends StatelessWidget {
           max: 80,
           min: 50,
           onChange: (value) {
-            AntdToast.show("当前选中值为${value.end}");
+            AntdToast.show("当前选中值为${value?.end}");
           })
     ]);
   }
@@ -113,7 +113,9 @@ class AntdSliderDefaultDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdSlider(
-          ticks: true, step: 10, value: AntdSliderValue(start: 20, end: 0))
+          ticks: true,
+          step: 10,
+          defaultValue: AntdSliderValue(start: 20, end: 0))
     ]);
   }
 }
@@ -133,9 +135,9 @@ class AntdSliderRangeDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           range: true,
-          value: const AntdSliderValue(start: 20, end: 40),
+          defaultValue: const AntdSliderValue(start: 20, end: 40),
           onChange: (value) {
-            AntdToast.show("当前选中值为start:${value.start},end:${value.end}");
+            AntdToast.show("当前选中值为start:${value?.start},end:${value?.end}");
           })
     ]);
   }
@@ -181,7 +183,188 @@ class AntdSliderCustomDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           range: true,
-          value: const AntdSliderValue(start: 20, end: 20))
+          defaultValue: const AntdSliderValue(start: 20, end: 20))
+    ]);
+  }
+}
+
+```
+
+### 受控模式
+
+
+```dart
+class _AntdSliderControllerDemoStateDemo
+    extends State<AntdSliderControllerDemo> {
+  AntdSliderValue? value = const AntdSliderValue(start: 20, end: 30);
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdSlider(
+          ticks: true,
+          step: 10,
+          range: true,
+          value: value,
+          onChange: (value) {
+            setState(() {
+              this.value = value;
+            });
+          }),
+      AntdButton(
+          onTap: () {
+            setState(() {
+              value = const AntdSliderValue(start: 20, end: 30);
+            });
+          },
+          child: const Text("动态修改"))
+    ]);
+  }
+}
+
+```
+
+### 与表单配合
+
+
+```dart
+class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
+  AntdSliderValue? value;
+  AntdSliderValue? value1;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdSlider的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "slider",
+                    builder: (ctx) {
+                      return const AntdSlider(
+                          ticks: true, step: 10, range: true);
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "slider",
+                        builder: (ctx) {
+                          return const AntdSlider(
+                              ticks: true, step: 10, range: true);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdSlider覆盖了",
+          child: AntdForm(
+              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "slider",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdSlider(
+                              disabled: false,
+                              ticks: true,
+                              step: 10,
+                              range: true);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "slider",
+                        builder: (ctx) {
+                          return const AntdSlider(
+                              autoCollect: false,
+                              ticks: true,
+                              step: 10,
+                              range: true);
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = AntdSliderValue(start: 20, end: 30);
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "slider",
+                        builder: (ctx) {
+                          return AntdSlider(
+                              value: value,
+                              ticks: true,
+                              step: 10,
+                              range: true,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = AntdSliderValue(start: 20, end: 30);
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "slider",
+                        builder: (ctx) {
+                          return AntdSlider(
+                              value: value1,
+                              ticks: true,
+                              step: 10,
+                              range: true,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
     ]);
   }
 }
@@ -299,18 +482,22 @@ class AntdSliderCustomDemo extends StatelessWidget {
 | key | - | Key | - | - |
 | style | 样式 | AntdSliderStyle | - | - |
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSliderStyle, AntdSlider&gt; | - | - |
-| value | 默认值 | AntdSliderValue | - | - |
-| disabled | 是否禁用 | bool | false | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | AntdSliderValue | - | - |
+| value | 值 | AntdSliderValue | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;AntdSliderValue&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | slider | 滑块的图标 | Widget | - | - |
 | max | 最大值 | int | - | - |
 | min | 最小值 | int | - | - |
 | length | 长度 | int | 100 | - |
-| onChange | 拖拽滑块时触发，并把当前拖拽的值作为参数传入 | AntdSliderChange | - | - |
 | range | 是否为双滑块 | bool | false | - |
 | step | 步距，取值必须大于 0，并且 (max - min) 可被 step 整除。当 marks 不为空对象时，step 的配置失效 | int | 1 | - |
 | ticks | 是否显示刻度 | bool | false | - |
 | renderTicks | 渲染的tick | AntdSliderRenderTicks | - | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | light | - |
 
 
 ## 样式(AntdSliderStyle) <a id='AntdSliderStyle'></a>

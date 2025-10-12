@@ -48,9 +48,11 @@ class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
       super.styleBuilder,
       super.disabled,
       super.readOnly,
+      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
+      super.shouldTriggerChange,
       super.indeterminate,
       super.extra,
       super.hapticFeedback});
@@ -98,3 +100,45 @@ class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
 
 class _AntdRadioState
     extends AntdBaseCheckboxState<AntdRadioStyle, AntdRadio> {}
+
+///单选选择组
+///@l [AntdRadio]
+class AntdRadioGroup<T>
+    extends AntdFormItemGroup<AntdRadio, AntdBoxStyle, T, AntdRadioGroup<T>> {
+  const AntdRadioGroup(
+      {super.key,
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
+      super.items,
+      super.builder});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdRadioGroupState<T>();
+  }
+
+  @override
+  AntdRadioGroup<T> getWidget(BuildContext context) {
+    return this;
+  }
+
+  @override
+  AntdBoxStyle getDefaultStyle(
+      BuildContext context, AntdTheme theme, AntdMapToken token) {
+    return const AntdBoxStyle();
+  }
+
+  @override
+  AntdBoxStyle margeStyle(AntdBoxStyle defaultStyle, AntdBoxStyle? style) {
+    return defaultStyle.copyFrom(style);
+  }
+}
+
+class _AntdRadioGroupState<T> extends AntdFormItemGroupState<AntdRadio,
+    AntdBoxStyle, T, AntdRadioGroup<T>> {}

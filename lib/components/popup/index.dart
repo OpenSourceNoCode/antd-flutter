@@ -1,4 +1,4 @@
-import 'package:antd_flutter_mobile/index.dart' hide AntdPopupDefaultAnimation;
+import 'package:antd_flutter_mobile/index.dart';
 import 'package:flutter/widgets.dart';
 
 ///弹出层样式

@@ -11,11 +11,10 @@ class AntdCheckListDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
       AntdCheckList(
-        onChange: (values, value, check) {
-          AntdToast.show(
-              "当前的值:${values.join(",")},变化的值:$value,状态：${check ? '选中' : '取消'}");
+        onChange: (value) {
+          AntdToast.show("当前的值:${value?.join(",")},变化的值:$value");
         },
-        values: const {"A", "C"},
+        defaultValue: const ["A", "C"],
         items: const [
           AntdCheckItem(
             value: "A",
@@ -75,12 +74,15 @@ class AntdCheckListReadOnlyDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
       AntdCheckList(
+        defaultValue: ['A'],
         items: [
-          AntdCheckItem(value: "A", child: Text("A"), readOnly: true),
+          AntdCheckItem(
+            value: "A",
+            child: Text("A"),
+          ),
           AntdCheckItem(
             value: "B",
             child: Text("B"),
-            readOnly: true,
           ),
         ],
       )
@@ -96,16 +98,14 @@ class AntdCheckListDisableDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
-      AntdCheckList(
-        items: [
-          AntdCheckItem(value: "A", disable: true, child: Text("A")),
-          AntdCheckItem(
-            value: "B",
-            disable: true,
-            child: Text("B"),
-          ),
-        ],
-      )
+      AntdCheckList(items: [
+        AntdCheckItem(value: "A", disabled: true, child: Text("A")),
+        AntdCheckItem(
+          value: "B",
+          disabled: true,
+          child: Text("B"),
+        ),
+      ])
     ]);
   }
 }
@@ -122,15 +122,15 @@ class AntdCheckListValueDemo extends StatefulWidget {
 /// @t 受控模式
 /// @l [AntdCheckList]
 class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
-  var values = <String>{'A'};
+  var values = <String>['A'];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [
       AntdCheckList(
-        values: values,
-        onChange: (value, _, check) {
+        value: values,
+        onChange: (value) {
           setState(() {
-            values = value;
+            values = value ?? [];
           });
         },
         items: const [
@@ -148,7 +148,7 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
       Row(
         children: [
           AntdButton(
-            child: Text("选中B"),
+            child: const Text("选中B"),
             onTap: () {
               setState(() {
                 values.add("B");
@@ -156,7 +156,7 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
             },
           ),
           AntdButton(
-            child: Text("取消B"),
+            child: const Text("取消B"),
             onTap: () {
               setState(() {
                 values.remove("B");

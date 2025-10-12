@@ -1,12 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+
 import '../../comment/define.dart';
 import '../index.dart';
 
 class MapUseComponents implements UseComponents {
   @override
   void process(List<ComponentDefine> defines, Directory scriptDir) async {
-    print('正在生成 map.dart，demos 数量: ${defines.length}');
+    debugPrint('正在生成 map.dart，demos 数量: ${defines.length}');
 
     var generatedDir = '${scriptDir.path}/lib/generated';
     final mdDirectory = Directory(generatedDir);
@@ -19,7 +21,7 @@ class MapUseComponents implements UseComponents {
     for (var value in defines) {
       StringBuffer stringBuffer = StringBuffer();
       stringBuffer.writeln(
-          "Widget _${value.comment.name}FormMap(Map<String,dynamic> atr){");
+          "Widget ${value.comment.name.isEmpty ? value.comment.name : value.comment.name[0].toLowerCase() + value.comment.name.substring(1)}FormMap(Map<String,dynamic> atr){");
 
       stringBuffer.writeln("return ${value.comment.name}(");
       for (var props in value.properties!) {
@@ -42,10 +44,11 @@ class MapUseComponents implements UseComponents {
         .writeln("Widget formMap(String name,Map<String,dynamic> properties){");
     for (var value in defines) {
       stringBuffer.writeln("if (name == '${value.comment.name}'){");
-      stringBuffer.writeln("return _${value.comment.name}FormMap(properties);");
+      stringBuffer.writeln(
+          "return ${value.comment.name.isEmpty ? value.comment.name : value.comment.name[0].toLowerCase() + value.comment.name.substring(1)}FormMap(properties);");
       stringBuffer.writeln("}");
     }
-    stringBuffer.writeln("return AntdBox();");
+    stringBuffer.writeln("return const AntdBox();");
     stringBuffer.writeln("}");
     stringBuffer.writeln(methods.join('\n'));
     stringBuffer.writeln(genderPopoverForm(defines));
@@ -85,7 +88,7 @@ class MapUseComponents implements UseComponents {
     """);
     stringBuffer.writeln("}");
     await file.writeAsString(stringBuffer.toString());
-    print('生成完成: ${file.path}');
+    debugPrint('生成完成: ${file.path}');
   }
 
   String genderPopoverForm(List<ComponentDefine> defines) {
@@ -106,7 +109,7 @@ class MapUseComponents implements UseComponents {
           stringBuffer.writeln("AntdFormItem(");
           stringBuffer.writeln("name: \"${props.name}\",");
           stringBuffer.writeln("""
-                label: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('${props.name}(${props.type})'),
             Text('${props.description}')
           ],),
@@ -121,7 +124,7 @@ class MapUseComponents implements UseComponents {
           } else if (props.enums != null) {
             var selectorOption = props.enums!
                 .map((value) =>
-                    "AntdSelectorOption(label: Text('${value}'), value: '${value}')")
+                    " AntdSelectorItem(label: Text('$value'), value: '$value')")
                 .join(",");
 
             stringBuffer.writeln("""
@@ -132,11 +135,11 @@ class MapUseComponents implements UseComponents {
                   ctx.onChange(${props.type}.values
                       .firstWhere((value) => value.name == values?.lastOrNull));
                 },
-                options: [${selectorOption}]);
+                items: const [$selectorOption]);
             """);
           } else {
             stringBuffer.writeln("""
-              return  AntdInput();
+              return  const AntdInput();
             """);
           }
           stringBuffer.writeln("},");

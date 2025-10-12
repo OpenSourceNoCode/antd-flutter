@@ -49,7 +49,7 @@ class AntdCascaderViewDemo extends StatelessWidget {
     return DemoWrapper(outline: true, child: [
       AntdCascaderView(
         onChange: (values) {
-          AntdToast.show(values.join(","));
+          AntdToast.show(values?.join(",") ?? "");
         },
         options: cascaderOptions,
       )
@@ -64,7 +64,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: true, child: [
       AntdCascaderView(
         value: ['2-1', '3-1'],
         options: cascaderOptions,

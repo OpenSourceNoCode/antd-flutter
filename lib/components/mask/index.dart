@@ -210,13 +210,17 @@ abstract class AntdMaskBaseState<
   }
 
   @override
-  @protected
-  void updateDependentValues(covariant WidgetType? oldWidget) {
-    super.updateDependentValues(oldWidget);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     maskColor = style.maskColor
         .withValues(alpha: widget.opacity?.opacity ?? style.maskOpacity);
     initAnimation();
-    if (widget.hole != null) {
+  }
+
+  @override
+  void updateDependentValues(covariant WidgetType? oldWidget) {
+    super.updateDependentValues(oldWidget);
+    if (widget.hole != oldWidget?.hole) {
       initHole(widget.hole, widget.hole);
     }
   }

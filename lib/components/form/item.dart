@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:antd_flutter_mobile/index.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 /// 表单项布局跨度配置
@@ -128,6 +129,7 @@ class AntdFormItemProvider extends InheritedWidget {
   final dynamic Function() getValue;
   final AntdFormItemSetValue setValue;
   final String namePath;
+  final bool existsShouUpdate;
 
   const AntdFormItemProvider(
       {super.key,
@@ -136,13 +138,17 @@ class AntdFormItemProvider extends InheritedWidget {
       required this.readOnly,
       required this.getValue,
       required this.setValue,
-      required this.namePath});
+      required this.namePath,
+      required this.existsShouUpdate});
 
   @override
   bool updateShouldNotify(covariant AntdFormItemProvider oldWidget) {
     return getValue != oldWidget.getValue ||
         setValue != oldWidget.setValue ||
-        namePath != oldWidget.namePath;
+        namePath != oldWidget.namePath ||
+        disabled != oldWidget.disabled ||
+        readOnly != oldWidget.readOnly ||
+        existsShouUpdate != oldWidget.existsShouUpdate;
   }
 
   static AntdFormItemProvider? ofMaybe<T>(BuildContext context) {
@@ -342,14 +348,7 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
   late final FocusNode focusNode = _inheritedFocusNode ?? _createFocusNode;
 
   @override
-  void dispose() {
-    _createFocusNode.dispose();
-    controller?.removeItem(widget.name, this, preserve);
-    super.dispose();
-  }
-
-  @override
-  void updateDependentValues(covariant AntdFormItem? oldWidget) {
+  void updateDependentValues(AntdFormItem? oldWidget) {
     super.updateDependentValues(oldWidget);
     existsRequired = widget.rules != null &&
         widget.rules!.where((value) => value.required == true).isNotEmpty;
@@ -371,6 +370,13 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
     if (widget.dependencies != null) {
       controller?.addDependencies(widget.name, widget.dependencies);
     }
+  }
+
+  @override
+  void dispose() {
+    _createFocusNode.dispose();
+    controller?.removeItem(widget.name, this, preserve);
+    super.dispose();
   }
 
   Widget? buildLabel() {
@@ -439,6 +445,10 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
         name: widget.name, value: value, errorMessages: messages);
   }
 
+  dynamic getValue() {
+    return controller?.getFieldValue(name: widget.name);
+  }
+
   void setValue(dynamic value, AntdFormTrigger sourceTrigger) {
     if (trigger == null ||
         trigger == sourceTrigger ||
@@ -502,13 +512,12 @@ class AntdFormItemState extends AntdState<AntdFormItemStyle, AntdFormItem> {
         ? AntdIconWrap(style: style.extraIconStyle, child: widget.extra)
         : null;
     var itemProvider = AntdFormItemProvider(
-      getValue: () {
-        return controller?.getFieldValue(name: widget.name);
-      },
+      getValue: getValue,
       setValue: setValue,
       namePath: widget.name,
       disabled: disabled == true,
       readOnly: readOnly == true,
+      existsShouUpdate: widget.shouUpdate != null,
       child: item,
     );
 
@@ -604,14 +613,6 @@ abstract mixin class AntdFormItemMixin {
     return AntdFormItemProvider.ofMaybe(context) != null;
   }
 
-  void useValue(BuildContext context, void Function(dynamic value) action) {
-    if (!isFromItemEnv(context)) {
-      return;
-    }
-
-    action(getValue(context));
-  }
-
   dynamic getValue(BuildContext context) {
     var provider = AntdFormItemProvider.ofMaybe(context);
     if (provider == null) {
@@ -630,7 +631,7 @@ abstract mixin class AntdFormItemMixin {
     provider.setValue(value, sourceTrigger);
   }
 
-  Widget get child;
+  Widget get bindWidget;
 }
 
 abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
@@ -641,6 +642,9 @@ abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
   ///只读
   final bool? readOnly;
 
+  ///默认值
+  final T? defaultValue;
+
   ///值
   final T? value;
 
@@ -650,38 +654,84 @@ abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
   ///自动同步值到表单
   final bool? autoCollect;
 
+  ///当value手动控制的时候 是否应该触发onChange
+  final bool? shouldTriggerChange;
+
+  ///开启反馈
+  final AntdHapticFeedback? hapticFeedback;
+
   const AntdFormItemComponent(
       {super.key,
       super.style,
       super.styleBuilder,
       this.disabled,
       this.readOnly,
+      this.defaultValue,
       this.value,
       this.onChange,
-      this.autoCollect = true});
+      this.autoCollect = true,
+      this.shouldTriggerChange = true,
+      this.hapticFeedback = AntdHapticFeedback.light});
 
   @override
-  Widget get child => this;
+  Widget get bindWidget => this;
 }
 
 abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
         WidgetType extends AntdFormItemComponent<T, Style, WidgetType>>
     extends AntdState<Style, WidgetType> {
-  var disabled = false;
-  var readOnly = false;
-  var _controller = false;
+  bool? disabled;
+  bool? readOnly;
+  var valueManual = false;
   T? value;
+  AntdFormItemGroupProvider? groupProvider;
+  AntdFormItemOnChangeProvider<T>? onChangeProvider;
 
   @override
-  void updateDependentValues(covariant WidgetType? oldWidget) {
+  @mustCallSuper
+  void updateDependentValues(WidgetType? oldWidget) {
     super.updateDependentValues(oldWidget);
-
+    onChangeProvider = AntdFormItemOnChangeProvider.of<T>(context);
+    groupProvider = AntdFormItemGroupProvider.of(context);
     var formItem = AntdFormItemProvider.ofMaybe(context);
-    disabled = (widget.disabled ?? formItem?.disabled) == true;
-    readOnly = (widget.readOnly ?? formItem?.readOnly) == true;
-    _controller = widget.value != null;
-    if (_controller) {
-      value = widget.value;
+    disabled =
+        (widget.disabled ?? groupProvider?.disabled ?? formItem?.disabled) ==
+            true;
+    readOnly =
+        (widget.readOnly ?? groupProvider?.readOnly ?? formItem?.readOnly) ==
+            true;
+    if (formItem != null && formItem.existsShouUpdate != true) {
+      var name = formItem.namePath;
+      AntdFormProvider.ofMaybe(context)?.controller.addShouUpUpdate(name,
+          (value, beforeValue) {
+        return isChanged(value?[name], beforeValue?[name]);
+      });
+    }
+
+    value = initValue(oldWidget);
+    if (oldWidget != null &&
+        widget.shouldTriggerChange == true &&
+        widget.onChange != null &&
+        isChanged(value, oldWidget.value)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        handlerOnChange(value);
+      });
+    }
+  }
+
+  void handlerOnChange(T? value) {
+    widget.onChange?.call(value);
+    onChangeProvider?.onChange?.call(value);
+  }
+
+  T? getInitValue(WidgetType? oldWidget) {
+    return widget.value ?? widget.defaultValue;
+  }
+
+  T? initValue(WidgetType? oldWidget) {
+    var value = getInitValue(oldWidget);
+    valueManual = isValueVManual(oldWidget);
+    if (valueManual) {
       AntdLogs.w(
           msg:
               "Controlled mode active (non-empty value). Manual value update required.",
@@ -692,49 +742,268 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
         });
       }
     }
-    if (widget.value == null) {
-      widget.useValue(context, (value) {
-        if (value.runtimeType == this.value.runtimeType) {
-          this.value = value;
-        }
-      });
+
+    if (!valueManual) {
+      var formValue = widget.getValue(context);
+      if (formValue != null &&
+          (value == null || formValue.runtimeType == value.runtimeType)) {
+        value = formValue;
+      }
+      value ??= this.value;
     }
+    return value;
+  }
+
+  bool isValueVManual(WidgetType? oldWidget) {
+    return widget.value != null;
   }
 
   bool isChanged(T? newValue, T? value) {
     return newValue != value;
   }
 
-  void changeValue(T? Function() changed) {
-    if (readOnly || disabled) {
-      return;
+  bool setValue(T? newValue, [bool state = true]) {
+    if (readOnly == true || disabled == true) {
+      return false;
     }
 
-    T? newValue = changed();
-    widget.onChange?.call(newValue);
-    if (_controller) {
-      return;
+    handlerOnChange(newValue);
+    if (valueManual) {
+      return true;
     }
     handlerAutoCollect(newValue, value);
     if (isChanged(newValue, value)) {
-      setState(() {
-        value = newValue;
-      });
+      if (openHapticFeedback()) {
+        handleHapticFeedback(widget.hapticFeedback);
+      }
+
+      value = newValue;
+      if (state) {
+        var call = getSetStateCallback();
+        setState(call);
+      }
     }
+    return true;
+  }
+
+  bool openHapticFeedback() {
+    return true;
+  }
+
+  VoidCallback getSetStateCallback() {
+    return () {};
   }
 
   void handlerAutoCollect(T? newValue, T? value) {
     if (widget.autoCollect == true && isChanged(newValue, value)) {
-      widget.useValue(context, (cv) {
-        if (cv.runtimeType != newValue.runtimeType) {
-          var fromItem = AntdFormItemProvider.ofMaybe(context);
-          AntdLogs.w(
-              msg:
-                  "Field '${fromItem?.namePath}' value type mismatch: stored value type (${cv.runtimeType}) differs from new value type (${newValue.runtimeType}). Auto-ignored. Set autoCollect to false for custom handling.",
-              biz: widget.runtimeType.toString());
-        }
-      });
+      var formValue = widget.getValue(context);
+      if (formValue != null &&
+          newValue != null &&
+          formValue.runtimeType != newValue.runtimeType) {
+        var fromItem = AntdFormItemProvider.ofMaybe(context);
+        AntdLogs.w(
+            msg:
+                "Field '${fromItem?.namePath}' value type mismatch: stored value type (${formValue.runtimeType}) differs from new value type (${newValue.runtimeType}). Auto-ignored. Set autoCollect to false for custom handling.",
+            biz: widget.runtimeType.toString());
+        return;
+      }
+
       widget.setValue(context, newValue, AntdFormTrigger.any);
     }
+  }
+}
+
+abstract class AntdFormItemSelectComponentState<T, Style extends AntdStyle,
+        WidgetType extends AntdFormItemComponent<T, Style, WidgetType>>
+    extends AntdFormItemComponentState<T, Style, WidgetType> {
+  dynamic oriValue;
+  bool select = false;
+
+  @override
+  void updateDependentValues(covariant WidgetType? oldWidget) {
+    oriValue = widget.value ?? widget.defaultValue ?? widget.getValue(context);
+
+    super.updateDependentValues(oldWidget);
+    select = isSelect();
+  }
+
+  bool isSelect() {
+    return value != null || groupProvider?.isExists(value) == true;
+  }
+
+  @override
+  bool isValueVManual(WidgetType? oldWidget) {
+    return (oldWidget?.value != null || widget.value != null) &&
+        widget.defaultValue == null;
+  }
+
+  @override
+  getInitValue(WidgetType? oldWidget) {
+    return widget.value;
+  }
+
+  @override
+  initValue(WidgetType? oldWidget) {
+    if (groupProvider != null) {
+      if (groupProvider!.isExists(oriValue)) {
+        return oriValue;
+      }
+      return null;
+    }
+
+    return super.initValue(oldWidget);
+  }
+
+  bool switchValue() {
+    return setValue(value == null ? oriValue : null);
+  }
+
+  @override
+  VoidCallback getSetStateCallback() {
+    return () {
+      select = isSelect();
+    };
+  }
+
+  @override
+  bool setValue(newValue, [bool state = true]) {
+    if (readOnly == true || disabled == true) {
+      return false;
+    }
+
+    if (groupProvider != null) {
+      return groupProvider!.setValue(oriValue);
+    }
+    return super.setValue(newValue, state);
+  }
+}
+
+class AntdFormItemOnChangeProvider<T> extends InheritedWidget {
+  final ValueChanged<T?>? onChange;
+
+  const AntdFormItemOnChangeProvider(
+      {super.key, required super.child, this.onChange});
+
+  @override
+  bool updateShouldNotify(covariant AntdFormItemOnChangeProvider<T> oldWidget) {
+    return onChange != oldWidget.onChange;
+  }
+
+  static AntdFormItemOnChangeProvider<T>? of<T>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<AntdFormItemOnChangeProvider<T>>();
+  }
+}
+
+class AntdFormItemGroupProvider extends InheritedWidget {
+  final bool? disabled;
+  final bool? readOnly;
+  final bool Function(dynamic value) isExists;
+  final bool Function(dynamic value) setValue;
+
+  const AntdFormItemGroupProvider(
+      {super.key,
+      required super.child,
+      this.disabled,
+      this.readOnly,
+      required this.isExists,
+      required this.setValue});
+
+  @override
+  bool updateShouldNotify(covariant AntdFormItemGroupProvider oldWidget) {
+    return true;
+  }
+
+  static AntdFormItemGroupProvider? of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<AntdFormItemGroupProvider>();
+  }
+}
+
+abstract class AntdFormItemGroup<ChildType, Style extends AntdStyle, T,
+    WidgetType> extends AntdFormItemComponent<T, Style, WidgetType> {
+  const AntdFormItemGroup(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      super.disabled,
+      super.readOnly,
+      super.defaultValue,
+      super.value,
+      super.autoCollect,
+      super.onChange,
+      super.shouldTriggerChange,
+      super.hapticFeedback,
+      this.items,
+      this.builder});
+
+  ///列表项
+  final List<ChildType>? items;
+
+  ///自定义构建 默认使用List
+  final Widget? Function(List<ChildType>? items)? builder;
+}
+
+class AntdFormItemGroupState<ChildType, Style extends AntdStyle, T,
+        WidgetType extends AntdFormItemGroup<ChildType, Style, T, WidgetType>>
+    extends AntdFormItemComponentState<T, Style, WidgetType> {
+  bool isExists(dynamic value) {
+    return value != null && value == this.value;
+  }
+
+  bool setInnerValue(dynamic value) {
+    return setValue(this.value == value ? null : value);
+  }
+
+  Widget buildDefaultWidget() {
+    return AntdList(
+      items: widget.items ?? [],
+      shrinkWrap: true,
+    );
+  }
+
+  @override
+  Widget render(BuildContext context) {
+    if (widget.items == null && widget.builder == null) {
+      return const AntdBox();
+    }
+    var child = widget.builder?.call(widget.items);
+    child ??= buildDefaultWidget();
+    return AntdFormItemGroupProvider(
+        disabled: widget.disabled,
+        readOnly: widget.readOnly,
+        isExists: isExists,
+        setValue: setInnerValue,
+        child: child);
+  }
+}
+
+class AntdFormItemGroupMultipleState<
+        ChildType,
+        Style extends AntdStyle,
+        T,
+        WidgetType extends AntdFormItemGroup<ChildType, Style, List<T>,
+            WidgetType>>
+    extends AntdFormItemGroupState<ChildType, Style, List<T>, WidgetType> {
+  @override
+  bool isChanged(List<T>? newValue, List<T>? value) {
+    return !listEquals(newValue, value);
+  }
+
+  @override
+  bool isExists(value) {
+    return this.value?.contains(value) == true;
+  }
+
+  @override
+  bool setInnerValue(value) {
+    var values = [...(this.value ??= [])];
+    if (!values.contains(value)) {
+      values.add(value!);
+    } else {
+      values.remove(value);
+    }
+
+    return setValue(values);
   }
 }

@@ -13,22 +13,27 @@ class AntdSegmentedDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSegmented(
+        defaultValue: "1",
         items: const [
           AntdSegmentedItem(
+            value: "1",
             child: Text("Daily"),
           ),
           AntdSegmentedItem(
+            value: "2",
             child: Text("Weekly"),
           ),
           AntdSegmentedItem(
+            value: "3",
             child: Text("Monthly"),
           ),
           AntdSegmentedItem(
+            value: "4",
             child: Text("Yearly"),
           )
         ],
         onChange: (index) {
-          AntdToast.show("当前index:$index");
+          AntdToast.show("当前index:$index", position: AntdToastPosition.top);
         },
       )
     ]);
@@ -52,29 +57,37 @@ class _AntdControllerDemoStateDemo extends State<AntdControllerDemo> {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(value: value, items: const [
-        AntdSegmentedItem(
-          value: "1",
-          child: Text("Daily"),
-        ),
-        AntdSegmentedItem(
-          value: "2",
-          child: Text("Weekly"),
-        ),
-        AntdSegmentedItem(
-          value: "3",
-          child: Text("Monthly"),
-        ),
-        AntdSegmentedItem(
-          value: "4",
-          child: Text("Yearly"),
-        ),
-      ]),
+      AntdSegmented(
+        value: value,
+        items: const [
+          AntdSegmentedItem(
+            value: "1",
+            child: Text("Daily"),
+          ),
+          AntdSegmentedItem(
+            value: "2",
+            child: Text("Weekly"),
+          ),
+          AntdSegmentedItem(
+            value: "3",
+            child: Text("Monthly"),
+          ),
+          AntdSegmentedItem(
+            value: "4",
+            child: Text("Yearly"),
+          ),
+        ],
+        onChange: (value) {
+          setState(() {
+            this.value = value;
+          });
+        },
+      ),
       AntdButton(
         child: const Text("选择第3个"),
         onTap: () {
           setState(() {
-            value = "2";
+            value = "3";
           });
         },
       ),
@@ -82,7 +95,7 @@ class _AntdControllerDemoStateDemo extends State<AntdControllerDemo> {
           child: const Text("取消"),
           onTap: () {
             setState(() {
-              value;
+              value = null;
             });
           }),
     ]);
@@ -99,34 +112,41 @@ class AntdDisabledDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdSegmented(items: [
         AntdSegmentedItem(
+          value: '1',
           child: Text("Daily"),
         ),
         AntdSegmentedItem(
-          disable: true,
+          value: '2',
+          disabled: true,
           child: Text("Weekly"),
         ),
         AntdSegmentedItem(
+          value: '3',
           child: Text("Monthly"),
         ),
         AntdSegmentedItem(
-          disable: true,
+          value: '4',
+          disabled: true,
           child: Text("Yearly"),
         ),
       ]),
-      AntdSegmented(disabled: true, value: "1", items: [
+      AntdSegmented(disabled: true, defaultValue: "1", items: [
         AntdSegmentedItem(
+          value: "1",
           child: Text("Daily"),
         ),
         AntdSegmentedItem(
-          disable: true,
-          value: "1",
+          disabled: true,
+          value: "2",
           child: Text("Weekly"),
         ),
         AntdSegmentedItem(
+          value: "3",
           child: Text("Monthly"),
         ),
         AntdSegmentedItem(
-          disable: true,
+          value: "4",
+          disabled: true,
           child: Text("Yearly"),
         )
       ])
@@ -164,7 +184,7 @@ class _AntdLoadMoreDemoStateDemo extends State<AntdControllerDemo> {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(value: value, items: const [
+      AntdSegmented(defaultValue: value, items: const [
         AntdSegmentedItem(
           value: "Yearly",
           child: Text("Yearly"),
@@ -193,8 +213,9 @@ class AntdSegmentedIconDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdSegmented(items: [
+      AntdSegmented(defaultValue: '1', items: [
         AntdSegmentedItem(
+          value: '1',
           child: Row(
             children: [
               AntdIcon(
@@ -205,22 +226,27 @@ class AntdSegmentedIconDemo extends StatelessWidget {
           ),
         ),
         AntdSegmentedItem(
+          value: '2',
           child: Text("Weekly"),
         ),
         AntdSegmentedItem(
+          value: '3',
           child: Text("Monthly"),
         ),
         AntdSegmentedItem(
+          value: '4',
           child: Text("Yearly"),
         )
       ]),
-      AntdSegmented(items: [
+      AntdSegmented(defaultValue: 'add', items: [
         AntdSegmentedItem(
+          value: 'add',
           child: AntdIcon(
             icon: AntdIcons.add,
           ),
         ),
         AntdSegmentedItem(
+          value: 'appstore',
           child: AntdIcon(
             icon: AntdIcons.appstore,
           ),
@@ -238,8 +264,9 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(items: [
+      AntdSegmented(defaultValue: 'avr', items: [
         AntdSegmentedItem(
+          value: "avr",
           child: Column(
             children: [
               AntdAvatar(image: NetworkImage(demoAvatarImages[0])),
@@ -255,12 +282,15 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
           ),
         ),
         const AntdSegmentedItem(
+          value: "Weekly",
           child: Text("Weekly"),
         ),
         const AntdSegmentedItem(
+          value: "Monthly",
           child: Text("Monthly"),
         ),
         const AntdSegmentedItem(
+          value: "Yearly",
           child: Text("Yearly"),
         )
       ]),

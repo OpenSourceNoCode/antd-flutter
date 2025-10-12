@@ -31,13 +31,14 @@ class AntdCascaderDemo extends StatelessWidget {
           onTap: () {
             AntdLayer.open(AntdCascader(
                 onConfirm: (values) {
-                  AntdToast.show(values.join(","));
+                  AntdToast.show(values?.join(",") ?? "");
                 },
                 onCancel: (values) {
-                  AntdToast.show(values.join(","));
+                  AntdToast.show(values?.join(",") ?? "");
                 },
                 titleWidget: const Text("地址选择"),
-                cascaderView: AntdCascaderView(options: cascaderOptions)));
+                cascaderView:
+                    const AntdCascaderView(options: cascaderOptions)));
           })
     ]);
   }
@@ -167,8 +168,8 @@ class AntdCascaderDemo extends StatelessWidget {
 | cancelWidget | 取消按钮 | Widget | const Text("取消") | - |
 | confirmWidget | 确认按钮 | Widget | const Text("确定") | - |
 | titleWidget | 标题 | Widget | - | - |
-| onConfirm | 取消事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
-| onCancel | 确认事件 | ValueChanged&lt;List&lt;String&gt;&gt; | - | - |
+| onConfirm | 取消事件 | ValueChanged&lt;List&lt;dynamic&gt;?&gt; | - | - |
+| onCancel | 确认事件 | ValueChanged&lt;List&lt;dynamic&gt;?&gt; | - | - |
 | cascaderView | 选择器 | AntdCascaderView | - | - |
 | animation | 弹出层动画 | AntdCascaderAnimation | - | - |
 

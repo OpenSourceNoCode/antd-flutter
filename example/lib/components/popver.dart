@@ -200,25 +200,25 @@ class AntdPopoverActionDemo extends StatelessWidget {
           onTap: (_) {
             AntdToast.show("我触摸了扫一扫");
           },
-          child: Text("扫一扫"),
           icon: const AntdIcon(
             icon: AntdIcons.scanning,
-          )),
-      AntdPopoverAction(
-          child: const Text("付钱/收钱"),
-          icon: const AntdIcon(
+          ),
+          child: const Text("扫一扫")),
+      const AntdPopoverAction(
+          icon: AntdIcon(
             icon: AntdIcons.handPayCircle,
-          )),
-      AntdPopoverAction(
-          child: const Text("乘车码"),
-          icon: const AntdIcon(
+          ),
+          child: Text("付钱/收钱")),
+      const AntdPopoverAction(
+          icon: AntdIcon(
             icon: AntdIcons.transportQRcode,
-          )),
-      AntdPopoverAction(
-          child: const Text("智能助理"),
-          icon: const AntdIcon(
+          ),
+          child: Text("乘车码")),
+      const AntdPopoverAction(
+          icon: AntdIcon(
             icon: AntdIcons.ant,
-          ))
+          ),
+          child: Text("智能助理"))
     ];
 
     return DemoWrapper(child: [

@@ -129,16 +129,16 @@ class AntdActionSheetEventDemo extends StatelessWidget {
             onMaskTap: () {
               AntdToast.show("点击了弹出层");
             },
-            extra: Text("请选择你要进行的操作"),
-            cancelText: Text("取消"),
+            extra: const Text("请选择你要进行的操作"),
+            cancelText: const Text("取消"),
             actions: [
               AntdSheetAction(
-                  title: Text("辅助"),
+                  title: const Text("辅助"),
                   onTap: (_) {
                     AntdToast.show("点击了辅助按钮");
                   }),
-              AntdSheetAction(title: Text("修改"), disabled: true),
-              AntdSheetAction(
+              const AntdSheetAction(title: Text("修改"), disabled: true),
+              const AntdSheetAction(
                   title: Text("删除"),
                   description: Text("删除后数据不可恢复"),
                   danger: true,
@@ -173,7 +173,7 @@ class AntdActionSheetWaitDemo extends StatelessWidget {
           ));
           AntdToast.show(
             "弹出层关闭了我才出现的",
-            duration: Duration(seconds: 0),
+            duration: const Duration(seconds: 0),
           );
         },
       ),

@@ -28,12 +28,14 @@ class AntdRadioDemo extends StatelessWidget {
     return DemoWrapper(child: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         AntdRadio(
+            defaultValue: 1,
             onChange: (value) async {
               AntdToast.show("变更为:$value");
             },
             extra: const Text("有描述的单选框")),
-        const AntdRadio(indeterminate: true, extra: Text("半选")),
-        const AntdRadio(disabled: true, extra: Text("禁用"))
+        const AntdRadio(
+            defaultValue: 1, indeterminate: true, extra: Text("半选")),
+        const AntdRadio(defaultValue: 1, disabled: true, extra: Text("禁用"))
       ])
     ]);
   }
@@ -52,6 +54,7 @@ class AntdRadioCustomDemo extends StatelessWidget {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(child: [
       AntdRadio(
+          defaultValue: 1,
           style: AntdRadioStyle(
               icon: const AntdIcon(icon: AntdIcons.smile),
               activeIcon: AntdIcon(
@@ -69,15 +72,33 @@ class AntdRadioCustomDemo extends StatelessWidget {
 
 ```
 
-### 列表选择
+### 受控模式
 
 
 ```dart
-class AntdRadioListDemo extends StatefulWidget {
-  const AntdRadioListDemo({super.key});
+class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
+  bool? check = false;
   @override
-  State<StatefulWidget> createState() {
-    return _AntdRadioListDemoStateDemo();
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdRadio(value: check, extra: const Text("受控模式")),
+      Row(children: [
+        AntdButton(
+            child: const Text("选中"),
+            onTap: () {
+              setState(() {
+                check = true;
+              });
+            }),
+        AntdButton(
+            child: const Text("取消"),
+            onTap: () {
+              setState(() {
+                check = null;
+              });
+            })
+      ])
+    ]);
   }
 }
 
@@ -94,6 +115,162 @@ class AntdRadioDisabledDemo extends StatelessWidget {
     return const DemoWrapper(child: [
       AntdRadio(disabled: true, extra: Text("禁用")),
       AntdRadio(readOnly: true, value: true, extra: Text("只读"))
+    ]);
+  }
+}
+
+```
+
+### 选择组
+
+
+```dart
+class AntdRadioGroupDemo extends StatelessWidget {
+  const AntdRadioGroupDemo({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      AntdRadioGroup(
+          items: const [
+            AntdRadio(extra: Text("1"), defaultValue: 1),
+            AntdRadio(extra: Text("2"), defaultValue: 2),
+            AntdRadio(extra: Text("3"), defaultValue: 3)
+          ],
+          onChange: (values) {
+            AntdToast.show(jsonEncode(values));
+          })
+    ]);
+  }
+}
+
+```
+
+### 与表单配合
+
+
+```dart
+class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
+  String? value;
+  String? value1;
+  @override
+  Widget build(BuildContext context) {
+    return DemoWrapper(child: [
+      DemoTitle(
+          outline: false,
+          title: "最基础 在AntdFormItem中使用会自动收集AntdRadio的值,务必指定一个defaultValue",
+          child: AntdForm(builder: (controller) {
+            return FormValue(
+                controller: controller,
+                child: AntdFormItem(
+                    name: "radio",
+                    builder: (ctx) {
+                      return const AntdRadio(defaultValue: "1");
+                    }));
+          })),
+      DemoTitle(
+          outline: false,
+          title: "表单控制默认值",
+          child: AntdForm(
+              initialValues: {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return const AntdRadio();
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title:
+              "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdRadio覆盖了",
+          child: AntdForm(
+              initialValues: {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        readOnly: true,
+                        disabled: true,
+                        builder: (ctx) {
+                          return const AntdRadio(disabled: false);
+                        }));
+              })),
+      DemoTitle(
+          outline: false,
+          title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
+          child: AntdForm(
+              initialValues: {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return const AntdRadio(autoCollect: false);
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value = value == null ? "1" : null;
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
+          child: AntdForm(
+              initialValues: {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return AntdRadio(
+                              value: value,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              });
+                        }));
+              })),
+      AntdButton(
+          child: const Text('点我修改'),
+          onTap: () {
+            setState(() {
+              value1 = value1 == null ? "1" : null;
+            });
+          }),
+      DemoTitle(
+          outline: false,
+          title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
+          child: AntdForm(
+              initialValues: {"radio": '1'},
+              builder: (controller) {
+                return FormValue(
+                    controller: controller,
+                    child: AntdFormItem(
+                        name: "radio",
+                        builder: (ctx) {
+                          return AntdRadio(
+                              value: value1,
+                              onChange: (value) {
+                                AntdToast.show("当前的输入值:$value",
+                                    position: AntdToastPosition.top);
+                                setState(() {
+                                  this.value = value;
+                                });
+                              },
+                              shouldTriggerChange: false);
+                        }));
+              }))
     ]);
   }
 }
@@ -213,12 +390,14 @@ class AntdRadioDisabledDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdRadioStyle, AntdRadio&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| value | 值 | bool | - | - |
+| defaultValue | 默认值 | dynamic | - | - |
+| value | 值 | dynamic | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
-| onChange | 变更事件 | ValueChanged&lt;bool&gt; | - | - |
+| onChange | 变更事件 | ValueChanged&lt;dynamic&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
 | indeterminate | 半选 | bool | - | - |
 | extra | 内容 | Widget | - | - |
-| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` | AntdHapticFeedback | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 
 
 ## 单选框组件样式配置类(AntdRadioStyle) <a id='AntdRadioStyle'></a>
@@ -236,5 +415,21 @@ class AntdRadioDisabledDemo extends StatelessWidget {
 | disableIconStyle | 禁用图标的样式配置 | [AntdIconStyle](../components/antd-icon/#AntdIconStyle) | - | - |
 | disableIcon | 禁用状态下显示的图标组件 | Widget | - | - |
 | rowStyle | 对齐样式 | [AntdFlexStyle](../components/antd-flex/#AntdFlexStyle) | - | - |
+
+## 单选选择组(AntdRadioGroup) <a id='AntdRadioGroup'></a>
+
+| 属性名 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| key | - | Key | - | - |
+| disabled | 禁用 | bool | - | - |
+| readOnly | 只读 | bool | - | - |
+| defaultValue | 默认值 | T | - | - |
+| value | 值 | T | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
+| onChange | 变更事件 | ValueChanged&lt;T&gt; | - | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
+| hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| items | 列表项 | List&lt;AntdRadio&gt; | - | - |
+| builder | 自定义构建 默认使用List | Widget? Function(List&lt;AntdRadio&gt;? items) | - | - |
 
 

@@ -207,7 +207,7 @@ class AntdFormNormalizeDemo extends StatelessWidget {
                     return value + "222";
                   },
                   builder: (ctx) {
-                    return AntdInput(placeholder: Text("请输入姓名"));
+                    return const AntdInput(placeholder: Text("请输入姓名"));
                   },
                   shouUpdate: (value, bef) {
                     return true;

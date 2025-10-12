@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'define.dart';
 import 'parse.dart';
@@ -29,7 +30,7 @@ class ClassCollector {
         // 打印重复定义警告
         _printDuplicateWarnings(visitor, file.path);
       } catch (e, stack) {
-        print('❌ 解析文件 ${file.path} 时出错: $e\n$stack');
+        debugPrint('❌ 解析文件 ${file.path} 时出错: $e\n$stack');
       }
     }
 
@@ -53,16 +54,16 @@ class ClassCollector {
     // 检查重复类名
     final classNames = visitor.classes.map((c) => c.name.lexeme).toList();
     final duplicateClasses = _findDuplicates(classNames);
-    duplicateClasses.forEach((name) {
-      print('⚠️ 重复的类名 [$name] 在文件: $filePath');
-    });
+    for (var name in duplicateClasses) {
+      debugPrint('⚠️ 重复的类名 [$name] 在文件: $filePath');
+    }
 
     // 检查重复枚举名
     final enumNames = visitor.enums.map((e) => e.name.lexeme).toList();
     final duplicateEnums = _findDuplicates(enumNames);
-    duplicateEnums.forEach((name) {
-      print('⚠️ 重复的枚举名 [$name] 在文件: $filePath');
-    });
+    for (var name in duplicateEnums) {
+      debugPrint('⚠️ 重复的枚举名 [$name] 在文件: $filePath');
+    }
   }
 
   /// 查找列表中的重复项
