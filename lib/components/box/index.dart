@@ -235,6 +235,7 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   @override
   void updateDependentValues(AntdBox? oldWidget) {
     super.updateDependentValues(oldWidget);
+    mediaQuery = MediaQuery.of(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       execLayoutCallback(oldWidget != null);
     });
