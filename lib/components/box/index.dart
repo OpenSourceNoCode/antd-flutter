@@ -148,13 +148,13 @@ class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {
   double getSafeArea(AntdPosition? position) {
     switch (position) {
       case AntdPosition.top:
-        return mediaQuery.padding.top;
+        return mediaQuery.viewPadding.top;
       case AntdPosition.bottom:
-        return mediaQuery.padding.bottom;
+        return mediaQuery.viewPadding.bottom;
       case AntdPosition.left:
-        return mediaQuery.padding.left;
+        return mediaQuery.viewPadding.left;
       case AntdPosition.right:
-        return mediaQuery.padding.right;
+        return mediaQuery.viewPadding.right;
       case AntdPosition.horizontal:
         return 0;
       case AntdPosition.vertical:
