@@ -1,12 +1,19 @@
 # Changelog
 
+## 5.0.8-alpha.2
+
+`2025-10-16`
+
+- `AntdKitStyle` added `constraints` configuration option
+- Enhanced form auto-collection functionality, added `manual` field. When set to true, components switch to fully controlled mode, replacing the previous logic that relied on value property detection. All input components now support this field
+- Fixed issue where `AntdBox` safe area would disappear abnormally when keyboard popped up
+- Fixed inconsistent color blending in `colorText`
+- Removed defaultValue option from `AntdInput` and `AntdTextArea` components
+- Fixed issue where typing Chinese in `AntdInput` would cause candidate words to automatically be committed when state updates were triggered in onChange event
+
 ## 5.0.8-alpha.1
 
 `2025-10-12`
-
-### This update primarily unifies form models for input components, optimizes form performance, and changes the value type of all value-supporting components to dynamic. Includes extensive demo and documentation improvements.
-
-✨ New Features
 
 - Form Auto-collection Support: `AntdCascaderView`, `AntdInput`, `AntdTextArea`, `AntdSegmented`, `AntdSlider`, `AntdSwitch`, `AntdCheckList`, `AntdRadio`, `AntdCheckbox`, `AntdSelector`, `AntdRadioGroup`, and `AntdCheckboxGroup` now support automatic form data collection
 - Dynamic Properties: Added support for dynamic properties in both `AntdRadioGroup` and `AntdCheckboxGroup`
@@ -14,14 +21,8 @@
 - Controlled Loading: `AntdSkeleton` adds `spin` and `child` properties for controlled loading states
 - Enhanced Slider: `AntdSliderBarItem` adds onActive event and dynamic value property
 - Haptic Feedback Option: `AntdHapticFeedback` now includes a none property
-
-⚙️ Improvements
-
 - Scroll Behavior: Fixed default edgeThreshold to 0.2 in AntdScrollView
 - Animation Fix: Resolved issue where AntdSkeleton animations would override border radius
-
-🐛 Bug Fixes
-
 - Slider Positioning: Fixed incorrect scroll view positioning in `AntdSliderBar`
 - Tap Priority: Corrected `AntdTapOptions` priority issue
 - Navigation Layout: Fixed incorrect display position for `AntdNavBar`'s left property

@@ -12,6 +12,14 @@ English · [中文](https://github.com/OpenSourceNoCode/antd-flutter/blob/main/R
 
 [Document](https://antd-flutter.vercel.app/) · [Web Demo](https://opensourcenocode.github.io/antd-flutter/)
 
+## Please Note: This project is currently in its early alpha stage. Please be advised that component properties are subject to change without prior notice. We highly recommend evaluating its suitability before integrating it into your projects.
+
+## For immediate support and best practices, you can reach us through the following channels:
+
+* QQ Group: 797050187
+* Direct Message on X: https://x.com/howie3526371309
+* GitHub Issues: https://github.com/OpenSourceNoCode/antd-flutter/issues
+
 ## ✨ Features
 
 - Zero dependencies, dark mode works out of the box, setup completes upon installation.

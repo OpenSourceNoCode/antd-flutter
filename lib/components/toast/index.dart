@@ -122,7 +122,7 @@ class AntdToast extends AntdBaseMask<AntdToastStyle, AntdToast, AntdToastState>
       BuildContext context, AntdTheme theme, AntdMapToken token) {
     return AntdToastStyle(
         bodyStyle: AntdBoxStyle(
-            constraints: BoxConstraints(minWidth: icon?.icon != null ? 130 : 0),
+            width: icon?.icon != null ? 124 : null,
             color: token.colorBgSpotlight,
             radius: token.radius.all,
             textStyle: token.font.md.copyWith(color: token.colorWhite),

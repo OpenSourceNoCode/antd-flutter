@@ -2,16 +2,23 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.8-alpha.1
+tag: 5.0.8-alpha.2
 ---
+
+## 5.0.8-alpha.2
+
+`2025-10-16`
+
+- `AntdKitStyle` 新增 `constraints` 配置选项
+- 表单自动收集功能增强，新增 `manual` 字段。当设置为 `true` 时组件转为完全受控模式，此配置已取代原先通过 `value` 属性判断的逻辑。所有输入组件均已支持该字段
+- 修复 `AntdBox` 安全区在键盘弹出时异常消失的问题
+- 修复 `colorText` 颜色混合效果不一致的问题
+- 移除 `AntdInput` 和 `AntdTextArea` 组件中的 `defaultValue` 选项
+- 修复 `AntdInput` 在输入中文时，若在 `onChange` 事件中触发状态更新会导致候选词自动上屏的问题
 
 ## 5.0.8-alpha.1
 
 `2025-10-12`
-
-### 本次更新主要统一了可输入组件的表单模型，优化了表单性能，并将所有支持值的组件类型改为 dynamic。包含大量示例和文档完善。
-
-✨ 新功能
 
 - 表单自动收集支持：`AntdCascaderView`、`AntdInput`、`AntdTextArea`、`AntdSegmented`、`AntdSlider`、`AntdSwitch`、`AntdCheckList`、`AntdRadio`、`AntdCheckbox`、`AntdSelector`、`AntdRadioGroup` 和 `AntdCheckboxGroup` 现在支持自动表单数据收集
 - 动态属性：`AntdRadioGroup` 和 `AntdCheckboxGroup` 均支持动态属性
@@ -19,14 +26,8 @@ tag: 5.0.8-alpha.1
 - 受控加载：`AntdSkeleton` 新增 `spin` 和 `child` 属性，便于控制加载状态
 - 滑块增强：`AntdSliderBarItem` 新增 `onActive` 事件和动态 value 属性
 - 触感反馈选项：`AntdHapticFeedback` 新增 `none` 属性
-
-⚙️ 改进
-
 - 滚动行为：将 AntdScrollView 中的 edgeThreshold 默认值修复为 0.2
 - 动画修复：解决了 AntdSkeleton 动画覆盖圆角的问题
-
-🐛 问题修复
-
 - 滑块定位：修复了 `AntdSliderBar` 滚动视图位置不正确的问题
 - 点击优先级：修正了 `AntdTapOptions` 优先级问题
 - 导航布局：修复了 `AntdNavBar` 的 `left` 属性展示位置不正确的问题

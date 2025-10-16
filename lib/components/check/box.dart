@@ -117,6 +117,8 @@ abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
       super.styleBuilder,
       super.disabled,
       super.readOnly,
+
+      ///单读使用时为false 代表关闭,true代表打开，与Group配合可以是其他任意值
       super.value,
       super.autoCollect,
       super.onChange,

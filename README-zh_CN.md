@@ -13,6 +13,15 @@ Antd Flutter Mobile是 Ant Design Mobile 在 Flutter 平台的实现版本。零
 
 [文档](https://antd-flutter.vercel.app/) · [Web Demo](https://opensourcenocode.github.io/antd-flutter/)
 
+## 项目状态说明
+
+## 本项目目前尚处于早期测试阶段。请注意，组件的属性（API）可能会在进行不另行通知的情况下直接调整。我们强烈建议您在评估后再决定是否在项目中使用。
+## 您可以通过以下渠道联系我们，以获取第一时间的支持与最佳实践指导：
+
+* QQ 交流群：797050187
+* X (Twitter) 私信：https://x.com/howie3526371309
+* GitHub Issues：https://github.com/OpenSourceNoCode/antd-flutter/issues**
+
 ## ✨ 特性
 
 - 零依赖，暗黑模式开箱即用,安装即完成
