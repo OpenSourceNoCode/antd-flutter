@@ -78,14 +78,11 @@ class AntdKitStyle extends AntdStyle {
   ///高度
   final double? height;
 
-  ///最小高度
-  final double? minHeight;
-
   ///宽度
   final double? width;
 
-  ///最小宽度
-  final double? minWidth;
+  ///盒子约束
+  final BoxConstraints? constraints;
 
   /// 统一尺寸（同时影响 width/height，优先级最低）
   final double? size;
@@ -124,9 +121,8 @@ class AntdKitStyle extends AntdStyle {
       this.radius,
       this.textStyle,
       this.height,
-      this.minHeight,
       this.width,
-      this.minWidth,
+      this.constraints,
       this.size,
       this.layoutModes,
       this.backdropFilter,
@@ -152,9 +148,8 @@ class AntdKitStyle extends AntdStyle {
         radius: style.radius,
         textStyle: style.textStyle,
         height: style.height,
-        minHeight: style.minHeight,
         width: style.width,
-        minWidth: style.minWidth,
+        constraints: style.constraints,
         size: style.size,
         layoutModes: style.layoutModes,
         backdropFilter: style.backdropFilter,
@@ -175,9 +170,8 @@ class AntdKitStyle extends AntdStyle {
       final BorderRadius? radius,
       final TextStyle? textStyle,
       final double? height,
-      final double? minHeight,
       final double? width,
-      final double? minWidth,
+      final BoxConstraints? constraints,
       final double? size,
       final bool expand = false,
       final bool shrink = false,
@@ -208,9 +202,8 @@ class AntdKitStyle extends AntdStyle {
         radius: radius ?? this.radius,
         textStyle: mergeTextStyle,
         height: height ?? this.height,
-        minHeight: minHeight ?? this.minHeight,
         width: width ?? this.width,
-        minWidth: minWidth ?? this.minWidth,
+        constraints: constraints ?? this.constraints,
         size: size ?? this.size,
         layoutModes: layoutModes ?? this.layoutModes,
         backdropFilter: backdropFilter ?? this.backdropFilter,
@@ -223,11 +216,7 @@ class AntdKitStyle extends AntdStyle {
   }
 
   bool get hasSize =>
-      height != null ||
-      minHeight != null ||
-      width != null ||
-      minWidth != null ||
-      size != null;
+      height != null || width != null || constraints != null || size != null;
 
   Size get margeSize => Size(width ?? size ?? 0, height ?? size ?? 0);
 
@@ -237,13 +226,9 @@ class AntdKitStyle extends AntdStyle {
     }
     final width = this.width ?? size;
     final height = this.height ?? size;
-    if (minHeight != null || minWidth != null) {
+    if (constraints != null) {
       return ConstrainedBox(
-        constraints: BoxConstraints(
-            maxWidth: width ?? double.infinity,
-            minWidth: minWidth ?? 0,
-            maxHeight: height ?? double.infinity,
-            minHeight: minHeight ?? 0),
+        constraints: constraints!,
         child: child,
       );
     }
@@ -408,9 +393,8 @@ class AntdBoxStyle extends AntdKitStyle {
       super.radius,
       super.textStyle,
       super.height,
-      super.minHeight,
       super.width,
-      super.minWidth,
+      super.constraints,
       super.size,
       super.layoutModes,
       super.backdropFilter,
@@ -440,9 +424,8 @@ class AntdBoxStyle extends AntdKitStyle {
         radius: style.radius,
         textStyle: style.textStyle,
         height: style.height,
-        minHeight: style.minHeight,
         width: style.width,
-        minWidth: style.minWidth,
+        constraints: style.constraints,
         size: style.size,
         layoutModes: style.layoutModes,
         backdropFilter: style.backdropFilter,
@@ -473,9 +456,8 @@ class AntdBoxStyle extends AntdKitStyle {
       radius: style.radius,
       textStyle: style.textStyle,
       height: style.height,
-      minHeight: style.minHeight,
       width: style.width,
-      minWidth: style.minWidth,
+      constraints: style.constraints,
       size: style.size,
       layoutModes: style.layoutModes,
       backdropFilter: style.backdropFilter,
@@ -498,9 +480,8 @@ class AntdBoxStyle extends AntdKitStyle {
       final BorderRadius? radius,
       final TextStyle? textStyle,
       final double? height,
-      final double? minHeight,
       final double? width,
-      final double? minWidth,
+      final BoxConstraints? constraints,
       final double? size,
       final bool expand = false,
       final bool shrink = false,
@@ -535,9 +516,8 @@ class AntdBoxStyle extends AntdKitStyle {
       radius: radius ?? this.radius,
       textStyle: mergeTextStyle,
       height: height ?? this.height,
-      minHeight: minHeight ?? this.minHeight,
       width: width ?? this.width,
-      minWidth: minWidth ?? this.minWidth,
+      constraints: constraints ?? this.constraints,
       size: size ?? this.size,
       layoutModes: layoutModes ?? this.layoutModes,
       backdropFilter: backdropFilter ?? this.backdropFilter,
