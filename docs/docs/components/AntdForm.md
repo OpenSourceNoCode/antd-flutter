@@ -25,7 +25,6 @@ class AntdFormDemo extends StatelessWidget {
   const AntdFormDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    var token = AntdTheme.ofToken(context);
     return DemoWrapper(outline: true, child: [
       AntdForm(
           layout: AntdFormLayout.horizontal,
@@ -39,14 +38,14 @@ class AntdFormDemo extends StatelessWidget {
                       label: const Text("姓名"),
                       name: "name",
                       rules: const [AntdFormRule(len: 5)],
-                      builder: <String>(ctx) {
+                      builder: (ctx) {
                         return const AntdInput(placeholder: Text("请输入姓名"));
                       }),
                   AntdFormItem(
                       required: true,
                       label: const Text("喜爱的水果"),
                       name: "apple",
-                      builder: <String>(ctx) {
+                      builder: (ctx) {
                         return const AntdSelector(items: [
                           AntdSelectorItem(label: Text("苹果"), value: "ap"),
                           AntdSelectorItem(label: Text("橘子"), value: "or"),
@@ -57,7 +56,7 @@ class AntdFormDemo extends StatelessWidget {
                       label: const Text("地址"),
                       help: const Text("详情地址"),
                       name: "address",
-                      builder: <String>(ctx) {
+                      builder: (ctx) {
                         return const AntdTextArea(
                             maxLength: 60, placeholder: Text("请输入地址"));
                       }),
@@ -116,6 +115,7 @@ class AntdFormTriggerDemo extends StatelessWidget {
                         child: Text(jsonEncode(controller.getFieldsValue())));
                   }),
               AntdList(
+                  feedback: false,
                   shrinkWrap: true,
                   style: AntdListStyle(
                       itemStyle: AntdBoxStyle(
@@ -129,7 +129,7 @@ class AntdFormTriggerDemo extends StatelessWidget {
                         label: const Text("姓名"),
                         name: "name",
                         rules: const [AntdFormRule(len: 5)],
-                        builder: <String>(ctx) {
+                        builder: (ctx) {
                           return const AntdInput(placeholder: Text("请输入姓名"));
                         }),
                     AntdFormItem(
@@ -147,7 +147,7 @@ class AntdFormTriggerDemo extends StatelessWidget {
                         label: const Text("地址"),
                         help: const Text("详情地址"),
                         name: "address",
-                        builder: <String>(ctx) {
+                        builder: (ctx) {
                           return const AntdTextArea(
                               maxLength: 60, placeholder: Text("请输入地址"));
                         }),
@@ -212,20 +212,20 @@ class AntdFormEventDemo extends StatelessWidget {
                             width: double.infinity),
                         child: Text(jsonEncode(controller.getFieldsValue())));
                   }),
-              AntdList(shrinkWrap: true, items: [
+              AntdList(shrinkWrap: true, feedback: false, items: [
                 AntdFormItem(
                     required: true,
                     label: const Text("姓名"),
                     name: "name",
                     rules: const [AntdFormRule(len: 5)],
-                    builder: <String>(ctx) {
+                    builder: (ctx) {
                       return const AntdInput(placeholder: Text("请输入姓名"));
                     }),
                 AntdFormItem(
                     label: const Text("地址"),
                     help: const Text("详情地址"),
                     name: "address",
-                    builder: <String>(ctx) {
+                    builder: (ctx) {
                       return const AntdTextArea(
                           maxLength: 60, placeholder: Text("请输入地址"));
                     }),
@@ -276,6 +276,7 @@ class _AntdFormDynamicDemoStateDemo extends State<AntdFormDynamicDemo> {
               }),
           AntdList(
               card: true,
+              feedback: false,
               shrinkWrap: true,
               items: fieldIds.map((id) {
                 return AntdFormItem(
@@ -284,7 +285,7 @@ class _AntdFormDynamicDemoStateDemo extends State<AntdFormDynamicDemo> {
                     name: id.toString(),
                     label: Text(id.toString()),
                     required: id % 2 == 0,
-                    builder: <String>(ctx) {
+                    builder: (ctx) {
                       return AntdInput(
                           placeholder: Text("请输入$id的内容"),
                           suffix: AntdButton(
@@ -357,6 +358,7 @@ class AntdFormCardDemo extends StatelessWidget {
                         child: Text(jsonEncode(controller.getFieldsValue())));
                   }),
               AntdList(
+                  feedback: false,
                   header: const Text("我是标题"),
                   footer: Padding(
                       padding: 10.top,
@@ -375,7 +377,7 @@ class AntdFormCardDemo extends StatelessWidget {
                         label: const Text("手机号"),
                         name: "phone",
                         rules: const [AntdFormRule(len: 5)],
-                        builder: <String>(ctx) {
+                        builder: (ctx) {
                           return const AntdInput(placeholder: Text("请输入"));
                         }),
                     AntdFormItem(
@@ -383,7 +385,7 @@ class AntdFormCardDemo extends StatelessWidget {
                         label: const Text("短信验证码"),
                         name: "code",
                         rules: const [AntdFormRule(len: 5)],
-                        builder: <String>(ctx) {
+                        builder: (ctx) {
                           return AntdInput(
                               placeholder: const Text("请输入"),
                               suffix: Text("获取验证码",
@@ -409,7 +411,7 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(child: [
       AntdForm(
-          initialValues: {
+          initialValues: const {
             'radioGroup': 1,
             'input': '1111',
             'slider': AntdSliderValue(start: 10, end: 80)
@@ -429,12 +431,12 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                             width: double.infinity),
                         child: Text(formattedJson));
                   }),
-              AntdList(shrinkWrap: true, items: [
+              AntdList(shrinkWrap: true, feedback: false, items: [
                 AntdFormItem(
                     name: "switch",
                     label: const Text("开关"),
                     builder: (ctx) {
-                      return const AntdSwitch(defaultValue: "any");
+                      return const AntdSwitch(value: "any");
                     }),
                 AntdFormItem(
                     name: "selector",
@@ -449,33 +451,32 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                     name: "radio",
                     label: const Text("单选"),
                     builder: (ctx) {
-                      return const AntdRadio(defaultValue: 1, extra: Text("1"));
+                      return const AntdRadio(value: 1, extra: Text("1"));
                     }),
                 AntdFormItem(
                     name: "radioGroup",
                     label: const Text("单选选择组"),
                     builder: (ctx) {
                       return const AntdRadioGroup(items: [
-                        AntdRadio(defaultValue: 1, extra: Text("1")),
-                        AntdRadio(defaultValue: 2, extra: Text("2"))
+                        AntdRadio(value: 1, extra: Text("1")),
+                        AntdRadio(value: 2, extra: Text("2"))
                       ]);
                     }),
                 AntdFormItem(
                     name: "checkbox",
                     label: const Text("多选"),
                     builder: (ctx) {
-                      return const AntdCheckbox(
-                          defaultValue: 1, extra: Text("1"));
+                      return const AntdCheckbox(value: 1, extra: Text("1"));
                     }),
                 AntdFormItem(
                     name: "checkboxGroup",
                     label: const Text("多选选择组"),
                     builder: (ctx) {
-                      return const AntdCheckboxGroup(defaultValue: [
+                      return const AntdCheckboxGroup(value: [
                         '1'
                       ], items: [
-                        AntdCheckbox(defaultValue: "1", extra: Text("1")),
-                        AntdCheckbox(defaultValue: "2", extra: Text("2"))
+                        AntdCheckbox(value: "1", extra: Text("1")),
+                        AntdCheckbox(value: "2", extra: Text("2"))
                       ]);
                     }),
                 AntdFormItem(

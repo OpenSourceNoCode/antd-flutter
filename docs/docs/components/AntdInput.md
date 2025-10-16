@@ -191,7 +191,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
           outline: false,
           title: "表单控制默认值",
           child: AntdForm(
-              initialValues: {"input": '来自form的默认值'},
+              initialValues: const {"input": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -207,7 +207,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
           title:
               "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdInput覆盖了",
           child: AntdForm(
-              initialValues: {"input": '来自form的默认值'},
+              initialValues: const {"input": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -224,7 +224,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
           outline: false,
           title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
           child: AntdForm(
-              initialValues: {"input": '来自form的默认值'},
+              initialValues: const {"input": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -246,7 +246,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
           outline: false,
           title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
           child: AntdForm(
-              initialValues: {"input": '来自form的默认值'},
+              initialValues: const {"input": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -255,7 +255,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                               value: value,
-                              placeholder: Text("请输入"),
+                              placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -276,7 +276,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
           outline: false,
           title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
           child: AntdForm(
-              initialValues: {"input": '来自form的默认值'},
+              initialValues: const {"input": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -285,7 +285,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                               value: value1,
-                              placeholder: Text("请输入"),
+                              placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -415,7 +415,6 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdInputStyle, AntdInput&gt; | - | - |
 | focusNode | 控制输入框的焦点状态 | FocusNode | - | - |
 | clearable | 是否显示清除按钮（点击会清空输入内容） | bool | true | - |
-| defaultValue | 默认值 | String | - | - |
 | value | 值 | String | - | - |
 | disabled | 禁用 | bool | false | - |
 | onChange | 变更事件 | ValueChanged&lt;String&gt; | - | - |
@@ -451,6 +450,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
 | onFocus | 焦点事件 | AntdOnFocus | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | false | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| autoCollect | 自动同步值到表单 | bool | - | - |
 
 
 ## 输入框光标样式配置(AntInputCursorStyle) <a id='AntInputCursorStyle'></a>

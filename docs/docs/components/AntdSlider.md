@@ -113,9 +113,7 @@ class AntdSliderDefaultDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdSlider(
-          ticks: true,
-          step: 10,
-          defaultValue: AntdSliderValue(start: 20, end: 0))
+          ticks: true, step: 10, value: AntdSliderValue(start: 20, end: 0))
     ]);
   }
 }
@@ -135,7 +133,7 @@ class AntdSliderRangeDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           range: true,
-          defaultValue: const AntdSliderValue(start: 20, end: 40),
+          value: const AntdSliderValue(start: 20, end: 40),
           onChange: (value) {
             AntdToast.show("当前选中值为start:${value?.start},end:${value?.end}");
           })
@@ -183,14 +181,14 @@ class AntdSliderCustomDemo extends StatelessWidget {
           ticks: true,
           step: 10,
           range: true,
-          defaultValue: const AntdSliderValue(start: 20, end: 20))
+          value: const AntdSliderValue(start: 20, end: 20))
     ]);
   }
 }
 
 ```
 
-### 受控模式
+### 受控模式,设置manual位true
 
 
 ```dart
@@ -205,6 +203,7 @@ class _AntdSliderControllerDemoStateDemo
           step: 10,
           range: true,
           value: value,
+          manual: true,
           onChange: (value) {
             setState(() {
               this.value = value;
@@ -250,7 +249,9 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
           outline: false,
           title: "表单控制默认值",
           child: AntdForm(
-              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              initialValues: const {
+                "slider": AntdSliderValue(start: 20, end: 40)
+              },
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -266,7 +267,9 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
           title:
               "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdSlider覆盖了",
           child: AntdForm(
-              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              initialValues: const {
+                "slider": AntdSliderValue(start: 20, end: 40)
+              },
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -286,7 +289,9 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
           outline: false,
           title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
           child: AntdForm(
-              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              initialValues: const {
+                "slider": AntdSliderValue(start: 20, end: 40)
+              },
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -304,14 +309,16 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value = AntdSliderValue(start: 20, end: 30);
+              value = const AntdSliderValue(start: 20, end: 30);
             });
           }),
       DemoTitle(
           outline: false,
           title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
           child: AntdForm(
-              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              initialValues: const {
+                "slider": AntdSliderValue(start: 20, end: 40)
+              },
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -323,6 +330,7 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
                               ticks: true,
                               step: 10,
                               range: true,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -336,14 +344,16 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value1 = AntdSliderValue(start: 20, end: 30);
+              value1 = const AntdSliderValue(start: 20, end: 30);
             });
           }),
       DemoTitle(
           outline: false,
           title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
           child: AntdForm(
-              initialValues: {"slider": AntdSliderValue(start: 20, end: 40)},
+              initialValues: const {
+                "slider": AntdSliderValue(start: 20, end: 40)
+              },
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -355,6 +365,7 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
                               ticks: true,
                               step: 10,
                               range: true,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -484,12 +495,12 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSliderStyle, AntdSlider&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| defaultValue | 默认值 | AntdSliderValue | - | - |
 | value | 值 | AntdSliderValue | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
 | onChange | 变更事件 | ValueChanged&lt;AntdSliderValue&gt; | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 | slider | 滑块的图标 | Widget | - | - |
 | max | 最大值 | int | - | - |
 | min | 最小值 | int | - | - |

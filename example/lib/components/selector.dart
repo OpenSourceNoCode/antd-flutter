@@ -64,7 +64,7 @@ class AntdSelectorValueDemo extends StatefulWidget {
   }
 }
 
-/// @t 受控模式 不要忘记使用onChange更新
+/// @t 受控模式 设置manual为true 通过onChange更新
 /// @l [AntdSelector]
 class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
   List<dynamic> values = ["1"];
@@ -73,6 +73,7 @@ class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
+          manual: true,
           onChange: (values) async {
             setState(() {
               this.values = values ?? [];
@@ -121,7 +122,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
       ),
       AntdSelector(
         readOnly: true,
-        defaultValue: ["2"],
+        value: ["2"],
         items: options,
       ),
     ]);
@@ -236,6 +237,7 @@ class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
                           return AntdSelector(
                             value: value,
                             items: options,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);
@@ -268,6 +270,7 @@ class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
                           return AntdSelector(
                             value: value1,
                             items: options,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);

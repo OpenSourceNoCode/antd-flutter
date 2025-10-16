@@ -134,7 +134,7 @@ class AntdSelectorItem extends AntdFormItemComponent<dynamic,
   }
 }
 
-class _AntdSelectorItemState extends AntdFormItemSelectComponentState<dynamic,
+class _AntdSelectorItemState extends AntdFormItemSelectComponentState<
     AntdSelectorItemStyle, AntdSelectorItem> {
   @override
   Widget render(BuildContext context) {
@@ -228,12 +228,12 @@ class AntdSelector extends AntdFormItemGroup<AntdSelectorItem,
     super.styleBuilder,
     super.disabled,
     super.readOnly,
-    super.defaultValue,
     super.value,
     super.autoCollect,
     super.onChange,
     super.shouldTriggerChange,
     super.hapticFeedback,
+    super.manual,
     super.items,
     super.builder,
     this.columns = 2,

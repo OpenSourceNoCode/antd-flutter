@@ -214,6 +214,7 @@ var demoMap = {
 "AntdSegmentedDemo": const AntdSegmentedDemo(),
 "AntdControllerDemo": const AntdControllerDemo(),
 "AntdDisabledDemo": const AntdDisabledDemo(),
+"AntdLoadMoreDemo": const AntdLoadMoreDemo(),
 "AntdSegmentedIconDemo": const AntdSegmentedIconDemo(),
 "AntdSegmentedMoreDemo": const AntdSegmentedMoreDemo(),
 "AntdPullToRefreshDemo": const AntdPullToRefreshDemo(),

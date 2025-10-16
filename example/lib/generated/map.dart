@@ -746,12 +746,12 @@ style:_resolveValue(atr,'AntdSegmented','style','AntdSegmentedStyle',null),
 styleBuilder:_resolveValue(atr,'AntdSegmented','styleBuilder','AntdStyleBuilder<AntdSegmentedStyle, AntdSegmented>',null),
 disabled:_resolveValue(atr,'AntdSegmented','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdSegmented','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdSegmented','defaultValue','dynamic',null),
 value:_resolveValue(atr,'AntdSegmented','value','dynamic',null),
 autoCollect:_resolveValue(atr,'AntdSegmented','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdSegmented','onChange','ValueChanged<dynamic>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdSegmented','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdSegmented','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdSegmented','manual','bool',null),
 items:_resolveValue(atr,'AntdSegmented','items','List<AntdSegmentedItem>',null),
 duration:_resolveValue(atr,'AntdSegmented','duration','Duration',const Duration(milliseconds: 200)),
 );
@@ -947,12 +947,12 @@ style:_resolveValue(atr,'AntdCascaderView','style','AntdCascaderViewStyle',null)
 styleBuilder:_resolveValue(atr,'AntdCascaderView','styleBuilder','AntdStyleBuilder<AntdCascaderViewStyle, AntdCascaderView>',null),
 disabled:_resolveValue(atr,'AntdCascaderView','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdCascaderView','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdCascaderView','defaultValue','List<dynamic>',null),
 value:_resolveValue(atr,'AntdCascaderView','value','List<dynamic>',null),
 autoCollect:_resolveValue(atr,'AntdCascaderView','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdCascaderView','onChange','ValueChanged<List<dynamic>>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdCascaderView','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdCascaderView','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdCascaderView','manual','bool',null),
 placeholder:_resolveValue(atr,'AntdCascaderView','placeholder','Widget',const Text("请选择")),
 options:_resolveValue(atr,'AntdCascaderView','options','List<AntdCascaderOption>',null),
 onTabsChange:_resolveValue(atr,'AntdCascaderView','onTabsChange','AntdTabsOnChange<AntdTab>',null),
@@ -964,12 +964,12 @@ return AntdCheckList(
 key:_resolveValue(atr,'AntdCheckList','key','Key',null),
 disabled:_resolveValue(atr,'AntdCheckList','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdCheckList','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdCheckList','defaultValue','T',null),
 value:_resolveValue(atr,'AntdCheckList','value','T',null),
 autoCollect:_resolveValue(atr,'AntdCheckList','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdCheckList','onChange','ValueChanged<T>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdCheckList','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdCheckList','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdCheckList','manual','bool',null),
 items:_resolveValue(atr,'AntdCheckList','items','List<AntdCheckItem>',null),
 builder:_resolveValue(atr,'AntdCheckList','builder','Widget? Function(List<AntdCheckItem>? items)',null),
 );
@@ -1036,12 +1036,12 @@ style:_resolveValue(atr,'AntdCheckbox','style','AntdCheckboxStyle',null),
 styleBuilder:_resolveValue(atr,'AntdCheckbox','styleBuilder','AntdStyleBuilder<AntdCheckboxStyle, AntdCheckbox>',null),
 disabled:_resolveValue(atr,'AntdCheckbox','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdCheckbox','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdCheckbox','defaultValue','dynamic',null),
 value:_resolveValue(atr,'AntdCheckbox','value','dynamic',null),
 autoCollect:_resolveValue(atr,'AntdCheckbox','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdCheckbox','onChange','ValueChanged<dynamic>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdCheckbox','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdCheckbox','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdCheckbox','manual','bool',null),
 indeterminate:_resolveValue(atr,'AntdCheckbox','indeterminate','bool',null),
 extra:_resolveValue(atr,'AntdCheckbox','extra','Widget',null),
 );
@@ -1054,7 +1054,6 @@ style:_resolveValue(atr,'AntdInput','style','AntdInputStyle',null),
 styleBuilder:_resolveValue(atr,'AntdInput','styleBuilder','AntdStyleBuilder<AntdInputStyle, AntdInput>',null),
 focusNode:_resolveValue(atr,'AntdInput','focusNode','FocusNode',null),
 clearable:_resolveValue(atr,'AntdInput','clearable','bool',true),
-defaultValue:_resolveValue(atr,'AntdInput','defaultValue','String',null),
 value:_resolveValue(atr,'AntdInput','value','String',null),
 disabled:_resolveValue(atr,'AntdInput','disabled','bool',false),
 onChange:_resolveValue(atr,'AntdInput','onChange','ValueChanged<String>',null),
@@ -1090,6 +1089,7 @@ clipBehavior:_resolveValue(atr,'AntdInput','clipBehavior','Clip',Clip.hardEdge),
 onFocus:_resolveValue(atr,'AntdInput','onFocus','AntdOnFocus',null),
 shouldTriggerChange:_resolveValue(atr,'AntdInput','shouldTriggerChange','bool',false),
 hapticFeedback:_resolveValue(atr,'AntdInput','hapticFeedback','AntdHapticFeedback',null),
+autoCollect:_resolveValue(atr,'AntdInput','autoCollect','bool',null),
 );
 }
 
@@ -1100,11 +1100,11 @@ style:_resolveValue(atr,'AntdRadio','style','AntdRadioStyle',null),
 styleBuilder:_resolveValue(atr,'AntdRadio','styleBuilder','AntdStyleBuilder<AntdRadioStyle, AntdRadio>',null),
 disabled:_resolveValue(atr,'AntdRadio','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdRadio','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdRadio','defaultValue','dynamic',null),
 value:_resolveValue(atr,'AntdRadio','value','dynamic',null),
 autoCollect:_resolveValue(atr,'AntdRadio','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdRadio','onChange','ValueChanged<dynamic>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdRadio','shouldTriggerChange','bool',null),
+manual:_resolveValue(atr,'AntdRadio','manual','bool',null),
 indeterminate:_resolveValue(atr,'AntdRadio','indeterminate','bool',null),
 extra:_resolveValue(atr,'AntdRadio','extra','Widget',null),
 hapticFeedback:_resolveValue(atr,'AntdRadio','hapticFeedback','AntdHapticFeedback',null),
@@ -1140,12 +1140,12 @@ style:_resolveValue(atr,'AntdSelector','style','AntdSelectorStyle',null),
 styleBuilder:_resolveValue(atr,'AntdSelector','styleBuilder','AntdStyleBuilder<AntdSelectorStyle, AntdSelector>',null),
 disabled:_resolveValue(atr,'AntdSelector','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdSelector','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdSelector','defaultValue','List<dynamic>',null),
 value:_resolveValue(atr,'AntdSelector','value','List<dynamic>',null),
 autoCollect:_resolveValue(atr,'AntdSelector','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdSelector','onChange','ValueChanged<List<dynamic>>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdSelector','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdSelector','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdSelector','manual','bool',null),
 items:_resolveValue(atr,'AntdSelector','items','List<AntdSelectorItem>',null),
 builder:_resolveValue(atr,'AntdSelector','builder','Widget? Function(List<AntdSelectorItem>? items)',null),
 columns:_resolveValue(atr,'AntdSelector','columns','int',2),
@@ -1159,12 +1159,12 @@ style:_resolveValue(atr,'AntdSlider','style','AntdSliderStyle',null),
 styleBuilder:_resolveValue(atr,'AntdSlider','styleBuilder','AntdStyleBuilder<AntdSliderStyle, AntdSlider>',null),
 disabled:_resolveValue(atr,'AntdSlider','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdSlider','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdSlider','defaultValue','AntdSliderValue',null),
 value:_resolveValue(atr,'AntdSlider','value','AntdSliderValue',null),
 autoCollect:_resolveValue(atr,'AntdSlider','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdSlider','onChange','ValueChanged<AntdSliderValue>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdSlider','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdSlider','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdSlider','manual','bool',null),
 slider:_resolveValue(atr,'AntdSlider','slider','Widget',null),
 max:_resolveValue(atr,'AntdSlider','max','int',null),
 min:_resolveValue(atr,'AntdSlider','min','int',null),
@@ -1183,12 +1183,12 @@ style:_resolveValue(atr,'AntdSwitch','style','AntdSwitchStyle',null),
 styleBuilder:_resolveValue(atr,'AntdSwitch','styleBuilder','AntdStyleBuilder<AntdSwitchStyle, AntdSwitch>',null),
 disabled:_resolveValue(atr,'AntdSwitch','disabled','bool',null),
 readOnly:_resolveValue(atr,'AntdSwitch','readOnly','bool',null),
-defaultValue:_resolveValue(atr,'AntdSwitch','defaultValue','dynamic',null),
 value:_resolveValue(atr,'AntdSwitch','value','dynamic',null),
 autoCollect:_resolveValue(atr,'AntdSwitch','autoCollect','bool',null),
 onChange:_resolveValue(atr,'AntdSwitch','onChange','ValueChanged<dynamic>',null),
 shouldTriggerChange:_resolveValue(atr,'AntdSwitch','shouldTriggerChange','bool',null),
 hapticFeedback:_resolveValue(atr,'AntdSwitch','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdSwitch','manual','bool',null),
 content:_resolveValue(atr,'AntdSwitch','content','Widget',null),
 activeContent:_resolveValue(atr,'AntdSwitch','activeContent','Widget',null),
 duration:_resolveValue(atr,'AntdSwitch','duration','Duration',const Duration(milliseconds: 200)),
@@ -1202,7 +1202,6 @@ style:_resolveValue(atr,'AntdTextArea','style','AntdInputStyle',null),
 styleBuilder:_resolveValue(atr,'AntdTextArea','styleBuilder','AntdStyleBuilder<AntdInputStyle, AntdTextArea>',null),
 focusNode:_resolveValue(atr,'AntdTextArea','focusNode','FocusNode',null),
 clearable:_resolveValue(atr,'AntdTextArea','clearable','bool',true),
-defaultValue:_resolveValue(atr,'AntdTextArea','defaultValue','String',null),
 value:_resolveValue(atr,'AntdTextArea','value','String',null),
 disabled:_resolveValue(atr,'AntdTextArea','disabled','bool',null),
 onChange:_resolveValue(atr,'AntdTextArea','onChange','ValueChanged<String>',null),
@@ -4119,18 +4118,6 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(dynamic)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
-},
-),
-AntdFormItem(
 name: "value",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('value(dynamic)'),
@@ -4187,6 +4174,20 @@ builder: (ctx) {
                 },
                 items: const [ AntdSelectorItem(label: Text('light'), value: 'light'), AntdSelectorItem(label: Text('medium'), value: 'medium'), AntdSelectorItem(label: Text('heavy'), value: 'heavy'), AntdSelectorItem(label: Text('none'), value: 'none')]);
             
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 AntdFormItem(
@@ -5179,6 +5180,20 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
 name: "placeholder",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('placeholder(Widget)'),
@@ -5218,18 +5233,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(T)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
 },
 ),
 AntdFormItem(
@@ -5289,6 +5292,20 @@ builder: (ctx) {
                 },
                 items: const [ AntdSelectorItem(label: Text('light'), value: 'light'), AntdSelectorItem(label: Text('medium'), value: 'medium'), AntdSelectorItem(label: Text('heavy'), value: 'heavy'), AntdSelectorItem(label: Text('none'), value: 'none')]);
             
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 ];}
@@ -5706,18 +5723,6 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(dynamic)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
-},
-),
-AntdFormItem(
 name: "value",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('value(dynamic)'),
@@ -5777,6 +5782,20 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
 name: "indeterminate",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('indeterminate(bool)'),
@@ -5828,18 +5847,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(String)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
 },
 ),
 AntdFormItem(
@@ -6137,6 +6144,20 @@ builder: (ctx) {
             
 },
 ),
+AntdFormItem(
+name: "autoCollect",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('autoCollect(bool)'),
+            Text('自动同步值到表单')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
 ];}
 List<AntdFormItem> _getAntdRadioItemList(){return [
 AntdFormItem(
@@ -6165,18 +6186,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(dynamic)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
 },
 ),
 AntdFormItem(
@@ -6210,6 +6219,20 @@ name: "shouldTriggerChange",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('shouldTriggerChange(bool)'),
             Text('当value手动控制的时候 是否应该触发onChange')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
           ],),
               
 builder: (ctx) {
@@ -6476,6 +6499,20 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
+AntdFormItem(
 name: "columns",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('columns(int)'),
@@ -6515,18 +6552,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(AntdSliderValue)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
 },
 ),
 AntdFormItem(
@@ -6586,6 +6611,20 @@ builder: (ctx) {
                 },
                 items: const [ AntdSelectorItem(label: Text('light'), value: 'light'), AntdSelectorItem(label: Text('medium'), value: 'medium'), AntdSelectorItem(label: Text('heavy'), value: 'heavy'), AntdSelectorItem(label: Text('none'), value: 'none')]);
             
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 AntdFormItem(
@@ -6707,18 +6746,6 @@ builder: (ctx) {
 },
 ),
 AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(dynamic)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
-},
-),
-AntdFormItem(
 name: "value",
                 label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Text('value(dynamic)'),
@@ -6775,6 +6802,20 @@ builder: (ctx) {
                 },
                 items: const [ AntdSelectorItem(label: Text('light'), value: 'light'), AntdSelectorItem(label: Text('medium'), value: 'medium'), AntdSelectorItem(label: Text('heavy'), value: 'heavy'), AntdSelectorItem(label: Text('none'), value: 'none')]);
             
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 AntdFormItem(
@@ -6839,18 +6880,6 @@ builder: (ctx) {
                 ctx.onChange(check);
           },);
                 
-},
-),
-AntdFormItem(
-name: "defaultValue",
-                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-            Text('defaultValue(String)'),
-            Text('默认值')
-          ],),
-              
-builder: (ctx) {
-              return  const AntdInput();
-            
 },
 ),
 AntdFormItem(

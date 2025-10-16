@@ -47,7 +47,7 @@ class AntdTextAreaDefaultValueDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdTextArea(
-          defaultValue: "默认值",
+          value: "默认值",
           onChange: (value) {
             AntdToast.show("当前的输入值:$value", position: AntdToastPosition.top);
           },
@@ -71,12 +71,12 @@ class AntdTextAreaReadOnlyDisabledDemo extends StatelessWidget {
           outline: false,
           title: "只读",
           child: AntdTextArea(
-              defaultValue: "默认值", readOnly: true, placeholder: Text("请输入内容"))),
+              value: "默认值", readOnly: true, placeholder: Text("请输入内容"))),
       DemoTitle(
           outline: false,
           title: "禁用",
           child: AntdTextArea(
-              defaultValue: "默认值", disabled: true, placeholder: Text("请输入内容")))
+              value: "默认值", disabled: true, placeholder: Text("请输入内容")))
     ]);
   }
 }
@@ -184,7 +184,7 @@ class AntdTextAreaEventDemo extends StatelessWidget {
           title: "onChange",
           child: AntdTextArea(
               showCount: true,
-              placeholder: Text("请输入"),
+              placeholder: const Text("请输入"),
               onChange: (value) {
                 AntdToast.show("当前的输入值:$value",
                     position: AntdToastPosition.top);
@@ -194,7 +194,7 @@ class AntdTextAreaEventDemo extends StatelessWidget {
           title: "onClear 点击清理图标",
           child: AntdTextArea(
               showCount: true,
-              placeholder: Text("请输入"),
+              placeholder: const Text("请输入"),
               onChange: (value) {
                 AntdToast.show("当前的输入值:$value",
                     position: AntdToastPosition.top);
@@ -207,7 +207,7 @@ class AntdTextAreaEventDemo extends StatelessWidget {
           title: "onTap 触摸事件",
           child: AntdTextArea(
               showCount: true,
-              placeholder: Text("请输入"),
+              placeholder: const Text("请输入"),
               onChange: (value) {
                 AntdToast.show("当前的输入值:$value",
                     position: AntdToastPosition.top);
@@ -220,7 +220,7 @@ class AntdTextAreaEventDemo extends StatelessWidget {
           title: "onFocus 焦点事件",
           child: AntdTextArea(
               showCount: true,
-              placeholder: Text("请输入"),
+              placeholder: const Text("请输入"),
               onChange: (value) {
                 AntdToast.show("当前的输入值:$value",
                     position: AntdToastPosition.top);
@@ -240,8 +240,8 @@ class AntdTextAreaEventDemo extends StatelessWidget {
 
 ```dart
 class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
-  String? value;
-  String? value1;
+  AntdInputController inputController = AntdInputController();
+  AntdInputController inputController1 = AntdInputController();
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
@@ -262,7 +262,7 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
           outline: false,
           title: "表单控制默认值",
           child: AntdForm(
-              initialValues: {"textarea": '来自form的默认值'},
+              initialValues: const {"textarea": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -278,7 +278,7 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
           title:
               "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdTextArea覆盖了",
           child: AntdForm(
-              initialValues: {"textarea": '来自form的默认值'},
+              initialValues: const {"textarea": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -295,7 +295,7 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
           outline: false,
           title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
           child: AntdForm(
-              initialValues: {"textarea": '来自form的默认值'},
+              initialValues: const {"textarea": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -310,14 +310,14 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value = "我是外部设置的值";
+              inputController.text = "我是外部设置的值";
             });
           }),
       DemoTitle(
           outline: false,
           title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
           child: AntdForm(
-              initialValues: {"textarea": '来自form的默认值'},
+              initialValues: const {"textarea": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -325,14 +325,11 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
                         name: "textarea",
                         builder: (ctx) {
                           return AntdTextArea(
-                              value: value,
-                              placeholder: Text("请输入"),
+                              controller: inputController,
+                              placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
-                                setState(() {
-                                  this.value = value;
-                                });
                               });
                         }));
               })),
@@ -340,14 +337,14 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value1 = "我是外部设置的值";
+              inputController1.text = "我是外部设置的值";
             });
           }),
       DemoTitle(
           outline: false,
           title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
           child: AntdForm(
-              initialValues: {"textarea": '来自form的默认值'},
+              initialValues: const {"textarea": '来自form的默认值'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -355,14 +352,11 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
                         name: "textarea",
                         builder: (ctx) {
                           return AntdTextArea(
-                              value: value1,
-                              placeholder: Text("请输入"),
+                              controller: inputController1,
+                              placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
-                                setState(() {
-                                  this.value = value;
-                                });
                               },
                               shouldTriggerChange: false);
                         }));
@@ -486,7 +480,6 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdInputStyle, AntdTextArea&gt; | - | - |
 | focusNode | 控制输入框的焦点状态 | FocusNode | - | - |
 | clearable | 是否显示清除按钮（点击会清空输入内容） | bool | true | - |
-| defaultValue | 默认值 | String | - | - |
 | value | 值 | String | - | - |
 | disabled | 禁用 | bool | - | - |
 | onChange | 变更事件 | ValueChanged&lt;String&gt; | - | - |

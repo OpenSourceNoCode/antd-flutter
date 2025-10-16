@@ -520,7 +520,7 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                       label: const Text("开关"),
                       builder: (ctx) {
                         return const AntdSwitch(
-                          defaultValue: "any",
+                          value: "any",
                         );
                       }),
                   AntdFormItem(
@@ -543,7 +543,7 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                       label: const Text("单选"),
                       builder: (ctx) {
                         return const AntdRadio(
-                          defaultValue: 1,
+                          value: 1,
                           extra: Text("1"),
                         );
                       }),
@@ -554,11 +554,11 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                         return const AntdRadioGroup(
                           items: [
                             AntdRadio(
-                              defaultValue: 1,
+                              value: 1,
                               extra: Text("1"),
                             ),
                             AntdRadio(
-                              defaultValue: 2,
+                              value: 2,
                               extra: Text("2"),
                             )
                           ],
@@ -569,7 +569,7 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                       label: const Text("多选"),
                       builder: (ctx) {
                         return const AntdCheckbox(
-                          defaultValue: 1,
+                          value: 1,
                           extra: Text("1"),
                         );
                       }),
@@ -578,14 +578,14 @@ class AntdFormAutoCollectDemo extends StatelessWidget {
                       label: const Text("多选选择组"),
                       builder: (ctx) {
                         return const AntdCheckboxGroup(
-                          defaultValue: ['1'],
+                          value: ['1'],
                           items: [
                             AntdCheckbox(
-                              defaultValue: "1",
+                              value: "1",
                               extra: Text("1"),
                             ),
                             AntdCheckbox(
-                              defaultValue: "2",
+                              value: "2",
                               extra: Text("2"),
                             )
                           ],

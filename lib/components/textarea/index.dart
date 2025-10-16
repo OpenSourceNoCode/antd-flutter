@@ -17,7 +17,6 @@ class AntdTextArea extends AntdInputBase<AntdTextArea> {
       super.styleBuilder,
       super.focusNode,
       super.clearable = true,
-      super.defaultValue,
       super.value,
       super.disabled,
       super.onChange,

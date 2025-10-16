@@ -1,14 +1,12 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-
 import '../../comment/define.dart';
 import '../index.dart';
 
 class MapUseComponents implements UseComponents {
   @override
   void process(List<ComponentDefine> defines, Directory scriptDir) async {
-    debugPrint('正在生成 map.dart，demos 数量: ${defines.length}');
+    print('正在生成 map.dart，demos 数量: ${defines.length}');
 
     var generatedDir = '${scriptDir.path}/lib/generated';
     final mdDirectory = Directory(generatedDir);
@@ -88,7 +86,7 @@ class MapUseComponents implements UseComponents {
     """);
     stringBuffer.writeln("}");
     await file.writeAsString(stringBuffer.toString());
-    debugPrint('生成完成: ${file.path}');
+    print('生成完成: ${file.path}');
   }
 
   String genderPopoverForm(List<ComponentDefine> defines) {

@@ -18,19 +18,19 @@ class AntdRadioDemo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AntdRadio(
-            defaultValue: 1,
+            value: 1,
             onChange: (value) async {
               AntdToast.show("变更为:$value");
             },
             extra: const Text("有描述的单选框"),
           ),
           const AntdRadio(
-            defaultValue: 1,
+            value: 1,
             indeterminate: true,
             extra: Text("半选"),
           ),
           const AntdRadio(
-            defaultValue: 1,
+            value: 1,
             disabled: true,
             extra: Text("禁用"),
           )
@@ -50,7 +50,7 @@ class AntdRadioCustomDemo extends StatelessWidget {
     var token = AntdTheme.ofToken(context);
     return DemoWrapper(child: [
       AntdRadio(
-        defaultValue: 1,
+        value: 1,
         style: AntdRadioStyle(
             icon: const AntdIcon(
               icon: AntdIcons.smile,
@@ -80,7 +80,7 @@ class AntdRadioValueDemo extends StatefulWidget {
   }
 }
 
-/// @t 受控模式
+/// @t 受控模式 设置manual为true 通过onChange更新
 /// @l [AntdRadio]
 class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
   bool? check = false;
@@ -89,6 +89,7 @@ class _AntdRadioValueDemoStateDemo extends State<AntdRadioValueDemo> {
     return DemoWrapper(child: [
       AntdRadio(
         value: check,
+        manual: true,
         extra: const Text("受控模式"),
       ),
       Row(
@@ -148,15 +149,15 @@ class AntdRadioGroupDemo extends StatelessWidget {
         items: const [
           AntdRadio(
             extra: Text("1"),
-            defaultValue: 1,
+            value: 1,
           ),
           AntdRadio(
             extra: Text("2"),
-            defaultValue: 2,
+            value: 2,
           ),
           AntdRadio(
             extra: Text("3"),
-            defaultValue: 3,
+            value: 3,
           ),
         ],
         onChange: (values) {
@@ -179,15 +180,15 @@ class AntdRadioFormDemo extends StatefulWidget {
 /// @t 与表单配合
 /// @l [AntdRadio]
 class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
-  String? value;
-  String? value1;
+  bool value = false;
+  bool value1 = false;
 
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       DemoTitle(
           outline: false,
-          title: "最基础 在AntdFormItem中使用会自动收集AntdRadio的值,务必指定一个defaultValue",
+          title: "最基础 在AntdFormItem中使用会自动收集AntdRadio的值,务必指定一个value",
           child: AntdForm(builder: (controller) {
             return FormValue(
                 controller: controller,
@@ -195,7 +196,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
                     name: "radio",
                     builder: (ctx) {
                       return const AntdRadio(
-                        defaultValue: "1",
+                        value: true,
                       );
                     }));
           })),
@@ -203,7 +204,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
           outline: false,
           title: "表单控制默认值",
           child: AntdForm(
-              initialValues: const {"radio": '1'},
+              initialValues: const {"radio": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -218,7 +219,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
           title:
               "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdRadio覆盖了",
           child: AntdForm(
-              initialValues: const {"radio": '1'},
+              initialValues: const {"radio": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -236,7 +237,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
           outline: false,
           title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
           child: AntdForm(
-              initialValues: const {"radio": '1'},
+              initialValues: const {"radio": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -252,7 +253,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
         child: const Text('点我修改'),
         onTap: () {
           setState(() {
-            value = value == null ? "1" : null;
+            value = !value;
           });
         },
       ),
@@ -260,7 +261,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
           outline: false,
           title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
           child: AntdForm(
-              initialValues: const {"radio": '1'},
+              initialValues: const {"radio": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -269,6 +270,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
                         builder: (ctx) {
                           return AntdRadio(
                             value: value,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);
@@ -283,7 +285,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
         child: const Text('点我修改'),
         onTap: () {
           setState(() {
-            value1 = value1 == null ? "1" : null;
+            value1 = !value1;
           });
         },
       ),
@@ -291,7 +293,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
           outline: false,
           title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
           child: AntdForm(
-              initialValues: const {"radio": '1'},
+              initialValues: const {"radio": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -300,6 +302,7 @@ class _AntdRadioFormDemoStateDemo extends State<AntdRadioFormDemo> {
                         builder: (ctx) {
                           return AntdRadio(
                             value: value1,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);

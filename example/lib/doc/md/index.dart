@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:example/comment/parse.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
 import '../../comment/define.dart';
@@ -78,7 +77,7 @@ class MdUseComponents implements UseComponents {
     final docsDir = Directory(outputDir);
     if (!await docsDir.exists()) {
       await docsDir.create(recursive: true); // recursive: true 会创建所有不存在的父目录
-      debugPrint('已创建目录: $outputDir');
+      print('已创建目录: $outputDir');
     }
 
     for (final component in components) {
@@ -126,7 +125,7 @@ class MdUseComponents implements UseComponents {
         buffer.writeln(generateRelateApiDoc(component));
 
         await File(mdOutputPath).writeAsString(buffer.toString());
-        debugPrint('已生成: $outputPath');
+        print('已生成: $outputPath');
       }
     }
   }

@@ -73,12 +73,12 @@ class AntdCheckItem
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       this.child,
       this.onTap,
       this.activeIcon,
@@ -123,7 +123,7 @@ class AntdCheckItem
   }
 }
 
-class _AntdCheckItemState extends AntdFormItemSelectComponentState<dynamic,
+class _AntdCheckItemState extends AntdFormItemSelectComponentState<
     AntdCheckItemStyle, AntdCheckItem> {
   Widget? _getIcon() {
     if (widget.disabled == true) {
@@ -163,12 +163,12 @@ class AntdCheckList<T> extends AntdFormItemGroup<AntdCheckItem, AntdBoxStyle,
       {super.key,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       super.items,
       super.builder});
 

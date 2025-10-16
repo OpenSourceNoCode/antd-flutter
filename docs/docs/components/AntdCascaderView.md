@@ -45,7 +45,7 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
   const AntdCascaderViewDefaultDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return DemoWrapper(outline: true, child: [
+    return const DemoWrapper(outline: true, child: [
       AntdCascaderView(value: ['2-1', '3-1'], options: cascaderOptions)
     ]);
   }
@@ -166,12 +166,12 @@ class AntdCascaderViewDefaultDemo extends StatelessWidget {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdCascaderViewStyle, AntdCascaderView&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| defaultValue | 默认值 | List&lt;dynamic&gt; | - | - |
 | value | 值 | List&lt;dynamic&gt; | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
 | onChange | 变更事件 | ValueChanged&lt;List&lt;dynamic&gt;&gt; | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 | placeholder | 未选中时的提示文案 | Widget | const Text("请选择") | - |
 | options | 配置每一列的选项 | List&lt;AntdCascaderOption&gt; | - | - |
 | onTabsChange | 默认选中项 | AntdTabsOnChange&lt;AntdTab&gt; | - | - |

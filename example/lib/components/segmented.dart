@@ -13,7 +13,7 @@ class AntdSegmentedDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSegmented(
-        defaultValue: "1",
+        value: "1",
         items: const [
           AntdSegmentedItem(
             value: "1",
@@ -59,6 +59,7 @@ class _AntdControllerDemoStateDemo extends State<AntdControllerDemo> {
     return DemoWrapper(child: [
       AntdSegmented(
         value: value,
+        manual: true,
         items: const [
           AntdSegmentedItem(
             value: "1",
@@ -130,7 +131,7 @@ class AntdDisabledDemo extends StatelessWidget {
           child: Text("Yearly"),
         ),
       ]),
-      AntdSegmented(disabled: true, defaultValue: "1", items: [
+      AntdSegmented(disabled: true, value: "1", items: [
         AntdSegmentedItem(
           value: "1",
           child: Text("Daily"),
@@ -163,9 +164,9 @@ class AntdLoadMoreDemo extends StatefulWidget {
   }
 }
 
-/// @t 受控的 Segmented
+/// @t 受控的 Segmented,设置manual为true 通过onChange更新
 /// @l [AntdSegmented]
-class _AntdLoadMoreDemoStateDemo extends State<AntdControllerDemo> {
+class _AntdLoadMoreDemoStateDemo extends State<AntdLoadMoreDemo> {
   String? value;
   var items = <AntdSegmentedItem>[
     const AntdSegmentedItem(
@@ -181,20 +182,23 @@ class _AntdLoadMoreDemoStateDemo extends State<AntdControllerDemo> {
       child: Text("Monthly"),
     ),
   ];
+
+  var items_ = <AntdSegmentedItem>[];
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(defaultValue: value, items: const [
-        AntdSegmentedItem(
+      AntdSegmented(value: value, items: [
+        const AntdSegmentedItem(
           value: "Yearly",
           child: Text("Yearly"),
         ),
+        ...items_
       ]),
       AntdButton(
         child: const Text("加载更多"),
         onTap: () {
           setState(() {
-            items = [
+            items_ = [
               ...items,
             ];
             value = "Weekly";
@@ -213,7 +217,7 @@ class AntdSegmentedIconDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
-      AntdSegmented(defaultValue: '1', items: [
+      AntdSegmented(value: '1', items: [
         AntdSegmentedItem(
           value: '1',
           child: Row(
@@ -238,7 +242,7 @@ class AntdSegmentedIconDemo extends StatelessWidget {
           child: Text("Yearly"),
         )
       ]),
-      AntdSegmented(defaultValue: 'add', items: [
+      AntdSegmented(value: 'add', items: [
         AntdSegmentedItem(
           value: 'add',
           child: AntdIcon(
@@ -264,7 +268,7 @@ class AntdSegmentedMoreDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
-      AntdSegmented(defaultValue: 'avr', items: [
+      AntdSegmented(value: 'avr', items: [
         AntdSegmentedItem(
           value: "avr",
           child: Column(

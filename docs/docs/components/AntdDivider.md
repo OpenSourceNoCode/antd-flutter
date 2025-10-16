@@ -65,10 +65,10 @@ class AntdDividerVerticalDemo extends StatelessWidget {
     return DemoWrapper(child: [
       Row(children: [
         Text("我在左边", style: token.font.sm),
-        AntdDivider(vertical: true),
-        Text("我在右边"),
-        AntdDivider(vertical: true),
-        Text("最右边")
+        const AntdDivider(vertical: true),
+        const Text("我在右边"),
+        const AntdDivider(vertical: true),
+        const Text("最右边")
       ])
     ]);
   }

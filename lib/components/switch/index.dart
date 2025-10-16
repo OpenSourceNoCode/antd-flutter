@@ -88,12 +88,12 @@ class AntdSwitch
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       this.content,
       this.activeContent,
       this.duration = const Duration(milliseconds: 200)});
@@ -157,8 +157,9 @@ class AntdSwitch
   Widget get bindWidget => this;
 }
 
-class _AntdSwitchState extends AntdFormItemSelectComponentState<dynamic,
-    AntdSwitchStyle, AntdSwitch> with SingleTickerProviderStateMixin {
+class _AntdSwitchState
+    extends AntdFormItemSelectComponentState<AntdSwitchStyle, AntdSwitch>
+    with SingleTickerProviderStateMixin {
   double trackWidth = 0;
   double thumbWidth = 0;
   double contentWidth = 0;

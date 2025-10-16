@@ -36,7 +36,7 @@ class _AntdPullToRefreshDemoStateDemo extends State<AntdPullToRefreshDemo> {
                 });
               },
               onChange: (status) {
-                AntdToast.show("$status");
+                AntdToast.show("$status", position: AntdToastPosition.top);
               },
               initialDelay: const Duration(seconds: 2),
               initialPrompt: AntdBox(

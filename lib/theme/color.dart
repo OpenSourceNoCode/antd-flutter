@@ -152,13 +152,11 @@ class AntdFillColorDefine extends Color {
   factory AntdFillColorDefine.generate(
       Color colorTextBase, Color colorBgBase, AntdOpacityDefine opacity) {
     return AntdFillColorDefine(
-        color: colorTextBase.withAlphas(opacity.colorFill, colorBgBase),
-        secondary:
-            colorTextBase.withAlphas(opacity.colorFillSecondary, colorBgBase),
-        tertiary:
-            colorTextBase.withAlphas(opacity.colorFillTertiary, colorBgBase),
+        color: colorTextBase.mix(opacity.colorFill, colorBgBase),
+        secondary: colorTextBase.mix(opacity.colorFillSecondary, colorBgBase),
+        tertiary: colorTextBase.mix(opacity.colorFillTertiary, colorBgBase),
         quaternary:
-            colorTextBase.withAlphas(opacity.colorFillQuaternary, colorBgBase));
+            colorTextBase.mix(opacity.colorFillQuaternary, colorBgBase));
   }
 
   AntdFillColorDefine copyFrom(AntdFillColorDefine? other) {

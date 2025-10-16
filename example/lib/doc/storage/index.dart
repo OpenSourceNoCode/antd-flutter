@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
 import '../../comment/define.dart';
@@ -9,7 +8,7 @@ import '../index.dart';
 class StorageUseComponents implements UseComponents {
   @override
   void process(List<ComponentDefine> defines, Directory scriptDir) async {
-    debugPrint('正在生成 storage.dart，demos 数量: ${defines.length}');
+    print('正在生成 storage.dart，demos 数量: ${defines.length}');
 
     var generatedDir = '${scriptDir.path}/lib/generated';
     final mdDirectory = Directory(generatedDir);
@@ -25,7 +24,7 @@ class StorageUseComponents implements UseComponents {
         final fullPath = demo.filePath.toString();
         var name = demo.name.toString();
         if (fullPath.isEmpty || name.isEmpty) {
-          debugPrint('跳过无效 demo 数据: $value');
+          print('跳过无效 demo 数据: $value');
           continue;
         }
 
@@ -44,7 +43,7 @@ class StorageUseComponents implements UseComponents {
     }
 
     if (paths.isEmpty) {
-      debugPrint('警告: 无有效的 demo 数据，生成空的 storage.dart');
+      print('警告: 无有效的 demo 数据，生成空的 storage.dart');
     }
 
     final file = File("$generatedDir/storage.dart");
@@ -58,7 +57,7 @@ class StorageUseComponents implements UseComponents {
     stringBuffer.writeln("};");
 
     await file.writeAsString(stringBuffer.toString());
-    debugPrint('生成完成: ${file.path}');
+    print('生成完成: ${file.path}');
   }
 
   String _convertToPackagePath(String fullPath, String projectRoot) {

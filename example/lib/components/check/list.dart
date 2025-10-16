@@ -14,7 +14,7 @@ class AntdCheckListDemo extends StatelessWidget {
         onChange: (value) {
           AntdToast.show("当前的值:${value?.join(",")},变化的值:$value");
         },
-        defaultValue: const ["A", "C"],
+        value: const ["A", "C"],
         items: const [
           AntdCheckItem(
             value: "A",
@@ -74,7 +74,8 @@ class AntdCheckListReadOnlyDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(outline: true, child: [
       AntdCheckList(
-        defaultValue: ['A'],
+        value: ['A'],
+        readOnly: true,
         items: [
           AntdCheckItem(
             value: "A",
@@ -119,7 +120,7 @@ class AntdCheckListValueDemo extends StatefulWidget {
   }
 }
 
-/// @t 受控模式
+/// @t 受控模式 设置manual为true 通过onChange更新
 /// @l [AntdCheckList]
 class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
   var values = <String>['A'];
@@ -128,6 +129,7 @@ class _AntdCheckListValueDemoStateDemo extends State<AntdCheckListValueDemo> {
     return DemoWrapper(outline: true, child: [
       AntdCheckList(
         value: values,
+        manual: true,
         onChange: (value) {
           setState(() {
             values = value ?? [];

@@ -91,12 +91,13 @@ class AntdStepsVerticalErrorDemo extends StatelessWidget {
           current: 1,
           vertical: true,
           style: AntdStepsStyle(
-              titleStyle: AntdBoxStyle(textStyle: TextStyle(fontSize: 18)),
+              titleStyle:
+                  const AntdBoxStyle(textStyle: TextStyle(fontSize: 18)),
               activeTitleStyle:
-                  AntdBoxStyle(textStyle: TextStyle(fontSize: 18)),
+                  const AntdBoxStyle(textStyle: TextStyle(fontSize: 18)),
               stepStyle: AntdBoxStyle(
                   padding: 6.all, size: 24, radius: 24.radius.all)),
-          steps: [
+          steps: const [
             AntdStep(
                 title: Text("填写机构信息"),
                 icon: AntdIcon(

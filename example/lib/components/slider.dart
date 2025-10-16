@@ -102,7 +102,7 @@ class AntdSliderDefaultDemo extends StatelessWidget {
       AntdSlider(
         ticks: true,
         step: 10,
-        defaultValue: AntdSliderValue(start: 20, end: 0),
+        value: AntdSliderValue(start: 20, end: 0),
       )
     ]);
   }
@@ -120,7 +120,7 @@ class AntdSliderRangeDemo extends StatelessWidget {
         ticks: true,
         step: 10,
         range: true,
-        defaultValue: const AntdSliderValue(start: 20, end: 40),
+        value: const AntdSliderValue(start: 20, end: 40),
         onChange: (value) {
           AntdToast.show(
             "当前选中值为start:${value?.start},end:${value?.end}",
@@ -166,7 +166,7 @@ class AntdSliderCustomDemo extends StatelessWidget {
         ticks: true,
         step: 10,
         range: true,
-        defaultValue: const AntdSliderValue(start: 20, end: 20),
+        value: const AntdSliderValue(start: 20, end: 20),
       )
     ]);
   }
@@ -181,7 +181,7 @@ class AntdSliderControllerDemo extends StatefulWidget {
   }
 }
 
-/// @t 受控模式
+/// @t 受控模式,设置manual位true
 /// @l [AntdSlider]
 class _AntdSliderControllerDemoStateDemo
     extends State<AntdSliderControllerDemo> {
@@ -194,6 +194,7 @@ class _AntdSliderControllerDemoStateDemo
         step: 10,
         range: true,
         value: value,
+        manual: true,
         onChange: (value) {
           setState(() {
             this.value = value;
@@ -337,6 +338,7 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
                             ticks: true,
                             step: 10,
                             range: true,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);
@@ -373,6 +375,7 @@ class _AntdSliderFormDemoStateDemo extends State<AntdSliderFormDemo> {
                             ticks: true,
                             step: 10,
                             range: true,
+                            manual: true,
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);

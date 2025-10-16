@@ -62,12 +62,12 @@ class AntdSegmented
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       required this.items,
       this.duration = const Duration(milliseconds: 200)});
 
@@ -226,7 +226,7 @@ class _AntdSegmentedState extends AntdFormItemComponentState<dynamic,
                     child: item.child,
                     onTap: () {
                       if (setValue(item.value)) {
-                        if (!valueManual) {
+                        if (!manual) {
                           _updateAnimation(_offset[index]);
                         }
                       }

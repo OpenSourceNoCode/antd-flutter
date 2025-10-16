@@ -54,7 +54,7 @@ class AntdSelectorColumnsDemo extends StatelessWidget {
 
 ```
 
-### 受控模式 不要忘记使用onChange更新
+### 受控模式 设置manual为true 通过onChange更新
 
 
 ```dart
@@ -65,6 +65,7 @@ class _AntdSelectorValueDemoStateDemo extends State<AntdSelectorValueDemo> {
     return DemoWrapper(child: [
       AntdSelector(
           value: values,
+          manual: true,
           onChange: (values) async {
             setState(() {
               this.values = values ?? [];
@@ -106,7 +107,7 @@ class AntdSelectorDisabledDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DemoWrapper(child: [
       AntdSelector(items: options, disabled: true),
-      AntdSelector(readOnly: true, defaultValue: ["2"], items: options)
+      AntdSelector(readOnly: true, value: ["2"], items: options)
     ]);
   }
 }
@@ -204,6 +205,7 @@ class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
                           return AntdSelector(
                               value: value,
                               items: options,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -234,11 +236,12 @@ class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
                           return AntdSelector(
                               value: value1,
                               items: options,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
                                 setState(() {
-                                  this.value1 = value;
+                                  value1 = value;
                                 });
                               },
                               shouldTriggerChange: false);
@@ -363,12 +366,12 @@ class _AntdSelectorFormDemoStateDemo extends State<AntdSelectorFormDemo> {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSelectorStyle, AntdSelector&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| defaultValue | 默认值 | List&lt;dynamic&gt; | - | - |
 | value | 值 | List&lt;dynamic&gt; | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
 | onChange | 变更事件 | ValueChanged&lt;List&lt;dynamic&gt;&gt; | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 | items | 列表项 | List&lt;AntdSelectorItem&gt; | - | - |
 | builder | 自定义构建 默认使用List | Widget? Function(List&lt;AntdSelectorItem&gt;? items) | - | - |
 | columns | 列数 | int | 2 | - |

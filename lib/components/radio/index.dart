@@ -48,11 +48,11 @@ class AntdRadio extends AntdBaseCheckbox<AntdRadioStyle, AntdRadio> {
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
+      super.manual,
       super.indeterminate,
       super.extra,
       super.hapticFeedback});
@@ -109,12 +109,12 @@ class AntdRadioGroup<T>
       {super.key,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       super.items,
       super.builder});
 

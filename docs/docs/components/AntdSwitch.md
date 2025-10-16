@@ -28,21 +28,21 @@ class AntdSwitchDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSwitch(
-          defaultValue: 1,
+          value: 1,
           content: const Text("关闭"),
           activeContent: const Text("打开"),
           onChange: (value) async {
             AntdToast.show("当前值:$value");
           }),
       AntdSwitch(
-          defaultValue: 2,
+          value: 2,
           content: const Text("关闭"),
           activeContent: const Text("打开"),
           onChange: (value) async {
             AntdToast.show("当前值:$value");
           }),
       AntdSwitch(
-          defaultValue: 3,
+          value: 3,
           onChange: (value) async {
             AntdToast.show("当前值:$value");
           })
@@ -74,18 +74,18 @@ class AntdSwitchCustomDemo extends StatelessWidget {
 
 ```
 
-### 受控模式
+### 受控模式 设置manual为true
 
-通过value为null来关闭，只要value不是null 就是打开状态
 
 ```dart
 class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
-  String? status;
+  bool? status;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
       AntdSwitch(
           value: status,
+          manual: true,
           content: const Text("关闭"),
           activeContent: const Text("打开"),
           onChange: (value) async {
@@ -96,14 +96,14 @@ class _AntdSwitchValueDemoStateDemo extends State<AntdSwitchValueDemo> {
             child: const Text("打开"),
             onTap: () {
               setState(() {
-                status = "open";
+                status = true;
               });
             }),
         AntdButton(
             child: const Text("关闭"),
             onTap: () {
               setState(() {
-                status = null;
+                status = false;
               });
             })
       ])
@@ -135,8 +135,8 @@ class AntdSwitchDisabledDemo extends StatelessWidget {
 
 ```dart
 class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
-  String? value;
-  String? value1;
+  bool value = false;
+  bool value1 = false;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(child: [
@@ -149,14 +149,14 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
                 child: AntdFormItem(
                     name: "switch",
                     builder: (ctx) {
-                      return const AntdSwitch(defaultValue: "1");
+                      return const AntdSwitch(value: false);
                     }));
           })),
       DemoTitle(
           outline: false,
           title: "表单控制默认值",
           child: AntdForm(
-              initialValues: {"switch": '1'},
+              initialValues: const {"switch": false},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -171,7 +171,7 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
           title:
               "表单控制只读禁用,属性的优先级遵守最近原则,虽然AntdFormItem指定的disabled,但是AntdSwitch覆盖了",
           child: AntdForm(
-              initialValues: {"switch": '1'},
+              initialValues: const {"switch": false},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -187,7 +187,7 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
           outline: false,
           title: "不要表单自动收集 必须在合适的时候手动 否则不会同步",
           child: AntdForm(
-              initialValues: {"switch": '1'},
+              initialValues: const {"switch": true},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -201,14 +201,14 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value = value == null ? "1" : null;
+              value = !value;
             });
           }),
       DemoTitle(
           outline: false,
           title: "autoCollect:true的时候外部改变 Value 也会同步至表单",
           child: AntdForm(
-              initialValues: {"switch": '1'},
+              initialValues: const {"switch": '1'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -217,6 +217,7 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
                         builder: (ctx) {
                           return AntdSwitch(
                               value: value,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
@@ -230,14 +231,14 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
           child: const Text('点我修改'),
           onTap: () {
             setState(() {
-              value1 = value1 == null ? "1" : null;
+              value1 = !value1;
             });
           }),
       DemoTitle(
           outline: false,
           title: "使用shouldTriggerChange 控制当外部的value改变时要不要触发onChange",
           child: AntdForm(
-              initialValues: {"switch": '1'},
+              initialValues: const {"switch": '1'},
               builder: (controller) {
                 return FormValue(
                     controller: controller,
@@ -246,11 +247,12 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
                         builder: (ctx) {
                           return AntdSwitch(
                               value: value1,
+                              manual: true,
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
                                 setState(() {
-                                  this.value = value;
+                                  this.value1 = value;
                                 });
                               },
                               shouldTriggerChange: false);
@@ -375,12 +377,12 @@ class _AntdSwitchFormDemoStateDemo extends State<AntdSwitchFormDemo> {
 | styleBuilder | 动态样式 | AntdStyleBuilder&lt;AntdSwitchStyle, AntdSwitch&gt; | - | - |
 | disabled | 禁用 | bool | - | - |
 | readOnly | 只读 | bool | - | - |
-| defaultValue | 默认值 | dynamic | - | - |
 | value | 值 | dynamic | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
 | onChange | 变更事件 | ValueChanged&lt;dynamic&gt; | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | - | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 | content | 选中时的内容 | Widget | - | - |
 | activeContent | 未选中时的内容 | Widget | - | - |
 | duration | 动画周期 | Duration | const Duration(milliseconds: 200) | - |

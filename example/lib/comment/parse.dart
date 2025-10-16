@@ -5,7 +5,6 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'class.dart';
 import 'define.dart';
@@ -363,13 +362,13 @@ List<String>? _getEnumValues(
 
     // 4. 检查结果有效性
     if (enumValues.isEmpty) {
-      debugPrint('⚠️ 枚举 [$typeName] 没有定义任何值');
+      print('⚠️ 枚举 [$typeName] 没有定义任何值');
       return null;
     }
 
     return enumValues;
   } catch (e, stack) {
-    debugPrint('❌ 获取枚举 [$typeName] 值时出错: $e\n$stack');
+    print('❌ 获取枚举 [$typeName] 值时出错: $e\n$stack');
     return null;
   }
 }
@@ -714,7 +713,7 @@ Future<List<File>> getFiles(List<String> targetDirs, Directory parent) async {
   for (final dir in targetDirs) {
     final files = await _findDartFiles('${parent.path}/$dir');
     allDartFiles.addAll(files);
-    debugPrint('在目录 $dir 中找到 ${files.length} 个Dart文件');
+    print('在目录 $dir 中找到 ${files.length} 个Dart文件');
   }
   return allDartFiles;
 }
@@ -888,7 +887,7 @@ Future<List<File>> _findDartFiles(String dirPath) async {
       }
     }
   } catch (e) {
-    debugPrint('警告: 无法访问目录 $dirPath: $e');
+    print('警告: 无法访问目录 $dirPath: $e');
   }
 
   return files;
@@ -911,7 +910,7 @@ List<ComponentDefine> _parseFile(
 
     return visitor.components;
   } catch (e) {
-    debugPrint('解析文件 ${file.path} 时出错: $e');
+    print('解析文件 ${file.path} 时出错: $e');
     return [];
   }
 }
@@ -942,7 +941,7 @@ Map<String, List<PropertiesDefine>> getStyleComment(
 
     return visitor.commentMap;
   } catch (e) {
-    debugPrint('解析文件 ${file.path} 时出错: $e');
+    print('解析文件 ${file.path} 时出错: $e');
     return {};
   }
 }

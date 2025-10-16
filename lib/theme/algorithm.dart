@@ -27,11 +27,10 @@ AntdThemeAlgorithm light = (seedToken, token) {
       colorBgContainer: seedToken.colorBgBase.lightness(0, false),
       colorBgElevated: seedToken.colorBgBase.lightness(0, false),
       colorBgLayout: seedToken.colorBgBase.lightness(4, false),
-      colorBgMask:
-          const Color(0x00000000).withAlphas(0.45, seedToken.colorBgBase),
-      colorBgSolid: colorTextBase.withAlphas(1, seedToken.colorBgBase),
-      colorBgSolidActive: colorTextBase.withAlphas(0.95, seedToken.colorBgBase),
-      colorBgSpotlight: colorTextBase.withAlphas(0.85, seedToken.colorBgBase),
+      colorBgMask: const Color(0x00000000).mix(0.45, seedToken.colorBgBase),
+      colorBgSolid: colorTextBase.mix(1, seedToken.colorBgBase),
+      colorBgSolidActive: colorTextBase.mix(0.95, seedToken.colorBgBase),
+      colorBgSpotlight: colorTextBase.mix(0.85, seedToken.colorBgBase),
       border: BorderSide(
           color: seedToken.colorBgBase
               .lightness(seedToken.opacityDefine.colorBorder, false),
@@ -72,14 +71,13 @@ AntdThemeAlgorithm dark = (seedToken, token) {
           seedToken.fontSize, colorText, seedToken.defaultTextStyle),
       colorFill: AntdFillColorDefine.generate(
           colorTextBase, seedToken.colorBgBase, seedToken.opacityDefine),
-      colorBgBlur: colorTextBase.withAlphas(0.04, seedToken.colorBgBase),
+      colorBgBlur: colorTextBase.mix(0.04, seedToken.colorBgBase),
       colorBgContainer: seedToken.colorBgBase.lightness(5, true),
       colorBgElevated: seedToken.colorBgBase.lightness(9, true),
       colorBgLayout: seedToken.colorBgBase.lightness(0, true),
-      colorBgMask:
-          const Color(0x00000000).withAlphas(0.45, seedToken.colorBgBase),
-      colorBgSolid: colorTextBase.withAlphas(0.95, seedToken.colorBgBase),
-      colorBgSolidActive: colorTextBase.withAlphas(0.9, seedToken.colorBgBase),
+      colorBgMask: const Color(0x00000000).mix(0.45, seedToken.colorBgBase),
+      colorBgSolid: colorTextBase.mix(0.95, seedToken.colorBgBase),
+      colorBgSolidActive: colorTextBase.mix(0.9, seedToken.colorBgBase),
       colorBgSpotlight: seedToken.colorBgBase.lightness(26, true),
       border: BorderSide(
           color: seedToken.colorBgBase

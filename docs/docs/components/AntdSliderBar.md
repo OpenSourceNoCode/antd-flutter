@@ -260,8 +260,8 @@ class AntdSliderBarStyleDemo extends StatelessWidget {
 ```dart
 class _AntdSliderBarMoreDemoStateDemo extends State<AntdSliderBarMoreDemo> {
   var titleMoreItems = [..._items];
-  var _laodingIndex = [];
-  var _loadingingIndex = [];
+  final _laodingIndex = [];
+  final _loadingingIndex = [];
   @override
   Widget build(BuildContext context) {
     var token = AntdTheme.ofToken(context);

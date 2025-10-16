@@ -53,7 +53,7 @@ extension ColorExtensions on Color {
     );
   }
 
-  Color withAlphas(double alpha, Color color) {
+  Color mix(double alpha, Color color) {
     if (alpha == 1.0) {
       return this;
     }
@@ -134,42 +134,6 @@ extension ColorExtensions on Color {
     if (t < 1 / 2) return q;
     if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
     return p;
-  }
-
-  bool isStableColor(int color) {
-    return color >= 0 && color <= 255;
-  }
-
-  Color getAlphaColor(Color color) {
-    final fR = (r * 255.0).round() & 0xff;
-    final fG = (g * 255.0).round() & 0xff;
-    final fB = (b * 255.0).round() & 0xff;
-    final originAlpha = ((a * 255.0).round() & 0xff) / 255;
-
-    if (originAlpha < 1) {
-      return this;
-    }
-
-    final bR = (r * 255.0).round() & 0xff;
-    final bG = (g * 255.0).round() & 0xff;
-    final bB = (b * 255.0).round() & 0xff;
-
-    for (double fA = 0.01; fA <= 1; fA += 0.01) {
-      final r = (fR - bR * (1 - fA)).round();
-      final g = (fG - bG * (1 - fA)).round();
-      final b = (fB - bB * (1 - fA)).round();
-
-      if (isStableColor(r) && isStableColor(g) && isStableColor(b)) {
-        return Color.fromARGB(
-          (fA * 255).round(),
-          r,
-          g,
-          b,
-        );
-      }
-    }
-
-    return Color.fromARGB(255, fR, fG, fB);
   }
 
   double getHue(HSVColor hsv, int i, [bool isLight = false]) {

@@ -175,16 +175,14 @@ class AntdJumboTabsAlignmentDemo extends StatelessWidget {
     return const DemoWrapper(outline: false, child: [
       DemoTitle(
           title: "tabAlignment:AntdTabAlignment.left 选择卡在左侧",
-          child:
-              AntdJumboTabs(tabAlignment: AntdTabAlignment.left, tabs: const [
+          child: AntdJumboTabs(tabAlignment: AntdTabAlignment.left, tabs: [
             AntdJumboTab(title: Text("Tab1"), value: "1", child: Text("1")),
             AntdJumboTab(title: Text("Tab2"), value: "2", child: Text("2")),
             AntdJumboTab(title: Text("Tab3"), value: "3", child: Text("3"))
           ])),
       DemoTitle(
           title: "tabAlignment:AntdTabAlignment.center 选择居中 并强制自动均分宽度",
-          child:
-              AntdJumboTabs(tabAlignment: AntdTabAlignment.center, tabs: const [
+          child: AntdJumboTabs(tabAlignment: AntdTabAlignment.center, tabs: [
             AntdJumboTab(title: Text("Tab1"), value: "1", child: Text("1")),
             AntdJumboTab(title: Text("Tab2"), value: "2", child: Text("2")),
             AntdJumboTab(title: Text("Tab3"), value: "3", child: Text("3"))

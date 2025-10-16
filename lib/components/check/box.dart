@@ -117,12 +117,12 @@ abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       this.indeterminate,
       this.extra});
 
@@ -132,7 +132,7 @@ abstract class AntdBaseCheckbox<Style extends AntdCheckboxStyle, WidgetType>
 
 abstract class AntdBaseCheckboxState<Style extends AntdCheckboxStyle,
         WidgetType extends AntdBaseCheckbox<Style, WidgetType>>
-    extends AntdFormItemSelectComponentState<dynamic, Style, WidgetType> {
+    extends AntdFormItemSelectComponentState<Style, WidgetType> {
   @override
   Widget render(BuildContext context) {
     var defaultIcon = AntdIconWrap(
@@ -195,12 +195,12 @@ class AntdCheckbox extends AntdBaseCheckbox<AntdCheckboxStyle, AntdCheckbox> {
     super.styleBuilder,
     super.disabled,
     super.readOnly,
-    super.defaultValue,
     super.value,
     super.autoCollect,
     super.onChange,
     super.shouldTriggerChange,
     super.hapticFeedback,
+    super.manual,
     super.indeterminate,
     super.extra,
   });
@@ -245,12 +245,12 @@ class AntdCheckboxGroup<T> extends AntdFormItemGroup<AntdCheckbox, AntdBoxStyle,
       {super.key,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       super.items,
       super.builder});
 

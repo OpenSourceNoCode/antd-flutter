@@ -642,9 +642,6 @@ abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
   ///只读
   final bool? readOnly;
 
-  ///默认值
-  final T? defaultValue;
-
   ///值
   final T? value;
 
@@ -660,18 +657,21 @@ abstract class AntdFormItemComponent<T, Style extends AntdStyle, WidgetType>
   ///开启反馈
   final AntdHapticFeedback? hapticFeedback;
 
+  ///受控模式 value的值必须手动更新 默认不开启
+  final bool? manual;
+
   const AntdFormItemComponent(
       {super.key,
       super.style,
       super.styleBuilder,
       this.disabled,
       this.readOnly,
-      this.defaultValue,
       this.value,
       this.onChange,
       this.autoCollect = true,
       this.shouldTriggerChange = true,
-      this.hapticFeedback = AntdHapticFeedback.light});
+      this.hapticFeedback = AntdHapticFeedback.light,
+      this.manual});
 
   @override
   Widget get bindWidget => this;
@@ -682,15 +682,22 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     extends AntdState<Style, WidgetType> {
   bool? disabled;
   bool? readOnly;
-  var valueManual = false;
+  var manual = false;
   T? value;
   AntdFormItemGroupProvider? groupProvider;
   AntdFormItemOnChangeProvider<T>? onChangeProvider;
 
   @override
+  void initState() {
+    super.initState();
+    value = widget.value;
+  }
+
+  @override
   @mustCallSuper
   void updateDependentValues(WidgetType? oldWidget) {
     super.updateDependentValues(oldWidget);
+    manual = widget.manual == true;
     onChangeProvider = AntdFormItemOnChangeProvider.of<T>(context);
     groupProvider = AntdFormItemGroupProvider.of(context);
     var formItem = AntdFormItemProvider.ofMaybe(context);
@@ -702,14 +709,35 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
             true;
     if (formItem != null && formItem.existsShouUpdate != true) {
       var name = formItem.namePath;
+      AntdLogs.w(
+          msg:
+              "A default shouldUpdate has been added for field '$name'. If you use other fields in your builder, remember to include them in dependencies, or use a custom shouldUpdate to ensure your logic works correctly.");
       AntdFormProvider.ofMaybe(context)?.controller.addShouUpUpdate(name,
           (value, beforeValue) {
         return isChanged(value?[name], beforeValue?[name]);
       });
     }
 
-    value = initValue(oldWidget);
-    if (oldWidget != null &&
+    if (manual) {
+      value = widget.value;
+      AntdLogs.w(
+          msg:
+              "Controlled mode active (non-empty value). Manual value update required.",
+          biz: widget.runtimeType.toString());
+      if (oldWidget != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          handlerAutoCollect(value, oldWidget.value);
+        });
+      }
+    } else {
+      var formValue = widget.getValue(context);
+      if (formValue != null && value == null) {
+        value = formValue;
+      }
+    }
+
+    if (manual &&
+        oldWidget != null &&
         widget.shouldTriggerChange == true &&
         widget.onChange != null &&
         isChanged(value, oldWidget.value)) {
@@ -724,42 +752,8 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     onChangeProvider?.onChange?.call(value);
   }
 
-  T? getInitValue(WidgetType? oldWidget) {
-    return widget.value ?? widget.defaultValue;
-  }
-
-  T? initValue(WidgetType? oldWidget) {
-    var value = getInitValue(oldWidget);
-    valueManual = isValueVManual(oldWidget);
-    if (valueManual) {
-      AntdLogs.w(
-          msg:
-              "Controlled mode active (non-empty value). Manual value update required.",
-          biz: widget.runtimeType.toString());
-      if (oldWidget != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          handlerAutoCollect(value, oldWidget.value);
-        });
-      }
-    }
-
-    if (!valueManual) {
-      var formValue = widget.getValue(context);
-      if (formValue != null &&
-          (value == null || formValue.runtimeType == value.runtimeType)) {
-        value = formValue;
-      }
-      value ??= this.value;
-    }
-    return value;
-  }
-
-  bool isValueVManual(WidgetType? oldWidget) {
-    return widget.value != null;
-  }
-
   bool isChanged(T? newValue, T? value) {
-    return newValue != value;
+    return newValue != value || newValue.runtimeType != value.runtimeType;
   }
 
   bool setValue(T? newValue, [bool state = true]) {
@@ -768,7 +762,7 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
     }
 
     handlerOnChange(newValue);
-    if (valueManual) {
+    if (manual) {
       return true;
     }
     handlerAutoCollect(newValue, value);
@@ -796,66 +790,32 @@ abstract class AntdFormItemComponentState<T, Style extends AntdStyle,
 
   void handlerAutoCollect(T? newValue, T? value) {
     if (widget.autoCollect == true && isChanged(newValue, value)) {
-      var formValue = widget.getValue(context);
-      if (formValue != null &&
-          newValue != null &&
-          formValue.runtimeType != newValue.runtimeType) {
-        var fromItem = AntdFormItemProvider.ofMaybe(context);
-        AntdLogs.w(
-            msg:
-                "Field '${fromItem?.namePath}' value type mismatch: stored value type (${formValue.runtimeType}) differs from new value type (${newValue.runtimeType}). Auto-ignored. Set autoCollect to false for custom handling.",
-            biz: widget.runtimeType.toString());
-        return;
-      }
-
       widget.setValue(context, newValue, AntdFormTrigger.any);
     }
   }
 }
 
-abstract class AntdFormItemSelectComponentState<T, Style extends AntdStyle,
-        WidgetType extends AntdFormItemComponent<T, Style, WidgetType>>
-    extends AntdFormItemComponentState<T, Style, WidgetType> {
-  dynamic oriValue;
+abstract class AntdFormItemSelectComponentState<Style extends AntdStyle,
+        WidgetType extends AntdFormItemComponent<dynamic, Style, WidgetType>>
+    extends AntdFormItemComponentState<dynamic, Style, WidgetType> {
   bool select = false;
 
   @override
   void updateDependentValues(covariant WidgetType? oldWidget) {
-    oriValue = widget.value ?? widget.defaultValue ?? widget.getValue(context);
-
     super.updateDependentValues(oldWidget);
     select = isSelect();
   }
 
   bool isSelect() {
-    return value != null || groupProvider?.isExists(value) == true;
-  }
-
-  @override
-  bool isValueVManual(WidgetType? oldWidget) {
-    return (oldWidget?.value != null || widget.value != null) &&
-        widget.defaultValue == null;
-  }
-
-  @override
-  getInitValue(WidgetType? oldWidget) {
-    return widget.value;
-  }
-
-  @override
-  initValue(WidgetType? oldWidget) {
     if (groupProvider != null) {
-      if (groupProvider!.isExists(oriValue)) {
-        return oriValue;
-      }
-      return null;
+      return groupProvider?.isExists(value) == true;
     }
 
-    return super.initValue(oldWidget);
+    return value == true;
   }
 
   bool switchValue() {
-    return setValue(value == null ? oriValue : null);
+    return setValue(value == true ? false : true);
   }
 
   @override
@@ -872,7 +832,7 @@ abstract class AntdFormItemSelectComponentState<T, Style extends AntdStyle,
     }
 
     if (groupProvider != null) {
-      return groupProvider!.setValue(oriValue);
+      return groupProvider!.setValue(widget.value);
     }
     return super.setValue(newValue, state);
   }
@@ -928,12 +888,12 @@ abstract class AntdFormItemGroup<ChildType, Style extends AntdStyle, T,
       super.styleBuilder,
       super.disabled,
       super.readOnly,
-      super.defaultValue,
       super.value,
       super.autoCollect,
       super.onChange,
       super.shouldTriggerChange,
       super.hapticFeedback,
+      super.manual,
       this.items,
       this.builder});
 

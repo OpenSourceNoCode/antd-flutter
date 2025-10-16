@@ -205,8 +205,6 @@ class AntdInputStyle extends AntdStyle {
 }
 
 class AntdInputController extends TextEditingController {
-  VoidCallback? _onClear;
-  ValueChanged<String?>? _onChange;
   FocusNode? _focusNode;
 
   void requestFocus() {
@@ -216,18 +214,10 @@ class AntdInputController extends TextEditingController {
   void unfocus() {
     _focusNode?.unfocus();
   }
-
-  @override
-  void clear() {
-    super.clear();
-    _onClear?.call();
-    _onChange?.call(null);
-  }
 }
 
 abstract class AntdInputBase<WidgetType>
-    extends AntdFormItemComponent<String, AntdInputStyle, WidgetType>
-    with AntdFormItemMixin {
+    extends AntdFormItemComponent<String, AntdInputStyle, WidgetType> {
   /// 控制输入框的焦点状态
   final FocusNode? focusNode;
 
@@ -327,7 +317,8 @@ abstract class AntdInputBase<WidgetType>
     super.styleBuilder,
     super.disabled,
     super.readOnly,
-    super.defaultValue,
+
+    ///只在初始化使用，后续变更请通过controller
     super.value,
     super.autoCollect,
     super.onChange,
@@ -440,16 +431,15 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   @override
   void initState() {
     super.initState();
-    innerController._onChange = _handlerOnChange;
+    innerController.text = widget.value ?? "";
   }
 
   @override
   void updateDependentValues(covariant T? oldWidget) {
     super.updateDependentValues(oldWidget);
-    innerController.text = value ?? "";
     innerController._focusNode = _focusNode;
     _obscureText = widget.obscureText;
-    innerController._onClear = widget.onClear;
+    innerController.addListener(_handlerOnChange);
   }
 
   bool _shouldShowSelectionHandles(SelectionChangedCause? cause) {
@@ -530,8 +520,8 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
     super.dispose();
   }
 
-  void _handlerOnChange(String? value) {
-    setValue(value, false);
+  void _handlerOnChange() {
+    setValue(innerController.text, false);
   }
 
   Widget buildInput(Widget input) {
@@ -614,7 +604,6 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
       scrollPhysics: widget.scrollPhysics,
       scrollPadding: EdgeInsets.zero,
       dragStartBehavior: widget.dragStartBehavior,
-      onChanged: _handlerOnChange,
       contextMenuBuilder:
           widget.contextMenuBuilder ?? _defaultContextMenuBuilder,
       onEditingComplete: widget.onEditingComplete,
@@ -682,6 +671,8 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
                           if (disabled == true || readOnly == true) {
                             return;
                           }
+
+                          widget.onClear?.call();
                           innerController.clear();
                         },
                         child: style.clearIcon,
@@ -735,7 +726,6 @@ class AntdInput extends AntdInputBase<AntdInput> {
       super.styleBuilder,
       super.focusNode,
       super.clearable = true,
-      super.defaultValue,
       super.value,
       super.disabled = false,
       super.onChange,
