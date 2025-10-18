@@ -16,7 +16,7 @@ English · [中文](https://github.com/OpenSourceNoCode/antd-flutter/blob/main/R
 
 ## For immediate support and best practices, you can reach us through the following channels:
 
-* QQ Group: 797050187
+* QQ Group: 697050187
 * Direct Message on X: https://x.com/howie3526371309
 * GitHub Issues: https://github.com/OpenSourceNoCode/antd-flutter/issues
 

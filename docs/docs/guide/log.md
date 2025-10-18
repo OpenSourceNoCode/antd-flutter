@@ -2,8 +2,14 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.8-alpha.2
+tag: 5.0.8-alpha.3
 ---
+
+## 5.0.8-alpha.3
+
+`2025-10-18`
+
+- readme更新
 
 ## 5.0.8-alpha.2
 
