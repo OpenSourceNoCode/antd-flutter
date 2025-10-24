@@ -50,6 +50,7 @@ class AntdTextArea extends AntdInputBase<AntdTextArea> {
       super.onFocus,
       super.shouldTriggerChange = true,
       super.hapticFeedback,
+      super.manual,
       this.showCount = true,
       this.countBuilder})
       : super(textAlign: TextAlign.start);

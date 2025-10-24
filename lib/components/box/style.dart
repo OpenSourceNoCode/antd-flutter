@@ -35,6 +35,20 @@ class AntdLayoutContext {
       Size(size.width - margin.horizontal, size.height - margin.vertical);
   Size get removeInsetsSize =>
       Size(size.width - insets.horizontal, size.height - insets.vertical);
+
+  @override
+  String toString() {
+    return 'AntdLayoutContext{'
+        'key: $key, '
+        'hasSizeChange: $hasSizeChange, '
+        'size: $size, '
+        'padding: $padding, '
+        'margin: $margin, '
+        'insets: $insets, '
+        'update: $update, '
+        'viewport: $viewport'
+        '}';
+  }
 }
 
 typedef AntdOnLayout = void Function(AntdLayoutContext ctx);
@@ -363,6 +377,48 @@ class AntdKitStyle extends AntdStyle {
     }
     return wrapChild;
   }
+
+  @override
+  String toString() {
+    return 'AntdKitStyle{'
+        'inherit: $inherit, '
+        'padding: $padding, '
+        'margin: $margin, '
+        'opacity: $opacity, '
+        'color: $color, '
+        'border: $border, '
+        'radius: $radius, '
+        'textStyle: $textStyle, '
+        'height: $height, '
+        'width: $width, '
+        'constraints: $constraints, '
+        'size: $size, '
+        'layoutModes: $layoutModes, '
+        'backdropFilter: $backdropFilter, '
+        'shadows: ${shadows?.length ?? 0} shadows, '
+        'gradient: $gradient, '
+        'alignment: $alignment, '
+        'visibility: $visibility, '
+        'hapticFeedback: $hapticFeedback, '
+        'colorFilter: $colorFilter'
+        '}';
+  }
+
+  String toDebugString() {
+    final props = <String>[];
+    if (padding != null) props.add('padding: $padding');
+    if (margin != null) props.add('margin: $margin');
+    if (color != null) props.add('color: $color');
+    if (height != null) props.add('height: $height');
+    if (width != null) props.add('width: $width');
+    if (size != null) props.add('size: $size');
+    if (radius != null) props.add('radius: $radius');
+    if (border != null) props.add('border: $border');
+    if (opacity != null) props.add('opacity: $opacity');
+    if (visibility != null) props.add('visibility: $visibility');
+
+    return 'AntdKitStyle{${props.join(', ')}}';
+  }
 }
 
 ///盒子样式
@@ -532,5 +588,56 @@ class AntdBoxStyle extends AntdKitStyle {
       disabledStyle: this.disabledStyle.merge(disabledStyle),
       options: this.options == null ? options : this.options?.copyFrom(options),
     );
+  }
+
+  @override
+  String toString() {
+    return 'AntdBoxStyle{'
+        'inherit: $inherit, '
+        'padding: $padding, '
+        'margin: $margin, '
+        'opacity: $opacity, '
+        'color: $color, '
+        'border: $border, '
+        'radius: $radius, '
+        'textStyle: $textStyle, '
+        'height: $height, '
+        'width: $width, '
+        'constraints: $constraints, '
+        'size: $size, '
+        'layoutModes: $layoutModes, '
+        'backdropFilter: $backdropFilter, '
+        'shadows: ${shadows?.length ?? 0} shadows, '
+        'gradient: $gradient, '
+        'alignment: $alignment, '
+        'visibility: $visibility, '
+        'hapticFeedback: $hapticFeedback, '
+        'colorFilter: $colorFilter, '
+        'focusStyle: $focusStyle, '
+        'disabledStyle: $disabledStyle, '
+        'feedbackStyle: $feedbackStyle, '
+        'options: $options'
+        '}';
+  }
+
+  @override
+  String toDebugString() {
+    final props = <String>[];
+    if (padding != null) props.add('padding: $padding');
+    if (margin != null) props.add('margin: $margin');
+    if (color != null) props.add('color: $color');
+    if (height != null) props.add('height: $height');
+    if (width != null) props.add('width: $width');
+    if (size != null) props.add('size: $size');
+    if (radius != null) props.add('radius: $radius');
+    if (border != null) props.add('border: $border');
+    if (opacity != null) props.add('opacity: $opacity');
+    if (visibility != null) props.add('visibility: $visibility');
+    if (focusStyle != null) props.add('hasFocusStyle');
+    if (disabledStyle != null) props.add('hasDisabledStyle');
+    if (feedbackStyle != null) props.add('hasFeedbackStyle');
+    if (options != null) props.add('hasOptions');
+
+    return 'AntdBoxStyle{${props.join(', ')}}';
   }
 }

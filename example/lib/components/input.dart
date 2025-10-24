@@ -252,6 +252,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                             value: value,
+                            manual: true,
                             placeholder: const Text("请输入"),
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
@@ -284,12 +285,13 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                             value: value1,
+                            manual: true,
                             placeholder: const Text("请输入"),
                             onChange: (value) {
                               AntdToast.show("当前的输入值:$value",
                                   position: AntdToastPosition.top);
                               setState(() {
-                                this.value = value;
+                                this.value1 = value;
                               });
                             },
                             shouldTriggerChange: false,

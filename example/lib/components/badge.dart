@@ -12,11 +12,19 @@ var _antdBox = AntdBox(
   },
 );
 
-/// @t 基础用法
-/// @l [AntdBadge]
-class AntdBadgeDemo extends StatelessWidget {
+class AntdBadgeDemo extends StatefulWidget {
   const AntdBadgeDemo({super.key});
 
+  @override
+  State<StatefulWidget> createState() {
+    return _AntdBadgeDemoStateDemo();
+  }
+}
+
+/// @t 基础用法
+/// @l [AntdBadge]
+class _AntdBadgeDemoStateDemo extends State<AntdBadgeDemo> {
+  String? value;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [

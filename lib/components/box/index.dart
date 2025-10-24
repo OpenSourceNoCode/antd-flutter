@@ -121,6 +121,13 @@ class AntdBox extends AntdStateComponent<AntdBoxStyle, AntdBox> {
   Widget? buildChild(BuildContext context) {
     return child;
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<AntdPosition>('outerSafeArea', outerSafeArea));
+    properties.add(EnumProperty<AntdPosition>('innerSafeArea', innerSafeArea));
+  }
 }
 
 class AntdBoxState extends AntdState<AntdBoxStyle, AntdBox> {

@@ -317,13 +317,12 @@ abstract class AntdInputBase<WidgetType>
     super.styleBuilder,
     super.disabled,
     super.readOnly,
-
-    ///只在初始化使用，后续变更请通过controller
     super.value,
     super.autoCollect,
     super.onChange,
     super.shouldTriggerChange,
     super.hapticFeedback,
+    super.manual,
     this.focusNode,
     this.clearable = true,
     this.onEditingComplete,
@@ -431,12 +430,20 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   @override
   void initState() {
     super.initState();
-    innerController.text = widget.value ?? "";
+    if (widget.value != null) {
+      innerController.text = widget.value!;
+    }
   }
 
   @override
   void updateDependentValues(covariant T? oldWidget) {
     super.updateDependentValues(oldWidget);
+    if (value == null) {
+      innerController.clear();
+    } else {
+      innerController.text = value!;
+    }
+
     innerController._focusNode = _focusNode;
     _obscureText = widget.obscureText;
     innerController.addListener(_handlerOnChange);
@@ -521,7 +528,10 @@ class AntdInputBaseState<T extends AntdInputBase<S>, S extends T>
   }
 
   void _handlerOnChange() {
-    setValue(innerController.text, false);
+    if (innerController.value.composing.isCollapsed &&
+        isChanged(value, innerController.text)) {
+      setValue(innerController.text, false);
+    }
   }
 
   Widget buildInput(Widget input) {
@@ -759,9 +769,10 @@ class AntdInput extends AntdInputBase<AntdInput> {
       super.scrollPhysics = const NeverScrollableScrollPhysics(),
       super.clipBehavior = Clip.hardEdge,
       super.onFocus,
-      super.shouldTriggerChange = false,
+      super.shouldTriggerChange = true,
       super.hapticFeedback,
-      super.autoCollect});
+      super.autoCollect,
+      super.manual});
 
   @override
   Widget get bindWidget => this;

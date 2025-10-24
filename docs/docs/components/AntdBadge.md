@@ -21,8 +21,8 @@ subtitle: 徽标
 
 
 ```dart
-class AntdBadgeDemo extends StatelessWidget {
-  const AntdBadgeDemo({super.key});
+class _AntdBadgeDemoStateDemo extends State<AntdBadgeDemo> {
+  String? value;
   @override
   Widget build(BuildContext context) {
     return DemoWrapper(outline: true, child: [

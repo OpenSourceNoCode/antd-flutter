@@ -513,6 +513,7 @@ class _AntdTextAreaFormDemoStateDemo extends State<AntdTextAreaFormDemo> {
 | onFocus | 焦点事件 | AntdOnFocus | - | - |
 | shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | true | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 | showCount | 是否展示字数统计 | bool | true | - |
 | countBuilder | 自定义统计数字 | AntdTextAreaCountBuilder | - | - |
 

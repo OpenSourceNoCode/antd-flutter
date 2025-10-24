@@ -794,9 +794,8 @@ class AntdStylCustomDemo extends StatelessWidget {
 | radius | 圆角 | BorderRadius | - | - |
 | textStyle | 共享的Text样式 | [TextStyle](../components/text/#TextStyle) | - | - |
 | height | 高度 | double | - | - |
-| minHeight | 最小高度 | double | - | - |
 | width | 宽度 | double | - | - |
-| minWidth | 最小宽度 | double | - | - |
+| constraints | 盒子约束 | BoxConstraints | - | - |
 | size | 统一尺寸（同时影响 width/height，优先级最低） | double | - | - |
 | layoutModes | 布局行为模式 | List&lt;AntdBoxLayoutMode&gt; | - | - |
 | backdropFilter | 毛玻璃效果 | double | - | - |
@@ -820,9 +819,8 @@ class AntdStylCustomDemo extends StatelessWidget {
 | radius | 圆角 | BorderRadius | - | - |
 | textStyle | 共享的Text样式 | [TextStyle](../components/text/#TextStyle) | - | - |
 | height | 高度 | double | - | - |
-| minHeight | 最小高度 | double | - | - |
 | width | 宽度 | double | - | - |
-| minWidth | 最小宽度 | double | - | - |
+| constraints | 盒子约束 | BoxConstraints | - | - |
 | size | 统一尺寸（同时影响 width/height，优先级最低） | double | - | - |
 | layoutModes | 布局行为模式 | List&lt;AntdBoxLayoutMode&gt; | - | - |
 | backdropFilter | 毛玻璃效果 | double | - | - |

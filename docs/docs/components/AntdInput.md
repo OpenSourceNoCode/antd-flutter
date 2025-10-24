@@ -255,6 +255,7 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                               value: value,
+                              manual: true,
                               placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
@@ -285,12 +286,13 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
                         builder: (ctx) {
                           return AntdInput(
                               value: value1,
+                              manual: true,
                               placeholder: const Text("请输入"),
                               onChange: (value) {
                                 AntdToast.show("当前的输入值:$value",
                                     position: AntdToastPosition.top);
                                 setState(() {
-                                  this.value = value;
+                                  this.value1 = value;
                                 });
                               },
                               shouldTriggerChange: false);
@@ -448,9 +450,10 @@ class _AntdInputFormDemoStateDemo extends State<AntdInputFormDemo> {
 | scrollPhysics | 滚动物理效果（如滚动边界行为） | ScrollPhysics | const NeverScrollableScrollPhysics() | - |
 | clipBehavior | 内容裁剪方式（如抗锯齿裁剪） | Clip | hardEdge | - |
 | onFocus | 焦点事件 | AntdOnFocus | - | - |
-| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | false | - |
+| shouldTriggerChange | 当value手动控制的时候 是否应该触发onChange | bool | true | - |
 | hapticFeedback | 开启反馈:`light` \| `medium` \| `heavy` \| `none` | AntdHapticFeedback | - | - |
 | autoCollect | 自动同步值到表单 | bool | - | - |
+| manual | 受控模式 value的值必须手动更新 默认不开启 | bool | - | - |
 
 
 ## 输入框光标样式配置(AntInputCursorStyle) <a id='AntInputCursorStyle'></a>

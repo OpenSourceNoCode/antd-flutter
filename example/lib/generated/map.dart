@@ -1087,9 +1087,10 @@ scrollController:_resolveValue(atr,'AntdInput','scrollController','ScrollControl
 scrollPhysics:_resolveValue(atr,'AntdInput','scrollPhysics','ScrollPhysics',const NeverScrollableScrollPhysics()),
 clipBehavior:_resolveValue(atr,'AntdInput','clipBehavior','Clip',Clip.hardEdge),
 onFocus:_resolveValue(atr,'AntdInput','onFocus','AntdOnFocus',null),
-shouldTriggerChange:_resolveValue(atr,'AntdInput','shouldTriggerChange','bool',false),
+shouldTriggerChange:_resolveValue(atr,'AntdInput','shouldTriggerChange','bool',true),
 hapticFeedback:_resolveValue(atr,'AntdInput','hapticFeedback','AntdHapticFeedback',null),
 autoCollect:_resolveValue(atr,'AntdInput','autoCollect','bool',null),
+manual:_resolveValue(atr,'AntdInput','manual','bool',null),
 );
 }
 
@@ -1235,6 +1236,7 @@ clipBehavior:_resolveValue(atr,'AntdTextArea','clipBehavior','Clip',Clip.hardEdg
 onFocus:_resolveValue(atr,'AntdTextArea','onFocus','AntdOnFocus',null),
 shouldTriggerChange:_resolveValue(atr,'AntdTextArea','shouldTriggerChange','bool',true),
 hapticFeedback:_resolveValue(atr,'AntdTextArea','hapticFeedback','AntdHapticFeedback',null),
+manual:_resolveValue(atr,'AntdTextArea','manual','bool',null),
 showCount:_resolveValue(atr,'AntdTextArea','showCount','bool',true),
 countBuilder:_resolveValue(atr,'AntdTextArea','countBuilder','AntdTextAreaCountBuilder',null),
 );
@@ -6158,6 +6160,20 @@ builder: (ctx) {
                 
 },
 ),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
+},
+),
 ];}
 List<AntdFormItem> _getAntdRadioItemList(){return [
 AntdFormItem(
@@ -7149,6 +7165,20 @@ builder: (ctx) {
                 },
                 items: const [ AntdSelectorItem(label: Text('light'), value: 'light'), AntdSelectorItem(label: Text('medium'), value: 'medium'), AntdSelectorItem(label: Text('heavy'), value: 'heavy'), AntdSelectorItem(label: Text('none'), value: 'none')]);
             
+},
+),
+AntdFormItem(
+name: "manual",
+                label: const Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            Text('manual(bool)'),
+            Text('受控模式 value的值必须手动更新 默认不开启')
+          ],),
+              
+builder: (ctx) {
+                return AntdSwitch(value: ctx.value ?? false, onChange: (check) {
+                ctx.onChange(check);
+          },);
+                
 },
 ),
 AntdFormItem(

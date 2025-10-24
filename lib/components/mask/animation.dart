@@ -26,7 +26,7 @@ class AntdMaskDefaultAnimated<WidgetType, StateType>
     var tween = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0, 1, curve: Curves.easeOut),
+        curve: const Interval(0, 1, curve: Curves.easeOutCubic),
       ),
     );
     return FadeTransition(
