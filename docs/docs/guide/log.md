@@ -2,8 +2,18 @@
 order: 0
 title: 更新日志
 timeline: true
-tag: 5.0.8-alpha.3
+tag: 5.0.8-alpha.4
 ---
+
+## 5.0.8-alpha.4
+
+`2025-10-25`
+
+- 修复了AntdInput的在composing时仍然触发onChange的问题
+- 为AntdMapToken添加了copyWith方法
+- mask背景动画的细节完善
+- 为AntdBox添加了debug调试信息
+- 完善了AntdBoxStyle的ToString方法
 
 ## 5.0.8-alpha.3
 

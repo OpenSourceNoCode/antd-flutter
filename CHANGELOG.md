@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.8-alpha.4
+
+`2025-10-25`
+
+- Fixed AntdInput triggering onChange during composition events
+- Enhanced mask background animation details
+- Improved AntdBoxStyle ToString method
+- Added copyWith method to AntdMapToken
+- Added debug information to AntdBox for debugging purposes
+
 ## 5.0.8-alpha.3
 
 `2025-10-18`
