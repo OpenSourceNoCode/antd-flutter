@@ -103,6 +103,10 @@ class AntdScrollPositionController<T> extends AntdScrollController {
   ///自动切分
   bool autoFill = false;
 
+  bool reversed = false;
+
+  double anchor = 0;
+
   ///item管理
   final AntdItemRegistry _itemRegistry = AntdItemRegistry();
   AntdItemRegistry get itemRegistry => _itemRegistry;
@@ -241,7 +245,8 @@ class AntdScrollPositionController<T> extends AntdScrollController {
     if (itemLength == null) {
       return;
     }
-    itemScrollOffset = itemScrollOffset - viewportOffset;
+    itemScrollOffset =
+        itemScrollOffset - viewportOffset + (anchor * effectiveViewportSize!);
     double safeOffset = min(max(itemScrollOffset, position.minScrollExtent),
         position.maxScrollExtent);
     if ((safeOffset == 0 && offset == 0) ||

@@ -49,24 +49,27 @@ abstract class AntdScrollView<Style extends AntdStyle, WidgetType,
   /// 自动扩展高度
   final bool? shrinkWrap;
 
-  const AntdScrollView({
-    super.key,
-    super.style,
-    super.styleBuilder,
-    this.vertical = true,
-    this.reversed = false,
-    this.controller,
-    this.physics = const BouncingScrollPhysics(),
-    this.dragStartBehavior = DragStartBehavior.start,
-    this.scrollBehavior,
-    this.cacheExtent = 1,
-    this.cacheExtentStyle = CacheExtentStyle.viewport,
-    this.slivers,
-    this.throttle,
-    this.edgeThreshold,
-    this.onEdgeReached,
-    this.shrinkWrap,
-  });
+  ///锚点
+  final double? anchor;
+
+  const AntdScrollView(
+      {super.key,
+      super.style,
+      super.styleBuilder,
+      this.vertical = true,
+      this.reversed = false,
+      this.controller,
+      this.physics = const BouncingScrollPhysics(),
+      this.dragStartBehavior = DragStartBehavior.start,
+      this.scrollBehavior,
+      this.cacheExtent = 1,
+      this.cacheExtentStyle = CacheExtentStyle.viewport,
+      this.slivers,
+      this.throttle,
+      this.edgeThreshold,
+      this.onEdgeReached,
+      this.shrinkWrap,
+      this.anchor});
 }
 
 abstract class AntdScrollViewState<
@@ -172,7 +175,7 @@ abstract class AntdScrollViewState<
           scrollBehavior: widget.scrollBehavior,
           viewportBuilder: (context, offset) {
             var slivers = buildSlivers();
-            if (widget.shrinkWrap == true) {
+            if (widget.shrinkWrap == true && centerKey == null) {
               return ShrinkWrappingViewport(
                   axisDirection: axisDirection,
                   offset: offset,
@@ -182,6 +185,7 @@ abstract class AntdScrollViewState<
             return Viewport(
               axisDirection: axisDirection,
               offset: offset,
+              anchor: widget.anchor ?? 0,
               cacheExtent: widget.cacheExtent,
               cacheExtentStyle: widget.cacheExtentStyle,
               slivers: slivers,

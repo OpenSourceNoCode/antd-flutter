@@ -109,6 +109,7 @@ abstract class AntdScrollPositionedBase<T, Style extends AntdStyle, WidgetType,
       super.shrinkWrap,
       super.edgeThreshold,
       super.onEdgeReached,
+      super.anchor,
       this.headers,
       this.footers,
       this.items = const [],
@@ -171,6 +172,8 @@ abstract class AntdScrollPositionedBaseState<
     super.updateDependentValues(oldWidget);
     _fit = buildFit();
     _items = buildItems();
+    scrollController.anchor = widget.anchor ?? 0;
+    scrollController.reversed = widget.reversed;
     scrollController.items = buildItems();
     scrollController.viewportOffset = widget.viewportOffset ?? 0;
   }
@@ -235,13 +238,13 @@ abstract class AntdScrollPositionedBaseState<
     return delegates
         .map((delegate) => widget.gridDelegate != null
             ? SliverGrid(
-                key: (delegates.length == 3 && delegate == delegates[1])
+                key: (delegates.length > 1 && delegate == delegates[1])
                     ? centerKey
                     : null,
                 delegate: delegate,
                 gridDelegate: widget.gridDelegate!)
             : SliverList(
-                key: (delegates.length == 3 && delegate == delegates[1])
+                key: (delegates.length > 1 && delegate == delegates[1])
                     ? centerKey
                     : null,
                 delegate: delegate))
@@ -358,7 +361,10 @@ abstract class AntdScrollPositionedBaseState<
     int Function(int) indexMapper,
   ) {
     return SliverChildBuilderDelegate(
-      (context, i) => _buildItem(indexMapper(i), _items[indexMapper(i)]),
+      (context, i) {
+        var mapping = indexMapper(i);
+        return _buildItem(mapping, _items[mapping]);
+      },
       childCount: count,
     );
   }
