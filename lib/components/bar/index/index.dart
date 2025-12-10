@@ -64,11 +64,13 @@ abstract mixin class AntdSectionProvider {
   String get section;
 }
 
+enum AntdIndexBarIndexChangeSource { scroll, drag, tap }
+
 typedef AntdIndexBarIndexBuilder = Widget Function(
     BuildContext context, String group, int index);
 
-typedef AntdIndexBarOnIndexChange = void Function(
-    BuildContext context, String group, int index);
+typedef AntdIndexBarOnIndexChange = void Function(BuildContext context,
+    String group, int index, AntdIndexBarIndexChangeSource source);
 
 ///@t 序列
 ///@g 导航
@@ -96,6 +98,7 @@ class AntdIndexBar<T extends AntdSectionProvider>
       this.indexBuilder,
       this.headerFloatBuilder,
       this.onIndexChange,
+      this.onDragEnd,
       this.hapticFeedback})
       : super(fit: AntdScrollItemFit.child);
 
@@ -110,6 +113,9 @@ class AntdIndexBar<T extends AntdSectionProvider>
 
   ///索引变更事件
   final AntdIndexBarOnIndexChange? onIndexChange;
+
+  ///拖拽结束
+  final void Function()? onDragEnd;
 
   ///索引变更时震动反馈
   final AntdHapticFeedback? hapticFeedback;
@@ -224,11 +230,8 @@ class AntdIndexBarState<T extends AntdSectionProvider>
           scrollController.activeSectionIndex.value = index;
           scrollController.activeIndexBarIndex.value = index;
           handleHapticFeedback(widget.hapticFeedback ?? style.hapticFeedback);
-          widget.onIndexChange?.call(
-            this.context,
-            context.data.section,
-            index,
-          );
+          widget.onIndexChange?.call(this.context, context.data.section, index,
+              AntdIndexBarIndexChangeSource.scroll);
           if (beforeIndex == -1) {
             setState(() {});
           }
@@ -309,6 +312,7 @@ class AntdIndexBarState<T extends AntdSectionProvider>
                 top: 0,
                 bottom: 0,
                 child: AntdIndexBarFloatBar<T>(
+                    onDragEnd: widget.onDragEnd,
                     onIndexChange: widget.onIndexChange,
                     controller: scrollController,
                     indexBuilder: widget.indexBuilder,

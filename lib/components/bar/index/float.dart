@@ -12,10 +12,12 @@ class AntdIndexBarFloatBar<T extends AntdSectionProvider>
       required this.controller,
       this.indexBuilder,
       this.onIndexChange,
+      this.onDragEnd,
       required this.style});
   final AntdIndexBarController<T> controller;
   final AntdIndexBarIndexBuilder? indexBuilder;
   final AntdIndexBarOnIndexChange? onIndexChange;
+  final void Function()? onDragEnd;
   final AntdIndexBarStyle style;
 
   @override
@@ -63,10 +65,13 @@ class _AntdIndexBarFloatBarState extends State<AntdIndexBarFloatBar> {
 
           controller.toIndex(targetIndex,
               config: const AntdScrollToIndexConfig(set: true));
+          controller.activeSectionIndex.value = targetIndex;
           controller.activeIndexBarIndex.value = targetIndex;
-          widget.onIndexChange?.call(context, section, index);
+          widget.onIndexChange?.call(context, keys[clampedIndex], targetIndex,
+              AntdIndexBarIndexChangeSource.drag);
         },
         onVerticalDragEnd: (details) {
+          widget.onDragEnd?.call();
           controller.isDrag = false;
           _initSectionIndex = -1;
           _dragOffset = 0;
@@ -74,7 +79,8 @@ class _AntdIndexBarFloatBarState extends State<AntdIndexBarFloatBar> {
         onTap: () {
           widget.controller.toIndex(index);
           controller.activeIndexBarIndex.value = index;
-          widget.onIndexChange?.call(context, section, index);
+          widget.onIndexChange?.call(
+              context, section, index, AntdIndexBarIndexChangeSource.tap);
         },
         child: ValueListenableBuilder(
             valueListenable: controller.activeIndexBarIndex,

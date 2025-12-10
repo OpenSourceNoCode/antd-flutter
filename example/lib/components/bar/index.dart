@@ -65,8 +65,8 @@ class AntdIndexBarDemo extends StatelessWidget {
         height: 500,
         child: AntdIndexBar<AntdIndexBarDemoData>(
             items: getDemos(10),
-            onIndexChange: (context, group, index) {
-              AntdToast.show("当前索引:$group,$index",
+            onIndexChange: (context, group, index, source) {
+              AntdToast.show("当前索引:$group,$index,source:$source",
                   position: AntdToastPosition.top);
             },
             headerBuilder: (context, group, index) {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.8-alpha.5
+
+`2025-12-10`
+
+- Optimized the seamless scrolling capability of the list.
+
 ## 5.0.8-alpha.4
 
 `2025-10-25`
