@@ -28,7 +28,8 @@ class AntdPositionList<T> extends AntdScrollPositionedBase<T, AntdStyle,
       super.edgeThreshold,
       super.onEdgeReached,
       super.gridDelegate,
-      super.viewportOffset});
+      super.viewportOffset,
+      super.anchor});
 
   @override
   State<StatefulWidget> createState() {
