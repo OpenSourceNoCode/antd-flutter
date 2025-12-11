@@ -350,6 +350,7 @@ abstract class AntdScrollPositionedBaseState<
         delegates.add(_createDelegate(remaining, (i) => i + targetIndex + 1));
       }
     } else {
+      centerKey = null;
       delegates.add(_createDelegate(total, (i) => i));
     }
 
