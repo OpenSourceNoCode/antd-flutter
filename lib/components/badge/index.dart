@@ -226,13 +226,12 @@ class _AntdBadgeState extends State<AntdBadge> {
           style: style.childStyle,
           child: widget.child,
         ),
-        if (widget.rect == null)
-          Positioned.fill(
-              top: widget.rect?.top ?? getTop(size.value),
-              left: widget.rect?.left ?? getLeft(size.value),
-              bottom: widget.rect?.bottom ?? getBottom(size.value),
-              right: widget.rect?.right ?? getRight(size.value),
-              child: badge)
+        Positioned.fill(
+            top: widget.rect?.top ?? getTop(size.value),
+            left: widget.rect?.left ?? getLeft(size.value),
+            bottom: widget.rect?.bottom ?? getBottom(size.value),
+            right: widget.rect?.right ?? getRight(size.value),
+            child: badge)
       ],
     );
   }
