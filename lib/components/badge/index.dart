@@ -57,7 +57,8 @@ class AntdBadge extends AntdStateComponent<AntdBadgeStyle, AntdBadge> {
       this.dot,
       this.position = AntdBadgePosition.topRight,
       this.child,
-      this.offset});
+      this.offset,
+      this.rect});
 
   /// 是否显示边框（默认false）
   final bool? bordered;
@@ -79,6 +80,9 @@ class AntdBadge extends AntdStateComponent<AntdBadgeStyle, AntdBadge> {
 
   /// 徽标自定义偏移量（相对默认位置调整）
   final Offset? offset;
+
+  ///自定义坐标
+  final RelativeRect? rect;
 
   @override
   AntdBadgeStyle getDefaultStyle(
@@ -213,12 +217,15 @@ class _AntdBadgeState extends State<AntdBadge> {
           style: style.childStyle,
           child: widget.child,
         ),
-        Positioned.fill(
-            top: getTop(size.value),
-            left: getLeft(size.value),
-            bottom: getBottom(size.value),
-            right: getRight(size.value),
-            child: badge)
+        if (widget.rect != null)
+          Positioned.fromRelativeRect(rect: widget.rect!, child: badge),
+        if (widget.rect == null)
+          Positioned.fill(
+              top: getTop(size.value),
+              left: getLeft(size.value),
+              bottom: getBottom(size.value),
+              right: getRight(size.value),
+              child: badge)
       ],
     );
   }
