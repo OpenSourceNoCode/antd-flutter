@@ -39,6 +39,15 @@ class AntdBadgeStyle extends AntdStyle {
   }
 }
 
+class BadgePosition {
+  final double? top;
+  final double? bottom;
+  final double? left;
+  final double? right;
+
+  const BadgePosition({this.top, this.bottom, this.left, this.right});
+}
+
 enum AntdBadgePosition { topLeft, topRight, bottomLeft, bottomRight }
 
 ///@t 徽标
@@ -82,7 +91,7 @@ class AntdBadge extends AntdStateComponent<AntdBadgeStyle, AntdBadge> {
   final Offset? offset;
 
   ///自定义坐标
-  final RelativeRect? rect;
+  final BadgePosition? rect;
 
   @override
   AntdBadgeStyle getDefaultStyle(
@@ -195,7 +204,7 @@ class _AntdBadgeState extends State<AntdBadge> {
           ? null
           : AntdBox(
               onLayout: (layoutContext) {
-                if (!layoutContext.hasSizeChange) {
+                if (!layoutContext.hasSizeChange || widget.rect != null) {
                   return;
                 }
                 setState(() {
@@ -217,14 +226,12 @@ class _AntdBadgeState extends State<AntdBadge> {
           style: style.childStyle,
           child: widget.child,
         ),
-        if (widget.rect != null)
-          Positioned.fromRelativeRect(rect: widget.rect!, child: badge),
         if (widget.rect == null)
           Positioned.fill(
-              top: getTop(size.value),
-              left: getLeft(size.value),
-              bottom: getBottom(size.value),
-              right: getRight(size.value),
+              top: widget.rect?.top ?? getTop(size.value),
+              left: widget.rect?.left ?? getLeft(size.value),
+              bottom: widget.rect?.bottom ?? getBottom(size.value),
+              right: widget.rect?.right ?? getRight(size.value),
               child: badge)
       ],
     );
