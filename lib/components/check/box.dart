@@ -90,8 +90,8 @@ class AntdCheckboxStyle extends AntdStyle {
             )),
         icon: const AntdBox(),
         disableIcon: const AntdBox(),
-        activeIconStyle:
-            AntdIconStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary)),
+        // activeIconStyle:
+        //     AntdIconStyle(bodyStyle: AntdBoxStyle(color: token.colorPrimary)),
         activeIcon: const AntdIcon(
           icon: AntdIcons.check,
         ),

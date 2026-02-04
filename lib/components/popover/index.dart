@@ -180,6 +180,10 @@ class AntdPopoverController {
     return await _state?.open();
   }
 
+  Future<void> close([data]) async {
+    return await _state?.close(data);
+  }
+
   dispose() {
     _state = null;
   }
@@ -333,6 +337,12 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
         open();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    close();
+    super.dispose();
   }
 
   @override
