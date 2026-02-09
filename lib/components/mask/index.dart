@@ -474,6 +474,22 @@ abstract class AntdMaskProxyState<
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    closeOpenWidget();
+  }
+
+  void closeOpenWidget() {
+    if (_openWidget == null) {
+      return;
+    }
+
+    AntdLayer.closeSingle(_openWidget!);
+    onClosed();
+    _openWidget = null;
+  }
+
+  @override
   Future<void> close([data]) async {
     if (!mounted) {
       return;
@@ -482,12 +498,7 @@ abstract class AntdMaskProxyState<
       hole = targetHole ?? AntdMaskHole.zero;
     });
     await controller?.reverse();
-    if (_openWidget == null) {
-      return;
-    }
-    await AntdLayer.closeSingle(_openWidget!, data);
-    onClosed();
-    _openWidget = null;
+    closeOpenWidget();
   }
 }
 
