@@ -340,12 +340,6 @@ class AntdPopoverState extends AntdMaskProxyState<AntdPopoverStyle, AntdPopover,
   }
 
   @override
-  void dispose() {
-    close();
-    super.dispose();
-  }
-
-  @override
   Widget render(BuildContext context) {
     super.render(context);
     return AntdBox(
