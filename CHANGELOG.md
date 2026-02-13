@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.8-alpha.6
+
+`2026-02-13`
+
+- `Badge` component supports custom coordinates
+- `IndexBar` supports index change source and drag end events
+- `Mask` component automatically closes content when destroyed
+- `Popover` component Controller supports Close method
+- Fixed incorrect list offset caused by centerKey in List
+
 ## 5.0.8-alpha.5
 
 `2025-12-10`

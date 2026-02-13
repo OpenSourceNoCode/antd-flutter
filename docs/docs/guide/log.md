@@ -5,6 +5,16 @@ timeline: true
 tag: 5.0.8-alpha.4
 ---
 
+## 5.0.8-alpha.6
+
+`2026-02-13`
+
+- `Badge` 组件支持自定义坐标
+- `IndexBar` 支持索引变更来源以及托拽结束事件
+- `Mask` 组件在销毁时会自动关闭内容
+- `Popover` 组件Controller支持Close方法
+- 修复了List中centerKey导致列表偏移不正确的问题
+
 ## 5.0.8-alpha.4
 
 `2025-10-25`
