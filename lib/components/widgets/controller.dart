@@ -71,6 +71,12 @@ class AntdScrollController extends ScrollController {
   double? get effectiveViewportSize =>
       position.haveDimensions ? position.viewportDimension : contentWidth;
 
+  Key? centerKey;
+
+  void clearCenterKey(){
+    centerKey = null;
+  }
+
   void addMetricsListener(AntdOnScrollMetrics? listener) {
     if (listener == null) {
       return;
@@ -127,6 +133,7 @@ class AntdScrollController extends ScrollController {
   void dispose() {
     _listeners.clear();
     _currentMetrics = null;
+    centerKey = null;
     super.dispose();
   }
 }

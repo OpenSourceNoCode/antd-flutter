@@ -239,13 +239,13 @@ abstract class AntdScrollPositionedBaseState<
         .map((delegate) => widget.gridDelegate != null
             ? SliverGrid(
                 key: (delegates.length > 1 && delegate == delegates[1])
-                    ? centerKey
+                    ? scrollController.centerKey
                     : null,
                 delegate: delegate,
                 gridDelegate: widget.gridDelegate!)
             : SliverList(
                 key: (delegates.length > 1 && delegate == delegates[1])
-                    ? centerKey
+                    ? scrollController.centerKey
                     : null,
                 delegate: delegate))
         .toList();
@@ -338,7 +338,7 @@ abstract class AntdScrollPositionedBaseState<
     final total = _items.length;
 
     if (scrollController.hasTarget) {
-      centerKey = const ValueKey("value");
+      scrollController.centerKey = const ValueKey("value");
       if (targetIndex >= 0) {
         delegates.add(_createDelegate(targetIndex, (i) => targetIndex - i - 1));
       }
@@ -350,7 +350,7 @@ abstract class AntdScrollPositionedBaseState<
         delegates.add(_createDelegate(remaining, (i) => i + targetIndex + 1));
       }
     } else {
-      centerKey = null;
+      scrollController.clearCenterKey();
       delegates.add(_createDelegate(total, (i) => i));
     }
 

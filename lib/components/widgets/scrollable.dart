@@ -79,7 +79,6 @@ abstract class AntdScrollViewState<
     extends AntdState<Style, S> {
   DateTime? _lastTime;
   bool _isEdgeCallbackProcessing = false;
-  Key? centerKey;
 
   late final Controller scrollController =
       widget.controller ?? createController();
@@ -175,7 +174,8 @@ abstract class AntdScrollViewState<
           scrollBehavior: widget.scrollBehavior,
           viewportBuilder: (context, offset) {
             var slivers = buildSlivers();
-            if (widget.shrinkWrap == true && centerKey == null) {
+            if (widget.shrinkWrap == true &&
+                scrollController.centerKey == null) {
               return ShrinkWrappingViewport(
                   axisDirection: axisDirection,
                   offset: offset,
@@ -189,7 +189,7 @@ abstract class AntdScrollViewState<
               cacheExtent: widget.cacheExtent,
               cacheExtentStyle: widget.cacheExtentStyle,
               slivers: slivers,
-              center: centerKey,
+              center: scrollController.centerKey,
             );
           },
         ));
