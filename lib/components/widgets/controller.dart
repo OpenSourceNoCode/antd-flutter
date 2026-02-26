@@ -73,7 +73,9 @@ class AntdScrollController extends ScrollController {
 
   Key? centerKey;
 
-  void clearCenterKey(){
+  bool? needCenterKey;
+
+  void clearCenterKey() {
     centerKey = null;
   }
 

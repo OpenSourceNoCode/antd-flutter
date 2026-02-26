@@ -338,7 +338,9 @@ abstract class AntdScrollPositionedBaseState<
     final total = _items.length;
 
     if (scrollController.hasTarget) {
-      scrollController.centerKey = const ValueKey("value");
+      if (scrollController.needCenterKey != false) {
+        scrollController.centerKey = const ValueKey("value");
+      }
       if (targetIndex >= 0) {
         delegates.add(_createDelegate(targetIndex, (i) => targetIndex - i - 1));
       }
