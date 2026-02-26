@@ -27,7 +27,6 @@ class AntdPositionList<T> extends AntdScrollPositionedBase<T, AntdStyle,
       super.throttle,
       super.edgeThreshold,
       super.onEdgeReached,
-      super.gridDelegate,
       super.viewportOffset,
       super.anchor});
 

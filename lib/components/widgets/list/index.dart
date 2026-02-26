@@ -87,9 +87,6 @@ abstract class AntdScrollPositionedBase<T, Style extends AntdStyle, WidgetType,
   ///item变更事件
   final AntdItemPositionListener<T>? onItemPosition;
 
-  ///宫格排列
-  final SliverGridDelegate? gridDelegate;
-
   ///偏移位置
   final double? viewportOffset;
 
@@ -118,7 +115,6 @@ abstract class AntdScrollPositionedBase<T, Style extends AntdStyle, WidgetType,
       this.fit = AntdScrollItemFit.child,
       this.alignment,
       this.onItemPosition,
-      this.gridDelegate,
       this.viewportOffset});
 }
 
@@ -213,18 +209,6 @@ abstract class AntdScrollPositionedBaseState<
 
   List<Widget> _buildItemSlivers() {
     if (!widget.virtual) {
-      if (widget.gridDelegate != null) {
-        return [
-          SliverGrid(
-              delegate: SliverChildListDelegate(_items
-                  .asMap()
-                  .map((i, item) => MapEntry(i, _buildItem(i, item)))
-                  .values
-                  .whereType<Widget>()
-                  .toList()),
-              gridDelegate: widget.gridDelegate!)
-        ];
-      }
       return _items
           .asMap()
           .map((i, item) => MapEntry(i, _buildItem(i, item)))
@@ -236,18 +220,11 @@ abstract class AntdScrollPositionedBaseState<
 
     var delegates = _createDelegates();
     return delegates
-        .map((delegate) => widget.gridDelegate != null
-            ? SliverGrid(
-                key: (delegates.length > 1 && delegate == delegates[1])
-                    ? scrollController.centerKey
-                    : null,
-                delegate: delegate,
-                gridDelegate: widget.gridDelegate!)
-            : SliverList(
-                key: (delegates.length > 1 && delegate == delegates[1])
-                    ? scrollController.centerKey
-                    : null,
-                delegate: delegate))
+        .map((delegate) => SliverList(
+            key: (delegates.length > 1 && delegate == delegates[1])
+                ? scrollController.centerKey
+                : null,
+            delegate: delegate))
         .toList();
   }
 
@@ -334,25 +311,25 @@ abstract class AntdScrollPositionedBaseState<
 
   List<SliverChildBuilderDelegate> _createDelegates() {
     final delegates = <SliverChildBuilderDelegate>[];
-    final targetIndex = scrollController.targetIndex;
+    int targetIndex = scrollController.targetIndex;
     final total = _items.length;
 
     if (scrollController.hasTarget) {
-      if (scrollController.needCenterKey != false) {
-        scrollController.centerKey = const ValueKey("value");
+      int remaining = total - targetIndex - 1;
+      if (remaining == 0 && scrollController.halfNumber == 0) {
+        scrollController.halfNumber = total - 2;
       }
-      if (targetIndex >= 0) {
-        delegates.add(_createDelegate(targetIndex, (i) => targetIndex - i - 1));
+      if (scrollController.halfNumber > 0) {
+        targetIndex = targetIndex - scrollController.halfNumber;
+        remaining = total - targetIndex - 1;
       }
 
+      scrollController.centerKey = const ValueKey("value");
+      delegates.add(_createDelegate(targetIndex, (i) => targetIndex - i - 1));
       delegates.add(_createDelegate(1, (_) => targetIndex));
-
-      final remaining = total - targetIndex - 1;
-      if (remaining > 0) {
-        delegates.add(_createDelegate(remaining, (i) => i + targetIndex + 1));
-      }
+      delegates.add(_createDelegate(remaining, (i) => i + targetIndex + 1));
     } else {
-      scrollController.clearCenterKey();
+      scrollController.centerKey = null;
       delegates.add(_createDelegate(total, (i) => i));
     }
 
@@ -365,6 +342,9 @@ abstract class AntdScrollPositionedBaseState<
   ) {
     return SliverChildBuilderDelegate(
       (context, i) {
+        if (i < 0) {
+          return null;
+        }
         var mapping = indexMapper(i);
         return _buildItem(mapping, _items[mapping]);
       },

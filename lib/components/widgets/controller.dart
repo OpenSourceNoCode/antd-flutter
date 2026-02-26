@@ -73,12 +73,6 @@ class AntdScrollController extends ScrollController {
 
   Key? centerKey;
 
-  bool? needCenterKey;
-
-  void clearCenterKey() {
-    centerKey = null;
-  }
-
   void addMetricsListener(AntdOnScrollMetrics? listener) {
     if (listener == null) {
       return;
