@@ -90,7 +90,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
 
   ///目标的索引
   int _targetIndex = -1;
-  int halfNumber = 0;
+  int halfNumber = -1;
   int get targetIndex => _targetIndex;
   bool get hasTarget => _targetIndex > -1;
 
@@ -120,6 +120,8 @@ class AntdScrollPositionController<T> extends AntdScrollController {
 
   void reset() {
     _activeIndex = -1;
+    _targetIndex = -1;
+    halfNumber = -1;
     _itemRegistry.clear();
   }
 
@@ -135,7 +137,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
       }
     });
     _targetIndex = index;
-    halfNumber = 0;
+    halfNumber = -1;
   }
 
   void addPositionListener(AntdItemPositionListener<T>? callback) {
