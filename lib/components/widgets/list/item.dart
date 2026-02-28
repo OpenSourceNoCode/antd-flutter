@@ -41,6 +41,9 @@ class AntdItemRegistry<T> {
   ///每个item的大小
   final Map<int, Size> _sizeMap = SplayTreeMap();
 
+  final Map<T, int> _dataIndexMap = SplayTreeMap();
+  final Map<int, T> _indexDataMap = SplayTreeMap();
+
   ///切换事件
   final List<AntdItemEntryListener<T>> _listeners = [];
 
@@ -55,6 +58,8 @@ class AntdItemRegistry<T> {
     final size = box.size;
     _sizeMap[index] = size;
     _offsetMap[index] = topOffset;
+    _dataIndexMap[data] = index;
+    _indexDataMap[index] = data;
 
     _notifyListeners(
       index: index,
@@ -93,6 +98,23 @@ class AntdItemRegistry<T> {
   void removeItem(int index) {
     _sizeMap.remove(index);
     _offsetMap.remove(index);
+    var data = _dataIndexMap[index];
+    if (data == null) {
+      return;
+    }
+
+    _dataIndexMap.remove(data);
+    _indexDataMap.remove(index);
+  }
+
+  bool isExists(T data) => _dataIndexMap[data] != null;
+  int? findIndex(bool Function(T data) test) {
+    for (var data in _dataIndexMap.keys) {
+      if (test(data)) {
+        return _dataIndexMap[data];
+      }
+    }
+    return null;
   }
 
   Size? getSize(int index) => _sizeMap[index];
@@ -171,5 +193,7 @@ class AntdItemRegistry<T> {
   void clear() {
     _sizeMap.clear();
     _offsetMap.clear();
+    _dataIndexMap.clear();
+    _indexDataMap.clear();
   }
 }

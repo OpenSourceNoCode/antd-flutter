@@ -109,8 +109,8 @@ class AntdScrollPositionController<T> extends AntdScrollController {
   double anchor = 0;
 
   ///item管理
-  final AntdItemRegistry _itemRegistry = AntdItemRegistry();
-  AntdItemRegistry get itemRegistry => _itemRegistry;
+  final AntdItemRegistry<T> _itemRegistry = AntdItemRegistry<T>();
+  AntdItemRegistry<T> get itemRegistry => _itemRegistry;
 
   ///跳转的参数
   AntdScrollToIndexConfig _scrollConfig = const AntdScrollToIndexConfig();
@@ -132,8 +132,8 @@ class AntdScrollPositionController<T> extends AntdScrollController {
     }
 
     _itemRegistry.addListener((context) {
-      if (_targetIndex == context.index && context.isFirstVisible) {
-        _scrollToIndex(_targetIndex, config: _scrollConfig);
+      if (targetIndex == context.index && context.isFirstVisible) {
+        _scrollToIndex(targetIndex, config: _scrollConfig);
       }
     });
     _targetIndex = index;

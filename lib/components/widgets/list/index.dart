@@ -319,7 +319,7 @@ abstract class AntdScrollPositionedBaseState<
       if (scrollController.halfNumber < 0) {
         scrollController.halfNumber = 0;
         if (remaining < targetIndex / 5) {
-          scrollController.halfNumber = total - 2;
+          scrollController.halfNumber = (total / 5).toInt();
         }
       }
       if (scrollController.halfNumber > 0) {
