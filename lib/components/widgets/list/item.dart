@@ -23,13 +23,17 @@ class AntdItemEntry<T> {
   ///距离顶部的位移
   final double topOffset;
 
+  ///如果是替换的index 千万不要使用
+  final bool replace;
+
   const AntdItemEntry(
       {required this.isFirstVisible,
       required this.hasSizeChanged,
       required this.data,
       required this.index,
       required this.size,
-      required this.topOffset});
+      required this.topOffset,
+      required this.replace});
 }
 
 typedef AntdItemEntryListener<T> = void Function(AntdItemEntry<T> context);
@@ -55,11 +59,13 @@ class AntdItemRegistry<T> {
   bool addItem(
       int index, RenderBox box, double topOffset, bool sizeChanged, T data) {
     var existed = _sizeMap.containsKey(index);
+    var replace = false;
     if (existed) {
       var dataOri = _indexDataMap[index];
       if (dataOri != null && data != dataOri) {
         removeItem(index);
         existed = false;
+        replace = true;
       }
     }
 
@@ -70,33 +76,33 @@ class AntdItemRegistry<T> {
     _indexDataMap[index] = data;
 
     _notifyListeners(
-      index: index,
-      size: size,
-      topOffset: topOffset,
-      isFirst: !existed,
-      sizeChanged: sizeChanged,
-      data: data,
-    );
+        index: index,
+        size: size,
+        topOffset: topOffset,
+        isFirst: !existed,
+        sizeChanged: sizeChanged,
+        data: data,
+        replace: replace);
 
     return !existed;
   }
 
-  void _notifyListeners({
-    required int index,
-    required Size size,
-    required double topOffset,
-    required bool isFirst,
-    required bool sizeChanged,
-    required T data,
-  }) {
+  void _notifyListeners(
+      {required int index,
+      required Size size,
+      required double topOffset,
+      required bool isFirst,
+      required bool sizeChanged,
+      required T data,
+      required bool replace}) {
     final event = AntdItemEntry(
-      isFirstVisible: isFirst,
-      hasSizeChanged: sizeChanged,
-      data: data,
-      index: index,
-      size: size,
-      topOffset: topOffset,
-    );
+        isFirstVisible: isFirst,
+        hasSizeChanged: sizeChanged,
+        data: data,
+        index: index,
+        size: size,
+        topOffset: topOffset,
+        replace: replace);
 
     for (final listener in _listeners) {
       listener(event);

@@ -137,8 +137,10 @@ class AntdScrollPositionController<T> extends AntdScrollController {
     }
 
     _itemRegistry.addListener((context) {
-      if (targetIndex == context.index && context.isFirstVisible) {
-        _scrollToIndex(targetIndex, config: _scrollConfig);
+      if (_targetIndex == context.index &&
+          context.isFirstVisible &&
+          !context.replace) {
+        _scrollToIndex(_targetIndex, config: _scrollConfig);
       }
     });
     _targetIndex = index;
