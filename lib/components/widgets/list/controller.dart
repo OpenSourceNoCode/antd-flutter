@@ -15,24 +15,25 @@ class AntdScrollToIndexConfig {
   final AntdEdge viewportAlign;
   final AntdEdge itemAlign;
   final bool set;
+  final int Function(int total)? getTargetSize;
 
-  const AntdScrollToIndexConfig({
-    this.jump = true,
-    this.duration = const Duration(milliseconds: 200),
-    this.curve = Curves.easeOut,
-    this.viewportAlign = AntdEdge.start,
-    this.itemAlign = AntdEdge.start,
-    this.set = false,
-  });
+  const AntdScrollToIndexConfig(
+      {this.jump = true,
+      this.duration = const Duration(milliseconds: 200),
+      this.curve = Curves.easeOut,
+      this.viewportAlign = AntdEdge.start,
+      this.itemAlign = AntdEdge.start,
+      this.set = false,
+      this.getTargetSize});
 
-  AntdScrollToIndexConfig copyWith({
-    bool? jump,
-    Duration? duration,
-    Curve? curve,
-    AntdEdge? viewportAlign,
-    AntdEdge? itemAlign,
-    bool? set,
-  }) {
+  AntdScrollToIndexConfig copyWith(
+      {bool? jump,
+      Duration? duration,
+      Curve? curve,
+      AntdEdge? viewportAlign,
+      AntdEdge? itemAlign,
+      bool? set,
+      int Function(int total)? getTargetSize}) {
     return AntdScrollToIndexConfig(
       jump: jump ?? this.jump,
       duration: duration ?? this.duration,
@@ -40,6 +41,7 @@ class AntdScrollToIndexConfig {
       viewportAlign: viewportAlign ?? this.viewportAlign,
       itemAlign: itemAlign ?? this.itemAlign,
       set: set ?? this.set,
+      getTargetSize: getTargetSize ?? this.getTargetSize,
     );
   }
 }
@@ -90,7 +92,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
 
   ///目标的索引
   int _targetIndex = -1;
-  int halfNumber = -1;
+  int targetSize = -1;
   int get targetIndex => _targetIndex;
   bool get hasTarget => _targetIndex > -1;
 
@@ -106,6 +108,8 @@ class AntdScrollPositionController<T> extends AntdScrollController {
 
   bool reversed = false;
 
+  bool virtual = false;
+
   double anchor = 0;
 
   ///item管理
@@ -114,6 +118,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
 
   ///跳转的参数
   AntdScrollToIndexConfig _scrollConfig = const AntdScrollToIndexConfig();
+  AntdScrollToIndexConfig get scrollConfig => _scrollConfig;
 
   ///切换事件
   final List<AntdItemPositionListener<T>> _positionListeners = [];
@@ -121,7 +126,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
   void reset() {
     _activeIndex = -1;
     _targetIndex = -1;
-    halfNumber = -1;
+    targetSize = -1;
     _itemRegistry.clear();
   }
 
@@ -137,7 +142,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
       }
     });
     _targetIndex = index;
-    halfNumber = -1;
+    targetSize = -1;
   }
 
   void addPositionListener(AntdItemPositionListener<T>? callback) {
@@ -251,8 +256,7 @@ class AntdScrollPositionController<T> extends AntdScrollController {
     }
     itemScrollOffset =
         itemScrollOffset - viewportOffset + (anchor * effectiveViewportSize!);
-    double safeOffset = min(max(itemScrollOffset, position.minScrollExtent),
-        position.maxScrollExtent);
+    double safeOffset = getSafeOffset(itemScrollOffset);
     if ((safeOffset == 0 && offset == 0) ||
         (safeOffset == position.maxScrollExtent &&
             offset == position.maxScrollExtent)) {
@@ -271,6 +275,14 @@ class AntdScrollPositionController<T> extends AntdScrollController {
       duration: config.duration,
       curve: config.curve,
     );
+  }
+
+  double getSafeOffset(double itemScrollOffset) {
+    if (virtual) {
+      return itemScrollOffset;
+    }
+    return min(max(itemScrollOffset, position.minScrollExtent),
+        position.maxScrollExtent);
   }
 
   void _notifyVisibility(int index, double visibleHeight, double hiddenHeight) {

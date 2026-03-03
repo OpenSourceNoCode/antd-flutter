@@ -54,7 +54,15 @@ class AntdItemRegistry<T> {
 
   bool addItem(
       int index, RenderBox box, double topOffset, bool sizeChanged, T data) {
-    final existed = _sizeMap.containsKey(index);
+    var existed = _sizeMap.containsKey(index);
+    if (existed) {
+      var dataOri = _indexDataMap[index];
+      if (dataOri != null && data != dataOri) {
+        removeItem(index);
+        existed = false;
+      }
+    }
+
     final size = box.size;
     _sizeMap[index] = size;
     _offsetMap[index] = topOffset;
@@ -98,13 +106,13 @@ class AntdItemRegistry<T> {
   void removeItem(int index) {
     _sizeMap.remove(index);
     _offsetMap.remove(index);
-    var data = _dataIndexMap[index];
+    var data = _indexDataMap[index];
+    _indexDataMap.remove(index);
     if (data == null) {
       return;
     }
 
     _dataIndexMap.remove(data);
-    _indexDataMap.remove(index);
   }
 
   bool isExists(T data) => _dataIndexMap[data] != null;

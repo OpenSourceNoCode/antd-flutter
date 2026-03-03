@@ -170,6 +170,7 @@ abstract class AntdScrollPositionedBaseState<
     _items = buildItems();
     scrollController.anchor = widget.anchor ?? 0;
     scrollController.reversed = widget.reversed;
+    scrollController.virtual = widget.virtual;
     scrollController.items = buildItems();
     scrollController.viewportOffset = widget.viewportOffset ?? 0;
   }
@@ -316,14 +317,17 @@ abstract class AntdScrollPositionedBaseState<
 
     if (scrollController.hasTarget) {
       int remaining = total - targetIndex - 1;
-      if (scrollController.halfNumber < 0) {
-        scrollController.halfNumber = 0;
+      if (scrollController.targetSize < 0) {
+        scrollController.targetSize = 0;
         if (remaining < targetIndex / 5) {
-          scrollController.halfNumber = (total / 5).toInt();
+          scrollController.targetSize =
+              scrollController.scrollConfig.getTargetSize != null
+                  ? scrollController.scrollConfig.getTargetSize!(total)
+                  : total - 2;
         }
       }
-      if (scrollController.halfNumber > 0) {
-        targetIndex = targetIndex - scrollController.halfNumber;
+      if (scrollController.targetSize > 0) {
+        targetIndex = targetIndex - scrollController.targetSize;
         remaining = total - targetIndex - 1;
       }
 
