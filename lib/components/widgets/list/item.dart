@@ -40,13 +40,13 @@ typedef AntdItemEntryListener<T> = void Function(AntdItemEntry<T> context);
 
 class AntdItemRegistry<T> {
   ///最顶部距离边界的位移
-  final Map<int, double> _offsetMap = SplayTreeMap();
+  final Map<int, double> _offsetMap = HashMap();
 
   ///每个item的大小
-  final Map<int, Size> _sizeMap = SplayTreeMap();
+  final Map<int, Size> _sizeMap = HashMap();
 
-  final Map<T, int> _dataIndexMap = SplayTreeMap();
-  final Map<int, T> _indexDataMap = SplayTreeMap();
+  final Map<T, int> _dataIndexMap = HashMap();
+  final Map<int, T> _indexDataMap = HashMap();
 
   ///切换事件
   final List<AntdItemEntryListener<T>> _listeners = [];
