@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.9-alpha.1
+
+`2026-03-09`
+
+- Enhanced the `AntdScrollPositionController` to handle post-target jump scenarios, using TargetSize to manage the layout of the lower part of the list
+- Optimized the layout algorithm in `AntdScrollPositionedBase` for lists after jumps
+
 ## 5.0.8-alpha.6
 
 `2026-02-13`

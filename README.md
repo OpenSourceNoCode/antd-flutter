@@ -26,6 +26,7 @@ English · [中文](https://github.com/OpenSourceNoCode/antd-flutter/blob/main/R
 - Feather-light, The complete package weighs in at just 218KB, icons included.
 - Innovative style system, not bound to any specific UI implementation—flexible and powerful, allowing you to customize every element you see
 - Self-contained solution, meeting all needs from pop-ups to scroll interactions with one component library
+- List seamless scrolling to top/bottom, with jump navigation to any position and content layout
 
 ## 📦 Installation
 

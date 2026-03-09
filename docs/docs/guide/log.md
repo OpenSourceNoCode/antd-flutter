@@ -5,6 +5,13 @@ timeline: true
 tag: 5.0.8-alpha.4
 ---
 
+## 5.0.9-alpha.1
+
+`2026-03-09`
+
+- `AntdScrollPositionController` 中完善了对于目标跳转之后的处理，通过TargetSize来处理列表下部分布局
+- `AntdScrollPositionedBase` 优化了对于跳转后列表的布局算法
+
 ## 5.0.8-alpha.6
 
 `2026-02-13`
