@@ -158,7 +158,7 @@ class AntdFormRuleRequiredValid extends AntdFormRuleValid {
   AntdFormRuleValidator? buildValidator() {
     return <T>(item, value, formValue) async {
       return value == null || (value is String && value.isEmpty)
-          ? "不能为空"
+          ? message ?? "不能为空"
           : null;
     };
   }
@@ -173,8 +173,8 @@ class AntdFormRuleEnumsValid extends AntdFormRuleValid {
   @override
   AntdFormRuleValidator? buildValidator() {
     return <T>(item, value, formValue) async {
-      return enums.isNotEmpty && (value == null || enums.contains(value))
-          ? "必须是其中${enums.join(",")}之一"
+      return enums.isNotEmpty && (value == null || !enums.contains(value))
+          ? message ?? "必须是其中${enums.join(",")}之一"
           : null;
     };
   }
@@ -188,9 +188,9 @@ class AntdFormRuleWhitespaceValid extends AntdFormRuleValid {
   AntdFormRuleValidator? buildValidator() {
     return (item, value, formValue) async {
       if (value is String) {
-        return value.contains(" ") == true ? "不能存在空白字符串" : null;
+        return value.contains(" ") == true ? message ?? "不能存在空白字符串" : null;
       }
-      return "";
+      return null;
     };
   }
 }
@@ -204,7 +204,9 @@ class AntdFormRulePatternValid extends AntdFormRuleValid {
   @override
   AntdFormRuleValidator? buildValidator() {
     return (item, value, formValue) async {
-      return pattern.hasMatch(value.toString()) ? "不能与$pattern匹配" : null;
+      return !pattern.hasMatch(value.toString())
+          ? message ?? "不能与$pattern匹配"
+          : null;
     };
   }
 }
@@ -218,7 +220,7 @@ class AntdFormRuleLenValid extends AntdFormRuleValid {
   @override
   AntdFormRuleValidator? buildValidator() {
     return (item, value, formValue) async {
-      return _getLen(value) > len ? "长度不能大于$len" : null;
+      return _getLen(value) > len ? message ?? "长度不能大于$len" : null;
     };
   }
 }
@@ -252,10 +254,10 @@ class AntdFormRuleRangeValid extends AntdFormRuleValid {
     return (item, value, formValue) async {
       var currentLen = _getLen(value);
       if (max != null && currentLen > max!) {
-        return "长度不能大于$max";
+        return message ?? "长度不能大于$max";
       }
       if (min != null && currentLen < min!) {
-        return "长度不能小于$min";
+        return message ?? "长度不能小于$min";
       }
       return null;
     };
